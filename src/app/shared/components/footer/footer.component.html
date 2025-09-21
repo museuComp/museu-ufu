@@ -1,20 +1,95 @@
 <footer class="br-footer" id="footer">
   <div class="container-lg">
-    <div class="footer-content">
-      <div class="logo-container">
-        <div class="logo">
-          <img [src]="'/public/logos/ufu_blue.svg'" alt="Logo UFU" height="30" width="140"/>
-        </div>
-        <div class="text-yellow">Universidade Federal de Uberlândia<br/></div>
+    <div class="br-grid">
 
-        <div class="text-white">
-          Ministério da Educação
-        </div>
+      <img class="logo-gov-br" [src]="'/public/logos/gov-white.png'" alt="Logo gov.br"/>
+
+      <div class="row">
+      <div class="col-sm-6 col-md-3">
+        <div class="footer-title">Institucional</div>
+        <ul class="br-list">
+          <li><a href="/about">Sobre o Museu</a></li>
+          <li><a href="/news">Notícias</a></li>
+          <li><a href="/donations">Doações</a></li>
+          <li><a href="/equipe">Nossa Equipe</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="footer-title">Assuntos</div>
+        <ul class="br-list">
+          <li><a href="/acervo">Acervos</a></li>
+          <li><a href="/exposicoes">Exposições</a></li>
+          <li><a href="/eventos">Eventos</a></li>
+          <li><a href="/magazine">Revistas e Publicações</a></li>
+          <li><a href="/pesquisa">Pesquisa</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="footer-title">Centrais de Conteúdo</div>
+        <ul class="br-list">
+          <li><a href="/videos">Vídeos</a></li>
+          <li><a href="/imagens">Imagens</a></li>
+          <li><a href="/artigos">Artigos</a></li>
+          <li><a href="/jogos">Jogos Educativos</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-6 col-md-3">
+        <div class="footer-title">Canais de Atendimento</div>
+        <ul class="br-list">
+          <li><a href="/contact">Fale Conosco</a></li>
+          <li><a href="/imprensa">Imprensa</a></li>
+          <li><a href="/visitas">Agendar Visitação</a></li>
+          <li><a href="/faq">Perguntas Frequentes</a></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+
+    <hr class="my-3">
+
+    <div class="footer-bottom">
+      <div class="social-links">
+        <div class="footer-title mb-2">Redes Sociais</div>
+        <a href="https://x.com/UFU_Oficial" class="br-button circle" target="_blank" aria-label="Acesse nosso X (antigo Twitter)">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com/facomufu/" class="br-button circle" target="_blank" aria-label="Acesse nosso Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.facebook.com/ComunicacaoUfu" class="br-button circle" target="_blank" aria-label="Acesse nosso Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.linkedin.com/school/ufuoficial/" class="br-button circle" target="_blank" aria-label="Acesse nosso Linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://www.youtube.com/CanaldaFACOM" class="br-button circle" target="_blank" aria-label="Acesse nosso YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
       </div>
 
       <div class="assigns">
-        <a class="logo-acesso-footer" href="https://www.gov.br/acessoainformacao/" title="Acesso à informação"></a>
+      <div class="logo-acesso-container">
+      <a href="https://www.gov.br/acessoainformacao/" title="Acesso à informação">
+          <img [src]="'/public/logos/acesso-informacao.svg'"  alt="Logo Acesso à Informação" class="logo-acesso-footer"/>
+      </a>
       </div>
+
+        <div class="logo-facom-container">
+        <a href="https://facom.ufu.br/" title="Logo Facom">
+          <img [src]="'/public/logos/facom.png'" alt="logo-facom" class="logo-facom"/>
+        </a>
+        </div>
+        
+        <div class="logo-ufu-container">
+        <a href="https://ufu.br/" title="Logo UFU">
+          <img [src]="'/public/logos/ufu_white_hor.png'" alt="Logo UFU" class ="logo-ufu"/>
+        </a>
+      </div>
+
+    </div>
     </div>
   </div>
 </footer>
