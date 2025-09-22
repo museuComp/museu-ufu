@@ -1,0 +1,62 @@
+.br-heading-2,
+.br-heading-3 {
+  color: #0c326f;
+  font-weight: 600;
+}
+
+.revistas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.revista-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ededed;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  padding: 20px;
+  min-width: 180px;
+  text-align: center;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer; 
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &.selecionada {
+    border-color: #0c326f;
+    box-shadow: 0 6px 12px rgba(12, 50, 111, 0.3);
+  }
+}
+
+.revista-icon {
+  font-size: 2.5rem;
+  color: #0c326f;
+  margin-bottom: 12px;
+}
+
+
+.revista-titulo {
+  padding: 8px 12px;
+  text-transform: none;
+  font-weight: 600;
+  color: #0c326f;
+  margin: 0; 
+}
+
+
+.revista-card .br-button.circle {
+  background-color: #0c326f;
+  color: white;
+
+  &:hover {
+    background-color: #0a285a;
+  }
+}
