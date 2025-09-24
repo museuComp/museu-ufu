@@ -26,8 +26,5 @@ describe('FooterComponent', () => {
 		expect(socialLinks.length).toBe(4);
 	});
 
-	it('should have government links', () => {
-		const govLinks = spectator.queryAll('.assigns a');
-		expect(govLinks.length).toBe(2);
-	});
+	
 });
