@@ -24,7 +24,7 @@
         </div>
         <h2 class="card-title">O Nosso Tainacan</h2>
         <p class="card-text">Navegue por artefactos e documentos históricos da computação.</p>
-        <a href="https://tainacan.facom.ufu.br/" class="card-link">Explorar Acervo</a>
+        <a href="https://tainacan.facom.ufu.br/" target="_blank" class="card-link">Explorar Acervo</a>
       </div>
       <div class="card">
         <div class="card-icon">
@@ -56,12 +56,31 @@
       </div>
     </div>
 
-    <!-- Carrossel de Imagens -->
+    <!-- Carrossel de Imagens e Vídeos -->
     <div class="carousel-container">
       <div class="carousel-slides" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
-        @for (slide of slides; track slide.img; let i = $index) {
-        <div class="slide">
-          <img [src]="slide.img" [alt]="slide.alt" />
+        @for (slide of slides; track $index; let i = $index) {
+        <div class="slide" (click)="togglePause()">
+          @if (slide.type === 'image') {
+          <img [src]="slide.src" [alt]="slide.alt" />
+          } @else if (slide.type === 'video') {
+          <video #videoPlayer [attr.data-index]="i" muted loop playsinline>
+            <source [src]="slide.src" type="video/mp4">
+            O seu navegador não suporta a tag de vídeo.
+          </video>
+          }
+
+          <!-- Overlay de Pausa -->
+          @if (isPaused()) {
+          <div class="pause-overlay">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="currentColor"
+              stroke="currentColor" stroke-width="1">
+              <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+              <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+            </svg>
+          </div>
+          }
+
           <div class="slide-caption">
             <h3>{{ slide.title }}</h3>
             <p>{{ slide.subtitle }}</p>
@@ -71,17 +90,17 @@
       </div>
 
       <!-- Controles de Navegação do Carrossel -->
-      <button class="carousel-control prev" (click)="prevSlide()" aria-label="Slide anterior">
+      <button class="carousel-control prev" (click)="prevSlide(); $event.stopPropagation()" aria-label="Slide anterior">
         &#10094;
       </button>
-      <button class="carousel-control next" (click)="nextSlide()" aria-label="Próximo slide">
+      <button class="carousel-control next" (click)="nextSlide(); $event.stopPropagation()" aria-label="Próximo slide">
         &#10095;
       </button>
 
       <!-- Indicadores de Posição (pontos) -->
       <div class="carousel-dots">
-        @for (slide of slides; track slide.img; let i = $index) {
-        <span class="dot" [class.active]="i === currentIndex()" (click)="goToSlide(i)"></span>
+        @for (slide of slides; track $index; let i = $index) {
+        <span class="dot" [class.active]="i === currentIndex()" (click)="goToSlide(i); $event.stopPropagation()"></span>
         }
       </div>
     </div>

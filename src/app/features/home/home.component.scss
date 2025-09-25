@@ -1,17 +1,11 @@
-/* Variáveis de Cor (inspirado no ds.gov e FACOM) */
+/* Variáveis de Cor */
 :host {
-  --primary-color: #007bff;
-  /* Azul principal do ds.gov */
-  --primary-darker: #0056b3;
-  /* Azul mais escuro para hover/links */
+  --primary-color: #0c326f;
+  --primary-darker: #0c326f;
   --background-light: #f5f5f5;
-  /* Fundo levemente cinza */
   --text-color-dark: #333;
-  /* Cor de texto principal */
   --text-color-light: #fff;
-  /* Cor de texto para fundos escuros */
   --border-color: #dee2e6;
-  /* Cor de borda suave */
   --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -23,7 +17,6 @@
   background-color: var(--background-light);
   padding: 0;
   font-family: 'Rawline', sans-serif;
-  /* Fonte padrão do ds.gov */
 }
 
 .main-content {
@@ -134,14 +127,20 @@
 .slide {
   min-width: 100%;
   position: relative;
+  cursor: pointer;
+  background-color: var(--primary-darker);
+  /* MODIFICADO: Fundo azul adicionado */
+  height: 525px;
+  /* MODIFICADO: Altura definida no contêiner do slide */
 }
 
-.slide img {
+.slide img,
+.slide video {
   width: 100%;
-  height: 525px;
-  /* Altura fixa para consistência */
-  object-fit: cover;
-  /* Garante que a imagem cubra o espaço sem distorcer */
+  height: 100%;
+  /* MODIFICADO: Altura relativa ao contêiner */
+  object-fit: contain;
+  /* MODIFICADO: Garante que a mídia inteira seja visível */
   display: block;
 }
 
@@ -154,17 +153,22 @@
   color: var(--text-color-light);
   padding: 3rem 2rem 2rem;
   text-align: left;
+  z-index: 5;
 }
 
 .slide .slide-caption h3 {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: #FFFFE0;
+  /* MODIFICADO: Cor do título alterada para amarelo claro */
 }
 
 .slide .slide-caption p {
   font-size: 1.1rem;
   margin: 0;
+  color: #f0f8ff;
+  /* MODIFICADO: Cor do subtítulo alterada para azul claro (AliceBlue) */
 }
 
 .carousel-control {
@@ -197,6 +201,28 @@
 
 .carousel-control.next {
   right: 1rem;
+}
+
+.pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  pointer-events: none;
+  /* Apenas visual, o clique é no slide */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slide .pause-overlay {
+  opacity: 1;
 }
 
 .carousel-dots {
@@ -234,7 +260,8 @@
     font-size: 2rem;
   }
 
-  .slide img {
+  .slide {
+    /* MODIFICADO: Altura responsiva aplicada ao contêiner */
     height: 400px;
   }
 

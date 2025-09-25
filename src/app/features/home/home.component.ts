@@ -1,10 +1,10 @@
-import { Component, signal, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, signal, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChildren, QueryList, ElementRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Interface para garantir a consistência e tipagem dos dados de cada slide.
 interface Slide {
-	img: string;
+	type: 'image' | 'video';
+	src: string;
 	alt: string;
 	title: string;
 	subtitle: string;
@@ -21,27 +21,32 @@ interface Slide {
 
 export class HomeComponent implements OnInit, OnDestroy {
 	// Dados dos slides com imagens mais temáticas e de alta qualidade.
+	@ViewChildren('videoPlayer') videoPlayers!: QueryList<ElementRef<HTMLVideoElement>>;
 	slides: Slide[] = [
 		{
-			img: '',
-			alt: 'Computadores e consoles de videogame antigos em uma mesa',
-			title: 'A Geração dos 8-bits',
-			subtitle: 'Reviva a era que popularizou os computadores pessoais e os jogos.'
-		},
-		{
-			img: '',
+			type: 'image',
+			src: 'public/carrossel/Workshop.png',
 			alt: 'Pilha de disquetes coloridos',
-			title: 'A Evolução do Armazenamento',
-			subtitle: 'Dos cartões perfurados aos disquetes e à nuvem: uma viagem pela memória digital.'
+			title: 'Nosso Workshop',
+			subtitle: 'Venha participar no de uma esperiência inesquecível.'
 		},
 		{
-			img: '',
+			type: 'video',
+			src: 'public/carrossel/carrossel_teste.mp4',
+			alt: '',
+			title: '',
+			subtitle: ''
+		},
+		{
+			type: 'image',
+			src: '',
 			alt: 'Mãos de uma pessoa a programar num portátil com o ecrã escuro',
 			title: 'Pioneiros da Programação',
 			subtitle: 'Conheça as linguagens e os programadores que construíram o futuro.'
 		},
 		{
-			img: '',
+			type: 'image',
+			src: '',
 			alt: 'Um portátil moderno aberto sobre uma mesa de madeira',
 			title: 'O Futuro é Agora',
 			subtitle: 'Explore as tecnologias atuais que foram sonhos no passado.'
@@ -49,7 +54,37 @@ export class HomeComponent implements OnInit, OnDestroy {
 	];
 
 	currentIndex = signal(0);
+	isPaused = signal(false);
 	private intervalId?: number;
+
+	constructor() {
+		effect(() => {
+			const idx = this.currentIndex();
+			const isPaused = this.isPaused(); // Rastreia o estado de pausa
+
+			if (this.videoPlayers) {
+				this.videoPlayers.forEach(playerRef => {
+					const videoElement = playerRef.nativeElement;
+					const slideIndex = parseInt(videoElement.getAttribute('data-index') || '-1', 10);
+
+					if (slideIndex === idx) {
+						// Se for o slide atual, a reprodução depende do estado de pausa
+						if (isPaused) {
+							videoElement.pause();
+						} else {
+							videoElement.play().catch(err => {
+								console.warn("A reprodução automática do vídeo foi bloqueada.", err);
+							});
+						}
+					} else {
+						// Outros slides de vídeo devem estar sempre pausados
+						videoElement.pause();
+						videoElement.currentTime = 0;
+					}
+				});
+			}
+		});
+	}
 
 	ngOnInit() {
 		this.startAutoPlay();
@@ -60,10 +95,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	startAutoPlay(): void {
-		// Muda de slide a cada 5 segundos
+		this.stopAutoPlay();
+		if (this.isPaused()) return;
+
 		this.intervalId = window.setInterval(() => {
-			this.nextSlide();
-		}, 5000);
+			this.currentIndex.update(current => (current + 1) % this.slides.length);
+		}, 8000);
 	}
 
 	stopAutoPlay(): void {
@@ -72,15 +109,30 @@ export class HomeComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	togglePause(): void {
+		this.isPaused.update(paused => !paused);
+		if (this.isPaused()) {
+			this.stopAutoPlay();
+		} else {
+			this.startAutoPlay();
+		}
+	}
+
 	nextSlide(): void {
+		this.stopAutoPlay();
 		this.currentIndex.update(current => (current + 1) % this.slides.length);
+		this.startAutoPlay();
 	}
 
 	prevSlide(): void {
+		this.stopAutoPlay();
 		this.currentIndex.update(current => (current - 1 + this.slides.length) % this.slides.length);
+		this.startAutoPlay();
 	}
 
 	goToSlide(index: number): void {
+		this.stopAutoPlay();
 		this.currentIndex.set(index);
+		this.startAutoPlay();
 	}
 }
