@@ -1,9 +1,112 @@
-<div class="home-container template-base">
+<!-- Conteúdo principal da página inicial -->
+<div class="home-container">
   <div class="main-content">
+
+    <!-- Cabeçalho de boas-vindas -->
     <div class="welcome-header">
       <h1 class="text-h1">Bem-vindo ao Museu Virtual da FACOM</h1>
-      <p class="text-h2">{{ content() }}</p>
+      <p class="text-base">
+        Explore a nossa coleção digital, exposições virtuais e jogos educativos. Descubra a história e a cultura através
+        do acervo do Museu UFU.
+      </p>
     </div>
-  </div>
 
+    <!-- Carrossel de Imagens e Vídeos -->
+    <div class="carousel-container">
+      <div class="carousel-slides" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
+        @for (slide of slides; track $index; let i = $index) {
+        <div class="slide" (click)="togglePause()">
+          @if (slide.type === 'image') {
+          <img [src]="slide.src" [alt]="slide.alt" />
+          } @else if (slide.type === 'video') {
+          <video #videoPlayer [attr.data-index]="i" muted loop playsinline>
+            <source [src]="slide.src" type="video/mp4">
+            O seu navegador não suporta a tag de vídeo.
+          </video>
+          }
+
+          <!-- Overlay de Pausa -->
+          @if (isPaused()) {
+          <div class="pause-overlay">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="currentColor"
+              stroke="currentColor" stroke-width="1">
+              <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+              <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+            </svg>
+          </div>
+          }
+
+          <div class="slide-caption">
+            <h3>{{ slide.title }}</h3>
+            <p>{{ slide.subtitle }}</p>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- Controles de Navegação do Carrossel -->
+      <button class="carousel-control prev" (click)="prevSlide(); $event.stopPropagation()" aria-label="Slide anterior">
+        &#10094;
+      </button>
+      <button class="carousel-control next" (click)="nextSlide(); $event.stopPropagation()" aria-label="Próximo slide">
+        &#10095;
+      </button>
+
+      <!-- Indicadores de Posição (pontos) -->
+      <div class="carousel-dots">
+        @for (slide of slides; track $index; let i = $index) {
+        <span class="dot" [class.active]="i === currentIndex()" (click)="goToSlide(i); $event.stopPropagation()"></span>
+        }
+      </div>
+    </div>
+    <div class="welcome-header">
+      <h1 class="text-h1">Por dentro do Museu Virtual da FACOM</h1>
+    </div>
+    <!-- Cards de Destaque -->
+    <div class="info-cards">
+      <div class="card">
+        <div class="card-icon">
+          <!-- Ícone SVG para Acervo -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+          </svg>
+        </div>
+        <h2 class="card-title">O Nosso Tainacan</h2>
+        <p class="card-text">Navegue por artefactos e documentos históricos da computação.</p>
+        <a href="https://tainacan.facom.ufu.br/" target="_blank" class="card-link">Explorar Acervo</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <!-- Ícone SVG para Exposições -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12V4H4v8" />
+            <path d="M20 18v-2H4v2" />
+            <path d="M12 18V4" />
+          </svg>
+        </div>
+        <h2 class="card-title">Revista</h2>
+        <p class="card-text">Visite nossa revista para saber sobre as notícias do museu.</p>
+        <a href="/magazine" class="card-link">Ver Exposições</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <!-- Ícone SVG para Jogos -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 12h12M12 18V6" />
+            <path d="m15 9-6 6" />
+            <path d="m9 9 6 6" />
+          </svg>
+        </div>
+        <h2 class="card-title">Jogos Educativos</h2>
+        <p class="card-text">Aprenda sobre a história da tecnologia de forma divertida.</p>
+        <a href="/games" class="card-link">Jogar Agora</a>
+      </div>
+    </div>
+
+  </div>
 </div>
