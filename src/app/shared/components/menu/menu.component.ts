@@ -88,15 +88,36 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				children: []
 			},
 			{
+				label: 'Notícias',
+				url: '/news',
+				icon: 'fas fa-newspaper',
+			},
+			{
 				label: 'Jogos',
 				url: '/games',
 				icon: 'fas fa-gamepad'
 			},
 			{
+				label: 'Revista',
+				url: '/magazine',
+				icon: 'fas fa-file-text'
+			},
+			{
+				label: 'Doações',
+				url: '/donations',
+				icon: 'fas fa-usd'
+			},
+			{
+				label: 'Tainacan',
+				url: 'https://tainacan.facom.ufu.br',
+				icon: 'fas fa-university ',
+				external: true,
+			},
+			{
 				label: 'Sobre',
 				url: '/about',
 				icon: 'fas fa-info-circle'
-			}
+			},
 		];
 	}
 

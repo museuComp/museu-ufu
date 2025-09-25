@@ -1,14 +1,18 @@
-<!-- Menu Lateral -->
+<!-- Overlay do menu -->
 <div class="menu-overlay" [class.visible]="isOpen" (click)="closeMenu()"></div>
 
+<!-- Sidebar Menu -->
 <nav class="sidebar-menu" [class.open]="isOpen">
+  <!-- Cabeçalho -->
   <div class="header-container">
     <div class="header-content">
       <div class="logo-container">
         <img [src]="'/public/logos/museu-computacao-azul-facom.png'" alt="Logo Museu da Computação">
       </div>
       <div class="header-text">
-        <div class="university-name"> <a [routerLink]=""> Universidade Federal de <br> Uberlândia</a></div>
+        <div class="university-name">
+          <a [routerLink]="">Universidade Federal de <br> Uberlândia</a>
+        </div>
         <div class="ministry-name">Ministério da Educação</div>
       </div>
     </div>
@@ -17,34 +21,63 @@
     </button>
   </div>
 
+  <!-- Corpo do Menu -->
   <div class="menu-body">
     <nav class="menu-nav">
       <ng-container *ngFor="let item of list">
-        <a *ngIf="!item.children?.length"
-           [routerLink]="item.url"
-           [routerLinkActive]="'active'"
-           class="menu-item"
-           [target]="item.external ? '_blank' : '_self'"
-           (click)="closeMenu()">
-          <span class="menu-icon"><i [class]="item.icon"></i></span>
-          <span class="menu-item-label">{{ item.label }}</span>
-        </a>
+        <!-- Item sem filhos -->
+        <ng-container *ngIf="!item.children?.length">
+          <!-- Interno -->
+          <a *ngIf="!item.external"
+             [routerLink]="item.url"
+             [routerLinkActive]="'active'"
+             class="menu-item"
+             (click)="closeMenu()">
+            <span class="menu-icon"><i [class]="item.icon"></i></span>
+            <span class="menu-item-label">{{ item.label }}</span>
+          </a>
 
-        <!-- Menu Item com submenu -->
+          <!-- Externo -->
+          <a *ngIf="item.external"
+             [href]="item.url"
+             class="menu-item"
+             target="_blank"
+             rel="noopener noreferrer"
+             (click)="closeMenu()">
+            <span class="menu-icon"><i [class]="item.icon"></i></span>
+            <span class="menu-item-label">{{ item.label }}</span>
+          </a>
+        </ng-container>
+
+        <!-- Item com submenu -->
         <div *ngIf="item.children?.length" class="menu-folder">
           <div class="menu-item" (click)="toggleSubmenu(item)">
             <span class="menu-icon"><i [class]="item.icon"></i></span>
             <span class="menu-item-label">{{ item.label }}</span>
-            <span class="menu-arrow"><i class="fas" [class.fa-angle-down]="!item.expanded" [class.fa-angle-up]="item.expanded"></i></span>
+            <span class="menu-arrow">
+              <i class="fas" [class.fa-angle-down]="!item.expanded" [class.fa-angle-up]="item.expanded"></i>
+            </span>
           </div>
 
           <!-- Submenu -->
           <div class="menu-subitems" [class.is-active]="item.expanded">
             <ng-container *ngFor="let subItem of item.children">
-              <a [routerLink]="subItem.url"
+              <!-- Interno -->
+              <a *ngIf="!subItem.external"
+                 [routerLink]="subItem.url"
                  [routerLinkActive]="'active'"
                  class="menu-item"
-                 [target]="subItem.external ? '_blank' : '_self'"
+                 (click)="closeMenu()">
+                <i [class]="subItem.icon"></i>
+                <span class="menu-item-label">{{ subItem.label }}</span>
+              </a>
+
+              <!-- Externo -->
+              <a *ngIf="subItem.external"
+                 [href]="subItem.url"
+                 class="menu-item"
+                 target="_blank"
+                 rel="noopener noreferrer"
                  (click)="closeMenu()">
                 <i [class]="subItem.icon"></i>
                 <span class="menu-item-label">{{ subItem.label }}</span>
@@ -56,6 +89,7 @@
     </nav>
   </div>
 
+  <!-- Rodapé do Menu: Redes Sociais -->
   <div class="menu-bottom-section">
     <p class="social-title">Redes Sociais</p>
     <div class="social-links">
