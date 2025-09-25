@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palavra Cruzada</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(90deg, #800000, #a83232);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
+
+    #menu, #game { margin-top: 120px; text-align: center; padding: 20px; }
+    #game { display: none; }
+
+    h2 { font-size: 1.4rem; margin-bottom: 20px; font-weight: bold; }
+    button {
+      display: inline-block;
+      width: 220px;
+      padding: 15px;
+      margin: 10px;
+      background: #ff9800;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #4caf50;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    #game > div:first-child {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    table {
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+    th {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #ddd;
+      position: relative;
+      cursor: pointer;
+      font-family: monospace;
+      transition: background 0.2s;
+    }
+    .b { background: #333; cursor: not-allowed; }
+    .w { background: #fff; }
+    .w:hover { background: #ffeaea; }
+    .selected { outline: 3px solid orange; outline-offset: -3px; }
+
+    th span {
+      font-size: 0.7rem;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      color: #888;
+    }
+    th b { font-size: 1.6rem; color: #2e7d32; }
+
+    .across, .down {
+      flex: 1;
+      min-width: 280px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fffbea;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .down { background: #fff0fa; }
+    li {
+      list-style: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin: 8px 0;
+      background: #fff;
+      padding: 6px 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    #mensagem {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 3px solid #4caf50;
+      border-radius: 12px;
+      padding: 25px 40px;
+      font-size: 1.6rem;
+      color: #4caf50;
+      font-weight: bold;
+      display: none;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      animation: popup 0.3s ease-out;
+    }
+    @keyframes popup {
+      from {transform: translate(-50%, -60%) scale(0.8); opacity: 0;}
+      to {transform: translate(-50%, -50%) scale(1); opacity: 1;}
+    }
+
+    @media (max-width: 768px) {
+      table th { width: 40px; height: 40px; }
+      button { width: 180px; padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header><h1 id="tituloJogo">Palavra Cruzada</h1></header>
+
+  <div id="menu">
+    <h2>Escolha o Tema da Palavra Cruzada</h2>
+    <button data-tema="inventores">Grandes Inventores</button>
+    <button data-tema="evolucao">Evolução dos Computadores</button>
+    <button data-tema="componentes">Componentes do Computador</button>
+  </div>
+
+  <section id="game">
+    <div>
+      <table id="table"></table>
+      <div style="display:flex; flex-direction:column; gap:20px; max-width: 500px;">
+        <div class="across"><h2>LINHA</h2><ul id="across-list"></ul></div>
+        <div class="down"><h2>COLUNA</h2><ul id="down-list"></ul></div>
+      </div>
+    </div>
+    <div style="margin-top:20px; text-align:center;">
+      <button id="btn-confirmar">CONFIRMAR</button>
+      <button id="btn-limpar">LIMPAR</button>
+      <button id="btn-voltar">VOLTAR AO MENU</button>
+    </div>
+  </section>
+
+  <div id="mensagem"></div>
+
+  <script>
+    const temas = {
+        "inventores":{ 
+            values: ["wwwwwwbbbbbbbbw","bbwbwbbbbbbbbbw","bbwbwbbbbbbbwbw","bbwbwbwbwwwwwww","bbwbwwwbbwbbwbw","bbwbwbwbbwbbwbw","bbwbwbwbbwbbwbw","bbbbbbwbbwbbbbw","bbbbbbwbbwbbbbw","bbbbbbwbbbbwwww"], 
+            asn_key: ["TURING--------B", "--I-E---------E", "--T-U-------K-R", "--C-M-B-SHANNON", "--H-ADA--O--U-E", "--I-N-B--P--T-R", "--E-N-B--P--H-S", "------A--E----L", "------G--R----E", "------E----ZUNE"], 
+            spans_value: {"0,0":"1", "0,2":"2", "0,4":"3", "4,4":"4", "3,6":"5", "3,8":"6", "3,9":"7", "2,12":"8", "0,14":"9", "9,11":"10"}, 
+            across: ["1. Pai da Computação", "4. Primeira Programadora da História", "6. Pai da Teoria da Informação", "10. Criador do Primeiro Computador Programável"], 
+            down: ["2. Pai da Linguagem C", "3. Arquitetura de Von Neumann", "5. Pai do Computador Mecânico", "7. Mãe da Programação de Alto Nível", "8. Pai da Análise de Algoritmos", "9. Pai da World Wide Web"]
+        }, 
+        "evolucao":{ 
+            values: ["wwwwwbbbbwwwwwwwww","bbwbbbbbbbbwbbbbbb","bbwwwwwwwbbwbbbbbb","bbwbbbbbbbbwbbbwbb","bbwwwwwbwwwwwwbwbb","bbwbbbbbbbbwbbbwbb","bbwbbbbbbbbwbbbwbb","bbwwwwwwwwbwbbbwbb","bbwbbbbbbbbwwwwwbb"], 
+            asn_key: ["ABACO----PASCALINA", "--N--------M------", "--APPLEII--A------", "--L--------R---U--", "--IBMPC-LAPTOP-N--", "--T--------H---I--", "--I--------O---V--", "--COLOSSUS-N---A--", "--A--------ENIAC--"], 
+            spans_value: {"0,0":"1", "0,2":"2", "2,2":"3", "4,2":"4", "7,2":"5", "0,9":"6", "0,11":"7", "4,8":"8", "3,15":"9", "8,11":"10"}, 
+            across: ["1. Primeiro dispositivo de cálculo", "3. Popularização do computador pessoal", "4. Referência da computação pessoal", "5. Primeiro computador eletrônico digital", "6. Primeira calculadora mecânica", "8. Mobilidade da computação", "10. Primeiro computador eletrônico de propósito geral"], 
+            down: ["2. Primeiro conceito de computador programável", "7. Computador de bolso", "9. Primeiro computador comercial"] 
+        }, 
+        "componentes":{ 
+            values: ["wwwbbwwwwwwww","bbwbbbbwbbbbb","bbwbbbwwbbbbw","bbwbbbbbwbwww","bbwwwwwwwbbbw","bbwbbbbbwbbbw","bbwbbbbbwbbbw","bbbbbbbbwbbbw","bbbbbbbbbbbbw","bbbbbwwwwwwww"], 
+            asn_key: ["RAM--DISQUETE", "--O----S-----", "--N---HD----D", "--I-----M-GPU", "--TECLADO---A", "--O-----U---L", "--R-----S---C", "--------E---O", "------------R", "-----PLACAMAE"], 
+            spans_value: {"0,0":"1", "0,2":"2", "4,2":"3", "0,5":"4", "0,7":"5", "2,6":"6", "3,8":"7", "3,10":"8", "2,12":"9", "9,5":"10"}, 
+            across: ["1. Memória de acesso aleatório", "3. Principal dispositivo de entrada", "4. Armazenamento portátil", "6. Armazenamento magnético", "8. Acelerador gráfico e IA", "10. O coração do PC"], 
+            down: ["2. Interface visual", "5. Armazenamento em estado sólido", "7. Revolução na interface gráfica", "9. Velocidade e paralelismo"] 
+        }
+    };
+    
+   let values, asn_key, spans_value, total_rows, total_cols;
+    let current = null, red = [], green = [];
+
+    function startGame(temaEscolhido){
+      document.getElementById("menu").style.display = "none";
+      document.getElementById("game").style.display = "block";
+
+      const titulo = document.getElementById("tituloJogo");
+      titulo.textContent = 
+        temaEscolhido === "inventores" ? "Grandes Inventores" :
+        temaEscolhido === "evolucao" ? "Evolução dos Computadores" :
+        "Componentes do Computador";
+
+      const tema = temas[temaEscolhido];
+      values = tema.values;
+      asn_key = tema.asn_key;
+      spans_value = tema.spans_value;
+      total_rows = values.length;
+      total_cols = values[0].length;
+
+      createFrameBoxes();
+      document.getElementById("across-list").innerHTML = tema.across.map(t => `<li>${t}</li>`).join("");
+      document.getElementById("down-list").innerHTML = tema.down.map(t => `<li>${t}</li>`).join("");
+    }
+
+    function createFrameBoxes(){
+      const table = document.getElementById("table");
+      table.innerHTML = "";
+      for(let i = 0; i < values.length; i++){ 
+        const row = document.createElement("tr");
+        for (let j = 0; j < values[i].length; j++) {
+          const th = document.createElement("th");
+          th.setAttribute("row", i);
+          th.setAttribute("col", j);
+          th.className = values[i][j];
+          th.innerHTML = `<span>${spans_value[i+","+j] ?? ""}</span><b></b>`;
+          if(th.classList.contains("w")){
+            th.addEventListener("click", ()=>selectCell(th));
+          }
+          row.appendChild(th);
+        }
+        table.appendChild(row);
+      }
+    }
+
+    function selectCell(box){
+      if(current) current.classList.remove("selected");
+      current = box;
+      current.classList.add("selected");
+    }
+
+    document.body.addEventListener("keyup", event=>{
+      if(!current) return;
+      if(event.key >= "a" && event.key <= "z"){
+        current.querySelector("b").innerHTML = event.key.toUpperCase();
+      }
+      if(event.key === "Backspace" || event.key === "Delete"){
+        current.querySelector("b").innerHTML = "";
+      }
+      if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(event.key)){
+        moveSelection(event.key);
+      }
+    });
+
+    function moveSelection(key){
+      let row = parseInt(current.getAttribute("row"));
+      let col = parseInt(current.getAttribute("col"));
+      do {
+        if(key==="ArrowLeft") col = (col===0 ? total_cols-1 : col-1);
+        if(key==="ArrowRight") col = (col===total_cols-1 ? 0 : col+1);
+        if(key==="ArrowUp") row = (row===0 ? total_rows-1 : row-1);
+        if(key==="ArrowDown") row = (row===total_rows-1 ? 0 : row+1);
+        current = document.querySelectorAll("tr")[row].querySelectorAll("th")[col];
+      } while (current.classList.contains("b"));
+      document.querySelectorAll(".selected").forEach(th => th.classList.remove("selected"));
+      current.classList.add("selected");
+    }
+
+    function key_check(){
+      red = []; green = [];
+      const whites = document.querySelectorAll(".w");
+      whites.forEach(element => {
+        const text = element.querySelector("b").innerHTML;
+        const row = element.getAttribute("row");
+        const col = element.getAttribute("col");
+        if(text){
+          if(text === asn_key[row][col]){
+            element.style.background = "greenyellow";
+            green.push(element);
+          } else {
+            element.style.background = "red";
+            red.push(element);
+          }
+        }
+      });
+      const msg = document.getElementById("mensagem");
+      if(green.length === whites.length){
+        msg.style.display = "block";
+        msg.innerHTML = "🎉 Parabéns! Você completou tudo!";
+      } else if(red.length > 0) {
+        msg.style.display = "block";
+        msg.innerHTML = "⚠️ Algumas respostas estão erradas!";
+      }
+      setTimeout(()=> msg.style.display="none", 3000);
+    }
+
+    function color_clear(){
+      red.forEach(el => { el.style.background="transparent"; el.querySelector("b").innerHTML=""; });
+      green.forEach(el => el.style.background="transparent");
+      red = []; green = [];
+    }
+
+    function voltarMenu(){
+      document.getElementById("game").style.display = "none";
+      document.getElementById("menu").style.display = "block";
+      document.getElementById("tituloJogo").textContent = "Palavra Cruzada";
+      document.getElementById("table").innerHTML = "";
+      document.getElementById("across-list").innerHTML = "";
+      document.getElementById("down-list").innerHTML = "";
+      current = null;
+    }
+
+    // === Eventos dos botões ===
+    document.querySelectorAll("#menu button").forEach(btn=>{
+      btn.addEventListener("click", ()=> startGame(btn.dataset.tema));
+    });
+    document.getElementById("btn-confirmar").addEventListener("click", key_check);
+    document.getElementById("btn-limpar").addEventListener("click", color_clear);
+    document.getElementById("btn-voltar").addEventListener("click", voltarMenu);
+  </script>
+</body>
+</html>
