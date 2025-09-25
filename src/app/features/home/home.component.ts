@@ -13,7 +13,7 @@ interface Slide {
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, RouterLink],
+	imports: [CommonModule],
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
@@ -23,25 +23,25 @@ export class HomeComponent implements OnInit, OnDestroy {
 	// Dados dos slides com imagens mais temáticas e de alta qualidade.
 	slides: Slide[] = [
 		{
-			img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=1200&auto=format&fit=crop',
+			img: '',
 			alt: 'Computadores e consoles de videogame antigos em uma mesa',
 			title: 'A Geração dos 8-bits',
 			subtitle: 'Reviva a era que popularizou os computadores pessoais e os jogos.'
 		},
 		{
-			img: 'https://images.unsplash.com/photo-1544216717-3bbf52512659?q=80&w=1200&auto=format&fit=crop',
+			img: '',
 			alt: 'Pilha de disquetes coloridos',
 			title: 'A Evolução do Armazenamento',
 			subtitle: 'Dos cartões perfurados aos disquetes e à nuvem: uma viagem pela memória digital.'
 		},
 		{
-			img: 'https://images.unsplash.com/photo-1522252234503-e356532cafd5?q=80&w=1200&auto=format&fit=crop',
+			img: '',
 			alt: 'Mãos de uma pessoa a programar num portátil com o ecrã escuro',
 			title: 'Pioneiros da Programação',
 			subtitle: 'Conheça as linguagens e os programadores que construíram o futuro.'
 		},
 		{
-			img: 'https://images.unsplash.com/photo-1610465299993-e6671193e18a?q=80&w=1200&auto=format&fit=crop',
+			img: '',
 			alt: 'Um portátil moderno aberto sobre uma mesa de madeira',
 			title: 'O Futuro é Agora',
 			subtitle: 'Explore as tecnologias atuais que foram sonhos no passado.'
