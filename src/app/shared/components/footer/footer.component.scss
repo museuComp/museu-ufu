@@ -1,53 +1,80 @@
-.br-footer {
-	background-color: #155bc9;
-	padding-top: 24px;
-	padding-bottom: 24px;
-	font-family: "Noto Sans", Arial, Helvetica, sans-serif;
-	font-size: 1rem;
-	font-weight: 400;
-	text-decoration: none;
-	color: #ffffff;
-
-	.footer-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-
-		.logo-container {
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 0;
-
-			.logo {
-				padding-bottom: 24px;
-				filter: invert(1) brightness(2);
-
-				img {
-					max-height: 80px;
-					max-width: max-content;
-				}
-			}
-
-			.text-white {
-				color: #ffffff;
-				font-size: 1rem;
-				line-height: 1.5;
-				margin-top: -10px;
-			}
-		}
-
-		.assigns {
-			.logo-acesso-footer {
-				width: 102px;
-				height: 40px;
-				display: block;
-				color: white;
-				background-image: url('https://ufu.br/themes/custom/ufu/acesso-informacao.svg');
-				background-repeat: no-repeat;
-				background-size: contain;
-				filter: brightness(0) invert(1);
-			}
-		}
-	}
+body footer.br-footer {
+  background-color: #002a4a !important; 
+  color: #fff !important; 
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
+
+.br-footer .footer-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+footer.br-footer a:not(.br-button),
+footer.br-footer a:not(.br-button):visited {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+footer.br-footer a:not(.br-button):hover {
+  background: none !important;
+  background-color: transparent !important;
+  color: #155bcb !important;
+  text-decoration: none !important;
+}
+
+.br-footer .footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.br-footer .social-links .br-button.circle {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  margin-right: 8px;
+}
+
+.br-footer .social-links .br-button.circle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.br-footer .assigns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: right;
+  margin-bottom: 50px;
+}
+
+.br-footer .logo-ufu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+}
+
+.logo-ufu{
+  height: 100px;
+  width: auto;
+  margin-top: 10px;
+
+}
+
+.logo-gov-br{
+  height: 50px;
+  width: auto;
+  margin-bottom: 40px;
+
+}
+.logo-acesso-footer{
+  height: 50px;
+  width: auto;
+  margin-top: 10px;
+
+}
+

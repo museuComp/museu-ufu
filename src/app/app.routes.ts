@@ -128,6 +128,12 @@ export const routes: Routes = [
     },
   },
   {
+    path:'magazine',
+    loadComponent: () => import('./pages/magazine/magazine.component').then(m => m.MagazineComponent),
+    title: 'Revista',
+
+  },
+  {
     path: '**',
     loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
     title: 'Página Não Encontrada',

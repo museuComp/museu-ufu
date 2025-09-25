@@ -81,6 +81,11 @@ body {
   color: #fff !important;
 }
 
+.high-contrast ul.br-list {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
 .high-contrast .br-header .marca .nome a {
   color: #fff !important;
 }
@@ -405,7 +410,7 @@ body {
 
 /* Barra Brasil no modo de alto contraste */
 .high-contrast #barra-brasil {
-  background-color: #071d41 !important;
+  background-color: #000000 !important;
   border-bottom: none !important;
 }
 
