@@ -50,7 +50,15 @@ export const routes: Routes = [
           import('./pages/games/word-search/word-search.component').then(
             m => m.WordSearchComponent
           ),
-      }
+      },
+      {
+        data: { breadCrumb: 'Tabela Verdade' },
+        path: 'truth-table',
+        loadComponent: () =>
+          import('./pages/games/truth-table/truth-table.component').then(
+            m => m.TruthTableComponent
+          ),
+      },
     ]
   },
   {
