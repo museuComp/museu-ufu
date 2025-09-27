@@ -108,7 +108,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				icon: 'fas fa-usd'
 			},
 			{
-				label: 'Tainacan',
+				label: 'Coleção',
 				url: 'https://tainacan.facom.ufu.br',
 				icon: 'fas fa-university ',
 				external: true,
