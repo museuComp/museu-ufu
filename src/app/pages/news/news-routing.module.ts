@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NewsComponent } from './news.component';
 import { NewsFormComponent } from './news-form/news-form.component';
 import { NewsDetailComponent } from './news-detail.component';
+import { authGuard } from '../../core/auth/services/auth.service';
 
 const routes: Routes = [
   {
@@ -11,11 +12,13 @@ const routes: Routes = [
   },
   {
     path: 'create',
-    component: NewsFormComponent
+    component: NewsFormComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'edit/:id',
-    component: NewsFormComponent
+    component: NewsFormComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'detail/:id',

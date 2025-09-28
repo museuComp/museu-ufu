@@ -117,14 +117,14 @@ export class NewsFormComponent implements OnInit {
         this.firestoreNewsService.updateNews(this.newsId, newsData)
           .then(() => {
             console.log('Notícia atualizada com sucesso!');
-            this.router.navigate(['/news']);
+            this.router.navigate(['/dashboard']);
           })
           .catch(error => console.error('Erro ao atualizar notícia:', error));
       } else {
         this.firestoreNewsService.addNews(newsData)
           .then(() => {
             console.log('Notícia criada com sucesso!');
-            this.router.navigate(['/news']);
+            this.router.navigate(['/dashboard']);
           })
           .catch(error => console.error('Erro ao criar notícia:', error));
       }
@@ -200,6 +200,6 @@ export class NewsFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/news']);
+    this.router.navigate(['/dashboard']);
   }
 }

@@ -1,0 +1,53 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div *ngIf="user() as currentUser">
+      <h1 class="welcome-title">Dashboard de Gerenciamento</h1>
+      <p class="welcome-subtitle">Bem-vindo, {{ currentUser.name }}!</p>
+    </div>
+    <button mat-stroked-button color="warn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Sair
+    </button>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="management-container" *ngIf="isAdmin()">
+      <div class="management-header">
+        <h2>Gerenciar Notícias</h2>
+        <button mat-flat-button color="primary" routerLink="/news/create">
+          <mat-icon>add</mat-icon>
+          Criar Nova Notícia
+        </button>
+      </div>
+
+      <div class="news-list" *ngIf="newsList$ | async as newsItems; else loadingNews">
+        <div *ngFor="let news of newsItems; trackBy: trackByNewsId" class="news-row">
+          <div class="news-row-header">
+            <a [routerLink]="['/news/detail', news.id]"><span class="news-title">{{ news.summary.title }}</span></a>
+            <div class="list-item-actions">
+              <button mat-icon-button color="primary" (click)="editNews(news)"
+                [attr.aria-label]="'Editar notícia ' + news.summary.title">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn" (click)="deleteNews(news)"
+                [attr.aria-label]="'Excluir notícia ' + news.summary.title">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="news-category">
+            {{ news.summary.category }}
+          </div>
+        </div>
+      </div>
+
+
+      <ng-template #loadingNews>
+        <div class="loading-or-empty-container">
+          <p>Carregando notícias...</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
