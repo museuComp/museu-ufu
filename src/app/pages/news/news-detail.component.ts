@@ -7,6 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
 
+
 @Component({
   selector: 'app-news-detail',
   standalone: true,
