@@ -1,0 +1,27 @@
+<div class="quiz-container">
+  <h1>Quiz - História da Computação</h1>
+
+  <div *ngIf="!quizCompleted">
+    <div class="question-box">
+      <h2>{{ questions[currentQuestionIndex].question }}</h2>
+      <ul>
+        <li *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+            (click)="selectAnswer(i)"
+            [class.selected]="questions[currentQuestionIndex].userAnswer === i"
+            [class.correct]="questions[currentQuestionIndex].userAnswer === i && i === questions[currentQuestionIndex].correct"
+            [class.incorrect]="questions[currentQuestionIndex].userAnswer === i && i !== questions[currentQuestionIndex].correct">
+          {{ option }}
+        </li>
+      </ul>
+    </div>
+
+    <button (click)="nextQuestion()">Próxima</button>
+  </div>
+
+  <div *ngIf="quizCompleted" class="result-box">
+    <h2>Quiz Concluído!</h2>
+    <p>Você acertou {{ score }} de {{ questions.length }} perguntas.</p>
+    <button (click)="restartQuiz()">Jogar Novamente</button>
+  </div>
+</div>
+

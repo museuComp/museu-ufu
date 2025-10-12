@@ -1,0 +1,33 @@
+<div class="quiz-container" *ngIf="!quizCompleted">
+  <h1>Math Quiz</h1>
+  <p class="question">
+    {{ questions[currentQuestionIndex].question }}
+  </p>
+
+  <div class="options">
+    <button 
+      *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+      [ngClass]="{
+        'correct': questions[currentQuestionIndex].userAnswer === i && i === questions[currentQuestionIndex].correct,
+        'incorrect': questions[currentQuestionIndex].userAnswer === i && i !== questions[currentQuestionIndex].correct
+      }"
+      (click)="selectAnswer(i)">
+      {{ option }}
+    </button>
+  </div>
+
+  <p class="feedback">{{ feedbackMessage }}</p>
+
+  <div class="controls">
+    <button (click)="nextQuestion()" [disabled]="questions[currentQuestionIndex].userAnswer === undefined">
+      Próxima Pergunta
+    </button>
+  </div>
+</div>
+
+<!-- Tela de resultado -->
+<div class="result-screen" *ngIf="quizCompleted">
+  <h2>Quiz Finalizado!</h2>
+  <p>Você acertou {{ score }} de {{ questions.length }} perguntas.</p>
+  <button (click)="restartQuiz()">Jogar Novamente</button>
+</div>
