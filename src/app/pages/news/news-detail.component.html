@@ -6,7 +6,7 @@
     </mat-card-header>
 
     <div class="news-main-image-wrapper" (click)="openImageModal(newsItem.summary.mainImage)" *ngIf="newsItem.summary.mainImage">
-      <img [src]="newsItem.summary.mainImage" [alt]="newsItem.summary.title" class="news-main-image">
+      <img alt="item" [src]="newsItem.summary.mainImage" [alt]="newsItem.summary.title" class="news-main-image">
       <div class="image-zoom-indicator">
         <mat-icon>zoom_in</mat-icon> Ampliar
       </div>
@@ -23,7 +23,7 @@
           <h3 *ngSwitchCase="'title'" class="content-item-title">{{ item.content }}</h3>
           <p *ngSwitchCase="'text'" class="content-item-text">{{ item.content }}</p>
           <div *ngSwitchCase="'image'" class="content-item-image-wrapper" (click)="openImageModal(item.content)">
-            <img [src]="item.content" [alt]="newsItem.summary.title + ' - detalhe'" class="content-item-image">
+            <img alt="item" [src]="item.content" [alt]="newsItem.summary.title + ' - detalhe'" class="content-item-image">
             <div class="image-zoom-indicator-small">
               <mat-icon>zoom_in</mat-icon>
             </div>

@@ -1,0 +1,186 @@
+:host {
+  --cor-primaria-base: #0055a4; /* Azul institucional dsgov */
+  --cor-primaria-hover: #003366; /* Tom mais escuro para hover */
+  --cor-alerta-base: #d32f2f;   /* Vermelho para ações destrutivas */
+  --cor-alerta-hover: #b71c1c;  /* Tom mais escuro para hover */
+  
+  --cor-texto-principal: #333;
+  --cor-texto-secundario: #555;
+  --cor-borda-suave: #ddd;
+  --cor-fundo-pagina: #f7f7f7;
+  --cor-fundo-elemento: #fff;
+
+  --espacamento-base: 1rem; /* 16px */
+  --arredondamento-pequeno: 4px; /* Para botões e itens menores */
+  --arredondamento-medio: 8px;   /* Para cards e contêineres */
+
+  --sombra-padrao: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --transicao-padrao: all 0.3s ease-in-out;
+}
+
+
+.dashboard-container {
+  padding: calc(var(--espacamento-base) * 2); /* 32px */
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Rawline', Arial, sans-serif;
+  background-color: var(--cor-fundo-pagina);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: calc(var(--espacamento-base) * 2);
+  flex-wrap: wrap;
+  gap: var(--espacamento-base);
+}
+
+.welcome-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: calc(var(--espacamento-base) / 4);
+  color: var(--cor-primaria-base);
+}
+
+.welcome-subtitle {
+  font-size: 1.125rem;
+  color: var(--cor-texto-secundario);
+}
+
+.management-container {
+  background-color: var(--cor-fundo-elemento);
+  border: 1px solid var(--cor-borda-suave);
+  border-radius: var(--arredondamento-medio);
+  box-shadow: var(--sombra-padrao);
+  overflow: hidden; /* Garante que os filhos respeitem o border-radius */
+}
+
+.management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--espacamento-base) calc(var(--espacamento-base) * 1.5);
+  border-bottom: 1px solid var(--cor-borda-suave);
+  flex-wrap: wrap;
+  gap: var(--espacamento-base);
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--cor-texto-principal);
+  }
+}
+
+.news-list {
+  padding: calc(var(--espacamento-base) * 1.5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacamento-base);
+}
+
+.news-row {
+  border: 1px solid var(--cor-borda-suave);
+  border-radius: var(--arredondamento-pequeno);
+  transition: var(--transicao-padrao);
+  background-color: var(--cor-fundo-elemento);
+
+  &:hover {
+    border-color: var(--cor-primaria-base);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+}
+
+.news-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--espacamento-base);
+  gap: var(--espacamento-base);
+}
+
+.news-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--cor-primaria-base);
+  text-decoration: none;
+}
+
+.news-category {
+  font-size: 0.875rem;
+  color: var(--cor-texto-secundario);
+  padding: 0 var(--espacamento-base) var(--espacamento-base);
+}
+
+
+/* Estilo base para botões de ícone para garantir área de toque e alinhamento */
+.list-item-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--arredondamento-pequeno); /* Ícones levemente arredondados */
+  transition: var(--transicao-padrao);
+  
+  /* Acessibilidade: Garante área de toque mínima */
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Foco Visível para Acessibilidade */
+button:focus-visible {
+  outline: 3px solid var(--cor-primaria-hover);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 85, 164, 0.3);
+}
+
+.list-item-actions {
+  display: flex;
+  gap: calc(var(--espacamento-base) / 2);
+}
+
+.list-item-actions mat-icon {
+  transition: var(--transicao-padrao);
+}
+
+/* Botão de Edição*/
+.list-item-actions button[color="primary"] mat-icon {
+  color: var(--cor-primaria-base);
+}
+.list-item-actions button[color="primary"]:hover {
+  background-color: rgba(0, 85, 164, 0.1);
+}
+.list-item-actions button[color="primary"]:hover mat-icon {
+  color: var(--cor-primaria-hover);
+}
+
+/* Botão de Exclusão*/
+.list-item-actions button[color="warn"] mat-icon {
+  color: var(--cor-alerta-base);
+}
+.list-item-actions button[color="warn"]:hover {
+  background-color: rgba(211, 47, 47, 0.1);
+}
+.list-item-actions button[color="warn"]:hover mat-icon {
+  color: var(--cor-alerta-hover);
+}
+.list-item-actions button[color="warn"]:focus-visible {
+  outline-color: var(--cor-alerta-hover);
+  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.3);
+}
+
+/* Botão Adicionar Notícia  */
+button[mat-stroked-button][color="warn"] {
+  border-color: var(--cor-alerta-base);
+  color: var(--cor-alerta-base);
+}
+button[mat-stroked-button][color="warn"]:hover {
+  background-color: rgba(211, 47, 47, 0.05);
+}
+
+.loading-or-empty-container {
+  text-align: center;
+  padding: calc(var(--espacamento-base) * 3);
+  color: var(--cor-texto-secundario);
+  font-style: italic;
+}

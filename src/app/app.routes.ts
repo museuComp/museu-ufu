@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth/services/auth.service';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -98,6 +100,7 @@ export const routes: Routes = [
       },
       {
         path: 'create',
+        canActivate: [authGuard],
         loadComponent: () => import('./pages/news/news-form/news-form.component').then(m => m.NewsFormComponent),
         data: {
           breadCrumb: 'Criar Notícia',
@@ -105,6 +108,7 @@ export const routes: Routes = [
       },
       {
         path: 'edit/:id',
+        canActivate: [authGuard],
         loadComponent: () => import('./pages/news/news-form/news-form.component').then(m => m.NewsFormComponent),
         data: {
           breadCrumb: 'Editar Notícia',
@@ -148,6 +152,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/magazine/magazine.component').then(m => m.MagazineComponent),
     title: 'Revista',
 
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard] 
   },
   {
     path: '**',
