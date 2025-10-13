@@ -1,58 +1,81 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
+// Estrutura de dados idêntica à do Quiz modelo
 interface Question {
   question: string;
   options: string[];
-  correct: number;
-  userAnswer?: number;
+  correctAnswer: number;
 }
 
 @Component({
   selector: 'app-math-quiz',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './math-quiz.component.html',
-  styleUrls: ['./math-quiz.component.scss']
+  styleUrls: ['./math-quiz.component.scss'],
 })
 export class MathQuizComponent implements OnInit {
+  // Perguntas de matemática
+  questions: Question[] = [
+    {
+      question: '1. Quanto é 2 + 2?',
+      options: ['3', '4', '5', '6'],
+      correctAnswer: 1,
+    },
+    {
+      question: '2. Quanto é 5 * 8?',
+      options: ['35', '40', '45', '50'],
+      correctAnswer: 1,
+    },
+    {
+      question: '3. Quanto é 10 - 3?',
+      options: ['6', '7', '8', '9'],
+      correctAnswer: 1,
+    },
+    {
+      question: '4. Quanto é 12 / 4?',
+      options: ['2', '3', '4', '6'],
+      correctAnswer: 1,
+    },
+    {
+      question: '5. Qual o próximo número na sequência: 2, 4, 6, 8, ...?',
+      options: ['9', '10', '11', '12'],
+      correctAnswer: 1,
+    },
+  ];
 
-  questions: Question[] = [];
-  currentQuestionIndex: number = 0;
-  score: number = 0;
-  quizCompleted: boolean = false;
-  feedbackMessage: string = '';
+  // Variáveis de estado idênticas às do Quiz modelo
+  currentQuestionIndex = 0;
+  selectedAnswer: number | null = null;
+  score = 0;
+  quizCompleted = false;
+  showFeedback = false;
+  isCorrect = false;
 
-  ngOnInit(): void {
-    this.loadQuestions();
-  }
+  constructor() {}
 
-  loadQuestions(): void {
-    this.questions = [
-      { question: 'Quanto é 5 + 7?', options: ['10', '11', '12', '13'], correct: 2 },
-      { question: 'Quanto é 9 × 3?', options: ['18', '27', '36', '21'], correct: 1 },
-      { question: 'Quanto é 15 ÷ 5?', options: ['2', '3', '4', '5'], correct: 1 },
-      { question: 'Quanto é 12 − 4?', options: ['6', '7', '8', '9'], correct: 2 }
-    ];
-  }
+  ngOnInit(): void {}
 
-  selectAnswer(optionIndex: number): void {
-    const current = this.questions[this.currentQuestionIndex];
+  // Lógica de métodos idêntica à do Quiz modelo
+  selectAnswer(index: number): void {
+    this.selectedAnswer = index;
+    this.showFeedback = true;
+    this.isCorrect = index === this.questions[this.currentQuestionIndex].correctAnswer;
 
-    if (current.userAnswer !== undefined) return; // não permitir mudar a resposta
-    current.userAnswer = optionIndex;
-
-    if (optionIndex === current.correct) {
+    if (this.isCorrect) {
       this.score++;
-      this.feedbackMessage = '✅ Resposta correta!';
-    } else {
-      this.feedbackMessage = '❌ Resposta incorreta!';
     }
+
+    setTimeout(() => {
+      this.nextQuestion();
+    }, 1500);
   }
 
   nextQuestion(): void {
-    this.feedbackMessage = '';
+    this.showFeedback = false;
+    this.selectedAnswer = null;
+
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
     } else {
@@ -60,11 +83,11 @@ export class MathQuizComponent implements OnInit {
     }
   }
 
-  restartQuiz(): void {
+  resetQuiz(): void {
     this.currentQuestionIndex = 0;
+    this.selectedAnswer = null;
     this.score = 0;
     this.quizCompleted = false;
-    this.feedbackMessage = '';
-    this.questions.forEach(q => q.userAnswer = undefined);
+    this.showFeedback = false;
   }
 }

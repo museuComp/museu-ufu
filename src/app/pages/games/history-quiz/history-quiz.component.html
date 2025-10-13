@@ -1,27 +1,45 @@
 <div class="quiz-container">
-  <h1>Quiz - História da Computação</h1>
+  <div class="quiz-header">
+    <h1>Quiz de História da Computação</h1>
+    <div class="progress">
+      <div class="progress-bar" [style.width]="(currentQuestionIndex / questions.length) * 100 + '%'"></div>
+    </div>
+    <div class="score">Pontuação: {{ score }}/{{ questions.length }}</div>
+  </div>
 
-  <div *ngIf="!quizCompleted">
-    <div class="question-box">
+  <div class="quiz-content" *ngIf="!quizCompleted">
+    <div class="question">
       <h2>{{ questions[currentQuestionIndex].question }}</h2>
-      <ul>
-        <li *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
-            (click)="selectAnswer(i)"
-            [class.selected]="questions[currentQuestionIndex].userAnswer === i"
-            [class.correct]="questions[currentQuestionIndex].userAnswer === i && i === questions[currentQuestionIndex].correct"
-            [class.incorrect]="questions[currentQuestionIndex].userAnswer === i && i !== questions[currentQuestionIndex].correct">
-          {{ option }}
-        </li>
-      </ul>
     </div>
 
-    <button (click)="nextQuestion()">Próxima</button>
+    <div class="options">
+      <button
+        *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+        [class.selected]="selectedAnswer === i"
+        [class.correct]="showFeedback && i === questions[currentQuestionIndex].correctAnswer"
+        [class.incorrect]="showFeedback && selectedAnswer === i && !isCorrect"
+        (click)="selectAnswer(i)"
+        [disabled]="selectedAnswer !== null"
+      >
+        {{ option }}
+      </button>
+    </div>
+
+    <div class="feedback" *ngIf="showFeedback">
+      <p [class.correct]="isCorrect" [class.incorrect]="!isCorrect">
+        {{ isCorrect ? 'Resposta correta! 🎉' : 'Resposta incorreta! 😢' }}
+      </p>
+    </div>
   </div>
 
-  <div *ngIf="quizCompleted" class="result-box">
+  <div class="quiz-completed" *ngIf="quizCompleted">
     <h2>Quiz Concluído!</h2>
-    <p>Você acertou {{ score }} de {{ questions.length }} perguntas.</p>
-    <button (click)="restartQuiz()">Jogar Novamente</button>
+    <p>Sua pontuação final: {{ score }}/{{ questions.length }}</p>
+    <div class="result-message">
+      <p *ngIf="score === questions.length">Parabéns! Você acertou todas as questões! 🎉</p>
+      <p *ngIf="score >= questions.length * 0.7 && score < questions.length">Bom trabalho! Você se saiu muito bem! 👍</p>
+      <p *ngIf="score < questions.length * 0.7">Continue estudando! Você pode melhorar! 💪</p>
+    </div>
+    <button class="restart-button" (click)="resetQuiz()">Jogar Novamente</button>
   </div>
 </div>
-
