@@ -61,6 +61,22 @@ export const routes: Routes = [
             m => m.TruthTableComponent
           ),
       },
+      {
+        data: { breadCrumb: 'Quiz de Matemática' },
+        path: 'math-quiz',
+        loadComponent: () =>
+          import('./pages/games/math-quiz/math-quiz.component').then(
+            m => m.MathQuizComponent
+          ),
+      },
+      {
+        data: { breadCrumb: 'Quiz de História' },
+        path: 'history-quiz',
+        loadComponent: () =>
+          import('./pages/games/history-quiz/history-quiz.component').then(
+            m => m.HistoryQuizComponent
+          ),
+      }
     ]
   },
   {
