@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'popins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    background-color: white;
+}
+
+body h2 {
+    color: rgb(19, 2, 247);
+}
+
+main {
+    background-color: rgb(19, 2, 247);
+    color: aliceblue;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.spnQtd {
+    text-align: end;
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+button {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+.finish {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.finish button {
+    text-align: center;
+}
+
+/* Estilos para o corpo da página para acomodar os dois blocos */
+body {
+    height: auto; /* Permitir que a página cresça */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinhar ao topo */
+    flex-direction: column;
+    gap: 20px; /* Aumentar o espaço entre o quiz e a simulação */
+    background-color: white;
+    padding: 20px 0; /* Adicionar um pouco de espaço vertical */
+}
+
+/* Container fixo para a simulação */
+#simulator-container {
+    width: 100%;
+    max-width: 450px; /* Um pouco maior para caber a simulação confortavelmente */
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    border: 2px solid rgb(19, 2, 247);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#simulator-container h3 {
+    color: rgb(19, 2, 247);
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}
+
+#box {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+#box p {
+    margin-bottom: 10px;
+}
+
+.carry {
+    color: #E94560;
+    opacity: 0.5;
+}
+
+.feedback {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+}
+
+.feedback.correct {
+    background-color: #001616;
+    color: white;
+}
+
+.feedback.incorrect {
+    background-color: #dc3545;
+    color: white;
+}
+
+#nextBtn {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #00a0df;
+    color: black;
+    font-weight: 600;
+    display: none;
+}
+
+.answers button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
