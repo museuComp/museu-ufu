@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz – História da Computação</title>
+  <style>
+    :root{
+      --bg1:#0f172a; /* slate-900 */
+      --bg2:#111827; /* gray-900 */
+      --card:#1f2937; /* gray-800 */
+      --muted:#94a3b8; /* slate-400 */
+      --text:#e5e7eb; /* gray-200 */
+      --accent:#6366f1; /* indigo-500 */
+      --accent-2:#4f46e5; /* indigo-600 */
+      --ok:#10b981; /* emerald-500 */
+      --ok-2:#059669; /* emerald-600 */
+      --bad:#ef4444; /* red-500 */
+      --bad-2:#dc2626; /* red-600 */
+      --ring: rgba(255,255,255,.08);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+    .app{min-height:100%; display:flex; align-items:center; justify-content:center; padding:24px}
+    .wrap{width:min(960px,100%)}
+    .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px}
+    .title{font-size:clamp(1.25rem, 2.5vw, 1.75rem); font-weight:800; letter-spacing:-0.02em}
+    .btn{padding:10px 14px; border-radius:12px; background:#1f2937; border:1px solid #334155; color:var(--text); cursor:pointer}
+    .btn:hover{background:#273245}
+    .btn.primary{background:var(--accent-2); border-color:transparent}
+    .btn.primary:hover{background:var(--accent)}
+
+    .meta{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px; margin-bottom:8px}
+    .dot{opacity:.5}
+
+    .progress{width:100%; height:10px; background:#e2e8f033; border-radius:999px; overflow:hidden}
+    .progress > .bar{height:100%; width:0%; background:var(--accent); transition:width .3s ease}
+
+    .card{background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--ring); padding:24px; border-radius:var(--radius); box-shadow:0 10px 30px #00000033}
+    .question{font-size:clamp(1.05rem, 2.2vw, 1.25rem); font-weight:600; margin:0 0 12px}
+
+    .options{display:grid; gap:10px}
+    .option{width:100%; text-align:left; padding:14px 16px; border-radius:14px; background:#202b3b; border:1px solid #334155; color:var(--text); cursor:pointer; transition:transform .04s ease, background .2s}
+    .option:hover{background:#263246}
+    .option:active{transform:translateY(1px)}
+    .option.correct{background:color-mix(in srgb, var(--ok-2) 85%, black); border-color:var(--ok)}
+    .option.wrong{background:color-mix(in srgb, var(--bad-2) 85%, black); border-color:var(--bad)}
+
+    .feedback{margin-top:12px; padding:12px; border-radius:12px; border:1px solid #334155; background:#0b122033; color:var(--text)}
+
+    .bottom{display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:14px; margin-top:10px}
+
+    .review{background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--ring); padding:24px; border-radius:var(--radius)}
+    .review h2{margin:0 0 8px; font-size:clamp(1.1rem, 2.4vw, 1.4rem)}
+    .rev-item{padding:12px; border-radius:12px; border:1px solid #334155; background:#0b122033; margin-top:10px}
+    .rev-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:4px}
+    .ok{color:var(--ok)}
+    .bad{color:var(--bad)}
+
+    .muted{color:var(--muted)}
+    .kbd{display:inline-block; padding:.1em .45em; border:1px solid #334155; border-bottom-width:2px; border-radius:6px; background:#0b1220; color:#cbd5e1; font-size:.9em}
+
+    @media (max-width: 480px){ .btn{padding:9px 12px} }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="wrap">
+      <div class="top">
+        <h1 class="title">Quiz – História da Computação</h1>
+        <button id="restart" class="btn" title="Reiniciar">Reiniciar</button>
+      </div>
+
+      <div class="meta">
+        <span id="meta-step">Pergunta 1 de 1</span>
+        <span class="dot">•</span>
+        <span id="meta-score">Pontos: 0</span>
+        <span class="dot" id="dot-time" style="display:none">•</span>
+        <span id="meta-time" style="display:none">Tempo: 0s</span>
+      </div>
+      <div class="progress" aria-hidden="true"><div class="bar" id="progress"></div></div>
+
+      <section id="game" class="card" aria-live="polite" aria-atomic="true">
+        <p id="question" class="question">Carregando…</p>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback" style="display:none"></div>
+        <div class="bottom">
+          <div class="muted">Dica: use <span class="kbd">1</span>–<span class="kbd">4</span> para responder rápido.</div>
+          <div>Progresso: <span id="progressText" class="muted">0</span></div>
+        </div>
+      </section>
+
+      <section id="review" class="review" style="display:none">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px">
+          <h2>Resultado Final</h2>
+          <button id="playAgain" class="btn primary">Jogar novamente</button>
+        </div>
+        <p>Você acertou <strong id="finalScore">0</strong> de <span id="finalTotal">0</span> perguntas.</p>
+        <div class="progress" aria-hidden="true"><div class="bar" id="finalBar"></div></div>
+        <div id="reviewList" style="margin-top:12px"></div>
+      </section>
+
+      <p class="muted" style="text-align:center; margin-top:18px; font-size:12px">Feito para ensinar História da Computação. Personalize as perguntas no código.</p>
+    </div>
+  </div>
+
+  <script>
+  // ===== CONFIG =====
+  const QUESTIONS_PER_GAME = 15;
+  const USE_TIMER = false; // mude para true para ativar cronômetro por questão
+  const TIME_PER_QUESTION = 25; // segundos
+
+  // ===== Banco de perguntas =====
+  const QUESTION_BANK = [
+    { q: "Quem é considerada a primeira programadora da história?", options: ["Grace Hopper", "Ada Lovelace", "Hedy Lamarr", "Katherine Johnson"], answer: 1, info: "Ada Lovelace escreveu notas sobre a Máquina Analítica de Babbage e descreveu um algoritmo para calcular números de Bernoulli (1843)." },
+    { q: "O ENIAC foi um dos primeiros computadores eletrônicos de propósito geral. Em que década ele foi construído?", options: ["1930", "1940", "1950", "1960"], answer: 1, info: "O ENIAC foi concluído em 1945 e anunciado publicamente em 1946." },
+    { q: "Qual empresa lançou o microprocessador 4004, considerado o primeiro comercialmente disponível?", options: ["Intel", "IBM", "Motorola", "Texas Instruments"], answer: 0, info: "O Intel 4004 foi lançado em 1971 e inaugurou a era dos microprocessadores." },
+    { q: "Qual pioneiro propôs o 'Teste de I.A.' para avaliar inteligência de máquinas?", options: ["John McCarthy", "Alan Turing", "Marvin Minsky", "Norbert Wiener"], answer: 1, info: "O Teste de Turing foi proposto em 1950 no artigo \"Computing Machinery and Intelligence\"." },
+    { q: "Qual linguagem popularizou o conceito de 'Hello, World!' em seu livro clássico?", options: ["Fortran", "C", "Pascal", "COBOL"], answer: 1, info: "O exemplo ficou famoso com Kernighan & Ritchie em \"The C Programming Language\" (1978)." },
+    { q: "O que o acrônimo 'ASCII' significa?", options: ["American Standard Code for Information Interchange", "Advanced System for Computing and Internet Interfaces", "Automated Serial Code for International Interop", "Alternate Set Code for Indexed Input"], answer: 0, info: "ASCII é um padrão de codificação de caracteres criado nos anos 1960." },
+    { q: "Quem cunhou o termo 'cibernética' e estudou sistemas de controle e comunicação?", options: ["Claude Shannon", "Norbert Wiener", "Vannevar Bush", "Donald Knuth"], answer: 1, info: "Norbert Wiener publicou \"Cybernetics\" em 1948, influenciando computação, biologia e engenharia." },
+    { q: "O que foi a ARPANET?", options: ["Primeira linguagem de programação", "Primeiro sistema operacional de tempo real", "Rede que deu origem à Internet", "Primeiro banco de dados relacional"], answer: 2, info: "A ARPANET, criada no fim dos anos 1960, interconectou universidades e laboratórios; evoluiu para a Internet." },
+    { q: "Qual estrutura física substituiu válvulas a vácuo permitindo a miniaturização dos computadores?", options: ["Relés", "Transistores", "Circuitos de água", "Tubos de raios catódicos"], answer: 1, info: "Transistores (final dos anos 1940) tornaram os computadores menores, mais rápidos e confiáveis." },
+    { q: "Quem é conhecida por popularizar o termo 'bug' na computação ao encontrar uma mariposa em um computador?", options: ["Radia Perlman", "Grace Hopper", "Jean Sammet", "Karen Spärck Jones"], answer: 1, info: "Grace Hopper registrou o incidente em 1947; o termo já existia em engenharia, mas o caso ficou famoso." },
+    { q: "Qual foi o principal objetivo do projeto UNIX nos anos 1970?", options: ["Criar um SO multitarefa e multiusuário portátil", "Desenvolver um compilador para COBOL", "Construir hardware RISC", "Criar uma GUI para mainframes"], answer: 0, info: "UNIX introduziu portabilidade (C), processos, pipes e a filosofia de ferramentas simples e composáveis." },
+    { q: "Quem desenvolveu a arquitetura de computadores baseada no modelo de 'Programa armazenado' (von Neumann)?", options: ["John von Neumann", "Konrad Zuse", "Claude Shannon", "Charles Babbage"], answer: 0, info: "O relatório EDVAC (1945) descreveu a arquitetura de programa armazenado associada a von Neumann." },
+    { q: "Qual rede introduziu o conceito de comutação de pacotes, essencial para a Internet?", options: ["X.25", "ARPANET", "Token Ring", "ATM"], answer: 1, info: "A ARPANET adotou comutação de pacotes; conceitos correlatos surgiram no NPL (UK) e CYCLADES (FR)." },
+    { q: "O que é a Máquina de Turing?", options: ["Um computador mecânico comercial", "Um modelo teórico de computação", "Um compilador para linguagens funcionais", "Um algoritmo de ordenação"], answer: 1, info: "A Máquina de Turing é um formalismo que define computabilidade e limites do que algoritmos podem fazer." },
+    { q: "Quem é o autor de 'The Art of Computer Programming'?", options: ["Edsger Dijkstra", "Donald Knuth", "Niklaus Wirth", "Robert Tarjan"], answer: 1, info: "Donald Knuth iniciou a série nos anos 1960; referência central em algoritmos." },
+    { q: "Qual foi a contribuição de Tim Berners-Lee em 1989-1991?", options: ["Criou o protocolo SMTP", "Inventou a World Wide Web (HTTP, HTML)", "Padronizou o IPv4", "Desenvolveu o Linux"], answer: 1, info: "Berners-Lee propôs a Web no CERN; implementou HTTP, HTML e o primeiro navegador/servidor." },
+    { q: "Qual destas é uma linguagem de 1957 criada para cálculos científicos?", options: ["COBOL", "BASIC", "FORTRAN", "ALGOL 68"], answer: 2, info: "FORTRAN (IBM, 1957) foi crucial em computação científica e engenharia." },
+    { q: "Quem criou um dos primeiros compiladores amplamente reconhecidos?", options: ["Grace Hopper", "Ken Thompson", "John Backus", "Evelyn Berezin"], answer: 0, info: "Grace Hopper liderou o desenvolvimento de compiladores iniciais (A-0 e sucessores) no início dos anos 1950." },
+    { q: "Qual invento de Douglas Engelbart foi apresentado no 'Mother of All Demos' (1968)?", options: ["Mouse e interface gráfica com hipertexto", "Ethernet", "Planilha eletrônica", "Touchscreen capacitiva"], answer: 0, info: "A demo mostrou mouse, janelas, hipertexto, videoconferência e colaboração em tempo real." },
+    { q: "O que caracteriza a arquitetura RISC (anos 1980)?", options: ["Poucas instruções simples e rápidas", "Muitas instruções complexas (microcódigo)", "Processamento analógico", "Uso de tubos de vácuo"], answer: 0, info: "RISC simplifica o conjunto de instruções; exemplos: MIPS, ARM, SPARC." },
+    { q: "Quem projetou a Z3, um dos primeiros computadores eletromecânicos programáveis (1941)?", options: ["Tommy Flowers", "Konrad Zuse", "J. Presper Eckert", "Herman Hollerith"], answer: 1, info: "Konrad Zuse criou a Z3 na Alemanha; utilizava relés e fita perfurada." },
+    { q: "Qual inovação permitiu integrar milhares de transistores em um único chip?", options: ["Armazenamento magnético", "Circuito integrado (IC)", "Memória DRAM", "Placa-mãe"], answer: 1, info: "Os circuitos integrados (final dos anos 1950/60) possibilitaram a microeletrônica moderna." },
+    { q: "A Teoria da Informação, publicada em 1948, foi obra de…", options: ["Claude Shannon", "Judea Pearl", "Leslie Lamport", "E. W. Dijkstra"], answer: 0, info: "Shannon quantificou informação (bits), entropia e capacidade de canal." },
+    { q: "Qual foi a principal inovação do Macintosh (1984) popularizada ao grande público?", options: ["Linha de comando", "Interface gráfica com ícones e mouse", "Computação quântica", "Rede sem fio Wi‑Fi"], answer: 1, info: "O Mac ajudou a disseminar a GUI inspirada no trabalho do Xerox PARC." },
+    { q: "Quem é creditado como pioneiro essencial da comutação por pacotes no projeto ARPANET?", options: ["Radia Perlman", "Vint Cerf", "Elizabeth 'Jake' Feinler", "Leonard Kleinrock"], answer: 3, info: "Kleinrock trabalhou com teoria de filas e no primeiro nó da ARPANET." },
+  ];
+
+  // ===== Utilidades =====
+  const pickRandom = (arr, n) => {
+    const copy = arr.slice();
+    const out = [];
+    while (out.length < n && copy.length){
+      out.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0]);
+    }
+    return out;
+  };
+  const shuffle = (arr) => {
+    const a = arr.slice();
+    for (let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  };
+
+  // ===== Estado =====
+  let questions = [];
+  let current = 0;
+  let score = 0;
+  let answers = []; // {choice, correctIdx}
+  let selected = null;
+  let timerId = null;
+  let timeLeft = TIME_PER_QUESTION;
+
+  // ===== Elementos =====
+  const $q = document.getElementById('question');
+  const $opts = document.getElementById('options');
+  const $fb = document.getElementById('feedback');
+  const $metaStep = document.getElementById('meta-step');
+  const $metaScore = document.getElementById('meta-score');
+  const $metaTime = document.getElementById('meta-time');
+  const $dotTime = document.getElementById('dot-time');
+  const $progress = document.getElementById('progress');
+  const $progressText = document.getElementById('progressText');
+  const $game = document.getElementById('game');
+  const $review = document.getElementById('review');
+  const $finalScore = document.getElementById('finalScore');
+  const $finalTotal = document.getElementById('finalTotal');
+  const $finalBar = document.getElementById('finalBar');
+  const $reviewList = document.getElementById('reviewList');
+
+  // ===== Lógica =====
+  function start(){
+    const count = Math.min(QUESTIONS_PER_GAME, QUESTION_BANK.length);
+    questions = pickRandom(QUESTION_BANK, count).map(q => {
+      const pairs = q.options.map((opt, idx)=>({opt, idx}));
+      const sh = shuffle(pairs);
+      const answerIdx = sh.findIndex(p=>p.idx===q.answer);
+      return { ...q, shuffled: { options: sh.map(p=>p.opt), answerIdx } };
+    });
+    current = 0; score = 0; answers = []; selected=null; timeLeft = TIME_PER_QUESTION;
+    $game.style.display = '';
+    $review.style.display = 'none';
+    render();
+  }
+
+  function render(){
+    const total = questions.length;
+    const q = questions[current];
+    $metaStep.textContent = `Pergunta ${current+1} de ${total}`;
+    $metaScore.textContent = `Pontos: ${score}`;
+    $progress.style.width = `${(current/total)*100}%`;
+    $progressText.textContent = `${score} / ${total}`;
+
+    if (USE_TIMER){
+      $metaTime.style.display = '';
+      $dotTime.style.display = '';
+      startTimer();
+    } else {
+      $metaTime.style.display = 'none';
+      $dotTime.style.display = 'none';
+    }
+
+    $q.textContent = q.q;
+    $opts.innerHTML = '';
+    q.shuffled.options.forEach((opt,i)=>{
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.innerHTML = `<strong>${i+1}.</strong> ${opt}`;
+      btn.addEventListener('click', ()=> handleAnswer(i));
+      $opts.appendChild(btn);
+    });
+    $fb.style.display = 'none';
+  }
+
+  function handleAnswer(choice, auto=false){
+    if (selected !== null) return;
+    const q = questions[current];
+    selected = choice;
+    const isCorrect = choice === q.shuffled.answerIdx;
+
+    // pinta botões
+    [...$opts.children].forEach((btn, i)=>{
+      if (i === q.shuffled.answerIdx) btn.classList.add('correct');
+      if (i === choice && i !== q.shuffled.answerIdx) btn.classList.add('wrong');
+      btn.disabled = true;
+    });
+
+    // feedback
+    $fb.style.display = '';
+    if (choice === -1){
+      $fb.innerHTML = `<strong>⏱️ Tempo esgotado.</strong><br><span class="muted">${q.info}</span>`;
+    } else if (isCorrect){
+      $fb.innerHTML = `<strong>✅ Correto!</strong><br><span class="muted">${q.info}</span>`;
+      score++;
+    } else {
+      $fb.innerHTML = `<strong>❌ Resposta incorreta.</strong><br><span class="muted">${q.info}</span>`;
+    }
+
+    answers.push({ choice, correctIdx: q.shuffled.answerIdx, q: q.q, options: q.shuffled.options, info: q.info, ok: isCorrect });
+    $metaScore.textContent = `Pontos: ${score}`;
+
+    // próximo
+    setTimeout(()=>{
+      selected = null;
+      if (USE_TIMER) stopTimer();
+      if (current + 1 < questions.length){
+        current++;
+        render();
+      } else {
+        showReview();
+      }
+    }, auto ? 600 : 900);
+  }
+
+  function startTimer(){
+    stopTimer();
+    timeLeft = TIME_PER_QUESTION;
+    $metaTime.textContent = `Tempo: ${timeLeft}s`;
+    timerId = setInterval(()=>{
+      timeLeft -= 1;
+      $metaTime.textContent = `Tempo: ${timeLeft}s`;
+      if (timeLeft <= 0){
+        stopTimer();
+        handleAnswer(-1, true);
+      }
+    }, 1000);
+  }
+  function stopTimer(){
+    if (timerId){ clearInterval(timerId); timerId = null; }
+  }
+
+  function showReview(){
+    $game.style.display = 'none';
+    $review.style.display = '';
+    $finalScore.textContent = String(score);
+    $finalTotal.textContent = String(questions.length);
+    $finalBar.style.width = `${(score/questions.length)*100}%`;
+    $reviewList.innerHTML = '';
+    answers.forEach((a, idx)=>{
+      const div = document.createElement('div');
+      div.className = 'rev-item';
+      div.innerHTML = `
+        <div class="rev-head">
+          <div><strong>${idx+1}.</strong> ${a.q}</div>
+          <div class="${a.ok ? 'ok' : 'bad'}">${a.ok ? 'Acertou' : 'Errou'}</div>
+        </div>
+        <div class="muted">Correta: <strong>${a.options[a.correctIdx]}</strong></div>
+        <div class="muted" style="margin-top:6px; font-size:12px">${a.info}</div>
+      `;
+      $reviewList.appendChild(div);
+    });
+  }
+
+  // ===== Eventos =====
+  document.getElementById('restart').addEventListener('click', ()=>{ stopTimer(); start(); });
+  document.getElementById('playAgain').addEventListener('click', ()=>{ stopTimer(); start(); });
+
+  // atalhos 1–4
+  window.addEventListener('keydown', (e)=>{
+    const num = parseInt(e.key,10);
+    if (!isNaN(num) && num>=1 && num<=4 && $game.style.display !== 'none'){
+      handleAnswer(num-1);
+    }
+  });
+
+  // init
+  start();
+  </script>
+</body>
+</html>
