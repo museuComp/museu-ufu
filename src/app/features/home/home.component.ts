@@ -34,22 +34,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 			type: 'video',
 			src: 'public/carrossel/carrossel_teste.mp4',
 			alt: '',
-			title: '',
-			subtitle: ''
+			title: 'A História da Computação',
+			subtitle: 'Saiba como tudo começou e evoluiu ao longo dos anos.'
 		},
 		{
 			type: 'image',
-			src: '',
-			alt: 'Mãos de uma pessoa a programar num portátil com o ecrã escuro',
-			title: 'Pioneiros da Programação',
-			subtitle: 'Conheça as linguagens e os programadores que construíram o futuro.'
+			src: 'public/carrossel/cartao_perfurado.jpg',
+			alt: 'Cartão perfurado antigo usado em computadores',
+			title: 'Cartão Perfurado',
+			subtitle: 'Como se programava os primeiros computadores?'
 		},
 		{
 			type: 'image',
-			src: '',
-			alt: 'Um portátil moderno aberto sobre uma mesa de madeira',
-			title: 'O Futuro é Agora',
-			subtitle: 'Explore as tecnologias atuais que foram sonhos no passado.'
+			src: 'public/carrossel/JogoSonic.jpg',
+			alt: 'Capa do jogo do Sonic para Super Nintendo',
+			title: 'Jogo do Sonic do Super Nintendo',
+			subtitle: 'Relembre os clássicos dos videogames!'
 		}
 	];
 

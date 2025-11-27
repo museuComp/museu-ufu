@@ -16,8 +16,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private storage = window.localStorage;
 
-  private apiUrl = 'http://localhost:8000/api/v1'; //ALTERAR PARA ONDE ESTIVER A API
-
+  private apiUrl = 'https://museu.facom.ufu.br/api/v1/auth';
   credentials = signal<Credentials | null>(null);
   credentials$ = toObservable(this.credentials);
   isStudent = computed(() => this.credentials()?.role === Role.STUDENT)
@@ -35,12 +34,12 @@ export class AuthService {
   body.append('username', loginData.username);
   body.append('password', loginData.password);
 
-  return this.http.post<any>(`${this.apiUrl}/auth/login`, body).pipe(
+  return this.http.post<any>(`${this.apiUrl}/login`, body).pipe(
     switchMap(response => {
       const token = response.access_token;
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       
-      return this.http.get<any>(`${this.apiUrl}/auth/me`, { headers }).pipe(
+      return this.http.get<any>(`${this.apiUrl}/me`, { headers }).pipe(
         tap(user => {
           const fullCredentials: Credentials = {
             accessToken: token,
