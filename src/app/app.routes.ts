@@ -131,6 +131,14 @@ export const routes: Routes = [
       breadCrumb: 'Sobre',
     },
   },
+   {
+    path: 'norms',
+    loadComponent: () => import('./pages/norms/norms.component').then(m => m.NormsComponent),
+    title: 'Normas',
+    data: {
+      breadCrumb: 'Normas',
+    },
+  },
   {
     path: 'donations',
     loadComponent: () => import('./pages/donations/donations.component').then(m => m.DonationsComponent),

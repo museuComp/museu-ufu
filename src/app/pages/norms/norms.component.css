@@ -1,0 +1,13 @@
+.sobre-museu {
+  padding-top: 30px;
+}
+
+.sobre-museu p {
+  text-align: justify;
+}
+
+.titulo-centralizado {
+  text-align: center;
+  margin: 2rem 0;
+}
+
