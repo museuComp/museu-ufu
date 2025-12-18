@@ -118,6 +118,11 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				url: '/about',
 				icon: 'fas fa-info-circle'
 			},
+			{
+				label: 'Normas',
+				url: '/norms',
+				icon: 'fas fa-info-circle'
+			},
 		];
 	}
 
