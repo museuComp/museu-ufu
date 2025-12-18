@@ -1,0 +1,29 @@
+name: Deploy Museu (Angular)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, museu-ufu]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build (prod)
+        run: npm run build -- --configuration production --base-href /
+
+      - name: Deploy browser/ to Nginx root
+        run: |
+          rsync -av --delete dist/museu-ufu/browser/ /var/www/museu-ufu/
