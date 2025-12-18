@@ -27,3 +27,7 @@ jobs:
       - name: Deploy browser/ to Nginx root
         run: |
           rsync -av --delete dist/museu-ufu/browser/ /var/www/museu-ufu/
+
+      - name: Reload nginx
+        run: |
+          sudo systemctl reload nginx
