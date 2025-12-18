@@ -10,4 +10,176 @@
   text-align: center;
   margin: 2rem 0;
 }
+        /* --- Reset e Variáveis Padrão Gov --- */
+        :host {
+            --cor-primaria: #1351B4; /* Azul Gov */
+            --cor-primaria-dark: #0c326f;
+            --cor-secundaria: #333333;
+            --cor-texto: #555555;
+            --cor-fundo: #f8f9fa;
+            --cor-card-bg: #ffffff;
+            --borda-suave: #e0e0e0;
+            --sombra-card: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --sombra-card-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+
+        /* --- Layout Principal --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* --- Tipografia --- */
+        h1.titulo-centralizado {
+            color: var(--cor-primaria);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        h1.titulo-centralizado::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--cor-primaria);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: var(--cor-secundaria);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--cor-primaria);
+            padding-left: 15px;
+            margin-top: 40px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        /* --- Seções de Texto --- */
+        .secao-conteudo {
+            background: var(--cor-card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--sombra-card);
+            margin-bottom: 30px;
+            border: 1px solid var(--borda-suave);
+        }
+
+        /* --- Grid de Equipe e Desenvolvedores --- */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* --- Card do Membro --- */
+        .card-membro {
+            background-color: var(--cor-card-bg);
+            border: 1px solid var(--borda-suave);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra-card);
+        }
+
+        .card-membro:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--sombra-card-hover);
+            border-color: var(--cor-primaria);
+        }
+
+        /* Avatar (Iniciais) */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--cor-primaria);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .membro-nome {
+            font-weight: 700;
+            color: var(--cor-secundaria);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .membro-cargo {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        /* Botão Github */
+        .btn-github {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #24292e; /* Cor oficial Github */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-github:hover {
+            background-color: #000;
+        }
+
+        .btn-github svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1.titulo-centralizado {
+                font-size: 2rem;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr;
+            }
+        }
