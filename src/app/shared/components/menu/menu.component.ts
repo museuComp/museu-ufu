@@ -103,6 +103,11 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				icon: 'fas fa-file-text'
 			},
 			{
+				label: 'Vídeos',
+				url: '/videos',
+				icon: 'fas fa-video'
+			},
+			{
 				label: 'Doações',
 				url: '/donations',
 				icon: 'fas fa-usd'

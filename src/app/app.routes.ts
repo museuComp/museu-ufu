@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/services/auth.service';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { VideosComponent } from './pages/videos/videos.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -160,6 +161,14 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/magazine/magazine.component').then(m => m.MagazineComponent),
     title: 'Revista',
 
+  },
+  {
+    path: 'videos',
+    loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent),
+    title: 'Vídeos',
+    data: {
+      breadCrumb: "Vídeos"
+    }
   },
   {
     path: 'dashboard',
