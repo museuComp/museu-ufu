@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/services/auth.service';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { VideosComponent } from './pages/videos/videos.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -164,11 +163,23 @@ export const routes: Routes = [
   },
   {
     path: 'videos',
-    loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent),
     title: 'Vídeos',
     data: {
       breadCrumb: "Vídeos"
-    }
+    },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent)
+      },
+      {
+        path: 'detail/:id',
+        loadComponent: () => import('./pages/videos/video-detail/video-detail.component').then(m => m.VideoDetailComponent),
+        data: {
+          breadCrumb: "Detalhe do vídeo"
+        }
+      }
+    ]
   },
   {
     path: 'dashboard',
