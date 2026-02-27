@@ -170,7 +170,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent)
+        loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent),
       },
       {
         path: 'detail/:id',
