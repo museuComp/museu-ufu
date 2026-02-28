@@ -178,6 +178,22 @@ export const routes: Routes = [
         data: {
           breadCrumb: "Detalhe do vídeo"
         }
+      },
+      {
+        path: 'create',
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/videos/video-form/video-form.component').then(m => m.VideoFormComponent),
+        data: {
+          breadCrumb: "Criar publicação"
+        }
+      },
+      {
+        path: 'edit/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/videos/video-form/video-form.component').then(m => m.VideoFormComponent),
+        data: {
+          breadCrumb: "Editar publicação"
+        }
       }
     ]
   },
