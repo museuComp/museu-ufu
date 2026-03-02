@@ -10,7 +10,7 @@
     </button>
   </div>
 
-  <div class="dashboard-grid">
+  <div class="dashboard-grid" *ngIf="currentView == 'news'">
     <div class="management-container" *ngIf="isAdmin()">
       <div class="management-header">
         <h2>Gerenciar Notícias</h2>
@@ -46,6 +46,48 @@
       <ng-template #loadingNews>
         <div class="loading-or-empty-container">
           <p>Carregando notícias...</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="dashboard-grid" *ngIf="currentView == 'video'">
+    <div class="management-container" *ngIf="isAdmin()">
+      <div class="management-header">
+        <h2>Gerenciar Vídeos</h2>
+        <button mat-flat-button color="primary" routerLink="/videos/create">
+          <mat-icon>add</mat-icon> Publicar Novo Vídeo
+        </button>
+      </div>
+
+      <div class="media-list" *ngIf="videoList$ | async as videos; else loadingVideos">
+        <div class="media-row" *ngFor="let video of videos; trackBy: trackByVideoId">
+          <div class="media-row-header">
+            <a [routerLink]="['/videos/detail', video.id]">
+              <span class="media-title">{{ video.summary.title }}</span>
+            </a>
+
+            <div class="list-item-actions">
+              <button mat-icon-button color="primary" (click)="editVideo(video)"
+                [attr.aria-label]="'Editar publicação ' + video.summary.title">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn" (click)="deleteVideo(video)"
+                [attr.aria-label]="'Excluir publicação ' + video.summary.title">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="media-category">
+            {{ video.summary.category }}
+          </div>
+        </div>
+      </div>
+
+      <ng-template #loadingVideos>
+        <div class="loading-or-empty-container">
+          <p>Carregando vídeos...</p>
         </div>
       </ng-template>
     </div>

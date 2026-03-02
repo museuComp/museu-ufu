@@ -50,7 +50,7 @@ export class FirestoreVideosService {
         return updateDoc(videoComplete, video);
       }
     
-    deleteNews(id: string): Promise<void> {
+    deleteVideo(id: string): Promise<void> {
         const video = doc(this.firestore, `videos/${id}`);
 
         return deleteDoc(video);

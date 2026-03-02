@@ -4,13 +4,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Router } from '@angular/router';
-import { AuthService } from '../../core/auth/services/auth.service';
-import { Role } from '../login/models/credentials.model';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
 import { Observable } from 'rxjs';
+import { AuthService } from '@app/core/auth/services/auth.service';
+import { FirestoreNewsService, NewsPost } from 'core/services/firestore-news.service';
+import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
+import { Role } from '@app/features/login/models/credentials.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,15 +24,20 @@ import { Observable } from 'rxjs';
     RouterModule,
     MatListModule,
     MatDividerModule,
-    MatDialogModule
-  ],
+    MatDialogModule,
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
   newsList$!: Observable<NewsPost[]>;
+  videoList$!: Observable<Video[]>;
+  currentView: string;
+
   authService = inject(AuthService);
   private firestoreNewsService = inject(FirestoreNewsService);
+  private firestoreVideoService = inject(FirestoreVideosService);
+
   private router = inject(Router);
   private dialog = inject(MatDialog);
 
@@ -46,19 +52,22 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-
   ngOnInit(): void {
 
     console.log('Dados do usuário no Dashboard:', this.user());
 
-    if (this.isAdmin()) {
+    // if (this.isAdmin()) {
       this.newsList$ = this.firestoreNewsService.getAllNews();
-    }
+      this.currentView = 'news';
+    // }
   }
-
 
   editNews(newsItem: NewsPost): void {
     this.router.navigate(['/news/edit', newsItem.id]);
+  }
+
+  editVideo(videoItem: Video): void {
+
   }
 
   deleteNews(newsItem: NewsPost): void {
@@ -82,6 +91,32 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  deleteVideo(videoItem: Video): void {
+    if (!videoItem.id) {
+      console.error('Video item ID is undefined, cannot delete');
+      return;
+    }
+    const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
+      width: '350px',
+      data: { title: videoItem.summary.title } 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.firestoreVideoService.deleteVideo(videoItem.id)
+          .then(() => {
+            console.log('Vídeo deletado com sucesso!');
+          })
+          .catch(error => console.error('Erro ao deletar vídeo:', error));
+      }
+    });
+    
+  }
+
+  toggleView(): void {
+    if(this.currentView == 'news') this.currentView = 'video';
+    else this.currentView = 'news';
+  }
 }
 
 // --- Componente de Diálogo ---
