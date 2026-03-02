@@ -1,8 +1,10 @@
-@defer {
+<div class="videos-container">
+    @defer {
     <div class="videos-container">Conteúdo Carregado!</div>
-}
-@loading (minimum 2s) {
-    <div class="loading-videos-container">
-        <p>Carregando vídeos...</p>
-    </div>
-}
+    }
+    @loading (minimum 2s) {
+        <div class="loading-videos-container">
+            <p>Carregando vídeos...</p>
+        </div>
+    } 
+</div>
