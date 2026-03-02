@@ -86,6 +86,7 @@ export class VideoFormComponent implements OnInit {
                 this.videoForm.patchValue({
                     title: videoData.summary.title,
                     category: videoData.summary.category,
+                    coverUrl: videoData.summary.coverUrl,
                     videoUrl: videoData.videoUrl,
                     description: videoData.description,
                     contributors: videoData.contributors.join(','),
@@ -105,15 +106,18 @@ export class VideoFormComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     if (!this.videoForm.valid)  return;
-    if(!this.coverFile) return;
 
     const formValue = this.videoForm.value;
 
     if(this.editMode && this.videoId) {
+
+      const coverUrl = this.coverFile
+            ? (await this.storageService.uploadImage(this.coverFile, 'covers/videos')).url
+            : this.videoForm.value.coverUrl;
         const videoData: Partial<Video> = {
             summary: {
                 title: this.videoForm.value.title,
-                coverUrl: this.videoForm.value.coverUrl,   // URL pública
+                coverUrl: coverUrl,   // URL pública
                 coverPath: this.oldCoverPath || '',        //caminho do firestorage
                 category: this.videoForm.value.category
             },
@@ -129,6 +133,8 @@ export class VideoFormComponent implements OnInit {
         return;
     }
     
+    if(!this.coverFile) return;
+
     const {url, path} = await this.storageService.uploadImage(this.coverFile, 'covers/videos');
     const videoData: Video = {
         summary: {
@@ -153,20 +159,20 @@ export class VideoFormComponent implements OnInit {
     const cover = (event.target as HTMLInputElement).files?.[0];
     if (!cover) return;
 
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+    if (!allowedTypes.includes(cover.type)) {
+        console.error('Tipo de arquivo não permitido:', cover.type);
+        // Notificar o usuário
+        this.videoForm.get('coverUrl')?.setErrors({ 'invalidType': true });
+        this.coverFileName = 'Erro: Tipo de imagem não suportado!';
+        return;
+    }
+
     this.coverFile = cover;
     this.coverFileName = cover.name;
 
     const reader = new FileReader();
-    reader.onload = () => {
-        const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
-        if (!allowedTypes.includes(cover.type)) {
-          console.error('Tipo de arquivo não permitido:', cover.type);
-          // Notificar o usuário
-          this.videoForm.get('coverUrl')?.setErrors({ 'invalidType': true });
-          this.coverFileName = 'Erro: Tipo de imagem não suportado!';
-          return;
-        }
-    };
+
     this.videoForm.patchValue({ coverUrl: 'pending' });
     reader.readAsDataURL(cover);
   }

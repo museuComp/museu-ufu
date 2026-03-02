@@ -36,6 +36,10 @@
   gap: var(--espacamento-base);
 }
 
+.dashboard-grid {
+  margin: 3rem 0;
+}
+
 .welcome-title {
   font-size: 2rem;
   font-weight: 600;
@@ -78,6 +82,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--espacamento-base);
+  max-height: 60vh;
+  overflow-y: scroll;
 }
 
 .news-row {

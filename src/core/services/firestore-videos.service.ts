@@ -35,7 +35,7 @@ export class FirestoreVideosService {
     }
 
     getAllVideos(): Observable<Video[]> {
-        return collectionData(this.videosCollection) as Observable<Video[]>;
+        return collectionData(this.videosCollection, {idField: 'id'}) as Observable<Video[]>;
     }
 
     getVideoById(id: string): Observable<Video | undefined> {
