@@ -1,8 +1,30 @@
-<div class="videos-container">
-    @defer {
-    <div class="videos-container">Conteúdo Carregado!</div>
-    }
-    @loading (minimum 2s) {
+<div class="video-list-container">
+    @defer(on viewport){
+            <mat-card class="video-card" *ngFor="let video of videosList$">
+            <a [routerLink]="['/videos/detail', video.id]" class="video-card-image-link">
+                <div class="video-card-image-container">
+                    <img alt="item" mat-card-image class="video-main-image-card"
+                    [ngSrc]="video.summary.coverUrl"
+                    [alt]="video.summary.title"
+                    width="350" height="100">
+                </div>
+            </a>
+
+            <div class="video-card-content-area">
+                <mat-card-header class="video-card-header-no-avatar">
+                    <div>
+                    <mat-card-title class="video-card-title-custom">
+                        <a class="video-title" [routerLink]="['/videos/detail', video.id]">{{ video.summary.title }}</a>
+                    </mat-card-title>
+                    <mat-card-subtitle class="video-category">{{ video.summary.category }}</mat-card-subtitle>
+                    </div>
+                </mat-card-header>
+            </div>
+        </mat-card>
+        }
+    @placeholder {
+        <div></div>
+    } @loading (minimum 2s) {
         <div class="loading-videos-container">
             <p>Carregando vídeos...</p>
         </div>
