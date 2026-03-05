@@ -12,6 +12,7 @@ import { AuthService } from '@app/core/auth/services/auth.service';
 import { FirestoreNewsService, NewsPost } from 'core/services/firestore-news.service';
 import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
 import { Role } from '@app/features/login/models/credentials.model';
+import { FireStorageImagesService } from 'core/services/firestorage-images.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
   authService = inject(AuthService);
   private firestoreNewsService = inject(FirestoreNewsService);
   private firestoreVideoService = inject(FirestoreVideosService);
+  private firestoreImageService = inject(FireStorageImagesService);
 
   private router = inject(Router);
   private dialog = inject(MatDialog);
@@ -67,7 +69,7 @@ export class DashboardComponent implements OnInit {
   }
 
   editVideo(videoItem: Video): void {
-
+    this.router.navigate(['/video/edit', videoItem.id]);
   }
 
   deleteNews(newsItem: NewsPost): void {
@@ -108,6 +110,8 @@ export class DashboardComponent implements OnInit {
             console.log('Vídeo deletado com sucesso!');
           })
           .catch(error => console.error('Erro ao deletar vídeo:', error));
+
+        this.firestoreImageService.deleteImage(videoItem.summary.coverPath);
       }
     });
     

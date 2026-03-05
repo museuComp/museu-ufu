@@ -70,6 +70,12 @@
   width: 100%;
   background-color: #666;
 }
+.message-placeholder {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2em;
+  color: #777;
+}
 
 @media (max-width: 480px) {
   .colaborators-container {
