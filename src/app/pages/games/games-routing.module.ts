@@ -5,11 +5,13 @@ import { PuzzlesComponent } from './puzzles/puzzles.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { TruthTableComponent } from './truth-table/truth-table.component';
 import { MathQuizComponent } from './math-quiz/math-quiz.component';
+import { LinuxPuzzleComponent } from './linux-puzzle/linux-puzzle.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./games.component').then(m => m.GamesComponent),
+    loadComponent: () =>
+      import('./games.component').then((m) => m.GamesComponent),
     children: [
       { path: 'logic-challenge', component: LogicChallengeComponent },
       { path: 'puzzles', component: PuzzlesComponent },
@@ -17,24 +19,31 @@ const routes: Routes = [
       {
         path: 'truth-table',
         loadComponent: () =>
-        import('./truth-table/truth-table.component').then(m => m.TruthTableComponent)
+          import('./truth-table/truth-table.component').then(
+            (m) => m.TruthTableComponent,
+          ),
       },
       {
         path: 'math-quiz',
         loadComponent: () =>
-        import('./math-quiz/math-quiz.component').then(m => m.MathQuizComponent)
+          import('./math-quiz/math-quiz.component').then(
+            (m) => m.MathQuizComponent,
+          ),
       },
       {
         path: 'history-quiz',
         loadComponent: () =>
-        import('./history-quiz/history-quiz.component').then(m => m.HistoryQuizComponent)
-      }
-    ]
-  }
+          import('./history-quiz/history-quiz.component').then(
+            (m) => m.HistoryQuizComponent,
+          ),
+      },
+      { path: 'linux-puzzle', component: LinuxPuzzleComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class GamesRoutingModule { }
+export class GamesRoutingModule {}
