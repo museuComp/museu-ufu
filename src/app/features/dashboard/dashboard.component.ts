@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Inject } from '@angular/core';
+import { Component, computed, inject, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,13 +24,17 @@ import { Observable } from 'rxjs';
     RouterModule,
     MatListModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    DragDropModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit {
-  newsList$!: Observable<NewsPost[]>;
+export class DashboardComponent implements OnInit, OnDestroy {
+  newsItems: NewsPost[] = [];
+  isLoading = true;
+  private newsSubscription?: Subscription;
+
   authService = inject(AuthService);
   private firestoreNewsService = inject(FirestoreNewsService);
   private router = inject(Router);
@@ -37,7 +42,6 @@ export class DashboardComponent implements OnInit {
 
   constructor() { }
 
-  // --- Propriedades de Autenticação ---
   user = this.authService.credentials;
   isAdmin = computed(() => this.user()?.role === Role.ADMIN);
 
@@ -46,16 +50,46 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-
   ngOnInit(): void {
-
-    console.log('Dados do usuário no Dashboard:', this.user());
-
     if (this.isAdmin()) {
-      this.newsList$ = this.firestoreNewsService.getAllNews();
+      this.newsSubscription = this.firestoreNewsService.getAllNews().subscribe(news => {
+        // Ordena pelo campo 'order' (se não existir, joga para o final)
+        this.newsItems = news.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+        this.isLoading = false;
+      });
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.newsSubscription) {
+      this.newsSubscription.unsubscribe();
+    }
+  }
+
+  onDrop(event: CdkDragDrop<NewsPost[]>): void {
+    // 1. Reordena o array localmente na tela
+    moveItemInArray(this.newsItems, event.previousIndex, event.currentIndex);
+    
+    // 2. Salva a nova ordem no banco de dados
+    this.saveNewOrder();
+  }
+
+  // Coloque isso DENTRO do dashboard.component.ts
+  async saveNewOrder(): Promise<void> {
+    try {
+      const updatePromises = this.newsItems.map((news, index) => {
+        if (!news.id) return Promise.resolve();
+        
+        // Enviamos apenas a propriedade 'order' para atualizar o Firebase
+        return this.firestoreNewsService.updateNews(news.id, { order: index });
+      });
+
+      await Promise.all(updatePromises);
+      console.log('Ordem das notícias atualizada com sucesso no banco de dados!');
+    } catch (error) {
+      console.error('Erro ao atualizar ordem das notícias:', error);
+    }
+  }
 
   editNews(newsItem: NewsPost): void {
     this.router.navigate(['/news/edit', newsItem.id]);
@@ -67,8 +101,8 @@ export class DashboardComponent implements OnInit {
       return;
     }
     const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
-      width: '350px', // Largura do modal
-      data: { title: newsItem.summary.title } // Passa o título da notícia para o modal
+      width: '350px',
+      data: { title: newsItem.summary.title }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -82,9 +116,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  trackByNewsId(index: number, news: NewsPost): string {
+    return news.id || index.toString();
+  }
 }
 
-// --- Componente de Diálogo ---
 @Component({
   selector: 'dashboard-delete-confirm-dialog',
   template: `

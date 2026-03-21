@@ -2,14 +2,12 @@
   <h1>{{isEditMode ? 'Editar' : 'Criar'}} Notícia</h1>
 
   <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" class="news-form">
-    <!-- Seção de Resumo (Box) -->
     <div class="form-section">
       <h2>Resumo da Notícia</h2>
       <p class="section-description">
         Estas informações serão exibidas na lista de notícias e no card de destaque.
       </p>
 
-      <!-- Título do Resumo -->
       <div class="form-label-row">
         <label for="summaryTitle">Título do Resumo*</label>
         <span class="form-error" *ngIf="newsForm.get('summaryTitle')?.invalid && (newsForm.get('summaryTitle')?.dirty || newsForm.get('summaryTitle')?.touched)">
@@ -21,7 +19,6 @@
         <input matInput id="summaryTitle" formControlName="summaryTitle" required autocomplete="off">
       </mat-form-field>
 
-      <!-- Descrição do Resumo -->
       <div class="form-label-row">
         <label for="summaryDescription">Descrição do Resumo*</label>
         <span class="form-error" *ngIf="newsForm.get('summaryDescription')?.invalid && (newsForm.get('summaryDescription')?.dirty || newsForm.get('summaryDescription')?.touched)">
@@ -33,7 +30,6 @@
         <textarea matInput id="summaryDescription" formControlName="summaryDescription" rows="3" required autocomplete="off"></textarea>
       </mat-form-field>
 
-      <!-- Categoria -->
       <div class="form-label-row">
         <label for="category">Categoria*</label>
         <span class="form-error" *ngIf="newsForm.get('category')?.invalid && (newsForm.get('category')?.dirty || newsForm.get('category')?.touched)">
@@ -48,21 +44,24 @@
         </mat-select>
       </mat-form-field>
 
-      <!-- Imagem Principal -->
       <div class="image-upload-section">
-        <label>Imagem Principal</label>
+        <label>Imagem Principal <span style="font-size: 12px; color: #666; font-weight: normal;">(Máx: 1MB)</span></label>
         <div class="image-upload">
-          <input type="file" accept="image/*" (change)="onMainImageChange($event)" #mainImageInput style="display: none">
+          <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onMainImageChange($event)" #mainImageInput style="display: none">
           <button type="button" mat-stroked-button (click)="mainImageInput.click()">
             <mat-icon>upload</mat-icon>
             Escolher Imagem
           </button>
           <span *ngIf="mainImageFileName" class="file-name">{{mainImageFileName}}</span>
         </div>
+        
+        <div *ngIf="mainImageError" class="form-error" style="color: #f44336; margin-top: 8px; font-size: 13px;">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">error</mat-icon>
+          {{ mainImageError }}
+        </div>
       </div>
     </div>
 
-    <!-- Seção de Conteúdo Completo -->
     <div class="form-section">
       <h2>Conteúdo Completo da Notícia</h2>
       <p class="section-description">
@@ -110,7 +109,6 @@
 
           <div class="content-item-body">
             <ng-container [ngSwitch]="item.type">
-              <!-- Título -->
               <div *ngSwitchCase="'title'">
                 <div class="form-label-row">
                   <label>Título</label>
@@ -120,7 +118,6 @@
                 </mat-form-field>
               </div>
 
-              <!-- Texto -->
               <div *ngSwitchCase="'text'">
                 <div class="form-label-row">
                   <label>Texto</label>
@@ -130,17 +127,21 @@
                 </mat-form-field>
               </div>
 
-              <!-- Imagem -->
               <div *ngSwitchCase="'image'" class="image-upload">
-                <label>Imagem</label>
-                <input type="file" accept="image/*" (change)="onImageUpload(item, $event)" #imageInput style="display: none">
+                <label>Imagem <span style="font-size: 12px; color: #666; font-weight: normal;">(Máx: 1MB)</span></label>
+                <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onImageUpload(item, $event)" #imageInput style="display: none">
                 <button type="button" mat-stroked-button (click)="imageInput.click()">
                   <mat-icon>upload</mat-icon>
                   Escolher Imagem
                 </button>
-                <span *ngIf="item.content" class="file-name">
+                <span *ngIf="item.fileName" class="file-name">
                   {{item.fileName}}
                 </span>
+                
+                <div *ngIf="item.error" class="form-error" style="color: #f44336; margin-top: 8px; font-size: 13px;">
+                  <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">error</mat-icon>
+                  {{ item.error }}
+                </div>
               </div>
             </ng-container>
           </div>
@@ -155,4 +156,4 @@
       </button>
     </div>
   </form>
-</div> 
+</div>
