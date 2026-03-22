@@ -1,0 +1,40 @@
+.puzzle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.puzzle-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.puzzle-header h1 {
+  color: darkblue;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.start-button,
+.restart-button {
+  padding: 1rem 1rem;
+  font-size: 1.2rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover,
+.restart-button:hover {
+  background-color: #2980b9;
+}
