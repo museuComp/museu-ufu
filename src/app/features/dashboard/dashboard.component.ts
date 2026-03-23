@@ -58,10 +58,11 @@ export class DashboardComponent implements OnInit {
 
     console.log('Dados do usuário no Dashboard:', this.user());
 
-    // if (this.isAdmin()) {
+    if (this.isAdmin()) {
       this.newsList$ = this.firestoreNewsService.getAllNews();
+      this.videoList$ = this.firestoreVideoService.getAllVideos();
       this.currentView = 'news';
-    // }
+    }
   }
 
   editNews(newsItem: NewsPost): void {
@@ -69,7 +70,7 @@ export class DashboardComponent implements OnInit {
   }
 
   editVideo(videoItem: Video): void {
-    this.router.navigate(['/video/edit', videoItem.id]);
+    this.router.navigate(['/videos/edit', videoItem.id]);
   }
 
   deleteNews(newsItem: NewsPost): void {

@@ -8,7 +8,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FirestoreNewsService, NewsPost } from '../../../../core/services/firestore-news.service';
 import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
 import { FireStorageImagesService } from 'core/services/firestorage-images.service';
 
@@ -67,7 +66,7 @@ export class VideoFormComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]],
       category: ['', Validators.required],
       videoUrl: ['', [Validators.required, Validators.minLength(3)]],
-      coverUrl: ['', Validators.required],
+      coverUrl: [''],
       description: [''],
       contributors: [''],
       guests: ['']
@@ -76,7 +75,6 @@ export class VideoFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // A atribuição aqui está correta, desde que a propriedade esteja declarada
     this.videoId = this.route.snapshot.paramMap.get('id');
     if (this.videoId) {
         this.editMode = true;
@@ -107,18 +105,23 @@ export class VideoFormComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (!this.videoForm.valid)  return;
 
+    if (!this.editMode && !this.coverFile) {
+      console.warn('Nenhuma imagem de capa selecionada');
+      return;
+    }
+
     const formValue = this.videoForm.value;
 
-    if(this.editMode && this.videoId) {
-
-      const coverUrl = this.coverFile
+    try {
+      if(this.editMode && this.videoId) {
+        const coverUrl = this.coverFile
             ? (await this.storageService.uploadImage(this.coverFile, 'covers/videos')).url
             : this.videoForm.value.coverUrl;
         const videoData: Partial<Video> = {
             summary: {
                 title: this.videoForm.value.title,
                 coverUrl: coverUrl,   // URL pública
-                coverPath: this.oldCoverPath || '',        //caminho do firestorage
+                coverPath: this.oldCoverPath || '', //caminho do firestorage
                 category: this.videoForm.value.category
             },
             videoUrl: this.videoForm.value.videoUrl,
@@ -131,12 +134,12 @@ export class VideoFormComponent implements OnInit {
         await this.firestoreVideosService.updateVideoPost(this.videoId, videoData);
         this.router.navigate(['/dashboard']);
         return;
-    }
-    
-    if(!this.coverFile) return;
+      }
+  
+      if(!this.coverFile) return;
 
-    const {url, path} = await this.storageService.uploadImage(this.coverFile, 'covers/videos');
-    const videoData: Video = {
+      const {url, path} = await this.storageService.uploadImage(this.coverFile, 'covers/videos');
+      const videoData: Video = {
         summary: {
             title: this.videoForm.value.title,
             coverUrl: url,   // URL pública
@@ -147,13 +150,19 @@ export class VideoFormComponent implements OnInit {
         description: this.videoForm.value.description,
         contributors: this.videoForm.value.contributors.split(','),
         guests: this.videoForm.value.guests.split(','),
-    };
+      };
+
     console.log('Form Value:', formValue);
     console.log('Data to Firestore:', JSON.stringify(videoData, null, 2));
 
-    await this.firestoreVideosService.addVideoPost(videoData);
+     const docRef = await this.firestoreVideosService.addVideoPost(videoData);
+     console.log('✅ Documento salvo com ID:', docRef.id);
+    
     this.router.navigate(['/dashboard']);
-}
+  } catch (error) {
+      console.error('Erro ao salvar vídeo:', error);
+  }
+  }
 
   onCoverSelected(event: Event): void {
     const cover = (event.target as HTMLInputElement).files?.[0];

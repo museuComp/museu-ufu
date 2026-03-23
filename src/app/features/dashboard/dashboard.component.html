@@ -8,6 +8,10 @@
       <mat-icon>logout</mat-icon>
       Sair
     </button>
+    <button mat-stroked-button (click)="toggleView()">
+        <mat-icon>navigate_next</mat-icon>
+        @if(currentView == 'news') {Gerenciar Vídeos} @else {Gerenciar Notícias}
+      </button>
   </div>
 
   <div class="dashboard-grid" *ngIf="currentView == 'news'">
