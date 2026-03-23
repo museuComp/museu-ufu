@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'logic-challenge', component: LogicChallengeComponent },
       { path: 'puzzles', component: PuzzlesComponent },
       { path: 'quiz', component: QuizComponent },
+      { path: 'linux-puzzle', component: LinuxPuzzleComponent },
       {
         path: 'truth-table',
         loadComponent: () =>
@@ -37,7 +38,6 @@ const routes: Routes = [
             (m) => m.HistoryQuizComponent,
           ),
       },
-      { path: 'linux-puzzle', component: LinuxPuzzleComponent },
     ],
   },
 ];

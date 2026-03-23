@@ -1,24 +1,19 @@
 <div class="puzzle-container">
-  <div class="puzzle-header">
-    <h1>Puzzle de Linux - Aprenda os commandos básicos</h1>
+  <div *ngIf="!gameStarted" class="puzzle-header">
+    <h1>Puzzle de Linux</h1>
     <p>
       Ajude Tux, mascote do sistema operacional Linux, a chegar no seu amigo GNU
       GPL e a adquirir as 4 liberdades essenciais:
+      <b>rodar, estudar, modificar e redistribuir</b>
     </p>
-  </div>
-  <ol>
-    <li><b>Rodar</b></li>
-    <li><b>Estudar</b></li>
-    <li><b>Modificar</b></li>
-    <li><b>Redistribuir</b></li>
-  </ol>
-  <div class="start-screen">
-    <button class="start-button">Começar Puzzle</button>
+    <div class="start-screen">
+      <button class="start-button" (click)="startGame()">Começar Puzzle</button>
+    </div>
   </div>
 
-  <!-- <div class="quiz-content">
+  <div *ngIf="gameStarted" class="puzzle-content">
     <div class="question">
       <h2>{{ puzzles[currentPuzzle].question }}</h2>
     </div>
-  </div> -->
+  </div>
 </div>
