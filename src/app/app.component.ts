@@ -14,6 +14,8 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {CheckUpdateService} from './core/update/check-update.service';
 import { PerfisNavComponent } from "./perfis-nav/perfis-nav.component";
 
+declare let gtag: Function;
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -50,6 +52,12 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
         this.validateUrl(data.url);
+      
+      if (typeof gtag !== 'undefined') {
+          gtag('config', 'G-M29PJKZS0R', {
+            'page_path': data.urlAfterRedirects
+          });
+        }
       }
     });
   }
