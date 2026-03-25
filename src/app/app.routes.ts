@@ -168,7 +168,7 @@ export const routes: Routes = [
   },
   {
     path: 'statistics',
-    loadComponent: () => import('./statistics/statistics.component').then(m => m.StatisticsComponent),
+    loadComponent: () => import('./pages/statistics/statistics.component').then(m => m.StatisticsComponent),
     title: 'Estatísticas',
     data: {
       breadCrumb: 'Estatísticas',
