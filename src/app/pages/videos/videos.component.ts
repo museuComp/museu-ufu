@@ -8,7 +8,7 @@ import { AboutRoutingModule } from "../about/about-routing.module";
 @Component({
   selector: 'app-videos',
   standalone: true,
-  imports: [MatCard, CommonModule, AboutRoutingModule, NgOptimizedImage],
+  imports: [MatCard, CommonModule, AboutRoutingModule],
   templateUrl: './videos.component.html',
   styleUrl: './videos.component.scss'
 })

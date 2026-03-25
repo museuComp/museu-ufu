@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Inject } from '@angular/core';
+import { Component, computed, inject, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,12 +7,12 @@ import { RouterModule, Router } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '@app/core/auth/services/auth.service';
-import { FirestoreNewsService, NewsPost } from 'core/services/firestore-news.service';
-import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
+import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
+import { FirestoreVideosService, Video } from '../../../core/services/firestore-videos.service';
 import { Role } from '@app/features/login/models/credentials.model';
-import { FireStorageImagesService } from 'core/services/firestorage-images.service';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,26 +26,28 @@ import { FireStorageImagesService } from 'core/services/firestorage-images.servi
     MatListModule,
     MatDividerModule,
     MatDialogModule,
-],
+    DragDropModule
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   newsList$!: Observable<NewsPost[]>;
   videoList$!: Observable<Video[]>;
+  newsItems: NewsPost[] = [];
   currentView: string;
+  isLoading = true;
+  private newsSubscription?: Subscription;
 
   authService = inject(AuthService);
   private firestoreNewsService = inject(FirestoreNewsService);
   private firestoreVideoService = inject(FirestoreVideosService);
-  private firestoreImageService = inject(FireStorageImagesService);
 
   private router = inject(Router);
   private dialog = inject(MatDialog);
 
   constructor() { }
 
-  // --- Propriedades de Autenticação ---
   user = this.authService.credentials;
   isAdmin = computed(() => this.user()?.role === Role.ADMIN);
 
@@ -55,13 +57,46 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    console.log('Dados do usuário no Dashboard:', this.user());
-
     if (this.isAdmin()) {
       this.newsList$ = this.firestoreNewsService.getAllNews();
       this.videoList$ = this.firestoreVideoService.getAllVideos();
       this.currentView = 'news';
+
+      this.newsSubscription = this.firestoreNewsService.getAllNews().subscribe(news => {
+      // Ordena pelo campo 'order' (se não existir, joga para o final)
+      this.newsItems = news.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+      this.isLoading = false;
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.newsSubscription) {
+      this.newsSubscription.unsubscribe();
+    }
+  }
+
+  onDrop(event: CdkDragDrop<NewsPost[]>): void {
+    // 1. Reordena o array localmente na tela
+    moveItemInArray(this.newsItems, event.previousIndex, event.currentIndex);
+    
+    // 2. Salva a nova ordem no banco de dados
+    this.saveNewOrder();
+  }
+
+  async saveNewOrder(): Promise<void> {
+    try {
+      const updatePromises = this.newsItems.map((news, index) => {
+        if (!news.id) return Promise.resolve();
+        
+        // Enviamos apenas a propriedade 'order' para atualizar o Firebase
+        return this.firestoreNewsService.updateNews(news.id, { order: index });
+      });
+
+      await Promise.all(updatePromises);
+      console.log('Ordem das notícias atualizada com sucesso no banco de dados!');
+    } catch (error) {
+      console.error('Erro ao atualizar ordem das notícias:', error);
     }
   }
 
@@ -79,8 +114,8 @@ export class DashboardComponent implements OnInit {
       return;
     }
     const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
-      width: '350px', // Largura do modal
-      data: { title: newsItem.summary.title } // Passa o título da notícia para o modal
+      width: '350px',
+      data: { title: newsItem.summary.title }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -111,20 +146,20 @@ export class DashboardComponent implements OnInit {
             console.log('Vídeo deletado com sucesso!');
           })
           .catch(error => console.error('Erro ao deletar vídeo:', error));
-
-        this.firestoreImageService.deleteImage(videoItem.summary.coverPath);
       }
     });
-    
   }
 
   toggleView(): void {
     if(this.currentView == 'news') this.currentView = 'video';
     else this.currentView = 'news';
   }
+
+  trackByNewsId(index: number, news: NewsPost): string {
+    return news.id || index.toString();
+  }
 }
 
-// --- Componente de Diálogo ---
 @Component({
   selector: 'dashboard-delete-confirm-dialog',
   template: `

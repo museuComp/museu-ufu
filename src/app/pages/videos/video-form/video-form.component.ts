@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
-import { FireStorageImagesService } from 'core/services/firestorage-images.service';
 
 interface ContentItem {
   id: string;
@@ -41,8 +40,6 @@ export class VideoFormComponent implements OnInit {
   videoId: string | null = null;
   fullContent: ContentItem[] = [];
   coverFileName: string | null = null;
-  oldCoverPath: string | null = null;
-  coverFile: File | null = null;
 
   categories = [
     'Vídeo-Documentário',
@@ -54,7 +51,6 @@ export class VideoFormComponent implements OnInit {
   ];
 
   private firestoreVideosService = inject(FirestoreVideosService);
-  private storageService = inject(FireStorageImagesService);
 
   constructor(
     private fb: FormBuilder,
@@ -87,11 +83,10 @@ export class VideoFormComponent implements OnInit {
                     coverUrl: videoData.summary.coverUrl,
                     videoUrl: videoData.videoUrl,
                     description: videoData.description,
-                    contributors: videoData.contributors.join(','),
-                    guests: videoData.guests.join(','),
+                    contributors: videoData.contributors?.join(',') || '',
+                    guests: videoData.guests?.join(',') || '',
                 });
 
-                this.oldCoverPath = videoData.summary.coverPath;
                 this.coverFileName = videoData.summary.coverUrl ? 'Imagem Carregada' : null;
             }
             else {
@@ -105,29 +100,29 @@ export class VideoFormComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (!this.videoForm.valid)  return;
 
-    if (!this.editMode && !this.coverFile) {
-      console.warn('Nenhuma imagem de capa selecionada');
+    if (!this.videoForm.value.coverUrl) {
+      alert('Imagem de capa não selecionada');
       return;
     }
 
-    const formValue = this.videoForm.value;
 
     try {
       if(this.editMode && this.videoId) {
-        const coverUrl = this.coverFile
-            ? (await this.storageService.uploadImage(this.coverFile, 'covers/videos')).url
-            : this.videoForm.value.coverUrl;
+        const coverUrl = this.videoForm.value.coverUrl;
         const videoData: Partial<Video> = {
             summary: {
                 title: this.videoForm.value.title,
                 coverUrl: coverUrl,   // URL pública
-                coverPath: this.oldCoverPath || '', //caminho do firestorage
                 category: this.videoForm.value.category
             },
             videoUrl: this.videoForm.value.videoUrl,
             description: this.videoForm.value.description,
-            contributors: this.videoForm.value.contributors.split(','),
-            guests: this.videoForm.value.guests.split(','),
+            contributors: this.videoForm.value.contributors
+              ? this.videoForm.value.contributors.split(',')
+              : [],
+            guests: this.videoForm.value.guests
+              ? this.videoForm.value.guests.split(',')
+              : [],
             createdAt: Date.now()
         };
 
@@ -135,24 +130,24 @@ export class VideoFormComponent implements OnInit {
         this.router.navigate(['/dashboard']);
         return;
       }
-  
-      if(!this.coverFile) return;
 
-      const {url, path} = await this.storageService.uploadImage(this.coverFile, 'covers/videos');
       const videoData: Video = {
         summary: {
             title: this.videoForm.value.title,
-            coverUrl: url,   // URL pública
-            coverPath: path, //caminho do firestorage
+            coverUrl: this.videoForm.value.coverUrl,   // URL pública
             category: this.videoForm.value.category
         },
         videoUrl: this.videoForm.value.videoUrl,
         description: this.videoForm.value.description,
-        contributors: this.videoForm.value.contributors.split(','),
-        guests: this.videoForm.value.guests.split(','),
+        contributors: this.videoForm.value.contributors
+          ? this.videoForm.value.contributors.split(',')
+          : [],
+        guests: this.videoForm.value.guests
+          ? this.videoForm.value.guests.split(',')
+          : []
       };
 
-    console.log('Form Value:', formValue);
+    console.log('Form Value:', this.videoForm.value);
     console.log('Data to Firestore:', JSON.stringify(videoData, null, 2));
 
      const docRef = await this.firestoreVideosService.addVideoPost(videoData);
@@ -165,26 +160,35 @@ export class VideoFormComponent implements OnInit {
   }
 
   onCoverSelected(event: Event): void {
-    const cover = (event.target as HTMLInputElement).files?.[0];
-    if (!cover) return;
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
 
     const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
-    if (!allowedTypes.includes(cover.type)) {
-        console.error('Tipo de arquivo não permitido:', cover.type);
-        // Notificar o usuário
-        this.videoForm.get('coverUrl')?.setErrors({ 'invalidType': true });
-        this.coverFileName = 'Erro: Tipo de imagem não suportado!';
-        return;
+    if (!allowedTypes.includes(file.type)) {
+      this.videoForm.get('coverUrl')?.setErrors({ invalidType: true });
+      this.coverFileName = 'Erro: Tipo não suportado';
+      return;
     }
 
-    this.coverFile = cover;
-    this.coverFileName = cover.name;
+    if (file.size > 500000) { // ~500KB
+      alert('Imagem muito grande (máx 500KB)');
+      return;
+    }
 
     const reader = new FileReader();
 
-    this.videoForm.patchValue({ coverUrl: 'pending' });
-    reader.readAsDataURL(cover);
-  }
+    reader.onload = () => {
+      const base64 = reader.result as string;
+
+      this.videoForm.patchValue({
+        coverUrl: base64
+    });
+
+    this.coverFileName = file.name;
+  };
+
+  reader.readAsDataURL(file);
+}
 
   cancel(): void {
     this.router.navigate(['/dashboard']);

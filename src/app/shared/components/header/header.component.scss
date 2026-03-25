@@ -54,9 +54,13 @@
 		background: none;
 		border: none;
 		padding: 0.5rem;
-		color: #155bcb;
+		color: #0c326f !important;
 		cursor: pointer;
 		font-size: 1.2rem;
+
+		.text-primary{
+			color: #0c326f !important;
+		}
 	}
 
 	.region-nav-branding {
@@ -96,7 +100,7 @@
 
 	.acessibilidade {
 		a {
-			color: #155bcb;
+			color: #0c326f !important;
 			text-decoration: none;
 			margin-left: 1rem;
 			font-size: 0.875rem;

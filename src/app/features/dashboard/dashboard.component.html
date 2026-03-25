@@ -4,14 +4,16 @@
       <h1 class="welcome-title">Dashboard de Gerenciamento</h1>
       <p class="welcome-subtitle">Bem-vindo, {{ currentUser.name }}!</p>
     </div>
-    <button mat-stroked-button color="warn" (click)="logout()">
+    <div class="buttons-container">
+       <button mat-stroked-button color="warn" (click)="logout()">
       <mat-icon>logout</mat-icon>
       Sair
     </button>
     <button mat-stroked-button (click)="toggleView()">
         <mat-icon>navigate_next</mat-icon>
         @if(currentView == 'news') {Gerenciar Vídeos} @else {Gerenciar Notícias}
-      </button>
+    </button>
+    </div>
   </div>
 
   <div class="dashboard-grid" *ngIf="currentView == 'news'">
@@ -24,10 +26,17 @@
         </button>
       </div>
 
-      <div class="news-list" *ngIf="newsList$ | async as newsItems; else loadingNews">
-        <div *ngFor="let news of newsItems; trackBy: trackByNewsId" class="news-row">
-          <div class="news-row-header">
-            <a [routerLink]="['/news/detail', news.id]"><span class="news-title">{{ news.summary.title }}</span></a>
+      <div class="news-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="!isLoading; else loadingNews">
+        
+        <div *ngFor="let news of newsItems; trackBy: trackByNewsId" class="news-row" cdkDrag>
+          
+          <div class="news-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+            <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
+            
+            <a [routerLink]="['/news/detail', news.id]" style="flex: 1; text-decoration: none;">
+              <span class="news-title">{{ news.summary.title }}</span>
+            </a>
+            
             <div class="list-item-actions">
               <button mat-icon-button color="primary" (click)="editNews(news)"
                 [attr.aria-label]="'Editar notícia ' + news.summary.title">
@@ -40,12 +49,13 @@
               </button>
             </div>
           </div>
-          <div class="news-category">
+          
+          <div class="news-category" style="margin-left: 36px;">
             {{ news.summary.category }}
           </div>
+          
         </div>
       </div>
-
 
       <ng-template #loadingNews>
         <div class="loading-or-empty-container">
@@ -63,12 +73,12 @@
           <mat-icon>add</mat-icon> Publicar Novo Vídeo
         </button>
       </div>
-
-      <div class="media-list" *ngIf="videoList$ | async as videos; else loadingVideos">
-        <div class="media-row" *ngFor="let video of videos; trackBy: trackByVideoId">
-          <div class="media-row-header">
-            <a [routerLink]="['/videos/detail', video.id]">
-              <span class="media-title">{{ video.summary.title }}</span>
+      <div class="video-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="videoList$ | async as videos; else loadingVideos">
+        <div class="video-row" *ngFor="let video of videos; trackBy: trackByVideoId" cdkDrag>
+          <div class="video-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+            <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
+            <a [routerLink]="['/videos/detail', video.id]" style="flex: 1; text-decoration: none;">
+              <span class="video-title">{{ video.summary.title }}</span>
             </a>
 
             <div class="list-item-actions">
@@ -83,7 +93,7 @@
               </button>
             </div>
           </div>
-          <div class="media-category">
+          <div class="video-category">
             {{ video.summary.category }}
           </div>
         </div>
