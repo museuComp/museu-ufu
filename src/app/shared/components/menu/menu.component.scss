@@ -11,8 +11,8 @@
 	a.menu-item:not(:disabled).active {
 		background-color: transparent !important;
 		--active: transparent !important;
-		color: #155bcb !important;
-		--interactive: #155bcb !important;
+		color: #0c326f !important;
+		--interactive: #0c326f !important;
 		font-weight: 500 !important;
 	}
 
@@ -89,7 +89,7 @@
 			flex-wrap: wrap;
 			margin-left: -0.5rem;
 			a {
-				color: #155bcb;
+				color: #0c326f !important;
 				font-size: 1.2rem;
 				transition: color 0.2s ease;
 				display: flex;
@@ -99,7 +99,7 @@
 				height: 32px;
 
 				&:hover {
-					color: #1a6eeb;
+					color: #135fd1;
 				}
 			}
 		}
@@ -132,8 +132,8 @@
 			}
 			&.active {
 				color: #ffffff;
-				background: #155bcb;
-				border: 0.5px solid #155bcb;
+				background: #0c326f !important;
+				border: 0.5px solid #0c326f !important;
 				font-weight: 500;
 			}
 		}
@@ -180,7 +180,7 @@
 	border: 1px solid #ffffff;
 	cursor: pointer;
 	padding: 0.5rem;
-	color: #155bcb;
+	color: #0c326f !important;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -195,6 +195,7 @@
 	}
 }
 
+
 .menu-body {
 	flex: 1;
 	overflow-y: auto;
@@ -203,6 +204,54 @@
 	.menu-nav {
 		.menu-item, .menu-folder {
 			border-bottom: 1px solid #e9ecef;
+		}
+
+		
+		.menu-item {
+			display: flex;
+			align-items: center;
+			padding: 0.75rem 1rem;
+			color: #313131; /* Cor do texto */
+			text-decoration: none;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+
+			&:hover {
+				background-color: #e8f0fe;
+				color: #0c326f !important;
+			}
+
+			.menu-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 24px;
+				margin-right: 0.75rem;
+				color: #0c326f !important; /* Cor do ícone (azul escuro) */
+
+				i {
+					font-size: 1rem;
+				}
+			}
+
+			.menu-item-label {
+				flex: 1;
+			}
+
+			.menu-arrow {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 24px;
+				
+				i {
+					font-size: 1rem;
+				}
+			}
+
+			&.active {
+				font-weight: 500;
+			}
 		}
 
 		.menu-folder {
@@ -218,52 +267,7 @@
 				background-color: #e9ecef;
 			}
 
-			.menu-item {
-				display: flex;
-				align-items: center;
-				padding: 0.75rem 1rem;
-				color: #000000;
-				text-decoration: none;
-				cursor: pointer;
-				transition: background-color 0.2s ease;
-
-				&:hover {
-					background-color: #e8f0fe;
-					color: #155bcb;
-				}
-
-				.menu-icon {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					width: 24px;
-					margin-right: 0.75rem;
-
-					i {
-						font-size: 1rem;
-					}
-				}
-
-				.menu-item-label {
-					flex: 1;
-				}
-
-				.menu-arrow {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					width: 24px;
-					
-					i {
-						font-size: 1rem;
-					}
-				}
-
-				&.active {
-					font-weight: 500;
-				}
-			}
-
+			/* O .menu-subitems continua aqui dentro */
 			.menu-subitems {
 				max-height: 0;
 				overflow: hidden;

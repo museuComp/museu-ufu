@@ -25,20 +25,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 	slides: Slide[] = [
 		{
 			type: 'image',
-			src: 'public/carrossel/Workshop.png',
-			alt: 'Pilha de disquetes coloridos',
-			title: 'Nosso Workshop',
-			subtitle: 'Venha participar no de uma esperiência inesquecível.'
-		},
-		{
-			type: 'video',
-			src: 'public/carrossel/carrossel_teste.mp4',
-			alt: '',
-			title: 'A História da Computação',
-			subtitle: 'Saiba como tudo começou e evoluiu ao longo dos anos.'
-		},
-		{
-			type: 'image',
 			src: 'public/carrossel/cartao_perfurado.jpg',
 			alt: 'Cartão perfurado antigo usado em computadores',
 			title: 'Cartão Perfurado',
