@@ -167,6 +167,14 @@ export const routes: Routes = [
     canActivate: [authGuard] 
   },
   {
+    path: 'statistics',
+    loadComponent: () => import('./statistics/statistics.component').then(m => m.StatisticsComponent),
+    title: 'Estatísticas',
+    data: {
+      breadCrumb: 'Estatísticas',
+    }
+  },
+  {
     path: '**',
     loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
     title: 'Página Não Encontrada',

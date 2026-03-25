@@ -424,3 +424,144 @@ mat-card-content {
     height: 180px; /* Pode querer ajustar a altura da imagem também */
   }
 }
+
+/* ========================================================
+   ESTILO DOS CARDS (Refinado e Espaçado) 
+   ======================================================== */
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e9ecef !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Área de texto do card */
+.news-card-content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 32px 24px; /* Mais respiro interno (32px em cima/baixo, 24px nas laterais) */
+  align-items: center;
+  text-align: center;
+}
+
+/* Categoria */
+.news-category {
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+/* Título */
+.news-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-title-text {
+  color: #0c326f !important;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+  /* Limita o título a 2 linhas para manter o card alinhado */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s;
+}
+
+.news-title-link:hover .news-title-text {
+  text-decoration: underline;
+}
+
+/* Descrição */
+.news-description {
+  width: 100%;
+}
+
+.news-description p {
+  color: #555555 !important;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  /* Limita a descrição a 3 linhas */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center !important;
+}
+
+/* Container do Botão (Empurra para o final) */
+.news-card-action-container {
+  margin-top: auto; /* O segredo para o botão ficar sempre no rodapé */
+  padding-top: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* O Botão */
+.btn-card-action {
+  background-color: #0c326f !important;
+  color: #ffffff !important;
+  padding: 10px 28px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+.btn-card-action:hover {
+  background-color: #135fd1 !important;
+  color: #ffffff !important;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(12, 50, 111, 0.2);
+}
+
+/* ========================================================
+   ALTO CONTRASTE (Mantendo a acessibilidade)
+   ======================================================== */
+:host-context(.high-contrast) .news-card {
+  background-color: #000 !important;
+  border-color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .news-category,
+:host-context(.high-contrast) .news-title-text,
+:host-context(.high-contrast) .news-description p {
+  color: #ffffff !important;
+}
+
+:host-context(.high-contrast) .news-title-text {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .btn-card-action {
+  background-color: #000 !important;
+  color: #ffc107 !important;
+  border: 1px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .btn-card-action:hover {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+/* Atualização da cor do texto de Carregando/Vazio */
+.loading-or-empty-container {
+  color: #0c326f !important; /* Força o azul escuro */
+  font-weight: 500; /* Deixa a fonte levemente mais forte para leitura */
+}

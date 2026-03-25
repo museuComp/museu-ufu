@@ -54,7 +54,7 @@ body {
 
 .component-title {
   margin-bottom: 15px;
-  color: #1351b4;
+  color: #0c326f !important;
 }
 
 .component-description {
@@ -512,8 +512,8 @@ body {
 /* Botão Criar Notícia - Modo normal (sobrescrevendo Angular Material) */
 .btn-create-news.mat-raised-button {
   background-color: transparent !important;
-  color: #1351b4 !important;
-  border: 2px solid #1351b4 !important;
+  color: #0c326f !important;
+  border: 2px solid #0c326f !important;
   border-radius: 20px !important;
   padding: 8px 24px !important;
   font-weight: 600 !important;
@@ -522,9 +522,9 @@ body {
 }
 
 .btn-create-news.mat-raised-button:hover {
-  background-color: #1351b4 !important;
+  background-color: #0c326f !important;
   color: #fff !important;
-  border-color: #1351b4 !important;
+  border-color: #0c326f !important;
 }
 
 /* Botão Criar Notícia - Alto contraste (sobrescrevendo Angular Material) */
@@ -571,7 +571,7 @@ body {
 
 /* Estilo para categoria principal acima do título */
 .news-category-main {
-  color: #1565c0;
+  color: #0c326f !important;
   font-size: 2rem;
   font-weight: 700;
   text-align: left;
@@ -605,7 +605,7 @@ body {
 
 .news-separator {
   border: none;
-  border-top: 4px solid #1565c0;
+  border-top: 4px solid #0c326f !important;
   margin: 2.5em 0 2em 0;
 }
 
@@ -1206,12 +1206,12 @@ body:not(.high-contrast) .image-modal-close {
 }
 
 .mat-mdc-dialog-container .mat-mdc-dialog-actions button {
-  color: #1351b4;
-  border: 1px solid #1351b4;
+  color: #0c326f !important;
+  border: 1px solid #0c326f !important;
 }
 
 .mat-mdc-dialog-container .mat-mdc-dialog-actions button:hover {
-  background-color: #1351b4;
+  background-color: #0c326f !important;
   color: #fff;
 }
 
@@ -1269,14 +1269,14 @@ body:not(.high-contrast) .image-modal-close {
 /* Modal de confirmação: ambos botões azuis no modo normal */
 .mat-mdc-dialog-container .mat-mdc-dialog-actions button,
 .mat-mdc-dialog-container .mat-mdc-dialog-actions button[color="warn"] {
-  color: #1351b4;
-  border: 1.5px solid #1351b4;
+  color: #0c326f !important;
+  border: 1.5px solid #0c326f !important;
   background: #fff;
   transition: background 0.2s, color 0.2s;
 }
 .mat-mdc-dialog-container .mat-mdc-dialog-actions button:hover,
 .mat-mdc-dialog-container .mat-mdc-dialog-actions button[color="warn"]:hover {
-  background: #1351b4;
+  background: #0c326f !important;
   color: #fff;
 }
 
