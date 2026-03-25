@@ -12,8 +12,17 @@
   </div>
 
   <div *ngIf="gameStarted" class="puzzle-content">
-    <div class="question">
-      <h2>{{ puzzles[currentPuzzle].question }}</h2>
+    <h2>{{ puzzles[currentPuzzle].question }}</h2>
+
+    <div class="terminal">
+      <label for="command"> tuxtux-desktop:~$ </label>
+      <input
+        type="text"
+        id="fname"
+        name="command"
+        [formControl]="cliUserInput"
+      />
+      <input type="submit" value="Enviar" (click)="isCorrect(cliUserInput)" />
     </div>
   </div>
 </div>

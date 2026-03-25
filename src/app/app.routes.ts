@@ -84,7 +84,7 @@ export const routes: Routes = [
           ),
       },
       {
-        data: { breadcrumb: 'Puzzle de Linux' },
+        data: { breadCrumb: 'Puzzle de Linux' },
         path: 'linux-puzzle',
         loadComponent: () =>
           import('./pages/games/linux-puzzle/linux-puzzle.component').then(

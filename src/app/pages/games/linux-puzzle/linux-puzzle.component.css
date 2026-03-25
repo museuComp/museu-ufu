@@ -6,7 +6,6 @@
 
 .puzzle-header {
   text-align: center;
-  margin-bottom: 1rem;
 }
 
 .puzzle-header h1 {
@@ -45,10 +44,28 @@
   border: 1p, #e0e0e0;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
 }
 
-.question {
-  color: #333;
-  font-size: 1.5rem;
+.puzzle-content h2 {
+  font-size: 2rem;
   margin-bottom: 1.5rem;
+}
+
+.terminal {
+  display: flex;
+  border-radius: 8px;
+  background-color: #333;
+  padding: 1rem;
+}
+
+.terminal label {
+  color: chartreuse;
+}
+
+.terminal input {
+  border-radius: 6px;
+  background: gray;
+  color: #fff;
+  margin: 5px;
 }
