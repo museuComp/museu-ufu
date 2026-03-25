@@ -83,8 +83,13 @@ export class LinuxPuzzleComponent implements OnInit {
       cliUserInput.value ===
       this.puzzles[this.currentPuzzle].options[this.correctOption]
     ) {
+      this.nextPuzzle();
+    }
+  }
+
+  nextPuzzle(): void {
+    if (this.currentPuzzle <= this.puzzles.length) {
       this.currentPuzzle++;
-      console.log('hi');
     }
   }
 }

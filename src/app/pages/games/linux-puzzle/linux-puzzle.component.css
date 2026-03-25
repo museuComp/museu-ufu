@@ -57,6 +57,7 @@
   border-radius: 8px;
   background-color: #333;
   padding: 1rem;
+  padding-bottom: 2rem;
 }
 
 .terminal label {
