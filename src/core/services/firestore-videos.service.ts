@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { addDoc, collectionData, docData, Firestore } from "@angular/fire/firestore";
 import { collection, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { Observable } from "rxjs";
@@ -8,7 +8,6 @@ export interface Video {
     summary: {
         title: string,
         coverUrl: string,
-        coverPath: string,
         category: string
     };
     videoUrl: string;
@@ -22,8 +21,11 @@ export interface Video {
     providedIn: 'root'
 })
 export class FirestoreVideosService {
-    private firestore: Firestore = inject(Firestore);
-    private videosCollection = collection(this.firestore, 'videos');
+    private videosCollection;
+    
+    constructor(@Inject('FIRESTORE_VIDEOS') private firestore : Firestore) {
+        this.videosCollection = collection(this.firestore, 'videos');
+    }  
 
     addVideoPost(video: Video): Promise<any> {
         const videoComplete = {

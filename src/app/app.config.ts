@@ -23,6 +23,7 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { getApps } from 'firebase/app';
 
 
 registerLocaleData(localePt);
@@ -54,7 +55,26 @@ export const appConfig: ApplicationConfig = {
       useFactory: scrollFactory,
       deps: [Overlay],
     },
-    provideCharts(withDefaultRegisterables()), provideFirebaseApp(() => initializeApp({ projectId: "museu-ufu-news", appId: "1:560844053254:web:f6d19f08a3892c9c821c87", storageBucket: "museu-ufu-news.firebasestorage.app", apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", authDomain: "museu-ufu-news.firebaseapp.com", messagingSenderId: "560844053254", measurementId: "G-B06W8DT2CT" })), provideFirestore(() => getFirestore()),
+    provideCharts(withDefaultRegisterables()),
+
+    provideFirebaseApp(() => initializeApp({ projectId: "museu-ufu-news", appId: "1:560844053254:web:f6d19f08a3892c9c821c87", storageBucket: "museu-ufu-news.firebasestorage.app", apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", authDomain: "museu-ufu-news.firebaseapp.com", messagingSenderId: "560844053254", measurementId: "G-B06W8DT2CT" })),
+    provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
+
+    {
+      provide: "FIRESTORE_VIDEOS",
+      useFactory: () => {
+        const app = getApps().find(app => app.name === 'videosApp') ||
+          initializeApp({
+              apiKey: "AIzaSyASFUUSRRgLLbS75prRo7GOnwriPT2I_cg",
+              authDomain: "museu-comp-ufu.firebaseapp.com",
+              projectId: "museu-comp-ufu",
+              storageBucket: "museu-comp-ufu.firebasestorage.app",
+              messagingSenderId: "306806823828",
+              appId: "1:306806823828:web:44e2b2ee486a1441554d81"
+            }, 'videosApp');
+        return getFirestore(app);
+      }
+    },
   ],
 };

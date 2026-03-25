@@ -1,185 +1,286 @@
-.sobre-museu {
-  padding-top: 30px;
+/* --- Variáveis de Tema --- */
+:host {
+  --cor-primaria: #0c326f; /* O nosso azul escuro padrão */
+  --cor-primaria-hover: #135fd1;
+  --cor-secundaria: #333333;
+  --cor-texto: #555555;
+  --cor-fundo: transparent;
+  --cor-card-bg: #ffffff;
+  --borda-suave: #e9ecef;
+  --sombra-card: 0 4px 15px rgba(0, 0, 0, 0.05);
+  --sombra-card-hover: 0 10px 20px rgba(12, 50, 111, 0.15);
 }
 
-.sobre-museu p {
-  text-align: justify;
+/* --- Layout Principal --- */
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Roboto', "Noto Sans", Arial, sans-serif;
 }
 
-.titulo-centralizado {
+/* --- Cabeçalho e Introdução --- */
+.about-header {
   text-align: center;
-  margin: 2rem 0;
+  margin-bottom: 50px;
 }
-        /* --- Reset e Variáveis Padrão Gov --- */
-        :host {
-            --cor-primaria: #1351B4; /* Azul Gov */
-            --cor-primaria-dark: #0c326f;
-            --cor-secundaria: #333333;
-            --cor-texto: #555555;
-            --cor-fundo: #f8f9fa;
-            --cor-card-bg: #ffffff;
-            --borda-suave: #e0e0e0;
-            --sombra-card: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --sombra-card-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+h1.titulo-centralizado {
+  color: var(--cor-primaria);
+  font-weight: 800;
+  margin-bottom: 24px;
+  font-size: 2.5rem;
+  position: relative;
+}
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--cor-fundo);
-            color: var(--cor-texto);
-            line-height: 1.6;
-        }
+h1.titulo-centralizado::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--cor-primaria);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
 
-        /* --- Layout Principal --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+.intro-text {
+  font-size: 1.15rem;
+  color: var(--cor-texto);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
 
-        /* --- Tipografia --- */
-        h1.titulo-centralizado {
-            color: var(--cor-primaria);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            position: relative;
-        }
+/* --- Grid de História e Missão --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 60px;
+}
 
-        h1.titulo-centralizado::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--cor-primaria);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
+.info-card {
+  background: var(--cor-card-bg);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-card);
+  border-top: 5px solid var(--cor-primaria);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
 
-        h2 {
-            color: var(--cor-secundaria);
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--cor-primaria);
-            padding-left: 15px;
-            margin-top: 40px;
-        }
+.info-card:hover {
+  transform: translateY(-5px);
+}
 
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            text-align: justify;
-        }
+.card-icon {
+  font-size: 2.5rem;
+  color: var(--cor-primaria);
+  margin-bottom: 20px;
+}
 
-        /* --- Seções de Texto --- */
-        .secao-conteudo {
-            background: var(--cor-card-bg);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--sombra-card);
-            margin-bottom: 30px;
-            border: 1px solid var(--borda-suave);
-        }
+.info-card h2 {
+  color: var(--cor-primaria);
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
 
-        /* --- Grid de Equipe e Desenvolvedores --- */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+.info-card p {
+  color: var(--cor-texto);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  text-align: left;
+}
 
-        /* --- Card do Membro --- */
-        .card-membro {
-            background-color: var(--cor-card-bg);
-            border: 1px solid var(--borda-suave);
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: var(--sombra-card);
-        }
+/* --- Títulos das Seções Inferiores --- */
+.section-title {
+  color: var(--cor-primaria);
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 700;
+}
 
-        .card-membro:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--sombra-card-hover);
-            border-color: var(--cor-primaria);
-        }
+.subtitle-text {
+  text-align: center;
+  color: #777;
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+}
 
-        /* Avatar (Iniciais) */
-        .avatar {
-            width: 80px;
-            height: 80px;
-            background-color: var(--cor-primaria);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+.secao-equipe, .secao-desenvolvedores {
+  margin-top: 60px;
+}
 
-        .membro-nome {
-            font-weight: 700;
-            color: var(--cor-secundaria);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
+/* --- Grid de Equipe e Desenvolvedores --- */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
 
-        .membro-cargo {
-            font-size: 0.9rem;
-            color: #777;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
+/* --- Card do Membro --- */
+.card-membro {
+  background-color: var(--cor-card-bg);
+  border: 1px solid var(--borda-suave);
+  border-radius: 12px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: var(--sombra-card);
+}
 
-        /* Botão Github */
-        .btn-github {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background-color: #24292e; /* Cor oficial Github */
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
+.card-membro:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-card-hover);
+  border-color: var(--cor-primaria);
+}
 
-        .btn-github:hover {
-            background-color: #000;
-        }
+/* Avatares */
+/* Avatares (Configuração base para todos) */
+.avatar {
+  width: 80px;
+  height: 80px;
+  background-color: var(--cor-primaria);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  overflow: hidden; /* Corta as bordas da foto */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
 
-        .btn-github svg {
-            width: 18px;
-            height: 18px;
-            fill: white;
-        }
+/* Regra para a foto dos professores se encaixar perfeitamente */
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            h1.titulo-centralizado {
-                font-size: 2rem;
-            }
-            .grid-cards {
-                grid-template-columns: 1fr;
-            }
-        }
+/* Bolinha específica dos Desenvolvedores (Fundo diferente e Texto Gigante) */
+.dev-avatar {
+  background-color: #1a4696;
+  color: #ffffff;        /* Letra branca */
+  font-weight: 900;      /* Negrito bem forte */
+  font-size: 2.2rem;     /* Tamanho gigante */
+  letter-spacing: 1px;   /* Espaçamento elegante */
+}
+
+/* Diferenciação sutil para a cor dos Devs (opcional) */
+.dev-avatar {
+  background-color: #1a4696; /* Um tom de azul pouquíssimo mais claro só pra destacar */
+}
+
+.membro-nome {
+  font-weight: 700;
+  color: var(--cor-secundaria);
+  font-size: 1.15rem;
+  margin-bottom: 5px;
+}
+
+.membro-cargo {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Botão Github */
+.btn-github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #24292e;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.btn-github:hover {
+  background-color: #000000;
+  text-decoration: none;
+}
+
+.btn-github i {
+  font-size: 1.2rem;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 20px;
+  }
+  h1.titulo-centralizado {
+    font-size: 2rem;
+  }
+  .info-grid {
+    grid-template-columns: 1fr; /* Em celulares, a Missão desce pra baixo da História */
+  }
+  .grid-cards {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* ========================================================
+   ALTO CONTRASTE
+   ======================================================== */
+:host-context(.high-contrast) .about-container {
+  background-color: #000 !important;
+}
+
+:host-context(.high-contrast) h1.titulo-centralizado,
+:host-context(.high-contrast) .section-title,
+:host-context(.high-contrast) .info-card h2,
+:host-context(.high-contrast) .card-icon,
+:host-context(.high-contrast) .membro-nome {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) h1.titulo-centralizado::after {
+  background-color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .intro-text,
+:host-context(.high-contrast) .info-card p,
+:host-context(.high-contrast) .subtitle-text,
+:host-context(.high-contrast) .membro-cargo {
+  color: #ffffff !important;
+}
+
+:host-context(.high-contrast) .info-card,
+:host-context(.high-contrast) .card-membro {
+  background-color: #000 !important;
+  border: 1px solid #ffc107 !important;
+  border-top: 5px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .avatar {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+:host-context(.high-contrast) .btn-github {
+  background-color: #000 !important;
+  color: #ffc107 !important;
+  border: 1px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .btn-github:hover {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}

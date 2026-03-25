@@ -1,0 +1,46 @@
+.container.perfis {
+  .btn-outline-primary {
+    /* Cores principais (Azul escuro) */
+    color: #0c326f !important;
+    border: 1.5px solid #0c326f !important;
+    background-color: transparent !important;
+    
+    /* Novo arredondamento (Sobrescreve o rounded-pill do HTML) */
+    border-radius: 8px !important; 
+    
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+
+    /* Efeito ao passar o mouse */
+    &:hover, &:focus, &:active {
+      background-color: #0c326f !important;
+      color: #ffffff !important;
+      border-color: #0c326f !important;
+    }
+  }
+}
+
+/*
+.container.perfis {
+  .btn-outline-primary {
+    
+    background-color: #0c326f !important;
+    color: #ffffff !important;
+    border: 1.5px solid #0c326f !important;
+    
+   
+    border-radius: 8px !important; 
+    
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+
+    
+    &:hover, &:focus, &:active {
+      background-color: #ffffff !important;
+      color: #0c326f !important;
+      border-color: #0c326f !important;
+    }
+  }
+}
+
+*/
