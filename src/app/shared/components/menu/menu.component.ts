@@ -94,8 +94,13 @@ export class MenuComponent implements AfterViewInit, OnInit {
 			},
 			{
 				label: 'Visitação Virtual',
-				url: '/norms',
+				url: '/visita-virtual',
 				icon: 'fas fa-street-view'
+			},
+			{
+				label: 'Normas de Visitação',
+				url: '/norms',
+				icon: 'fas fa-gavel'
 			},
 			{
 				label: 'Jogos',

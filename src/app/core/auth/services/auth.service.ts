@@ -16,7 +16,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private storage = window.localStorage;
 
-  private apiUrl = 'http://localhost:8000/api/v1/auth';
+  private apiUrl = 'https://museu.facom.ufu.br/api/v1/auth';
   credentials = signal<Credentials | null>(null);
   credentials$ = toObservable(this.credentials);
   isStudent = computed(() => this.credentials()?.role === Role.STUDENT)

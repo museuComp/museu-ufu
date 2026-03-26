@@ -1,13 +1,213 @@
-.sobre-museu {
-  padding-top: 30px;
+:host {
+  /* Paleta baseada na identidade visual que usamos anteriormente */
+  --cor-primaria-base: #0c326f;
+  --cor-primaria-hover: #0c326f;
+  --cor-texto-principal: #333;
+  --cor-texto-secundario: #555;
+  --cor-borda-suave: #e0e0e0;
+  --cor-fundo-elemento: #fff;
+  --cor-destaque-fundo: #eaf2fb; /* Azul bem clarinho */
 }
 
-.sobre-museu p {
-  text-align: justify;
+.norms-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Rawline', Arial, sans-serif;
+  color: var(--cor-texto-principal);
+}
+
+/* Cabeçalho */
+.norms-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: var(--cor-primaria-base);
+  margin-bottom: 15px;
 }
 
 .titulo-centralizado {
-  text-align: center;
-  margin: 2rem 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--cor-primaria-base);
+  margin: 0 0 10px 0;
 }
 
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--cor-texto-secundario);
+  margin: 0;
+}
+
+/* Grid de Cards */
+.norms-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Estilo do Card */
+.norm-card {
+  display: flex;
+  background-color: var(--cor-fundo-elemento);
+  border: 1px solid var(--cor-borda-suave);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  gap: 20px;
+}
+
+.norm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 85, 164, 0.12);
+  border-color: var(--cor-primaria-base);
+}
+
+/* Ícone Lateral do Card */
+.card-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cor-destaque-fundo);
+  color: var(--cor-primaria-base);
+  border-radius: 50%;
+  min-width: 64px;
+  width: 64px;
+  height: 64px;
+}
+
+.card-icon-wrapper mat-icon {
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+}
+
+/* Conteúdo de Texto */
+.card-content {
+  flex: 1;
+}
+
+.card-content h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--cor-primaria-base);
+}
+
+.card-content p {
+  line-height: 1.6;
+  margin: 0 0 14px 0;
+  color: var(--cor-texto-secundario);
+  text-align: left;
+}
+
+/* Lista de Regras (Sessões) */
+.norm-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.norm-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  color: var(--cor-texto-secundario);
+}
+
+.norm-list li mat-icon {
+  color: var(--cor-primaria-base);
+  font-size: 22px;
+  height: 22px;
+  width: 22px;
+  flex-shrink: 0;
+}
+
+/* Botão E-mail */
+.action-button {
+  margin-top: 10px;
+  background-color: var(--cor-primaria-base) !important;
+  color: white !important;
+  border-radius: 8px;
+  padding: 6px 20px;
+  font-size: 1rem;
+}
+
+.action-button mat-icon {
+  margin-right: 8px;
+}
+
+.action-button:hover {
+  background-color: var(--cor-primaria-hover) !important;
+}
+
+/* Caixa de destaque (Mensagem motivacional do final) */
+.highlight-box {
+  display: flex;
+  gap: 15px;
+  background-color: #ebe9e9; /* Amarelo bem suave */
+  border-left: 4px solid #0c326f;
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.highlight-box mat-icon {
+  color: #0c326f;
+  flex-shrink: 0;
+}
+
+.highlight-box p {
+  margin: 0;
+  color: #444;
+}
+
+/* Responsividade para telas menores (Celulares) */
+@media (max-width: 650px) {
+  .norm-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-content p {
+    text-align: center;
+  }
+
+  .norm-list li {
+    text-align: left;
+  }
+
+  .highlight-box {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Alto Contraste */
+:host-context(.high-contrast) .norm-card {
+  background-color: #000 !important;
+  border-color: #ffc107 !important;
+}
+:host-context(.high-contrast) .card-content h2,
+:host-context(.high-contrast) .titulo-centralizado {
+  color: #ffc107 !important;
+}
+:host-context(.high-contrast) .card-icon-wrapper {
+  background-color: #222 !important;
+  color: #ffc107 !important;
+}
+:host-context(.high-contrast) .card-content p,
+:host-context(.high-contrast) .subtitle,
+:host-context(.high-contrast) .norm-list li {
+  color: #fff !important;
+}
