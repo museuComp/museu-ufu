@@ -1,0 +1,45 @@
+<section class="virtual-tour-page">
+  <div class="virtual-tour-header">
+    <h1>Visita Virtual</h1>
+    <p>
+      Explore o Museu da Computação da UFU em uma experiência imersiva.
+      Navegue pela sala em 360° e conheça alguns itens do acervo histórico.
+    </p>
+  </div>
+
+  <div class="tour-viewer-wrapper">
+    <div id="panorama" class="tour-viewer"></div>
+  </div>
+
+  <section class="museum-items-section">
+    <div class="section-title">
+      <h2>Itens em Destaque</h2>
+      <p>Alguns objetos que fazem parte da história da computação.</p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="museum-card" *ngFor="let item of itensMuseu">
+        <div class="card-image">
+          <img 
+            [src]="item.imagem" 
+            [alt]="item.titulo" 
+            (click)="abrirImagem(item.imagem)"
+            class="imagem-clicavel"
+          />
+        </div>
+
+        <div class="card-content">
+          <h3>{{ item.titulo }}</h3>
+          <p>{{ item.descricao }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>
+
+<div class="modal-overlay" *ngIf="imagemSelecionada" (click)="fecharImagem()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="btn-fechar" (click)="fecharImagem()">&times;</button>
+    <img [src]="imagemSelecionada" alt="Imagem ampliada" />
+  </div>
+</div>

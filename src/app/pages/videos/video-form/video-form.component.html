@@ -1,0 +1,124 @@
+<div class="video-form-container">
+  <h1>{{editMode ? 'Editar' : 'Publicar'}} Vídeo</h1>
+
+  <form [formGroup]="videoForm" (ngSubmit)="onSubmit()" class="video-form">
+    <!-- Seção de Resumo (Box) -->
+    <div class="form-section">
+      <h2>Resumo do Vídeo</h2>
+      <p class="section-description">
+        Estas informações serão exibidas na lista de vídeos e no card de destaque.
+      </p>
+
+      <!-- Título da Publicação -->
+      <div class="form-label-row">
+        <label for="title">Título do Vídeo*</label>
+        <span class="form-error" *ngIf="videoForm.get('title')?.invalid && (videoForm.get('title')?.dirty || videoForm.get('title')?.touched)">
+          <ng-container *ngIf="videoForm.get('title')?.hasError('required')">Obrigatório</ng-container>
+          <ng-container *ngIf="videoForm.get('title')?.hasError('minlength')">Mín. 3 caracteres</ng-container>
+        </span>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <input matInput id="title" formControlName="title" required autocomplete="off">
+      </mat-form-field>
+
+      <!-- Categoria -->
+      <div class="form-label-row">
+        <label for="category">Categoria*</label>
+        <span class="form-error" *ngIf="videoForm.get('category')?.invalid && (videoForm.get('category')?.dirty || videoForm.get('category')?.touched)">
+          <ng-container *ngIf="videoForm.get('category')?.hasError('required')">Obrigatório</ng-container>
+        </span>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <mat-select id="category" formControlName="category" required>
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{category}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Imagem Principal -->
+      <div class="image-upload-section">
+        <label>Imagem de Capa*</label>
+        <div class="image-upload">
+          <input type="file" accept="image/*" (change)="onCoverSelected($event)" #coverImageInput style="display: none">
+          <button type="button" mat-stroked-button (click)="coverImageInput.click()">
+            <mat-icon>upload</mat-icon>
+            Escolher Imagem
+          </button>
+          <span *ngIf="coverFileName" class="file-name" [ngClass]="{'form-error': coverImageError}">
+            {{coverFileName}}
+          </span>
+        </div>
+        
+        <span *ngIf="coverImageError" class="form-error" style="display: block; margin-top: 5px;">
+          {{ coverImageError }}
+        </span>
+        <span *ngIf="videoForm.get('coverUrl')?.hasError('required') && videoForm.get('coverUrl')?.touched && !coverImageError" class="form-error" style="display: block; margin-top: 5px;">
+          Imagem de capa é obrigatória.
+        </span>
+      </div>
+    </div>
+
+    <!-- Seção de Conteúdo -->
+    <div class="form-section">
+      <h2>Conteúdo Completo da Publicação</h2>
+      <p class="section-description">
+        Adicione o conteúdo completo da notícia que será exibido na página detalhada.
+        Preencher todos os campos é essencial.
+      </p>
+
+      <!-- URL Vídeo -->
+      <div class="form-label-row">
+        <label for="title">URL do Vídeo*</label>
+        <span class="form-error" *ngIf="videoForm.get('videoUrl')?.invalid && (videoForm.get('videoUrl')?.dirty || videoForm.get('videoUrl')?.touched)">
+          <ng-container *ngIf="videoForm.get('videoUrl')?.hasError('required')">Obrigatório</ng-container>
+          <ng-container *ngIf="videoForm.get('videoUrl')?.hasError('minlength')">Mín. 3 caracteres</ng-container>
+        </span>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <input matInput id="videoUrl" formControlName="videoUrl" required autocomplete="off">
+      </mat-form-field>
+
+      <!-- Descrição -->
+      <div class="form-label-row">
+        <label for="description">Descrição do Vídeo</label>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <textarea matInput id="description" formControlName="description" rows="6" autocomplete="off"></textarea>
+      </mat-form-field>
+      
+    </div>
+
+    <!-- Seção de Participantes -->
+    <div class="form-section">
+      <h2>Participantes</h2>
+      <p class="section-description">
+        Referencie as pessoas que fizeram parte do vídeo.
+      </p>
+
+      <!-- Contribuidores -->
+      <div class="form-label-row">
+        <label for="contributors">Contribuidores</label>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <input matInput id="contributors" formControlName="contributors" autocomplete="off"  rows="3 "placeholder="Separe os nomes do contribuidores por vírgula">
+      </mat-form-field>
+
+      <!-- Convidados -->
+      <div class="form-label-row">
+        <label for="guests">Convidados</label>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <textarea matInput id="guests" formControlName="guests" rows="3" autocomplete="off" placeholder="Separe os nomes do contribuidores por vírgula"></textarea>
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-actions">
+      <button type="button" mat-button (click)="cancel()">Cancelar</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!videoForm.valid">
+        {{editMode ? 'Salvar' : 'Criar'}} Vídeo
+      </button>
+    </div>
+  </form>
+</div> 

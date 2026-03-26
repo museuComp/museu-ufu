@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators'; // <-- Adicionamos a importação do map
 
 export interface NewsPost {
   id?: string; 
-  order?: number; // <-- 1. Adicionamos a propriedade order
+  order?: number; 
   summary: {
     title: string;
     description: string;

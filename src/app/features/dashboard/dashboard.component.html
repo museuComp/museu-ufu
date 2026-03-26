@@ -4,13 +4,19 @@
       <h1 class="welcome-title">Dashboard de Gerenciamento</h1>
       <p class="welcome-subtitle">Bem-vindo, {{ currentUser.name }}!</p>
     </div>
-    <button mat-stroked-button color="warn" (click)="logout()">
+    <div class="buttons-container">
+       <button mat-stroked-button color="warn" (click)="logout()">
       <mat-icon>logout</mat-icon>
       Sair
     </button>
+    <button mat-stroked-button (click)="toggleView()">
+        <mat-icon>navigate_next</mat-icon>
+        @if(currentView == 'news') {Gerenciar Vídeos} @else {Gerenciar Notícias}
+    </button>
+    </div>
   </div>
 
-  <div class="dashboard-grid">
+  <div class="dashboard-grid" *ngIf="currentView == 'news'">
     <div class="management-container" *ngIf="isAdmin()">
       <div class="management-header">
         <h2>Gerenciar Notícias</h2>
@@ -54,6 +60,53 @@
       <ng-template #loadingNews>
         <div class="loading-or-empty-container">
           <p>Carregando notícias...</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="dashboard-grid" *ngIf="currentView == 'video'">
+    <div class="management-container" *ngIf="isAdmin()">
+      <div class="management-header">
+        <h2>Gerenciar Vídeos</h2>
+        <button mat-flat-button color="primary" routerLink="/videos/create">
+          <mat-icon>add</mat-icon> Publicar Novo Vídeo
+        </button>
+      </div>
+
+      <div class="video-list" cdkDropList (cdkDropListDropped)="onVideoDrop($event)" *ngIf="!isLoading; else loadingVideos">
+        <div class="video-row" *ngFor="let video of videoItems; trackBy: trackByVideoId" cdkDrag>
+          
+          <div class="video-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+            <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
+            
+            <a [routerLink]="['/videos/detail', video.id]" style="flex: 1; text-decoration: none;">
+              <span class="video-title">{{ video.summary.title }}</span>
+            </a>
+
+            <div class="list-item-actions">
+              <button mat-icon-button color="primary" (click)="editVideo(video)"
+                [attr.aria-label]="'Editar publicação ' + video.summary.title">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn" (click)="deleteVideo(video)"
+                [attr.aria-label]="'Excluir publicação ' + video.summary.title">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          
+          <div class="video-category" style="margin-left: 36px;">
+            {{ video.summary.category }}
+          </div>
+          
+        </div>
+      </div>
+
+      <ng-template #loadingVideos>
+        <div class="loading-or-empty-container">
+          <p>Carregando vídeos...</p>
         </div>
       </ng-template>
     </div>

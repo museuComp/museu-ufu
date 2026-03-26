@@ -1,0 +1,40 @@
+<mat-card class="video-detail-container" *ngIf="video$ | async as video; else notFound">
+    <mat-card-header class="video-detail-header">
+        <mat-card-title class="video-detail-title">{{video.summary.title}}</mat-card-title>
+        <mat-card-subtitle class="video-detail-category">{{video.summary.category}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="video-container">
+        <app-video-player [src]="video.videoUrl"/>
+
+        <div class="divider"></div>
+
+        <article class="video-description">
+            <p>{{video.description}}</p>
+        </article>
+    </mat-card-content>
+    <div class="divider"></div>
+    <mat-card-footer class="colaborators-container">
+        <div class="colaborators-section">
+            <mat-card-subtitle class="colaborators-subtitle">COLABORADORES</mat-card-subtitle>
+            <ul>
+                <li *ngFor="let cont of video.contributors">
+                    {{cont}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="colaborators-section">
+            <mat-card-subtitle class="colaborators-subtitle">CONVIDADOS</mat-card-subtitle>
+            <ul>
+                <li *ngFor="let guest of video.guests">
+                    {{guest}}
+                </li>  
+            </ul>
+        </div>
+    </mat-card-footer>
+</mat-card>
+
+<ng-template #notFound>
+  <p class="message-placeholder">Vídeo não encontrado</p>
+</ng-template>

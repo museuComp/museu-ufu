@@ -140,6 +140,15 @@ export const routes: Routes = [
     },
   },
   {
+  path: 'visita-virtual',
+  loadComponent: () =>
+    import('./pages/virtual-tour/virtual-tour.component').then(m => m.VirtualTourComponent),
+  title: 'Visita Virtual',
+  data: {
+    breadCrumb: 'Visita Virtual',
+  },
+  },
+  {
     path: 'donations',
     loadComponent: () => import('./pages/donations/donations.component').then(m => m.DonationsComponent),
     title: 'Doações',
@@ -160,6 +169,42 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/magazine/magazine.component').then(m => m.MagazineComponent),
     title: 'Revista',
 
+  },
+  {
+    path: 'videos',
+    title: 'Vídeos',
+    data: {
+      breadCrumb: "Vídeos"
+    },
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent),
+      },
+      {
+        path: 'detail/:id',
+        loadComponent: () => import('./pages/videos/video-detail/video-detail.component').then(m => m.VideoDetailComponent),
+        data: {
+          breadCrumb: "Detalhe do vídeo"
+        }
+      },
+      {
+        path: 'create',
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/videos/video-form/video-form.component').then(m => m.VideoFormComponent),
+        data: {
+          breadCrumb: "Criar publicação"
+        }
+      },
+      {
+        path: 'edit/:id',
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/videos/video-form/video-form.component').then(m => m.VideoFormComponent),
+        data: {
+          breadCrumb: "Editar publicação"
+        }
+      }
+    ]
   },
   {
     path: 'dashboard',
