@@ -140,6 +140,15 @@ export const routes: Routes = [
     },
   },
   {
+  path: 'visita-virtual',
+  loadComponent: () =>
+    import('./pages/virtual-tour/virtual-tour.component').then(m => m.VirtualTourComponent),
+  title: 'Visita Virtual',
+  data: {
+    breadCrumb: 'Visita Virtual',
+  },
+  },
+  {
     path: 'donations',
     loadComponent: () => import('./pages/donations/donations.component').then(m => m.DonationsComponent),
     title: 'Doações',
