@@ -257,6 +257,58 @@
   background-color: var(--primary-darker);
 }
 
+
+/*Sessão Visita Virtual - HOME*/
+.virtual-tour-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.virtual-card-info {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.virtual-card-info:hover {
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.virtual-card-info .virtual-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-darker);
+  margin-bottom: 0.75rem;
+}
+
+.virtual-tour-section .card-link {
+  display: inline-block;
+  align-self: flex-end;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.virtual-tour-section .card-link:hover {
+  background-color: var(--primary-darker);
+}
+
 /* Responsividade */
 @media (max-width: 992px) {
   .info-cards {
