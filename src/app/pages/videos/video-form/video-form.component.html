@@ -38,15 +38,24 @@
 
       <!-- Imagem Principal -->
       <div class="image-upload-section">
-        <label>Imagem de Capa</label>
+        <label>Imagem de Capa*</label>
         <div class="image-upload">
           <input type="file" accept="image/*" (change)="onCoverSelected($event)" #coverImageInput style="display: none">
           <button type="button" mat-stroked-button (click)="coverImageInput.click()">
             <mat-icon>upload</mat-icon>
             Escolher Imagem
           </button>
-          <span *ngIf="coverFileName" class="file-name">{{coverFileName}}</span>
+          <span *ngIf="coverFileName" class="file-name" [ngClass]="{'form-error': coverImageError}">
+            {{coverFileName}}
+          </span>
         </div>
+        
+        <span *ngIf="coverImageError" class="form-error" style="display: block; margin-top: 5px;">
+          {{ coverImageError }}
+        </span>
+        <span *ngIf="videoForm.get('coverUrl')?.hasError('required') && videoForm.get('coverUrl')?.touched && !coverImageError" class="form-error" style="display: block; margin-top: 5px;">
+          Imagem de capa é obrigatória.
+        </span>
       </div>
     </div>
 

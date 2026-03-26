@@ -73,10 +73,13 @@
           <mat-icon>add</mat-icon> Publicar Novo Vídeo
         </button>
       </div>
-      <div class="video-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="videoList$ | async as videos; else loadingVideos">
-        <div class="video-row" *ngFor="let video of videos; trackBy: trackByVideoId" cdkDrag>
+
+      <div class="video-list" cdkDropList (cdkDropListDropped)="onVideoDrop($event)" *ngIf="!isLoading; else loadingVideos">
+        <div class="video-row" *ngFor="let video of videoItems; trackBy: trackByVideoId" cdkDrag>
+          
           <div class="video-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
+            
             <a [routerLink]="['/videos/detail', video.id]" style="flex: 1; text-decoration: none;">
               <span class="video-title">{{ video.summary.title }}</span>
             </a>
@@ -93,9 +96,11 @@
               </button>
             </div>
           </div>
-          <div class="video-category">
+          
+          <div class="video-category" style="margin-left: 36px;">
             {{ video.summary.category }}
           </div>
+          
         </div>
       </div>
 

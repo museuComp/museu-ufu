@@ -93,6 +93,11 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				icon: 'fas fa-newspaper',
 			},
 			{
+				label: 'Visitação Virtual',
+				url: '/norms',
+				icon: 'fas fa-street-view'
+			},
+			{
 				label: 'Jogos',
 				url: '/games',
 				icon: 'fas fa-gamepad'
@@ -123,11 +128,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				url: '/about',
 				icon: 'fas fa-info-circle'
 			},
-			{
-				label: 'Normas',
-				url: '/norms',
-				icon: 'fas fa-info-circle'
-			},
+			
 		];
 	}
 

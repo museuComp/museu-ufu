@@ -1,10 +1,11 @@
 <div class="video-list-container">
-    @defer(on viewport){
-        <ng-container *ngIf="videosList$ | async as videos">
-            <mat-card class="video-card" *ngFor="let video of videos">
+    
+    <ng-container *ngIf="videosList$ | async as videos; else loadingVideos">
+        <mat-card class="video-card" *ngFor="let video of videos">
+            
             <a [routerLink]="['/videos/detail', video.id]" class="video-card-image-link">
                 <div class="video-card-image-container">
-                    <img alt="item" mat-card-image class="video-main-image-card"
+                    <img mat-card-image class="video-main-image-card"
                     [src]="video.summary.coverUrl"
                     [alt]="video.summary.title"
                     width="350" height="100">
@@ -25,14 +26,14 @@
             <div class="video-card-action-container">
                 <a [routerLink]="['/videos/detail', video.id]" class="btn-card-action">Ver Vídeo</a>
             </div>
+            
         </mat-card>
-        </ng-container>
-        }
-    @placeholder {
-        <div></div>
-    } @loading () {
+    </ng-container>
+
+    <ng-template #loadingVideos>
         <div class="loading-videos-container">
             <p>Carregando vídeos...</p>
         </div>
-    } 
+    </ng-template>
+
 </div>

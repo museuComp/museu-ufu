@@ -34,10 +34,18 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 export class DashboardComponent implements OnInit, OnDestroy {
   newsList$!: Observable<NewsPost[]>;
   videoList$!: Observable<Video[]>;
+  
   newsItems: NewsPost[] = [];
+  videoItems: Video[] = [];
+
   currentView: string;
   isLoading = true;
+  
+  // NOVA VARIÁVEL: Trava de atualização
+  isUpdatingOrder = false; 
+  
   private newsSubscription?: Subscription;
+  private videoSubscription?: Subscription;
 
   authService = inject(AuthService);
   private firestoreNewsService = inject(FirestoreNewsService);
@@ -63,9 +71,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.currentView = 'news';
 
       this.newsSubscription = this.firestoreNewsService.getAllNews().subscribe(news => {
-      // Ordena pelo campo 'order' (se não existir, joga para o final)
-      this.newsItems = news.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
-      this.isLoading = false;
+        // Ignora a atualização visual se estiver salvando a ordem
+        if (this.isUpdatingOrder) return; 
+        
+        this.newsItems = news.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+        this.isLoading = false;
+      });
+
+      this.videoSubscription = this.firestoreVideoService.getAllVideos().subscribe(videos => {
+        // Ignora a atualização visual se estiver salvando a ordem
+        if (this.isUpdatingOrder) return; 
+
+        this.videoItems = videos.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+        this.isLoading = false;
       });
     }
   }
@@ -74,32 +92,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.newsSubscription) {
       this.newsSubscription.unsubscribe();
     }
+    if (this.videoSubscription) {
+      this.videoSubscription.unsubscribe();
+    }
   }
 
+  // --- Funções de Drag & Drop para Notícias ---
   onDrop(event: CdkDragDrop<NewsPost[]>): void {
-    // 1. Reordena o array localmente na tela
     moveItemInArray(this.newsItems, event.previousIndex, event.currentIndex);
-    
-    // 2. Salva a nova ordem no banco de dados
     this.saveNewOrder();
   }
 
   async saveNewOrder(): Promise<void> {
+    this.isUpdatingOrder = true; // Liga a trava
     try {
       const updatePromises = this.newsItems.map((news, index) => {
         if (!news.id) return Promise.resolve();
-        
-        // Enviamos apenas a propriedade 'order' para atualizar o Firebase
         return this.firestoreNewsService.updateNews(news.id, { order: index });
       });
 
       await Promise.all(updatePromises);
-      console.log('Ordem das notícias atualizada com sucesso no banco de dados!');
+      console.log('Ordem das notícias atualizada com sucesso!');
     } catch (error) {
       console.error('Erro ao atualizar ordem das notícias:', error);
+    } finally {
+      this.isUpdatingOrder = false; // Desliga a trava após salvar tudo
     }
   }
 
+  // --- Funções de Drag & Drop para Vídeos ---
+  onVideoDrop(event: CdkDragDrop<Video[]>): void {
+    moveItemInArray(this.videoItems, event.previousIndex, event.currentIndex);
+    this.saveNewVideoOrder();
+  }
+
+  async saveNewVideoOrder(): Promise<void> {
+    this.isUpdatingOrder = true; // Liga a trava
+    try {
+      const updatePromises = this.videoItems.map((video, index) => {
+        if (!video.id) return Promise.resolve();
+        return this.firestoreVideoService.updateVideoPost(video.id, { order: index });
+      });
+
+      await Promise.all(updatePromises);
+      console.log('Ordem dos vídeos atualizada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar ordem dos vídeos:', error);
+    } finally {
+      this.isUpdatingOrder = false; // Desliga a trava após salvar tudo
+    }
+  }
+
+  // --- Funções de Edição e Exclusão ---
   editNews(newsItem: NewsPost): void {
     this.router.navigate(['/news/edit', newsItem.id]);
   }
@@ -109,10 +153,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   deleteNews(newsItem: NewsPost): void {
-    if (!newsItem.id) {
-      console.error('News item ID is undefined, cannot delete');
-      return;
-    }
+    if (!newsItem.id) return;
     const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
       width: '350px',
       data: { title: newsItem.summary.title }
@@ -121,19 +162,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.firestoreNewsService.deleteNews(newsItem.id!)
-          .then(() => {
-            console.log('Notícia deletada com sucesso!');
-          })
-          .catch(error => console.error('Erro ao deletar notícia:', error));
+          .then(() => console.log('Notícia deletada!'))
+          .catch(error => console.error('Erro:', error));
       }
     });
   }
 
   deleteVideo(videoItem: Video): void {
-    if (!videoItem.id) {
-      console.error('Video item ID is undefined, cannot delete');
-      return;
-    }
+    if (!videoItem.id) return;
     const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
       width: '350px',
       data: { title: videoItem.summary.title } 
@@ -141,11 +177,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.firestoreVideoService.deleteVideo(videoItem.id)
-          .then(() => {
-            console.log('Vídeo deletado com sucesso!');
-          })
-          .catch(error => console.error('Erro ao deletar vídeo:', error));
+        this.firestoreVideoService.deleteVideo(videoItem.id!)
+          .then(() => console.log('Vídeo deletado!'))
+          .catch(error => console.error('Erro:', error));
       }
     });
   }
@@ -158,6 +192,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   trackByNewsId(index: number, news: NewsPost): string {
     return news.id || index.toString();
   }
+
+  trackByVideoId(index: number, video: Video): string {
+    return video.id || index.toString();
+  }
 }
 
 @Component({
@@ -165,7 +203,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   template: `
     <h2 mat-dialog-title>Confirmar exclusão</h2>
     <mat-dialog-content>
-      <p>Tem certeza que deseja excluir a notícia "{{data.title}}"?</p>
+      <p>Tem certeza que deseja excluir a publicação "{{data.title}}"?</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="onNoClick()">Cancelar</button>
