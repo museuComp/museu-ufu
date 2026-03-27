@@ -37,7 +37,7 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* --- NOVA SEÇÃO: LINHA DO TEMPO --- */
+/*LINHA DO TEMPO --- */
 .timeline-section {
   margin-bottom: 4rem;
   padding: 3.5rem 1.5rem;
@@ -158,8 +158,6 @@
   width: 12px;
   height: 12px;
 }
-/* --- FIM DA LINHA DO TEMPO --- */
-
 
 /* Título da seção de itens */
 .section-title {
@@ -211,7 +209,7 @@
   object-fit: cover;
 }
 
-/* Estilo para imagem clicável (Efeito visual) */
+/* Estilo para imagem clicável*/
 .imagem-clicavel {
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -221,7 +219,6 @@
   transform: scale(1.05); 
 }
 
-/* Conteúdo do card */
 .card-content {
   padding: 1rem;
 }
@@ -236,7 +233,6 @@
 }
 
 /* --- ESTILOS DO MODAL --- */
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -301,14 +297,13 @@
     right: -10px;
   }
 
-  /* Ajustes responsivos para a linha do tempo */
   .timeline-container {
     position: relative;
   }
   
   .btn-nav {
     position: absolute;
-    top: 160px; /* Metade da altura da imagem */
+    top: 160px;
     transform: translateY(-50%);
     z-index: 10;
   }
