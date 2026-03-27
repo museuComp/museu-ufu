@@ -11,6 +11,42 @@
     <div id="panorama" class="tour-viewer"></div>
   </div>
 
+  <section class="timeline-section">
+    <div class="section-title">
+      <h2>Linha do Tempo do Armazenamento</h2>
+      <p>Acompanhe a evolução das mídias: do clássico disquete ao ultra-rápido M.2.</p>
+    </div>
+
+    <div class="timeline-container">
+      <button class="btn-nav" (click)="itemAnteriorTimeline()" [disabled]="indiceAtualTimeline === 0">&lt;</button>
+      
+      <div class="timeline-content-wrapper">
+        <div class="timeline-image">
+          <img 
+            [src]="linhaDoTempoArmazenamento[indiceAtualTimeline].imagem" 
+            [alt]="linhaDoTempoArmazenamento[indiceAtualTimeline].titulo"
+            (click)="abrirImagem(linhaDoTempoArmazenamento[indiceAtualTimeline].imagem)"
+            class="imagem-clicavel"
+          >
+        </div>
+        <div class="timeline-info">
+          <span class="ano-badge">{{ linhaDoTempoArmazenamento[indiceAtualTimeline].ano }}</span>
+          <h3>{{ linhaDoTempoArmazenamento[indiceAtualTimeline].titulo }}</h3>
+          <p>{{ linhaDoTempoArmazenamento[indiceAtualTimeline].descricao }}</p>
+        </div>
+      </div>
+
+      <button class="btn-nav" (click)="proximoItemTimeline()" [disabled]="indiceAtualTimeline === linhaDoTempoArmazenamento.length - 1">&gt;</button>
+    </div>
+
+    <div class="timeline-indicators">
+      <span *ngFor="let item of linhaDoTempoArmazenamento; let i = index" 
+            class="indicator" 
+            [class.active]="i === indiceAtualTimeline"
+            (click)="irParaItemTimeline(i)">
+      </span>
+    </div>
+  </section>
   <section class="museum-items-section">
     <div class="section-title">
       <h2>Itens em Destaque</h2>
