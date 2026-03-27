@@ -13,10 +13,8 @@ declare var pannellum: any;
 export class VirtualTourComponent implements AfterViewInit {
   imagemSelecionada: string | null = null;
 
-  // --- NOVA LÓGICA: LINHA DO TEMPO ---
   indiceAtualTimeline = 0;
 
-  // Substitua os caminhos pelas imagens corretas quando tiver
   linhaDoTempoArmazenamento = [
     {
       titulo: 'Disquete 8"',
@@ -77,8 +75,6 @@ export class VirtualTourComponent implements AfterViewInit {
   irParaItemTimeline(index: number): void {
     this.indiceAtualTimeline = index;
   }
-  // --- FIM DA LÓGICA DA LINHA DO TEMPO ---
-
 
   itensMuseu = [
     {
