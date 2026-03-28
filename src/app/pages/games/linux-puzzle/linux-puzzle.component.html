@@ -10,10 +10,12 @@
       <button class="start-button" (click)="startGame()">Começar Puzzle</button>
     </div>
   </div>
-
-  <div *ngIf="gameStarted" class="puzzle-content">
+</div>
+<div *ngIf="gameStarted">
+  <div class="puzzle-content">
     <h2>{{ puzzles[currentPuzzle].question }}</h2>
 
+    <p *ngFor="let options of puzzles[currentPuzzle].options">{{ options }}</p>
     <div class="terminal">
       <label for="command"> tuxtux-desktop:~$ </label>
       <input
@@ -25,4 +27,5 @@
       <input type="submit" value="Enviar" (click)="isCorrect(cliUserInput)" />
     </div>
   </div>
+  <div class="overlay"></div>
 </div>
