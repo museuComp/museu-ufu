@@ -26,7 +26,10 @@
     transition-timing-function: ease-in-out;
   }
 
-
+  .pic-gov {
+    transition: none !important;
+    opacity: 1 !important;
+  }
 
   .conteudo-barra-brasil {
     width: 95%;
@@ -40,8 +43,8 @@
     gap: 20px;
 
     .pic-gov {
-      background: url('https://www.gov.br/++theme++padrao_govbr/img/govbr.png') no-repeat;
-      background-size: contain;
+      background: url('https://www.gov.br/++theme++padrao_govbr/img/govbr.png') no-repeat !important;
+      background-size: contain !important;
       width: 80px;
       height: 40px;
       text-indent: -9999px;
@@ -49,6 +52,12 @@
       margin-top: 10px;
       margin-right: 300px;
       margin-left: 0;
+      transition: none !important;
+      opacity: 1 !important;
+      
+      &:hover {
+        opacity: 1 !important;
+      }
     }
 
     #menu-barra-brasil {
@@ -62,6 +71,10 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+
+        &:hover .list-item .link-barra {
+          opacity: 0.4;
+        }
 
         .espacador {
           width: 1px;
@@ -80,10 +93,12 @@
             font-family: Raleway, Arial, Helvetica, sans-serif;
             border-radius: 4px;
             padding: 5px 10px;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
 
             &:hover {
-              background-color: rgba(255, 255, 255, 0.1);
+              opacity: 1 !important;
+              color: #fff !important;
+              //background-color: rgba(255, 255, 255, 0.1);
             }
           }
         }
