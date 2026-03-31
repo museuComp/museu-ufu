@@ -110,6 +110,11 @@
   font-family: monospace;
 }
 
+.error-message {
+  color: #ff6b6b;
+  font-weight: bold;
+  margin-top: 1rem;
+}
 /* --- TERMINAL --- */
 
 .terminal {
@@ -118,7 +123,7 @@
   background-color: #1e1e1e;
   border-radius: 5px;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 15rem 1.5rem;
   display: flex;
   align-items: center;
   gap: 10px;
