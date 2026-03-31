@@ -46,9 +46,9 @@ export class LinuxPuzzleComponent implements OnInit {
         '4.O caminho do GNU está quebrado. Crie um diretório "rua_do_GNU" e o acesse para resolver o problema',
       options: [
         'pwd',
-        'mkdir rua_do_GNU\n$cd rua_do_GNU',
-        'create rua_do_GNU\n$cd rua_do_GNU',
-        'make rua_do_GNU\n$access rua_do_GNU',
+        'mkdir rua_do_GNU && cd rua_do_GNU',
+        'create rua_do_GNU && cd rua_do_GNU',
+        'make rua_do_GNU && access rua_do_GNU',
       ],
       answer: 1,
       // imageUrl: [],
@@ -68,8 +68,9 @@ export class LinuxPuzzleComponent implements OnInit {
 
   cliUserInput = new FormControl('', [Validators.required]);
   gameStarted: boolean = false;
+  gameFinished: boolean = false;
   currentPuzzle: number = 0;
-  correctOption: number | null = null;
+  errorMessage: string = '';
 
   ngOnInit(): void {}
 
@@ -77,19 +78,30 @@ export class LinuxPuzzleComponent implements OnInit {
     this.gameStarted = true;
   }
 
-  isCorrect(cliUserInput: FormControl<string>): void {
-    this.correctOption = this.puzzles[this.currentPuzzle].answer;
-    if (
-      cliUserInput.value ===
-      this.puzzles[this.currentPuzzle].options[this.correctOption]
-    ) {
+  submitAnswer(): void {
+    // if null just return
+    if (!this.cliUserInput.value) return;
+
+    const userInput = this.cliUserInput.value.trim();
+    const correctOptionIndex = this.puzzles[this.currentPuzzle].answer;
+    const correctAnswer =
+      this.puzzles[this.currentPuzzle].options[correctOptionIndex];
+
+    if (userInput === correctAnswer) {
+      this.errorMessage = '';
+      this.cliUserInput.reset(); // limpa o terminal para o próximo comando
       this.nextPuzzle();
+    } else {
+      this.errorMessage =
+        'Comando não encontrado ou incorreto. Tente novamente!';
     }
   }
 
   nextPuzzle(): void {
-    if (this.currentPuzzle <= this.puzzles.length) {
+    if (this.currentPuzzle < this.puzzles.length - 1) {
       this.currentPuzzle++;
+    } else {
+      this.gameFinished = true;
     }
   }
 }

@@ -1,11 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
 .puzzle-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+  z-index: 10;
 }
 
 .puzzle-header {
   text-align: center;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .puzzle-header h1 {
@@ -18,7 +28,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
+  margin-top: 7rem;
 }
 
 .start-button,
@@ -38,70 +48,116 @@
   background-color: #2980b9;
 }
 
-.puzzle-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
+/* --- ÁREA DO JOGO --- */
 
-  background-color: #fff;
-  color: #333;
-  border-radius: 5px;
-  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
-  padding: 6rem;
-  z-index: 10;
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
-.puzzle-content h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.puzzle-content p {
-  display: inline;
-  background: beige;
-  font-size: 1.2rem;
-  color: #333;
+.question {
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
   border-radius: 8px;
-  padding: 1rem;
-  margin-right: 1rem;
-  justify-content: center;
-  align-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
+
+.question h2 {
+  color: white;
+}
+
+.options {
+  margin-top: 1.5rem;
+  background: rgba(41, 128, 185, 0.9);
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.options h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.options ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.options li {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* --- TERMINAL --- */
 
 .terminal {
+  width: 100%;
+  max-width: 600px;
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
   display: flex;
-  border-radius: 8px;
-  background-color: #333;
-  padding: 1rem;
-  padding-bottom: 2rem;
-  margin-top: 2rem;
+  align-items: center;
+  gap: 10px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .terminal label {
   color: chartreuse;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 .terminal input {
-  border-radius: 6px;
-  background: gray;
-  color: #fff;
-  margin: 5px;
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1.1rem;
 }
 
 /* -------------------------- */
 /* CLASSES TO MAKE MODAL WORK */
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
-  z-index: 5;
+
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 1;
 }
 /* -------------------------- */
+
+/* .option {
+  position: absolute;
+  display: flex;
+  transform: translate(-40%, -20%);
+  width: 20%;
+  background: #2980b9;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 5px;
+  padding: 1rem;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+} */

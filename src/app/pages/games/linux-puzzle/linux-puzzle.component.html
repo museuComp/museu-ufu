@@ -1,31 +1,44 @@
+<div class="overlay" *ngIf="gameStarted"></div>
+
 <div class="puzzle-container">
   <div *ngIf="!gameStarted" class="puzzle-header">
     <h1>Puzzle de Linux</h1>
     <p>
-      Ajude Tux, mascote do sistema operacional Linux, a chegar no seu amigo GNU
-      GPL e a adquirir as 4 liberdades essenciais:
+      Resolva os desafios a seguir para ajudar Tux, mascote do sistema
+      operacional Linux, a chegar no seu amigo GNU GPL e a adquirir as 4
+      liberdades essenciais:
       <b>rodar, estudar, modificar e redistribuir</b>
     </p>
     <div class="start-screen">
       <button class="start-button" (click)="startGame()">Começar Puzzle</button>
     </div>
   </div>
-</div>
-<div *ngIf="gameStarted">
-  <div class="puzzle-content">
-    <h2>{{ puzzles[currentPuzzle].question }}</h2>
 
-    <p *ngFor="let options of puzzles[currentPuzzle].options">{{ options }}</p>
+  <div *ngIf="gameStarted && !gameFinished" class="game-area">
+    <div class="question">
+      <h2>{{ puzzles[currentPuzzle].question }}</h2>
+
+      <div class="options">
+        <h3>Comands disponíveis:</h3>
+        <ul>
+          <li *ngFor="let options of puzzles[currentPuzzle].options">
+            {{ options }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <div class="terminal">
       <label for="command"> tuxtux-desktop:~$ </label>
       <input
         type="text"
-        id="fname"
+        id="command"
         name="command"
         [formControl]="cliUserInput"
+        autocomplete="off"
+        autofocus
       />
-      <input type="submit" value="Enviar" (click)="isCorrect(cliUserInput)" />
+      <input type="submit" value="Enviar" (click)="submitAnswer()" />
     </div>
   </div>
-  <div class="overlay"></div>
 </div>
