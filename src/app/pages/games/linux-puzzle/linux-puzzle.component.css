@@ -29,12 +29,22 @@
   justify-content: center;
   align-items: center;
   margin-top: 7rem;
+  font-size: 1.2rem;
+}
+
+.shortcut {
+  padding: 1rem 1rem;
+  margin-right: 2rem;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .start-button,
 .restart-button {
   padding: 1rem 1rem;
-  font-size: 1.2rem;
+  margin-left: 2rem;
   background-color: #3498db;
   color: white;
   border: none;

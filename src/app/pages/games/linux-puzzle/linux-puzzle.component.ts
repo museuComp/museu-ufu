@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -73,6 +73,13 @@ export class LinuxPuzzleComponent implements OnInit {
   errorMessage: string = '';
 
   ngOnInit(): void {}
+
+  @HostListener('document:keydown', ['$event'])
+  handleGlobalKey(event: KeyboardEvent) {
+    if (event.altKey && event.key === 't') {
+      this.gameStarted = true;
+    }
+  }
 
   startGame() {
     this.gameStarted = true;
