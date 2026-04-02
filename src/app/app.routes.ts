@@ -13,6 +13,12 @@ export const routes: Routes = [
     }
   },
   {
+    path: 'resources',
+    data: { breadCrumb: 'Recursos' },
+    title: 'Recursos',
+    loadComponent: () => import('./pages/resources/resources.component').then(m => m.ResourcesComponent)
+  },
+  {
     path: 'games',
     data: {
       breadCrumb: 'Jogos',
