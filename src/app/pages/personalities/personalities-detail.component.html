@@ -1,0 +1,48 @@
+<div class="personality-detail-page-container" *ngIf="personality$ | async as personalityItem; else loadingOrNotFound">
+  <mat-card class="personality-detail-card">
+    <mat-card-header>
+      <mat-card-title class="personality-detail-title">{{ personalityItem.summary.title }}</mat-card-title>
+      <mat-card-subtitle class="personality-detail-category">{{ personalityItem.summary.category }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="personality-main-image-wrapper" (click)="openImageModal(personalityItem.summary.mainImage)" *ngIf="personalityItem.summary.mainImage">
+      <img alt="item" [src]="personalityItem.summary.mainImage" [alt]="personalityItem.summary.title" class="personality-main-image">
+      <div class="image-zoom-indicator">
+        <mat-icon>zoom_in</mat-icon> Ampliar
+      </div>
+    </div>
+    <div *ngIf="!personalityItem.summary.mainImage" class="no-image-placeholder">
+      Sem imagem principal
+    </div>
+
+    <mat-card-content class="personality-detail-content">
+      <p class="personality-detail-description">{{ personalityItem.summary.description }}</p>
+      <hr class="personality-separator">
+      <div class="personality-full-content" *ngIf="personalityItem.fullContent && personalityItem.fullContent.length">
+        <div *ngFor="let item of personalityItem.fullContent" [ngSwitch]="item.type" class="content-item">
+          <h3 *ngSwitchCase="'title'" class="content-item-title">{{ item.content }}</h3>
+          <p *ngSwitchCase="'text'" class="content-item-text">{{ item.content }}</p>
+          <div *ngSwitchCase="'image'" class="content-item-image-wrapper" (click)="openImageModal(item.content)">
+            <img alt="item" [src]="item.content" [alt]="personalityItem.summary.title + ' - detalhe'" class="content-item-image">
+            <div class="image-zoom-indicator-small">
+              <mat-icon>zoom_in</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #loadingOrNotFound>
+  <p class="message-placeholder">Carregando ou personalidade não encontrada...</p>
+</ng-template>
+
+<div class="image-modal-overlay" *ngIf="showImageModal" (click)="onModalBackgroundClick($event)">
+  <div class="image-modal-content">
+    <button mat-icon-button class="image-modal-close-button" (click)="closeImageModal()" aria-label="Fechar imagem ampliada">
+      <mat-icon>close</mat-icon>
+    </button>
+    <img [src]="modalImageUrl" alt="Imagem ampliada" class="image-modal-image">
+  </div>
+</div>

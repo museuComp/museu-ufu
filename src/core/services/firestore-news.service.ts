@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, collectionData, addDoc, doc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
+import { limit, orderBy, query, where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // <-- Adicionamos a importação do map
 
@@ -31,6 +32,68 @@ export class FirestoreNewsService {
       map(news => {
         // Ordena as notícias baseado no campo 'order'. 
         // Se a notícia for antiga e não tiver 'order', assume 0.
+        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
+      })
+    );
+  }
+
+  // Busca somente notícias
+  getNews(): Observable<NewsPost[]> {
+    const q = query(
+      this.newsCollection,
+      where('summary.category', '!=', 'Personalidades'),
+      orderBy('summary.category')
+    );
+
+    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+      map(news => {
+        // Ordena as notícias baseado no campo 'order'. 
+        // Se a notícia for antiga e não tiver 'order', assume 0.
+        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
+      })
+    );
+  }
+
+  // Busca somente personalidades
+  getPersonalities(): Observable<NewsPost[]> {
+    const q = query(
+      this.newsCollection,
+      where('summary.category', '==', 'Personalidades'),
+    );
+
+    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+      map(news => {
+        // Ordena as notícias baseado no campo 'order'. 
+        // Se a notícia for antiga e não tiver 'order', assume 0.
+        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
+      })
+    );
+  }
+
+  getLimitedPersonalities(l:number): Observable<NewsPost[]> {
+    const q = query(
+      this.newsCollection,
+      where('summary.category', '==', 'Personalidades')
+    );
+    
+    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+      map(news => {
+        return news.sort((a, b) => (a.order || 0) - (b.order || 0))
+          .slice(0,l);
+      })
+    );
+  }
+
+  getLimitedNews(l:number): Observable<NewsPost[]> {
+    const q = query(
+      this.newsCollection,
+      where('summary.category', '!=', 'Personalidades'),
+      orderBy('summary.category'),
+      limit(l)
+    );
+    
+    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+      map(news => {
         return news.sort((a, b) => (a.order || 0) - (b.order || 0));
       })
     );

@@ -7,9 +7,9 @@ import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-news',
-  templateUrl: './news.component.html',
-  styleUrls: ['./news.component.css'],
+  selector: 'app-personalities',
+  templateUrl: './personalities.component.html',
+  styleUrls: ['./personalities.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -18,17 +18,17 @@ import { Observable } from 'rxjs';
     RouterModule
   ]
 })
-export class NewsComponent implements OnInit {
-  newsList$: Observable<NewsPost[]>;
+export class PersonalitiesComponent implements OnInit {
+  personalitiesList$: Observable<NewsPost[]>;
   private firestoreNewsService = inject(FirestoreNewsService);
 
   constructor() {}
 
   ngOnInit(): void {
-    this.loadNews();
+    this.loadPersonalities();
   }
 
-  loadNews(): void {
-    this.newsList$ = this.firestoreNewsService.getNews();
+  loadPersonalities(): void {
+    this.personalitiesList$ = this.firestoreNewsService.getPersonalities();
   }
 }
