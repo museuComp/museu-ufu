@@ -19,6 +19,22 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/resources/resources.component').then(m => m.ResourcesComponent)
   },
   {
+    path: 'personalities',
+    data: {breadCrumb: 'Personalidades'},
+    title: 'Personalidades',
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/personalities/personalities.component').then(m => m.PersonalitiesComponent)
+      },
+      {
+        path: 'detail/:id',
+        loadComponent: () => import('./pages/personalities/personalities-detail.component').then(m => m.PersonalitiesDetailComponent),
+        data: {breadCrumb: 'Detalhe'},
+      }
+    ]
+  },
+  {
     path: 'games',
     data: {
       breadCrumb: 'Jogos',

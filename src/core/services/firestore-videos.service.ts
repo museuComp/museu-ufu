@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { addDoc, collectionData, docData, Firestore } from "@angular/fire/firestore";
-import { collection, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, limit, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators'; // <-- Importação necessária para a ordenação
 
@@ -46,6 +46,11 @@ export class FirestoreVideosService {
                 return videos.sort((a, b) => (a.order || 0) - (b.order || 0));
             })
         );
+    }
+
+    getLimitedVideos(l:number): Observable<Video[]> {
+        const q = query(this.videosCollection, orderBy('order','asc'), limit(l));
+        return collectionData(q as any, { idField: 'id' }) as Observable<Video[]>
     }
 
     getVideoById(id: string): Observable<Video | undefined> {
