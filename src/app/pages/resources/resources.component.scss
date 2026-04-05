@@ -1,0 +1,113 @@
+:host {
+    --background-color: #fff;
+    --title-color: #0c326f;
+    --primary-text: #6c757d;
+    --secondary-text: #555;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --space: 1rem;
+}
+
+.games-container {
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.games-title {
+    align-self: flex-start;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.games-list {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 20px; /* Espaçamento entre os cards */
+  padding: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: scroll;
+}
+
+.game-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.game-icon {
+  background: #f0f4ff;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+.game-icon i {
+  font-size: 2.5rem;
+  color: #021c69;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.game-card h2 {
+  color: #021c69;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.game-card p {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+}
+.show-all-btn {
+  background-color: #0c326f !important;
+  color: #ffffff !important;
+  padding: 10px 28px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.show-all-btn:hover {
+  background-color: #135fd1 !important;
+  color: #ffffff !important;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(12, 50, 111, 0.2);
+}

@@ -1,4 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { MatCard } from '@angular/material/card';
+import { RouterLink } from '@angular/router';
 import { ContentSectionComponent } from "@app/shared/components/content-section/content-section.component";
 import { FirestoreNewsService, NewsPost } from 'core/services/firestore-news.service';
 import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
@@ -6,7 +8,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-resources',
-  imports: [ContentSectionComponent],
+  imports: [ContentSectionComponent, RouterLink],
   templateUrl: './resources.component.html',
   styleUrl: './resources.component.scss'
 })
