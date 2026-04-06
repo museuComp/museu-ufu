@@ -79,6 +79,9 @@ export class LinuxPuzzleComponent implements OnInit {
     if (event.altKey && event.key === 't') {
       this.gameStarted = true;
     }
+    if (event.key === 'Enter') {
+      this.submitAnswer();
+    }
   }
 
   startGame() {
