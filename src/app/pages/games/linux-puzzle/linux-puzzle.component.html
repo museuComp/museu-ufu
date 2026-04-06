@@ -23,12 +23,18 @@
       <div class="options">
         <h3>Comands disponíveis:</h3>
         <ul>
-          <li *ngFor="let options of puzzles[currentPuzzle].options">
+          <button
+            *ngFor="let options of puzzles[currentPuzzle].options"
+            (click)="showDescription(options)"
+          >
             {{ options }}
-          </li>
+          </button>
         </ul>
       </div>
       <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="description-message" *ngIf="descriptionMessage">
+        {{ descriptionMessage }}
+      </div>
     </div>
 
     <div class="terminal">
@@ -41,7 +47,6 @@
         autocomplete="off"
         autofocus
       />
-      <input type="submit" value="Enviar" (click)="submitAnswer()" />
     </div>
   </div>
 </div>

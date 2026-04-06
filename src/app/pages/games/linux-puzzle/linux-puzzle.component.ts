@@ -19,21 +19,21 @@ interface Puzzle {
 export class LinuxPuzzleComponent implements OnInit {
   puzzles: Puzzle[] = [
     {
-      question: '1.Descubra onde está Tux.',
+      question: 'Descubra onde está Tux.',
       options: ['pwd', 'mkdir tux', 'where tux', 'ls'],
       answer: 0,
       // imageUrl: [],
     },
     {
-      question: '2.Descubra os caminhos que Tux pode seguir.',
-      options: ['ways', 'cd tux', 'where tux', 'ls'],
+      question: 'Liste os caminhos que Tux pode seguir.',
+      options: ['ways', 'cd tux', 'rm tux', 'ls'],
       answer: 3,
       // imageUrl: [],
     },
     {
-      question: '3.Acesse o diretório que leva Tux ao GNU',
+      question: 'Acesse o diretório que leva Tux ao GNU',
       options: [
-        'goto bairro_do_GNU',
+        'cat bairro_do_GNU',
         'mkdir tux',
         'access bairro_do_GNU',
         'cd bairro_do_GNU',
@@ -43,7 +43,7 @@ export class LinuxPuzzleComponent implements OnInit {
     },
     {
       question:
-        '4.O caminho do GNU está quebrado. Crie um diretório "rua_do_GNU" e o acesse para resolver o problema',
+        'O caminho do GNU está quebrado. Crie um diretório "rua_do_GNU" e o acesse para resolver o problema',
       options: [
         'pwd',
         'mkdir rua_do_GNU && cd rua_do_GNU',
@@ -54,7 +54,7 @@ export class LinuxPuzzleComponent implements OnInit {
       // imageUrl: [],
     },
     {
-      question: '5.A casa do GNU está em reforma. Mova-o para a rua_do_GNU',
+      question: 'A casa do GNU está em reforma. Mova-o para a rua_do_GNU',
       options: [
         'bring casa_do_GNU/GNU rua_do_GNU',
         'mkdir tux',
@@ -71,6 +71,7 @@ export class LinuxPuzzleComponent implements OnInit {
   gameFinished: boolean = false;
   currentPuzzle: number = 0;
   errorMessage: string = '';
+  descriptionMessage: string = '';
 
   ngOnInit(): void {}
 
@@ -98,12 +99,14 @@ export class LinuxPuzzleComponent implements OnInit {
       this.puzzles[this.currentPuzzle].options[correctOptionIndex];
 
     if (userInput === correctAnswer) {
+      this.descriptionMessage = '';
       this.errorMessage = '';
       this.cliUserInput.reset(); // limpa o terminal para o próximo comando
       this.nextPuzzle();
     } else {
-      this.errorMessage =
-        'Comando não encontrado ou incorreto. Tente novamente!';
+      this.descriptionMessage = '';
+      this.errorMessage = 'Comando incorreto. Tente novamente!';
+      this.cliUserInput.reset();
     }
   }
 
@@ -112,6 +115,37 @@ export class LinuxPuzzleComponent implements OnInit {
       this.currentPuzzle++;
     } else {
       this.gameFinished = true;
+    }
+  }
+
+  showDescription(option): void {
+    this.errorMessage = '';
+    const command = option.split(' ');
+    switch (command[0]) {
+      case 'pwd':
+        this.descriptionMessage =
+          'Mostra o caminho por inteiro da diretório em que nos encontramos em dado momento';
+        break;
+      case 'mkdir':
+        this.descriptionMessage = 'Cria um diretório';
+        break;
+      case 'ls':
+        this.descriptionMessage = 'Lista todos os arquivos do diretório';
+        break;
+      case 'cd':
+        this.descriptionMessage = 'Acessa uma determinada pasta (diretório)';
+        break;
+      case 'mv':
+        this.descriptionMessage = 'Move ou renomeia arquivos ou diretórios';
+        break;
+      case 'cat':
+        this.descriptionMessage = ' Abre um arquivo';
+        break;
+      case 'rm':
+        this.descriptionMessage = 'Remove um arquivo/diretório';
+        break;
+      default:
+        this.descriptionMessage = 'Comando desconhecido';
     }
   }
 }
