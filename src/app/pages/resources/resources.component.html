@@ -3,9 +3,9 @@
     <app-content-section title="Personalidades" uri="personalities" [sectionContent]="personalitiesList$"></app-content-section>
 
     <section class="content-container">
-        <h1 class="games-title">Jogos</h1>
+        <h1 class="content-title">Jogos</h1>
 
-        <div class="games-list">
+        <div class="content-list">
             <div class="game-card" routerLink="../games/quiz">
                 <div class="game-icon">
                     <i class="fas fa-question-circle"></i>
@@ -37,15 +37,25 @@
     </section>
 
     <section class="content-container">
-        <h1 class="games-title">Revistas</h1>
-        Em breve...
+        <h1 class="content-title">Revistas</h1>
+
+        <div class="content-list">
+            <mat-card *ngFor="let revista of revistas" class="magazine-card" routerLink="../magazine">
+                <div class="magazine-icon">📖</div>
+                <mat-card-title class="magazine-title">{{revista.titulo}} ({{revista.ano}})</mat-card-title>
+                <a class="download-icon" download [href]="revista.linkDownload">
+                     <i class="fas fa-download" aria-hidden="true"></i>
+                </a>
+            </mat-card>
+        </div>
+
         <div class="button-container">
-            <a routerLink="../games" class="show-all-btn">Ver tudo</a>
+            <a routerLink="../magazine" class="show-all-btn">Ver tudo</a>
         </div>
     </section>
 
     <section class="content-container">
-        <h1 class="games-title">Posteres</h1>
+        <h1 class="content-title">Posteres</h1>
         Em breve ...
         <div class="button-container">
             <a routerLink="../games" class="show-all-btn">Ver tudo</a>
