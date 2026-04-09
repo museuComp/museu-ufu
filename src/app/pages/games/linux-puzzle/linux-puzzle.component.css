@@ -173,19 +173,19 @@
   z-index: 1;
 }
 /* -------------------------- */
+/* PROGRESS BAR */
 
-/* .option {
-  position: absolute;
-  display: flex;
-  transform: translate(-40%, -20%);
-  width: 20%;
-  background: #2980b9;
-  font-size: 1.2rem;
-  color: #fff;
+.progress {
+  width: 100%;
+  height: 70px;
+  background-color: #f0f4ff;
   border-radius: 5px;
-  padding: 1rem;
-  justify-content: center;
-  align-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-} */
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #021c69;
+  transition: width 0.3s ease;
+}

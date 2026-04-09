@@ -124,7 +124,7 @@ export class LinuxPuzzleComponent implements OnInit {
     switch (command[0]) {
       case 'pwd':
         this.descriptionMessage =
-          'Mostra o caminho por inteiro da diretório em que nos encontramos em dado momento';
+          'Mostra o caminho por inteiro do diretório em que nos encontramos em dado momento';
         break;
       case 'mkdir':
         this.descriptionMessage = 'Cria um diretório';
@@ -148,4 +148,7 @@ export class LinuxPuzzleComponent implements OnInit {
         this.descriptionMessage = 'Comando desconhecido';
     }
   }
+
+  // progress bar animation
+  tuxImage: string = 'public/images/Tux.png';
 }

@@ -17,6 +17,16 @@
   </div>
 
   <div *ngIf="gameStarted && !gameFinished" class="game-area">
+    <div class="progress">
+      <div
+        class="progress-bar"
+        [style.width]="(currentPuzzle / puzzles.length) * 100 + '%'"
+      ></div>
+      <img
+        [src]="tuxImage"
+        [style.x]="(currentPuzzle / puzzles.length) * 100 + '%'"
+      />
+    </div>
     <div class="question">
       <h2>{{ puzzles[currentPuzzle].question }}</h2>
 
