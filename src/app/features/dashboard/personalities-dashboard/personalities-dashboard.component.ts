@@ -1,6 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from "@angular/cdk/drag-drop";
 import { CommonModule } from "@angular/common";
-import { Component, computed, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, computed, EventEmitter, inject, OnDestroy, OnInit, Output } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -28,17 +28,19 @@ import { DashboardDeleteConfirmDialog } from "../dashboard.component";
     MatDialogModule,
     RouterLink,
     ],
-  templateUrl: './news-dashboard.component.html',
-  styleUrl: './news-dashboard.component.scss'
+  templateUrl: './personalities-dashboard.component.html',
+  styleUrl: './personalities-dashboard.component.scss'
 })
-export class NewsDashboardComponent implements OnInit,OnDestroy {
-    newsList$!: Observable<NewsPost[]>;
-    newsItems: NewsPost[] = [];
+export class PersonalitiesDashboardComponent implements OnInit,OnDestroy {
+    @Output() lengthEvent = new EventEmitter<number>();
+
+    personalitiesList$!: Observable<NewsPost[]>;
+    personalitiesItems: NewsPost[] = [];
 
     isLoading = true;
     isUpdatingOrder = false;
 
-    private newsSubscription?: Subscription;
+    private personalitiesSubscription?: Subscription;
     authService = inject(AuthService);
     private firestoreNewsService = inject(FirestoreNewsService);
 
@@ -50,12 +52,12 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
 
     ngOnInit(): void {
         if (this.isAdmin()) {
-            this.newsList$ = this.firestoreNewsService.getNews();
-            this.newsSubscription = this.firestoreNewsService.getNews().subscribe(news => {
+            this.personalitiesList$ = this.firestoreNewsService.getPersonalities();
+            this.personalitiesSubscription = this.firestoreNewsService.getPersonalities().subscribe(p => {
                 // Ignora a atualização visual se estiver salvando a ordem
                 if (this.isUpdatingOrder) return; 
             
-                this.newsItems = news.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+                this.personalitiesItems = p.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
                 this.isLoading = false;
             });
         }
@@ -64,52 +66,52 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
     async saveNewOrder(): Promise<void> {
         this.isUpdatingOrder = true; // Liga a trava
         try {
-        const updatePromises = this.newsItems.map((news, index) => {
-            if (!news.id) return Promise.resolve();
-            return this.firestoreNewsService.updateNews(news.id, { order: index });
+        const updatePromises = this.personalitiesItems.map((p, index) => {
+            if (!p.id) return Promise.resolve();
+            return this.firestoreNewsService.updateNews(p.id, { order: index });
         });
 
         await Promise.all(updatePromises);
-        console.log('Ordem das notícias atualizada com sucesso!');
+        console.log('Ordem das personalidades atualizada com sucesso!');
         } catch (error) {
-        console.error('Erro ao atualizar ordem das notícias:', error);
+        console.error('Erro ao atualizar ordem das personalidades:', error);
         } finally {
         this.isUpdatingOrder = false; // Desliga a trava após salvar tudo
         }
     }
 
     onDrop(event: CdkDragDrop<NewsPost[]>): void {
-        moveItemInArray(this.newsItems, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.personalitiesItems, event.previousIndex, event.currentIndex);
         this.saveNewOrder();
     }
 
-    editNews(newsItem: NewsPost): void {
-        this.router.navigate(['/news/edit', newsItem.id]);
+    editNews(personalityItem: NewsPost): void {
+        this.router.navigate(['/news/edit', personalityItem.id]);
     }
 
-    deleteNews(newsItem: NewsPost): void {
-        if (!newsItem.id) return;
+    deleteNews(personalityItem: NewsPost): void {
+        if (!personalityItem.id) return;
         const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
           width: '350px',
-          data: { title: newsItem.summary.title }
+          data: { title: personalityItem.summary.title }
         });
     
         dialogRef.afterClosed().subscribe(result => {
           if (result === true) {
-            this.firestoreNewsService.deleteNews(newsItem.id!)
-              .then(() => console.log('Notícia deletada!'))
+            this.firestoreNewsService.deleteNews(personalityItem.id!)
+              .then(() => console.log('Personalidade deletada!'))
               .catch(error => console.error('Erro:', error));
           }
         });
     }
 
-    trackByNewsId(index: number, news: NewsPost): string {
-        return news.id || index.toString();
+    trackByPersonalityId(index: number, p: NewsPost): string {
+        return p.id || index.toString();
     }
 
     ngOnDestroy(): void {
-        if (this.newsSubscription) {
-            this.newsSubscription.unsubscribe();
+        if (this.personalitiesSubscription) {
+            this.personalitiesSubscription.unsubscribe();
         }
     }
 }

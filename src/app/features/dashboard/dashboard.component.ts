@@ -41,7 +41,8 @@ export class DashboardComponent implements OnInit {
     '': 'Notícia',
     'news': 'Notícia',
     'videos': 'Vídeo',
-  }
+    'personalities': 'Personalidade',
+  };
 
   user = this.authService.credentials;
   isAdmin = computed(() => this.user()?.role === Role.ADMIN);

@@ -107,6 +107,8 @@ export class VideosDashboardComponent implements OnInit,OnDestroy {
     }
 
     ngOnDestroy(): void {
-        
+        if (this.videosSubscription) {
+            this.videosSubscription.unsubscribe();
+        }
     }
 }

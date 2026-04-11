@@ -3,6 +3,7 @@ import { authGuard } from './core/auth/services/auth.service';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { NewsDashboardComponent } from './features/dashboard/news-dashboard/news-dashboard.component';
 import { VideosDashboardComponent } from './features/dashboard/videos-dashboard/videos-dashboard.component';
+import { PersonalitiesDashboardComponent } from './features/dashboard/personalities-dashboard/personalities-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +34,14 @@ export const routes: Routes = [
         path: 'detail/:id',
         loadComponent: () => import('./pages/personalities/personalities-detail.component').then(m => m.PersonalitiesDetailComponent),
         data: {breadCrumb: 'Detalhe'},
+      },
+      {
+        path: 'create',
+        canActivate: [authGuard],
+        loadComponent: () => import('./pages/news/news-form/news-form.component').then(m => m.NewsFormComponent),
+        data: {
+          breadCrumb: 'Criar Personalidade',
+        },
       }
     ]
   },
@@ -246,6 +255,10 @@ export const routes: Routes = [
       {
         path: 'videos',
         component: VideosDashboardComponent
+      },
+      {
+        path: 'personalities',
+        component: PersonalitiesDashboardComponent
       }
     ]
   },
