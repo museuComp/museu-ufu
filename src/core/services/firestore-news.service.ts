@@ -99,6 +99,38 @@ export class FirestoreNewsService {
     );
   }
 
+  getPreviousNews(order: number): Observable<NewsPost | null>{
+    const q = query(
+      this.newsCollection,
+      where('order', '<', order),
+      orderBy('order', 'desc'),
+      limit(15)
+    );
+    const data = (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>)
+      .pipe(
+        map(items =>
+          (items as NewsPost[]).find(item => item.summary.category !== 'Personalidades') ?? null
+        )
+      );
+    return data;
+  }
+
+  getNextNews(order: number): Observable<NewsPost | null>{
+      const q = query(
+        this.newsCollection,
+        where('order', '>', order),
+        orderBy('order', 'asc'),
+        limit(15)
+      );
+      const data = (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>)
+        .pipe(
+          map(items =>
+            (items as NewsPost[]).find(item => item.summary.category !== 'Personalidades') ?? null
+          )
+        );
+      return data;
+  }
+ 
   getNewsById(id: string): Observable<NewsPost | undefined> {
     const newsDocRef = doc(this.firestore, `news/${id}`);
     return docData(newsDocRef, { idField: 'id' }) as Observable<NewsPost | undefined>;
