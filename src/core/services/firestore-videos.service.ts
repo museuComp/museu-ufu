@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { addDoc, collectionData, docData, Firestore } from "@angular/fire/firestore";
-import { collection, deleteDoc, doc, limit, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, limit, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators'; // <-- Importação necessária para a ordenação
 
@@ -38,6 +38,31 @@ export class FirestoreVideosService {
 
         return addDoc(this.videosCollection, videoComplete);
     }
+
+    getPreviousVideo(order: number): Observable<Video | null>{
+        const q = query(
+          this.videosCollection,
+          where('order', '<', order),
+          orderBy('order', 'desc'),
+          limit(1)
+        );
+        const data = (collectionData(q as any, { idField: 'id' }) as Observable<Video[]>)   
+            .pipe(map(items => (items as Video[])[0] ?? null));
+        return data;
+      }
+    
+      getNextVideo(order: number): Observable<Video | null>{
+        const q = query(
+          this.videosCollection,
+          where('order', '>', order),
+          orderBy('order', 'asc'),
+          limit(1)
+        );
+        const data = (collectionData(q as any, { idField: 'id' }) as Observable<Video[]>)   
+            .pipe(map(items => (items as Video[])[0] ?? null));
+
+        return data;
+      }
 
     getAllVideos(): Observable<Video[]> {
         // ADICIONADO: O pipe e map para ordenar os vídeos automaticamente
