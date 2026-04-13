@@ -17,15 +17,17 @@
   </div>
 
   <div *ngIf="gameStarted && !gameFinished" class="game-area">
-    <div class="progress">
-      <div
-        class="progress-bar"
-        [style.width]="(currentPuzzle / puzzles.length) * 100 + '%'"
-      ></div>
+    <div class="progress-container">
       <img
+        class="character-tux"
         [src]="tuxImage"
-        [style.x]="(currentPuzzle / puzzles.length) * 100 + '%'"
+        [style.left.%]="progressPercentage()"
+        [alt]="Tux"
       />
+      <img class="character-gnu" [src]="gnuImage" [alt]="Gnu" />
+      <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="progressPercentage()"></div>
+      </div>
     </div>
     <div class="question">
       <h2>{{ puzzles[currentPuzzle].question }}</h2>

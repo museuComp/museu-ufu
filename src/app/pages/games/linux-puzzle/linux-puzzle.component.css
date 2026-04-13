@@ -175,17 +175,44 @@
 /* -------------------------- */
 /* PROGRESS BAR */
 
-.progress {
+.progress-container {
+  position: relative;
   width: 100%;
   height: 70px;
-  background-color: #f0f4ff;
   border-radius: 5px;
   margin-bottom: 1rem;
+}
+
+.progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: #ffffff;
+  border-radius: 5px;
   overflow: hidden;
 }
 
-.progress-bar {
+.progress-fill {
   height: 100%;
-  background-color: #021c69;
-  transition: width 0.3s ease;
+  background-color: #000080;
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.character-tux {
+  position: absolute;
+  bottom: 7px;
+  transform: translateX(-50%);
+  transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 60px;
+  z-index: 2;
+}
+
+.character-gnu {
+  position: absolute;
+  bottom: 9px;
+  right: 0;
+  height: 150px;
+  z-index: 1;
 }

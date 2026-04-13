@@ -149,6 +149,12 @@ export class LinuxPuzzleComponent implements OnInit {
     }
   }
 
-  // progress bar animation
+  // progress bar characters
   tuxImage: string = 'public/images/Tux.png';
+  gnuImage: string = 'public/images/gnu.png';
+
+  progressPercentage(): number {
+    if (!this.puzzles || this.puzzles.length === 0) return 0;
+    return (this.currentPuzzle / this.puzzles.length) * 100;
+  }
 }
