@@ -84,7 +84,7 @@
 
 .ano-badge {
   display: inline-block;
-  background: #2563eb;
+  background: #0c326f;
   color: #ffffff;
   padding: 0.3rem 1rem;
   border-radius: 999px;
@@ -127,8 +127,8 @@
 .btn-nav:hover:not(:disabled) {
   background: #f3f4f6;
   transform: scale(1.05);
-  color: #2563eb;
-  border-color: #2563eb;
+  color: #0c326f;
+  border-color: #0c326f;
 }
 
 .btn-nav:disabled {
@@ -154,7 +154,7 @@
 }
 
 .indicator.active {
-  background: #2563eb;
+  background: #0c326f;
   width: 12px;
   height: 12px;
 }
