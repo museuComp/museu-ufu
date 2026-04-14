@@ -76,6 +76,24 @@ export const routes: Routes = [
           import('./pages/games/history-quiz/history-quiz.component').then(
             m => m.HistoryQuizComponent
           ),
+      },
+      {
+        data: { breadCrumb: 'Computing Dungeons' },
+        path: 'computing-dungeons',
+        title: 'Computing Dungeons',
+        loadComponent: () =>
+          import('./pages/games/computing-dungeons/computing-dungeons.component').then(
+            m => m.ComputingDungeonsComponent
+          ),
+      },
+      {
+        data: { breadCrumb: 'MuseuDle' },
+        path: 'museudle',
+        title: 'MuseuDle',
+        loadComponent: () =>
+          import('./pages/games/museudle/museudle.component').then(
+            m => m.MuseudleComponent
+          ),
       }
     ]
   },
