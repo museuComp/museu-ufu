@@ -77,6 +77,30 @@
   color: #777;
 }
 
+.video-detail-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #1a237e;
+
+  a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    max-width: 20em;
+    font-weight: bold;
+  }
+}
+.action-container:hover {
+  text-decoration: underline;
+}
 @media (max-width: 480px) {
   .colaborators-container {
     flex-direction: column;

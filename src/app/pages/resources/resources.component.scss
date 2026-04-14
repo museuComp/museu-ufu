@@ -1,0 +1,188 @@
+:host {
+    --background-color: #fff;
+    --title-color: #0c326f;
+    --primary-text: #6c757d;
+    --secondary-text: #555;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --space: 1rem;
+}
+
+.content-container {
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.content-title {
+    align-self: flex-start;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.content-list {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 20px; /* Espaçamento entre os cards */
+  padding: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: scroll;
+}
+
+.game-card, .magazine-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.game-card:hover, .magazine-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.game-icon {
+  background: #f0f4ff;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+.game-icon i {
+  font-size: 2.5rem;
+  color: #021c69;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.magazine-icon {
+  font-size: 2.5rem;
+  color: #0c326f;
+  margin-bottom: 12px;
+}
+
+.game-card h2 {
+  color: #021c69;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.magazine-title {
+  text-decoration: none;
+  color: var(--title-color);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s;
+}
+
+.download-icon {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #0c326f;
+  width: fit-content;
+  border-radius: 50%;
+
+  i {
+    margin: 8px;
+    font-size: 22px;
+  }
+
+  &:hover {
+    background-color: #0c326fc3;
+  }
+}
+
+.game-card p {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+}
+.show-all-btn {
+  background-color: #0c326f !important;
+  color: #ffffff !important;
+  padding: 10px 28px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.show-all-btn:hover {
+  background-color: #135fd1 !important;
+  color: #ffffff !important;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(12, 50, 111, 0.2);
+}
+
+.revista-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ededed;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  padding: 20px;
+  min-width: 180px;
+  text-align: center;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer; 
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &.selecionada {
+    border-color: #0c326f;
+    box-shadow: 0 6px 12px rgba(12, 50, 111, 0.3);
+  }
+}
+
+.revista-card .br-button.circle {
+  background-color: #0c326f;
+  color: white;
+
+  &:hover {
+    background-color: #0a285a;
+  }
+}

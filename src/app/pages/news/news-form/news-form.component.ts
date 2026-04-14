@@ -51,7 +51,8 @@ export class NewsFormComponent implements OnInit {
     'Exposições',
     'Notícias',
     'Educação',
-    'Pesquisa'
+    'Pesquisa',
+    'Personalidades'
   ];
 
   private firestoreNewsService = inject(FirestoreNewsService);

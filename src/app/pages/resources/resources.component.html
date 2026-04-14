@@ -1,0 +1,66 @@
+<div class="resources-container">
+    <app-content-section title="Vídeos" uri="videos" [sectionContent]="videosList$"></app-content-section>
+    <app-content-section title="Personalidades" uri="personalities" [sectionContent]="personalitiesList$"></app-content-section>
+
+    <section class="content-container">
+        <h1 class="content-title">Jogos</h1>
+
+        <div class="content-list">
+            <div class="game-card" routerLink="../games/quiz">
+                <div class="game-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h2>Quiz</h2>
+                <p>Teste seus conhecimentos sobre o museu com perguntas divertidas!</p>
+            </div>
+
+            <div class="game-card" routerLink="../games/puzzles">
+                <div class="game-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h2>Jogo da Memória</h2>
+                <p>Complete o jogo da mémoria com imagens da história da computação</p>
+            </div>
+
+            <div class="game-card" routerLink="../games/logic-challenge">
+                <div class="game-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2>Desafio Lógico</h2>
+                <p>Resolva desafios e enigmas relacionados ao acervo do museu!</p>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <a routerLink="../games" class="show-all-btn">Ver tudo</a>
+        </div>
+    </section>
+
+    <!-- QUANDO O SERVIÇO DE REVISTAS FOR FINALIZADO ISSO SUMIRÁ E VIRARÁ UM APP-CONTENT-SECTION-->
+    <section class="content-container">
+        <h1 class="content-title">Revistas</h1>
+
+        <div class="content-list">
+            <mat-card *ngFor="let revista of revistas" class="magazine-card" routerLink="../magazine">
+                <div class="magazine-icon">📖</div>
+                <mat-card-title class="magazine-title">{{revista.titulo}} ({{revista.ano}})</mat-card-title>
+                <a class="download-icon" download [href]="revista.linkDownload">
+                     <i class="fas fa-download" aria-hidden="true"></i>
+                </a>
+            </mat-card>
+        </div>
+
+        <div class="button-container">
+            <a routerLink="../magazine" class="show-all-btn">Ver tudo</a>
+        </div>
+    </section>
+
+    <!-- QUANDO O SERVIÇO DE POSTERES FOR FINALIZADO ISSO SUMIRÁ E VIRARÁ UM APP-CONTENT-SECTION-->
+    <section class="content-container">
+        <h1 class="content-title">Posteres</h1>
+        Em breve ...
+        <div class="button-container">
+            <a class="show-all-btn">Ver tudo</a>
+        </div>
+    </section>
+</div>
