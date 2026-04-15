@@ -1,0 +1,33 @@
+<div class="videos-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="!isLoading; else loadingVideos">
+    <div *ngFor="let video of videosItems; trackBy: trackByVideoId" class="video-row" cdkDrag>
+        <div class="video-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+            <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
+
+            <a [routerLink]="['/videos/detail', video.id]" style="flex: 1; text-decoration: none;">
+                <span class="video-title">{{ video.summary.title }}</span>
+            </a> 
+
+            <div class="list-item-actions">
+              <button mat-icon-button color="primary" (click)="editVideo(video)"
+                [attr.aria-label]="'Editar vídeo' + video.summary.title">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn" (click)="deleteVideo(video)"
+                [attr.aria-label]="'Excluir vídeo' + video.summary.title">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+        </div>
+        <div class="video-category" style="margin-left: 36px;">
+            {{ video.summary.category }}
+        </div>
+
+    </div>
+</div>
+
+<ng-template #loadingVideos>
+    <div class="loading-or-empty-container">
+        <p>Carregando vídeos...</p>
+    </div>
+</ng-template>

@@ -31,11 +31,16 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: calc(var(--espacamento-base) * 2);
+  margin-bottom: calc(var(--espacamento-base));
   flex-wrap: wrap;
   gap: var(--espacamento-base);
 }
 
+.dashboard-section-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--espacamento-base);
+}
 .dashboard-grid {
   margin: 3rem 0;
 }
@@ -76,6 +81,7 @@
   gap: var(--espacamento-base);
 
   h2 {
+    padding: 0;
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;

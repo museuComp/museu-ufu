@@ -1,0 +1,563 @@
+
+.personalities-list {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+  gap: 20px; /* Espaçamento entre os cards */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.personality-card {
+  width: 340px; 
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  background-color: #fff; /* Garante um fundo para o card */
+  overflow: hidden; /* Importante para conter a imagem se ela for maior */
+  justify-content: flex-start; /* Alinha os cards à esquerda */
+}
+.personality-card:hover {
+  transform: translateY(-5px);
+}
+.personality-card-image-container {
+  width: 100%; /* Ocupa toda a largura do card */
+  height: 200px; /* Defina uma altura fixa para a área da imagem ou use aspect-ratio */
+  overflow: hidden; /* Garante que a imagem não vaze se 'object-fit: cover' não for suficiente */
+  position: relative; /* Para posicionamento absoluto de overlays, se necessário */
+}
+
+.personality-main-image-card {
+  width: 100%;
+  height: 100%; /* Faz a imagem preencher o contêiner */
+  object-fit: cover; /* Cobre a área, cortando se necessário, sem distorcer */
+  display: block; /* Remove espaço extra abaixo da imagem */
+}
+.personality-card-content-area {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Para que esta área preencha o restante do card */
+}
+.personality-card img[mat-card-image] {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #f0f0f0;
+}
+
+.personality-card-header-no-avatar { /* Estilo para o header quando não tem avatar */
+  padding: 0 0 8px 0; /* Menos padding se não houver avatar */
+
+}
+.personality-card-title-custom {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 4px;
+  line-height: 1.3;
+  color: #333; /* Cor do título */
+}
+
+mat-card-content {
+  padding: 18px 18px 8px 18px;
+}
+.personality-card:hover {
+  transform: translateY(-5px);
+}
+
+.personality-card-image-container {
+  width: 100%; /* Ocupa toda a largura do card */
+  height: 200px; /* Defina uma altura fixa para a área da imagem ou use aspect-ratio */
+  overflow: hidden; /* Garante que a imagem não vaze se 'object-fit: cover' não for suficiente */
+  position: relative; /* Para posicionamento absoluto de overlays, se necessário */
+}
+
+.personality-main-image-card {
+  width: 100%;
+  height: 100%; /* Faz a imagem preencher o contêiner */
+  object-fit: cover; /* Cobre a área, cortando se necessário, sem distorcer */
+  display: block; /* Remove espaço extra UILabel da imagem */
+}
+
+.personality-card-content-area {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.personality-category {
+  color: #1a237e;
+  font-size: 0.95em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+.personality-title-text {
+  color: inherit;
+  text-decoration: none;
+  min-height: 3em;
+}
+
+.personality-title-text:hover {
+  text-decoration: underline;
+}
+
+.personality-category {
+  font-size: 0.85em;
+  color: #6c757d; /* Cinza mais escuro para categoria */
+  margin-bottom: 8px;
+}
+
+.mat-mdc-card-content.personality-description {
+  padding: 0; /* Já temos padding no news-card-content-area */
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #555; /* Cor da descrição */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limita a descrição a 3 linhas */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  margin-bottom: 16px; /* Espaço antes das ações */
+  flex-grow: 1; /* Permite que a descrição cresça se houver espaço */
+}
+
+.mat-mdc-card-actions.personality-actions-custom {
+  padding: 8px 16px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #f0f0f0;
+  background-color: #f9f9f9; /* Um fundo leve para a área de ações */
+}
+
+
+.personality-card-title-custom {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 4px; /* Espaço abaixo do título */
+  line-height: 1.3;
+}
+
+.personality-title { /* Estilo para o link do título */
+  color: inherit; /* Herda a cor do texto do card */
+  text-decoration: none;
+}
+
+.personality-title:hover {
+  text-decoration: underline;
+}
+
+.personality-category {
+  font-size: 0.85em;
+  color: #666;
+}
+
+/* Conteúdo do card (descrição) */
+.mat-mdc-card-content.personality-description { /* Mais especificidade */
+  padding: 0 16px 16px; /* Ajusta o padding */
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #333;
+  flex-grow: 1; /* Faz o conteúdo crescer para preencher o espaço, empurrando as ações para baixo */
+  overflow: hidden; /* Garante que o conteúdo não vaze */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limita o número de linhas de texto */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis; /* Adiciona "..." se o texto for cortado */
+  min-height: 70px; /* Altura mínima para a descrição, ajuste conforme necessário */
+}
+
+/* Ações do card */
+.mat-mdc-card-actions.personality-actions-custom { /* Mais especificidade */
+  padding: 8px 16px; /* Ajusta o padding */
+  display: flex;
+  justify-content: flex-end; /* Alinha botões à direita */
+  border-top: 1px solid #f0f0f0; /* Linha sutil acima das ações */
+}
+
+/* Placeholder para quando não há notícias ou está carregando */
+.loading-or-empty-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+  font-size: 1.1em;
+  color: #777;
+}
+
+/* Botão de criar notícia */
+.create-news-button-container {
+  display: flex;
+  justify-content: center; /* Centraliza o botão de criar */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.custom-create-news-btn {
+  background-color: #ffffff !important; /* Fundo branco */
+  color: #1677ff !important; /* Texto azul */
+  border: 2px solid #1677ff !important; /* Borda azul */
+  border-radius: 24px !important; /* Bordas arredondadas */
+  font-weight: 600;
+  padding: 8px 32px !important; /* Padding interno */
+  box-shadow: none !important; /* Remove sombra padrão do mat-raised-button se houver */
+  font-size: 1em; /* Ajuste o tamanho da fonte se necessário */
+  letter-spacing: .5px;
+  display: inline-flex; /* Para alinhar ícone e texto */
+  align-items: center;
+  gap: 8px; /* Espaço entre ícone e texto */
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s; /* Transição suave */
+}
+.custom-create-news-btn .mat-icon { /* Garante que o ícone também pegue a cor do texto */
+  color: #1677ff;
+}
+
+.custom-create-news-btn:hover {
+  background-color: #e6f7ff !important; /* Um azul bem claro para o hover */
+  color: #0056b3 !important;
+  border-color: #0056b3 !important;
+}
+
+.create-news-button-container button {
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
+/* Para a imagem principal do card, se você decidir usá-la */
+.personality-main-image-card {
+  width: 100%;
+  max-height: 200px; /* Defina uma altura máxima para a imagem principal do card */
+  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+}
+
+/* Ícones nos botões */
+.mat-mdc-button mat-icon {
+  margin-right: 8px;
+}
+@media (max-width: 768px) {
+  .personalities-list {
+    padding: 10px;
+    gap: 10px;
+  }
+  .personality-card {
+    width: 100%; /* Ocupa toda a largura em telas menores */
+    max-width: 400px; /* Opcional: um máximo para não ficar gigante */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .personality-card-image-container {
+    height: 180px; /* Pode querer ajustar a altura da imagem também */
+  }
+}
+
+.personality-card-header-no-avatar { /* Estilo para o header quando não tem avatar */
+  padding: 0 0 8px 0; /* Menos padding se não houver avatar */
+}
+
+.personality-card-title-custom {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 4px; /* Espaço UILabel do título */
+  line-height: 1.3;
+  color: #1677ff !important;
+}
+
+.personality-title { /* Estilo para o link do título */
+  color: #1677ff !important;
+  text-decoration: none;
+}
+
+.personality-title:hover {
+  text-decoration: underline;
+}
+
+.personality-category {
+  font-size: 0.85em;
+  color: #1677ff; /* Cor da versão mais específica no seu arquivo original */
+  /* margin-bottom: 8px; A versão mais específica no seu arquivo original não tinha margin-bottom */
+}
+
+/* Conteúdo do card (descrição) */
+.mat-mdc-card-content.personality-description { /* Mais especificidade */
+  padding: 0 0px; /* Ajusta o padding */
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #1677ff; /* Cor da versão mais específica no seu arquivo original */
+  flex-grow: 1; /* Faz o conteúdo crescer para preencher o espaço, empurrando as ações para baixo */
+  overflow: hidden; /* Garante que o conteúdo não vaze */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limita o número de linhas de texto (era 3 e 4, optei por 4) */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis; /* Adiciona "..." se o texto for cortado */
+  min-height: 70px; /* Altura mínima para a descrição, ajuste conforme necessário */
+}
+
+.personality-description p {
+  margin: 0;
+  padding: 0;
+  text-align: left !important;
+}
+
+/* Ações do card */
+.mat-mdc-card-actions.personality-actions-custom { /* Mais especificidade */
+  padding: 8px 16px; /* Ajusta o padding */
+  display: flex;
+  justify-content: flex-end; /* Alinha botões à direita */
+  border-top: 1px solid #f0f0f0; /* Linha sutil UILabel das ações */
+  /* background-color: #f9f9f9; A versão mais específica no seu arquivo original não tinha background-color */
+}
+
+/* Placeholder para quando não há notícias ou está carregando */
+.loading-or-empty-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+  font-size: 1.1em;
+  color: #1677ff;
+}
+
+/* Botão de criar notícia */
+.create-news-button-container {
+  display: flex;
+  justify-content: center; /* Centraliza o botão de criar */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.custom-create-news-btn {
+  background-color: #ffffff;
+  color: #1677ff !important;
+  border: 2px solid #1677ff;
+  border-radius: 24px;
+  font-weight: 600;
+  padding: 8px 32px;
+  box-shadow: none;
+  font-size: 1em;
+  letter-spacing: .5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.custom-create-news-btn .mat-icon {
+  color: #1677ff; /* Cor do ícone, herda a transição se color for transitionado no pai */
+}
+
+.custom-create-news-btn:hover {
+  background-color: #e6f7ff; /* Um azul bem claro para o hover (sem !important) */
+  color: #0056b3;           /* (sem !important) */
+  border-color: #0056b3;     /* (sem !important) */
+}
+
+/* Adicionado para o modo de alto contraste */
+:host-context(.high-contrast) .custom-create-news-btn {
+  background-color: #000 !important;
+  color: #ffc107 !important;
+  border-color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .custom-create-news-btn .mat-icon {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .custom-create-news-btn:hover {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+  border-color: #000 !important; /* Ajuste se preferir a borda amarela no hover também */
+}
+
+:host-context(.high-contrast) .custom-create-news-btn:hover .mat-icon {
+  color: #000 !important;
+}
+
+:host-context(.high-contrast) .personality-card-title-custom,
+:host-context(.high-contrast) .personality-title {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .loading-or-empty-container {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .personality-description p {
+  color: #fff !important;
+}
+
+/* Fim da adição para alto contraste */
+
+.create-news-button-container button { /* Esta regra é genérica. Pode ser redundante se o único botão for .custom-create-news-btn */
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
+/* Ícones nos botões (regra genérica para botões mdc dentro do componente) */
+.mat-mdc-button mat-icon {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .personality-list {
+    padding: 10px;
+    gap: 10px;
+  }
+  .personality-card {
+    width: 100%; /* Ocupa toda a largura em telas menores */
+    max-width: 400px; /* Opcional: um máximo para não ficar gigante */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .personality-card-image-container {
+    height: 180px; /* Pode querer ajustar a altura da imagem também */
+  }
+}
+
+/* ========================================================
+   ESTILO DOS CARDS (Refinado e Espaçado) 
+   ======================================================== */
+
+.personality-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e9ecef !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Área de texto do card */
+.personality-card-content-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 32px 24px; /* Mais respiro interno (32px em cima/baixo, 24px nas laterais) */
+  align-items: center;
+  text-align: center;
+}
+
+/* Categoria */
+.personality-category {
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+/* Título */
+.personality-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.personality-title-text {
+  color: #0c326f !important;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+  /* Limita o título a 2 linhas para manter o card alinhado */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s;
+}
+
+.personality-title-link:hover .personality-title-text {
+  text-decoration: underline;
+}
+
+/* Descrição */
+.personality-description {
+  width: 100%;
+}
+
+.personality-description p {
+  color: #555555 !important;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  /* Limita a descrição a 3 linhas */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center !important;
+}
+
+/* Container do Botão (Empurra para o final) */
+.personality-card-action-container {
+  margin-top: auto; /* O segredo para o botão ficar sempre no rodapé */
+  padding-top: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* O Botão */
+.btn-card-action {
+  background-color: #0c326f !important;
+  color: #ffffff !important;
+  padding: 10px 28px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+.btn-card-action:hover {
+  background-color: #135fd1 !important;
+  color: #ffffff !important;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(12, 50, 111, 0.2);
+}
+
+/* ========================================================
+   ALTO CONTRASTE (Mantendo a acessibilidade)
+   ======================================================== */
+:host-context(.high-contrast) .personality-card {
+  background-color: #000 !important;
+  border-color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .personality-category,
+:host-context(.high-contrast) .personality-title-text,
+:host-context(.high-contrast) .personality-description p {
+  color: #ffffff !important;
+}
+
+:host-context(.high-contrast) .personality-title-text {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .btn-card-action {
+  background-color: #000 !important;
+  color: #ffc107 !important;
+  border: 1px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .btn-card-action:hover {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+/* Atualização da cor do texto de Carregando/Vazio */
+.loading-or-empty-container {
+  color: #0c326f !important; /* Força o azul escuro */
+  font-weight: 500; /* Deixa a fonte levemente mais forte para leitura */
+}

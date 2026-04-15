@@ -32,6 +32,20 @@
       </div>
     </mat-card-content>
   </mat-card>
+  <mat-card-actions class="news-detail-actions">
+    <div style="max-width: 22em;">
+      <div class="action-container" *ngIf="prev$ | async as prev" [routerLink]="['..',prev.id]">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <a>{{ prev.summary.title}}</a>
+      </div>
+    </div>
+    <div style="max-width: 22em;">
+      <div class="action-container" *ngIf="next$ | async as next" [routerLink]="['..',next.id]">
+        <a>{{next.summary.title}}</a>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </div>
+    </div>
+  </mat-card-actions>
 </div>
 
 <ng-template #loadingOrNotFound>
