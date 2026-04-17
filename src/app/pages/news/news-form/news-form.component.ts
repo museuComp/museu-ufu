@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,8 +14,9 @@ interface ContentItem {
   id: string;
   type: 'title' | 'text' | 'image';
   content: string;
+  fileName?: string; // Para exibir o nome da imagem
+  error?: string;    // Para exibir o erro de tamanho ou formato
 }
-
 
 @Component({
   selector: 'app-news-form',
@@ -40,23 +41,28 @@ export class NewsFormComponent implements OnInit {
   newsId: string | null = null;
   fullContent: ContentItem[] = [];
   mainImageFileName: string | null = null;
+  
+  // Variáveis para validação de imagem
+  readonly MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB em bytes
+  mainImageError: string | null = null;
 
   categories = [
     'Eventos',
     'Exposições',
     'Notícias',
     'Educação',
-    'Pesquisa'
+    'Pesquisa',
+    'Personalidades'
   ];
 
   private firestoreNewsService = inject(FirestoreNewsService);
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
   ) {
     this.newsForm = this.fb.group({
-      // Campos para a versão resumida (box)
       summaryTitle: ['', [Validators.required, Validators.minLength(3)]],
       summaryDescription: ['', [Validators.required, Validators.minLength(10)]],
       category: ['', Validators.required],
@@ -64,9 +70,7 @@ export class NewsFormComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
-    // A atribuição aqui está correta, desde que a propriedade esteja declarada
     this.newsId = this.route.snapshot.paramMap.get('id');
     if (this.newsId) {
       this.isEditMode = true;
@@ -78,10 +82,10 @@ export class NewsFormComponent implements OnInit {
             category: newsData.summary.category,
             mainImage: newsData.summary.mainImage
           });
-          // Verifique se fullContent existe e é um array antes de mapear
+          
           this.fullContent = (newsData.fullContent && Array.isArray(newsData.fullContent))
             ? newsData.fullContent.map((item, index) => ({
-              id: `item-<span class="math-inline">\{Date\.now\(\)\}\-</span>{index}`, // Geração de um ID para o cliente
+              id: `item-${Date.now()}-${index}`,
               type: item.type,
               content: item.content
             }))
@@ -98,32 +102,28 @@ export class NewsFormComponent implements OnInit {
   onSubmit(): void {
     if (this.newsForm.valid) {
       const formValue = this.newsForm.value;
-      console.log('Form Value:', formValue);
-      const newsData: NewsPost = { // Tipar com a interface NewsPost
+      const newsData: NewsPost = { 
         summary: {
           title: formValue.summaryTitle,
           description: formValue.summaryDescription,
           category: formValue.category,
-          mainImage: formValue.mainImage, // Idealmente, aqui seria o URL da imagem após upload
+          mainImage: formValue.mainImage,
         },
-        fullContent: this.fullContent.map(item => ({ // Mapeia para o formato do Firestore
+        fullContent: this.fullContent.map(item => ({ 
           type: item.type,
-          content: item.content, // O 'id' do ContentItem não é salvo no Firestore
+          content: item.content, 
         }))
       };
-      console.log('Data to Firestore:', JSON.stringify(newsData, null, 2));
 
-      if (this.isEditMode && this.newsId) { // this.newsId precisa ser populado no ngOnInit se for edição
+      if (this.isEditMode && this.newsId) { 
         this.firestoreNewsService.updateNews(this.newsId, newsData)
           .then(() => {
-            console.log('Notícia atualizada com sucesso!');
             this.router.navigate(['/dashboard']);
           })
           .catch(error => console.error('Erro ao atualizar notícia:', error));
       } else {
         this.firestoreNewsService.addNews(newsData)
           .then(() => {
-            console.log('Notícia criada com sucesso!');
             this.router.navigate(['/dashboard']);
           })
           .catch(error => console.error('Erro ao criar notícia:', error));
@@ -132,34 +132,35 @@ export class NewsFormComponent implements OnInit {
   }
 
   onMainImageChange(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    
+    this.mainImageError = null; // Reseta o erro anterior
+
     if (file) {
+      // VALIDAÇÃO: Tamanho máximo (1MB)
+      if (file.size > this.MAX_IMAGE_SIZE) {
+        this.mainImageError = 'A imagem excede o tamanho máximo permitido de 1MB.';
+        input.value = ''; // Limpa o input
+        this.newsForm.get('mainImage')?.setErrors({ 'maxSize': true });
+        return;
+      }
+
+      // VALIDAÇÃO: Tipo de arquivo
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        this.mainImageError = 'Tipo de arquivo não permitido. Use PNG, JPEG ou WEBP.';
+        input.value = ''; // Limpa o input
+        this.newsForm.get('mainImage')?.setErrors({ 'invalidType': true });
+        return;
+      }
+
+      // Se passou nas validações, converte para Base64
       const reader = new FileReader();
       reader.onload = () => {
-        const base64String = reader.result as string;
-        // Verificar o tamanho da string (aproximado, em bytes)
-        const stringLength = base64String.length;
-        const sizeInBytes = Math.ceil(stringLength / 4) * 3; // Estimativa do tamanho original do arquivo a partir do base64
-        const maxSizeInBytes = 500 * 1024; // Exemplo: Limite de 500KB para a string base64
-        const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
-        if (!allowedTypes.includes(file.type)) {
-          console.error('Tipo de arquivo não permitido:', file.type);
-          // Notificar o usuário
-          this.newsForm.get('mainImage')?.setErrors({ 'invalidType': true });
-          this.mainImageFileName = 'Erro: Tipo de imagem não suportado!';
-          return;
-        }
-        if (stringLength > maxSizeInBytes * (4/3)) { // Ajustar o limite para o tamanho da string base64
-          console.error(`A imagem é muito grande (${(sizeInBytes / 1024).toFixed(2)}KB). Limite de ${(maxSizeInBytes / 1024).toFixed(2)}KB.`);
-          // Notificar o usuário sobre o erro de tamanho
-          this.newsForm.get('mainImage')?.setErrors({ 'maxSize': true });
-          this.mainImageFileName = 'Erro: Imagem muito grande!';
-          return;
-
-        }
-
-        this.newsForm.patchValue({ mainImage: base64String });
+        this.newsForm.patchValue({ mainImage: reader.result as string });
         this.mainImageFileName = file.name;
+        this.newsForm.get('mainImage')?.setErrors(null);
       };
       reader.readAsDataURL(file);
     }
@@ -167,7 +168,7 @@ export class NewsFormComponent implements OnInit {
 
   addContent(type: 'title' | 'text' | 'image'): void {
     const newItem: ContentItem = {
-      id: `new-item-${Date.now()}-${this.fullContent.length}`, // Geração de ID para novo item
+      id: `new-item-${Date.now()}-${this.fullContent.length}`,
       type,
       content: ''
     };
@@ -188,12 +189,32 @@ export class NewsFormComponent implements OnInit {
   }
 
   onImageUpload(item: ContentItem, event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    
+    item.error = undefined; // Reseta o erro do item
+
     if (file) {
+      // VALIDAÇÃO: Tamanho máximo (1MB)
+      if (file.size > this.MAX_IMAGE_SIZE) {
+        item.error = 'A imagem excede o tamanho máximo permitido de 1MB.';
+        input.value = ''; // Limpa o input
+        return;
+      }
+
+      // VALIDAÇÃO: Tipo de arquivo
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        item.error = 'Tipo de arquivo não permitido. Use PNG, JPEG ou WEBP.';
+        input.value = ''; // Limpa o input
+        return;
+      }
+
+      // Se passou nas validações, converte para Base64
       const reader = new FileReader();
       reader.onload = () => {
         item.content = reader.result as string;
-        (item as any).fileName = file.name; // Salva o nome do arquivo
+        item.fileName = file.name;
       };
       reader.readAsDataURL(file);
     }

@@ -50,6 +50,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "src/public",
@@ -64,10 +65,11 @@
             "styles": [
               "src/styles.css",
               "@govbr-ds/core/dist/core.min.css",
-              "@fortawesome/fontawesome-free/css/all.min.css"
-              
+              "@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/pannellum/build/pannellum.css"
             ],
-            "scripts": [],
+            "scripts": [  "node_modules/pannellum/build/pannellum.js"
+],
             "baseHref": "/museu-ufu/"
           },
           "configurations": {

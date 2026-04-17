@@ -1,5 +1,7 @@
-import { Component, signal, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChildren, QueryList, ElementRef, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal, OnInit, OnDestroy, AfterViewInit, ChangeDetectionStrategy, ViewChildren, QueryList, ElementRef, effect } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+
+declare var pannellum: any;
 
 // Interface para garantir a consistência e tipagem dos dados de cada slide.
 interface Slide {
@@ -13,29 +15,20 @@ interface Slide {
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [CommonModule, NgOptimizedImage], // Adicionado NgOptimizedImage
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
-
-
-export class HomeComponent implements OnInit, OnDestroy {
-	// Dados dos slides com imagens mais temáticas e de alta qualidade.
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChildren('videoPlayer') videoPlayers!: QueryList<ElementRef<HTMLVideoElement>>;
-	slides: Slide[] = [
+	
+  slides: Slide[] = [
 		{
 			type: 'image',
-			src: 'public/carrossel/Workshop.png',
-			alt: 'Pilha de disquetes coloridos',
-			title: 'Nosso Workshop',
-			subtitle: 'Venha participar no de uma esperiência inesquecível.'
-		},
-		{
-			type: 'video',
-			src: 'public/carrossel/carrossel_teste.mp4',
-			alt: '',
-			title: 'A História da Computação',
-			subtitle: 'Saiba como tudo começou e evoluiu ao longo dos anos.'
+			src: 'public/carrossel/insta.png',
+			alt: 'Instagram do Museu da Computação',
+			title: 'Instagram do Museu da Computação',
+			subtitle: 'Veja as novidades, eventos e curiosidades do museu em nosso Instagram!'
 		},
 		{
 			type: 'image',
@@ -53,6 +46,32 @@ export class HomeComponent implements OnInit, OnDestroy {
 		}
 	];
 
+  // 3 Itens aleatórios/interessantes do acervo para a Home
+  itensDestaque = [
+    {
+      titulo: 'Console PS One',
+      descricao: 'Videogame histórico que popularizou os jogos em mídia de CD e marcou o entretenimento digital.',
+      imagemThumb: 'public/itens/ps1_thumb.jpg'
+    },
+    {
+      titulo: 'Calculadora Facit',
+      descricao: 'Calculadora mecânica utilizada em escritórios para realizar operações matemáticas antes da invenção das calculadoras eletrônicas.',
+      imagemThumb: 'public/itens/calculadora_antiga_thumb.jpg'
+    },
+    {
+      titulo: 'Ossos de Napier',
+      descricao: 'Instrumento histórico criado no século XVII e considerado um dos primeiros dispositivos manuais para facilitar cálculos.',
+      imagemThumb: 'public/itens/ossos_de_naipier_thumb.jpg'
+    }
+  ];
+
+  	
+  	bannerDestaque = {
+    src: 'public/banner/banner-principal.png', // Coloque o caminho correto da imagem do seu banner aqui
+    alt: 'Apoie o Museu Virtual da FACOM',
+    
+  	};
+
 	currentIndex = signal(0);
 	isPaused = signal(false);
 	private intervalId?: number;
@@ -60,7 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 	constructor() {
 		effect(() => {
 			const idx = this.currentIndex();
-			const isPaused = this.isPaused(); // Rastreia o estado de pausa
+			const isPaused = this.isPaused();
 
 			if (this.videoPlayers) {
 				this.videoPlayers.forEach(playerRef => {
@@ -68,7 +87,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 					const slideIndex = parseInt(videoElement.getAttribute('data-index') || '-1', 10);
 
 					if (slideIndex === idx) {
-						// Se for o slide atual, a reprodução depende do estado de pausa
 						if (isPaused) {
 							videoElement.pause();
 						} else {
@@ -77,7 +95,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 							});
 						}
 					} else {
-						// Outros slides de vídeo devem estar sempre pausados
 						videoElement.pause();
 						videoElement.currentTime = 0;
 					}
@@ -89,6 +106,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.startAutoPlay();
 	}
+
+  ngAfterViewInit(): void {
+    // Inicializa o 360 na home page. ID 'panorama-home' para não dar conflito.
+    if (typeof pannellum !== 'undefined') {
+      pannellum.viewer('panorama-home', {
+        type: 'equirectangular',
+        panorama: 'public/visita-virtual/sala360.jpg',
+        autoLoad: true, // Mudado para TRUE: carrega a imagem automaticamente sem o botão
+        showZoomCtrl: true,
+        compass: false,
+        pitch: 0,
+        yaw: 0,
+        hfov: 110
+      });
+    }
+  }
 
 	ngOnDestroy() {
 		this.stopAutoPlay();

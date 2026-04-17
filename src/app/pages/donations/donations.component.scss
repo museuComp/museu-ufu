@@ -1,141 +1,236 @@
-/* donations.component.css */
-
-/* Variáveis de Cor (opcional, mas ajuda a manter consistência) */
+/* ========================================================
+   VARIÁVEIS E CONTAINER PRINCIPAL
+   ======================================================== */
 :host {
-  --form-primary-color: #1976d2; /* Um azul similar ao Material Design, ajuste se tiver uma cor primária definida */
-  --form-text-color: #333;
-  --form-label-color: #555;
+  --form-primary-color: #0c326f; /* O nosso Azul Escuro Padrão */
+  --form-hover-color: #135fd1;
+  --form-text-color: #0c326f;
+  --form-label-color: #555555;
   --form-background-color: #ffffff;
-  --form-container-padding: 30px;
-  --form-border-radius: 12px; /* Um pouco mais arredondado */
-  --form-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais suave e espalhada */
-}
-:host ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-flex .mdc-text-field__input,
-:host ::ng-deep .mat-mdc-form-field .mat-mdc-form-field-flex textarea.mdc-text-field__input {
-  padding-left: 10px !important;
+  --form-container-padding: 40px;
+  --form-border-radius: 8px; /* Arredondamento padrão das outras páginas */
+  --form-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra suave elegante */
 }
 
 .donation-form-container {
-  max-width: 750px; /* Um pouco mais largo se a referência for mais larga */
-  margin: 40px auto; /* Mais margem superior/inferior */
+  max-width: 750px;
+  margin: 0 auto;
   padding: var(--form-container-padding);
   border-radius: var(--form-border-radius);
   background-color: var(--form-background-color);
   box-shadow: var(--form-box-shadow);
-  border: 1px solid #e0e0e0; /* Borda sutil adicional */
+  border: 1px solid #e9ecef;
 }
 
 .donation-form-container h1 {
   text-align: center;
   color: var(--form-text-color);
-  margin-bottom: 15px; /* Ajuste */
-  font-size: 2em; /* Maior */
-  font-weight: 500; /* Um pouco menos negrito que o padrão h1 */
+  margin-bottom: 16px;
+  font-size: 2.2rem;
+  font-weight: 700;
 }
 
 .form-description {
   text-align: center;
-  margin-bottom: 30px; /* Mais espaço */
+  margin-bottom: 32px;
   color: var(--form-label-color);
-  font-size: 1.05em; /* Um pouco maior */
-  line-height: 1.7;
-  max-width: 85%; /* Para não ficar tão largo */
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
+/* ========================================================
+   ESTILOS DO FORMULÁRIO E INPUTS MATERIAL
+   ======================================================== */
 form {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* Aumentar o espaçamento entre os campos */
+  gap: 16px;
 }
 
 mat-form-field {
   width: 100%;
 }
 
-mat-form-field.mat-focused .mat-form-field-outline-thick,
-mat-form-field.mat-focused .mat-form-field-label {
-  color: var(--form-primary-color) !important; /* Cor primária quando focado */
+/* Sobrescrevendo as cores do Angular Material para o nosso Azul Escuro */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--form-primary-color) !important;
+  border-width: 2px !important;
 }
 
-/* Botão de Envio */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label,
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
+  color: var(--form-primary-color) !important;
+}
+
+::ng-deep .mat-mdc-form-field .mat-mdc-form-field-flex .mdc-text-field__input {
+  padding-left: 10px !important;
+}
+
+/* ========================================================
+   BOTÃO DE ENVIO
+   ======================================================== */
 .form-actions {
   display: flex;
   justify-content: center;
-  margin-top: 25px; /* Mais espaço antes do botão */
+  margin-top: 16px;
 }
 
 .form-actions button[type="submit"] {
-  background-color: var(--form-primary-color);
-  color: white;
-  padding: 12px 30px; /* Mais padding */
-  font-size: 1.1em;
-  font-weight: 500;
-  text-transform: uppercase; /* Texto em caixa alta como na referência */
+  background-color: var(--form-primary-color) !important;
+  color: #ffffff !important;
+  padding: 24px 40px !important; /* Deixa o botão mais "gordinho" e clicável */
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.2s ease-in-out !important;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   letter-spacing: 0.5px;
-  border-radius: 8px; /* Bordas do botão um pouco arredondadas */
-  width: 100%; /* Botão com largura total */
-  max-width: 350px; /* Limita a largura máxima do botão */
-  transition: background-color 0.3s ease;
 }
 
 .form-actions button[type="submit"]:hover:not([disabled]) {
-  background-color: #1565c0; /* Tom mais escuro do azul no hover */
+  background-color: var(--form-hover-color) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(12, 50, 111, 0.2);
 }
 
 .form-actions button[type="submit"]:disabled {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  transform: none;
+  box-shadow: none;
 }
-
-.form-actions button[type="submit"] mat-spinner {
-  stroke: white !important; /* Isso pode não funcionar devido ao encapsulamento do Material */
-}
-
 
 ::ng-deep .form-actions button[type="submit"] .mat-mdc-progress-spinner circle {
   stroke: white !important;
 }
 
+/* ========================================================
+   MENSAGENS DE SUCESSO E ERRO
+   ======================================================== */
 .submission-success-message,
 .submission-error-message {
   text-align: center;
-  padding: 25px; /* Mais padding */
-  border-radius: var(--form-border-radius); /* Mesma borda do container */
+  padding: 30px;
+  border-radius: var(--form-border-radius);
   margin-top: 30px;
-  border-left-width: 5px; /* Destaque na borda esquerda */
+  border: 1px solid #e9ecef;
 }
 
 .submission-success-message {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border-left-color: #4caf50; /* Verde para sucesso */
+  background-color: #f0fdf4;
+  border-left: 6px solid #22c55e;
+}
+
+.submission-success-message h2 {
+  color: #166534;
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+
+.submission-success-message p {
+  color: #15803d;
+  font-size: 1.1rem;
 }
 
 .submission-error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  border-left-color: #f44336; /* Vermelho para erro */
+  background-color: #fef2f2;
+  border-left: 6px solid #ef4444;
 }
 
-.submission-success-message h2,
 .submission-error-message h2 {
+  color: #991b1b;
   margin-top: 0;
-  margin-bottom: 15px; /* Mais espaço */
-  font-size: 1.5em; /* Maior */
+  font-size: 1.8rem;
 }
 
-.submission-success-message p,
 .submission-error-message p {
-  font-size: 1.05em;
-  margin-bottom: 20px;
+  color: #b91c1c;
+  font-size: 1.1rem;
 }
 
+/* Botões dentro das mensagens */
 .submission-success-message button,
 .submission-error-message button {
-  margin-top: 15px;
-  padding: 8px 20px; /* Padding para os botões de retry/nova proposta */
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-top: 20px;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* ========================================================
+   MODO ALTO CONTRASTE
+   ======================================================== */
+:host-context(.high-contrast) .donation-form-container {
+  background-color: #000 !important;
+  border: 2px solid #ffc107 !important;
+  box-shadow: none !important;
+}
+
+:host-context(.high-contrast) .donation-form-container h1 {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .form-description {
+  color: #ffffff !important;
+}
+
+/* Forçando os inputs do Material a ficarem amarelos/brancos */
+:host-context(.high-contrast) ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__leading,
+:host-context(.high-contrast) ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__notch,
+:host-context(.high-contrast) ::ng-deep .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) ::ng-deep .mat-mdc-form-field .mdc-floating-label,
+:host-context(.high-contrast) ::ng-deep .mat-mdc-form-field .mdc-text-field__input {
+  color: #ffffff !important;
+}
+
+:host-context(.high-contrast) ::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #ffc107 !important;
+}
+
+/* Botões no alto contraste */
+:host-context(.high-contrast) .form-actions button[type="submit"] {
+  background-color: #000 !important;
+  color: #ffc107 !important;
+  border: 2px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .form-actions button[type="submit"]:hover:not([disabled]) {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+/* Caixas de Sucesso/Erro no alto contraste */
+:host-context(.high-contrast) .submission-success-message,
+:host-context(.high-contrast) .submission-error-message {
+  background-color: #000 !important;
+  border: 2px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .submission-success-message h2,
+:host-context(.high-contrast) .submission-success-message p,
+:host-context(.high-contrast) .submission-error-message h2,
+:host-context(.high-contrast) .submission-error-message p {
+  color: #ffc107 !important;
+}
+
+:host-context(.high-contrast) .submission-success-message button,
+:host-context(.high-contrast) .submission-error-message button {
+  background-color: #000 !important;
+  color: #ffc107 !important;
+  border: 2px solid #ffc107 !important;
+}
+
+:host-context(.high-contrast) .submission-success-message button:hover,
+:host-context(.high-contrast) .submission-error-message button:hover {
+  background-color: #ffc107 !important;
+  color: #000 !important;
 }

@@ -1,0 +1,91 @@
+<div id="rotate-warning">
+    <p>Por favor, vire o seu celular na horizontal para jogar.</p>
+</div>
+
+<div id="game-container">
+    
+    <div id="main-menu">
+        <h1 class="game-title">Computing Dungeons</h1>
+        <h2 class="game-subtitle">Um projeto do Museu da Computação da UFU</h2>
+        <div class="menu-buttons">
+            <button id="btn-start-game">INICIAR JOGO</button>
+            <button id="btn-museum-link">VISITAR O MUSEU</button>
+            <button id="btn-credits">CRÉDITOS</button>
+        </div>
+    </div>
+
+    <div id="credits-modal" style="display: none;">
+        <div class="modal-content">
+            <h3>CRÉDITOS</h3>
+            <div class="scrollable-text">
+                <p><strong>Computing Dungeons</strong> é um jogo com propósito educacional desenvolvido por <strong>DIOGO FERRAZ DE SIQUEIRA</strong> e <strong>MATHEUS RODRIGUES MARQUES ARAUJO</strong>, alunos do Bacharelado em Ciência da Computação da Universidade Federal de Uberlândia.</p>
+                <p>O game visa passar conhecimentos históricos relacionados à computação através de um sistema de escolhas, estilizado como portas de uma "masmorra", e faz parte do Projeto de Extensão Museu da Computação da UFU.</p>
+                <p>Pode ser acessado através do site do Museu e o código / arquivos do jogo constam no repositório do mesmo.</p>
+            </div>
+            <button id="btn-close-credits">FECHAR</button>
+        </div>
+    </div>
+
+    <div id="start-menu" style="display: none;">
+        <h1>ESCOLHA SEU PERSONAGEM</h1>
+        <div class="char-selection">
+            <div class="char-card" id="btn-girl">
+                <div class="avatar girl-avatar">
+                    <div class="head"><div class="hair-ponytail"></div></div>
+                    <div class="body dress"></div>
+                    <div class="legs"></div>
+                </div>
+                <button>ADA</button>
+            </div>
+            <div class="char-card" id="btn-boy">
+                <div class="avatar boy-avatar">
+                    <div class="head"></div>
+                    <div class="body shirt"></div>
+                    <div class="legs"></div>
+                </div>
+                <button>ALAN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- pergunta em cima -->
+    <div id="ui-layer" style="display: none;">
+        <h2 id="question-text">Carregando pergunta...</h2>
+        <div id="status-msg"></div>
+    </div>
+
+    <!-- botões soltos -->
+    <div id="hud-controls" style="display: none;">
+        <button id="btn-restart-game" class="hud-btn" title="Reset Sala (Reiniciar Escolha de Personagem)">↻ Reset</button>
+        <button id="btn-exit-to-main" class="hud-btn" title="Menu Principal (Reiniciar Título)">⌂ Menu</button>
+    </div>
+
+    <div id="curiosity-modal" style="display: none;">
+        <div class="modal-content">
+            <h3>VOCÊ SABIA?</h3>
+            <p id="curiosity-text">Texto da curiosidade aqui...</p>
+            <button id="btn-next-room">AVANÇAR PARA A PRÓXIMA SALA</button>
+        </div>
+    </div>
+
+    <div id="victory-screen" style="display: none;">
+        <div class="modal-content" id="victory-modal">
+            <h1 id="victory-title">VITÓRIA!</h1>
+            <p id="victory-text">Desafio Concluído! Você é um Mestre da Computação!</p>
+            <div class="menu-buttons" id="victory-buttons">
+                <button id="btn-play-again">JOGAR NOVAMENTE</button>
+                <button id="btn-back-menu">MENU PRINCIPAL</button>
+            </div>
+        </div>
+    </div>
+    
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <div id="mobile-controls">
+        <button id="btn-up" class="d-btn up">▲</button>
+        <button id="btn-left" class="d-btn left">◀</button>
+        <button id="btn-right" class="d-btn right">▶</button>
+        <button id="btn-down" class="d-btn down">▼</button>
+    </div>
+
+</div>

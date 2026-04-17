@@ -1,0 +1,34 @@
+<section class="section-container">
+        <h1 class="section-title">{{sectionTitle}}</h1>
+
+        <ng-container *ngIf="sectionContent | async as content; else loading">
+                <div class="section-list" *ngIf="content.length > 0; else empty">
+                        <mat-card class="item-card" *ngFor="let item of content; trackBy: trackById">
+                                <a [routerLink]="['..', uri,'detail',item.id]" class="item-link">
+                                        <div class="item-image-container">
+                                                <img [src]="item.summary.coverUrl || item.summary.mainImage" [alt]="item.summary.title" class="item-image">
+                                        </div>
+
+                                        <div class="item-content-area">
+                                                <span class="item-category">{{ item.summary.category }}</span>
+
+                                                <h3 class="item-title">{{ item.summary.title }}</h3>
+
+                                                <div class="item-description"> <p>{{ item.summary.description }}</p> </div>
+                                        </div>
+                                </a>
+                        </mat-card>
+                </div>
+                <div class="button-container">
+                        <a [routerLink]="['..', uri]" class="show-all-btn">Ver tudo</a>
+                </div>
+        </ng-container>
+
+        <ng-template #loading>
+                <p class="message">Carregando...</p>
+        </ng-template>
+
+        <ng-template #empty>
+                <p class="message">Nenhum item encontrado!</p>
+        </ng-template>
+</section>

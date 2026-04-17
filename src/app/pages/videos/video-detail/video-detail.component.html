@@ -1,0 +1,53 @@
+<mat-card class="video-detail-container" *ngIf="video$ | async as video; else notFound">
+    <mat-card-header class="video-detail-header">
+        <mat-card-title class="video-detail-title">{{video.summary.title}}</mat-card-title>
+        <mat-card-subtitle class="video-detail-category">{{video.summary.category}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="video-container">
+        <app-video-player [src]="video.videoUrl"/>
+
+        <div class="divider"></div>
+
+        <article class="video-description">
+            <p>{{video.description}}</p>
+        </article>
+    </mat-card-content>
+    <div class="divider"></div>
+    <mat-card-footer class="colaborators-container">
+        <div class="colaborators-section">
+            <mat-card-subtitle class="colaborators-subtitle">COLABORADORES</mat-card-subtitle>
+            <ul>
+                <li *ngFor="let cont of video.contributors">
+                    {{cont}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="colaborators-section">
+            <mat-card-subtitle class="colaborators-subtitle">CONVIDADOS</mat-card-subtitle>
+            <ul>
+                <li *ngFor="let guest of video.guests">
+                    {{guest}}
+                </li>  
+            </ul>
+        </div>
+    </mat-card-footer>
+    <mat-card-actions class="video-detail-actions">
+    <div style="max-width: 22em;">
+      <div class="action-container" *ngIf="prev$ | async as prev" [routerLink]="['..',prev.id]">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <a>{{ prev.summary.title}}</a>
+      </div>
+    </div>
+    <div style="max-width: 22em;">
+      <div class="action-container" *ngIf="next$ | async as next" [routerLink]="['..',next.id]">
+        <a>{{next.summary.title}}</a>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </div>
+    </div>
+</mat-card-actions>
+</mat-card>
+<ng-template #notFound>
+  <p class="message-placeholder">Vídeo não encontrado</p>
+</ng-template>

@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/services/auth.service';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { NewsDashboardComponent } from './features/dashboard/news-dashboard/news-dashboard.component';
+import { VideosDashboardComponent } from './features/dashboard/videos-dashboard/videos-dashboard.component';
+import { PersonalitiesDashboardComponent } from './features/dashboard/personalities-dashboard/personalities-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,6 +15,48 @@ export const routes: Routes = [
     data: {
       breadCrumb: false,
     },
+  },
+  {
+    path: 'resources',
+    data: { breadCrumb: 'Recursos' },
+    title: 'Recursos',
+    loadComponent: () =>
+      import('./pages/resources/resources.component').then(
+        (m) => m.ResourcesComponent,
+      ),
+  },
+  {
+    path: 'personalities',
+    data: { breadCrumb: 'Personalidades' },
+    title: 'Personalidades',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/personalities/personalities.component').then(
+            (m) => m.PersonalitiesComponent,
+          ),
+      },
+      {
+        path: 'detail/:id',
+        loadComponent: () =>
+          import('./pages/personalities/personalities-detail.component').then(
+            (m) => m.PersonalitiesDetailComponent,
+          ),
+        data: { breadCrumb: 'Detalhe' },
+      },
+      {
+        path: 'create',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/news/news-form/news-form.component').then(
+            (m) => m.NewsFormComponent,
+          ),
+        data: {
+          breadCrumb: 'Criar Personalidade',
+        },
+      },
+    ],
   },
   {
     path: 'games',
@@ -91,6 +136,24 @@ export const routes: Routes = [
             (m) => m.LinuxPuzzleComponent,
           ),
       },
+      {
+        data: { breadCrumb: 'Computing Dungeons' },
+        path: 'computing-dungeons',
+        title: 'Computing Dungeons',
+        loadComponent: () =>
+          import('./pages/games/computing-dungeons/computing-dungeons.component').then(
+            (m) => m.ComputingDungeonsComponent,
+          ),
+      },
+      {
+        data: { breadCrumb: 'MuseuDle' },
+        path: 'museudle',
+        title: 'MuseuDle',
+        loadComponent: () =>
+          import('./pages/games/museudle/museudle.component').then(
+            (m) => m.MuseudleComponent,
+          ),
+      },
     ],
   },
   {
@@ -167,6 +230,17 @@ export const routes: Routes = [
     },
   },
   {
+    path: 'visita-virtual',
+    loadComponent: () =>
+      import('./pages/virtual-tour/virtual-tour.component').then(
+        (m) => m.VirtualTourComponent,
+      ),
+    title: 'Visita Virtual',
+    data: {
+      breadCrumb: 'Visita Virtual',
+    },
+  },
+  {
     path: 'donations',
     loadComponent: () =>
       import('./pages/donations/donations.component').then(
@@ -197,9 +271,86 @@ export const routes: Routes = [
     title: 'Revista',
   },
   {
+    path: 'videos',
+    title: 'Vídeos',
+    data: {
+      breadCrumb: 'Vídeos',
+    },
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/videos/videos.component').then(
+            (m) => m.VideosComponent,
+          ),
+      },
+      {
+        path: 'detail/:id',
+        loadComponent: () =>
+          import('./pages/videos/video-detail/video-detail.component').then(
+            (m) => m.VideoDetailComponent,
+          ),
+        data: {
+          breadCrumb: 'Detalhe do vídeo',
+        },
+      },
+      {
+        path: 'create',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/videos/video-form/video-form.component').then(
+            (m) => m.VideoFormComponent,
+          ),
+        data: {
+          breadCrumb: 'Criar publicação',
+        },
+      },
+      {
+        path: 'edit/:id',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/videos/video-form/video-form.component').then(
+            (m) => m.VideoFormComponent,
+          ),
+        data: {
+          breadCrumb: 'Editar publicação',
+        },
+      },
+    ],
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        component: NewsDashboardComponent,
+      },
+      {
+        path: 'news',
+        component: NewsDashboardComponent,
+      },
+      {
+        path: 'videos',
+        component: VideosDashboardComponent,
+      },
+      {
+        path: 'personalities',
+        component: PersonalitiesDashboardComponent,
+      },
+    ],
+  },
+  {
+    path: 'statistics',
+    loadComponent: () =>
+      import('./pages/statistics/statistics.component').then(
+        (m) => m.StatisticsComponent,
+      ),
+    title: 'Estatísticas',
+    data: {
+      breadCrumb: 'Estatísticas',
+    },
   },
   {
     path: '**',

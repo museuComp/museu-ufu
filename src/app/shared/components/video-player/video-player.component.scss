@@ -1,0 +1,12 @@
+.video-player-container {
+    width: 100%;
+    min-width: 350px;
+    max-width: 800px;
+
+    iframe {
+        border-radius: 10px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+}

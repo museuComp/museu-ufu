@@ -1,0 +1,33 @@
+<div class="news-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="!isLoading; else loadingNews">
+    <div *ngFor="let personality of personalitiesItems; trackBy: trackByPersonalityId" class="news-row" cdkDrag>
+        <div class="news-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+            <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
+
+            <a [routerLink]="['/news/detail', personality.id]" style="flex: 1; text-decoration: none;">
+                <span class="news-title">{{ personality.summary.title }}</span>
+            </a> 
+
+            <div class="list-item-actions">
+              <button mat-icon-button color="primary" (click)="editNews(personality)"
+                [attr.aria-label]="'Editar personalidade' + personality.summary.title">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn" (click)="deleteNews(personality)"
+                [attr.aria-label]="'Excluir personalidade' + personality.summary.title">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+        </div>
+        <div class="news-category" style="margin-left: 36px;">
+            {{ personality.summary.category }}
+        </div>
+
+    </div>
+</div>
+
+<ng-template #loadingNews>
+    <div class="loading-or-empty-container">
+        <p>Carregando personalidades...</p>
+    </div>
+</ng-template>

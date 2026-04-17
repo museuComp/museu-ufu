@@ -93,6 +93,16 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				icon: 'fas fa-newspaper',
 			},
 			{
+				label: 'Visitação Virtual',
+				url: '/visita-virtual',
+				icon: 'fas fa-street-view'
+			},
+			{
+				label: 'Normas de Visitação',
+				url: '/norms',
+				icon: 'fas fa-gavel'
+			},
+			{
 				label: 'Jogos',
 				url: '/games',
 				icon: 'fas fa-gamepad'
@@ -101,6 +111,11 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				label: 'Revista',
 				url: '/magazine',
 				icon: 'fas fa-file-text'
+			},
+			{
+				label: 'Vídeos',
+				url: '/videos',
+				icon: 'fas fa-video'
 			},
 			{
 				label: 'Doações',
@@ -118,11 +133,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
 				url: '/about',
 				icon: 'fas fa-info-circle'
 			},
-			{
-				label: 'Normas',
-				url: '/norms',
-				icon: 'fas fa-info-circle'
-			},
+			
 		];
 	}
 

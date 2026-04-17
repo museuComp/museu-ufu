@@ -1,29 +1,72 @@
-<section class="sobre-museu">
-  <h1 class="titulo-centralizado">Normas de Visitação</h1>
+<div class="norms-container">
+  <header class="norms-header">
+    <mat-icon class="header-icon">gavel</mat-icon>
+    <h1 class="titulo-centralizado">Normas de Visitação</h1>
+    <p class="subtitle">Planeje sua visita ao Museu da Computação da UFU</p>
+  </header>
 
-  <div class="intro">
-    <p>
-      Em fase inicial de implantação, o Museu da Computação da Universidade Federal de Uberlândia (UFU) encontra-se em sala temporária 1B215, Bloco 1B, Campus Santa Mônica, 
-      com o acervo ainda em processo de organização. Por esse motivo, as visitas devem ser agendadas previamente com mínimo de 5 dias de antecedência,
-       por meio do e-mail institucional: museucomp&#64;facom.ufu.br.
-    </p>
-  </div>
+  <div class="norms-grid">
+    
+    <div class="norm-card">
+      <div class="card-icon-wrapper">
+        <mat-icon>event_available</mat-icon>
+      </div>
+      <div class="card-content">
+        <h2>Agendamento e Localização</h2>
+        <p>
+          Em fase inicial de implantação, o Museu da Computação encontra-se em sala temporária 
+          <strong>(1B215, Bloco 1B, Campus Santa Mônica)</strong>, com o acervo ainda em processo de organização.
+        </p>
+        <p>
+          Por esse motivo, as visitas devem ser agendadas previamente com o <strong>mínimo de 5 dias de antecedência</strong>.
+        </p>
+        <a mat-flat-button color="primary" href="mailto:museucomp@facom.ufu.br" class="action-button">
+          <mat-icon>mail</mat-icon>
+          museucomp&#64;facom.ufu.br
+        </a>
+      </div>
+    </div>
 
-  <div class="secao-historia">
-    <h2>Visitas</h2>
-    <p>
-     As visitas são organizadas em sessões de 20 minutos, conduzidas por monitores, alunos do projeto de extensão do museu.
-      Os monitores recebem os visitantes, orientam o fluxo no espaço e fornecem informações sobre o uso e a interação possível com os equipamentos expostos.
-      O espaço comporta até 15 visitantes por sessão, garantindo segurança, qualidade na experiência e preservação do acervo.
-    </p>
-  </div>
+    <div class="norm-card">
+      <div class="card-icon-wrapper">
+        <mat-icon>groups</mat-icon>
+      </div>
+      <div class="card-content">
+        <h2>Como funcionam as visitas?</h2>
+        <ul class="norm-list">
+          <li>
+            <mat-icon>timer</mat-icon> 
+            <span><strong>Sessões de 20 minutos:</strong> Conduzidas por alunos monitores do projeto de extensão do museu.</span>
+          </li>
+          <li>
+            <mat-icon>group_add</mat-icon> 
+            <span><strong>Até 15 visitantes por sessão:</strong> Quantidade ideal para garantir a segurança, a qualidade na experiência e a preservação do acervo.</span>
+          </li>
+          <li>
+            <mat-icon>directions_walk</mat-icon> 
+            <span><strong>Orientação Guiada:</strong> Os monitores recebem os visitantes, orientam o fluxo no espaço e fornecem informações sobre o uso e a interação possível com os equipamentos.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-  <div class="secao-missao">
-    <h2>Exposições</h2>
-    <p>
-     As exposições são apresentadas em bancadas e superfícies adaptadas, uma vez que o museu ainda não dispõe de mobiliário expositivo definitivo. 
-     Apesar das limitações estruturais, a visita oferece uma oportunidade enriquecedora para conhecer equipamentos históricos, documentos raros e elementos fundamentais 
-     da trajetória da computação na UFU e no Brasil.
-    </p>
+    <div class="norm-card">
+      <div class="card-icon-wrapper">
+        <mat-icon>museum</mat-icon>
+      </div>
+      <div class="card-content">
+        <h2>Estrutura das Exposições</h2>
+        <p>
+          As exposições são apresentadas em bancadas e superfícies adaptadas, uma vez que o museu ainda não dispõe de mobiliário expositivo definitivo.
+        </p>
+        <div class="highlight-box">
+          <mat-icon>lightbulb</mat-icon>
+          <p>
+            Apesar das limitações estruturais, a visita oferece uma oportunidade enriquecedora para conhecer equipamentos históricos, documentos raros e elementos fundamentais da trajetória da computação na UFU e no Brasil.
+          </p>
+        </div>
+      </div>
+    </div>
+
   </div>
-</section>
+</div>

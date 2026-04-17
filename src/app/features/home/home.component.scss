@@ -6,7 +6,7 @@
   --text-color-dark: #333;
   --text-color-light: #fff;
   --border-color: #dee2e6;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.08); /* Sombra clareada para ficar igual à imagem */
 }
 
 /* Estilos Globais para o Componente */
@@ -257,6 +257,124 @@
   background-color: var(--primary-darker);
 }
 
+
+
+.quick-links-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.quick-link-card {
+  background-color: var(--background-light);
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 1.125rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra bem sutil igual à imagem */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fcfcfc;
+}
+
+
+/* Seção Visita Virtual */
+.virtual-tour-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease-in, box-shadow 0.3s ease-in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+
+.tour-viewer-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 3rem auto;
+}
+
+.tour-viewer {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+
+.virtual-items-grid {
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 0;
+}
+
+.virtual-card-info {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.virtual-card-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+
+.card-image-wrapper {
+  width: 100%;
+  height: 160px;
+  position: relative;
+  margin-bottom: 1.25rem;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.imagem-ajustada {
+  object-fit: cover;
+}
+
+.virtual-card-info .virtual-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-darker);
+  margin-bottom: 0.75rem;
+}
+
+.btn-saiba-mais {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  padding: 1rem 2rem !important;
+}
+
+
 /* Responsividade */
 @media (max-width: 992px) {
   .info-cards {
@@ -270,7 +388,7 @@
   }
 
   .slide {
-    height: 400px; /* Altura responsiva */
+    height: 400px;
   }
 
   .slide .slide-caption h3 {
@@ -286,4 +404,58 @@
     width: 40px;
     height: 40px;
   }
+
+  .tour-viewer {
+    height: 300px;
+  }
+
+  .quick-links-section {
+    grid-template-columns: 1fr; /* Empilha os botões no celular */
+    gap: 1rem;
+  }
+}
+
+.virtual-tour-section .card-link {
+  display: inline-block;
+  align-self: flex-end; /* Joga o botão para o canto esquerdo */
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  padding: 0.75rem 1.5rem; 
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  margin-top: 1.5rem; 
+}
+
+.virtual-tour-section .card-link:hover {
+  background-color: var(--primary-darker);
+}
+
+
+.banner-section {
+  width: 100%;
+  margin-bottom: 3rem; /* Mantém o mesmo espaçamento das outras seções */
+  border-radius: 8px; /* Mantém a identidade visual arredondada */
+  overflow: hidden; 
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner-section:hover {
+  transform: translateY(-3px); /* Leve animação ao passar o mouse */
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.banner-link {
+  display: block;
+  width: 100%;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  max-height: 350px; /* Trava a altura máxima para não empurrar muito o site para baixo */
+  object-fit: cover; /* Garante que a imagem não seja achatada ou distorcida */
+  display: block; /* Remove o espaçamento fantasma que o HTML coloca embaixo de imagens */
 }

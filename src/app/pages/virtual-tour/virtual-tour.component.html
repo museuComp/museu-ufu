@@ -1,0 +1,81 @@
+<section class="virtual-tour-page">
+  <div class="virtual-tour-header">
+    <h1>Visita Virtual</h1>
+    <p>
+      Explore o Museu da Computação da UFU em uma experiência imersiva.
+      Navegue pela sala em 360° e conheça alguns itens do acervo histórico.
+    </p>
+  </div>
+
+  <div class="tour-viewer-wrapper">
+    <div id="panorama" class="tour-viewer"></div>
+  </div>
+
+  <section class="timeline-section">
+    <div class="section-title">
+      <h2>Linha do Tempo do Armazenamento</h2>
+      <p>Acompanhe a evolução das mídias: do clássico disquete ao ultra-rápido M.2.</p>
+    </div>
+
+    <div class="timeline-container">
+      <button class="btn-nav" (click)="itemAnteriorTimeline()" [disabled]="indiceAtualTimeline === 0">&lt;</button>
+      
+      <div class="timeline-content-wrapper">
+        <div class="timeline-image">
+          <img 
+            [src]="linhaDoTempoArmazenamento[indiceAtualTimeline].imagem" 
+            [alt]="linhaDoTempoArmazenamento[indiceAtualTimeline].titulo"
+            (click)="abrirImagem(linhaDoTempoArmazenamento[indiceAtualTimeline].imagem)"
+            class="imagem-clicavel"
+          >
+        </div>
+        <div class="timeline-info">
+          <span class="ano-badge">{{ linhaDoTempoArmazenamento[indiceAtualTimeline].ano }}</span>
+          <h3>{{ linhaDoTempoArmazenamento[indiceAtualTimeline].titulo }}</h3>
+          <p>{{ linhaDoTempoArmazenamento[indiceAtualTimeline].descricao }}</p>
+        </div>
+      </div>
+
+      <button class="btn-nav" (click)="proximoItemTimeline()" [disabled]="indiceAtualTimeline === linhaDoTempoArmazenamento.length - 1">&gt;</button>
+    </div>
+
+    <div class="timeline-indicators">
+      <span *ngFor="let item of linhaDoTempoArmazenamento; let i = index" 
+            class="indicator" 
+            [class.active]="i === indiceAtualTimeline"
+            (click)="irParaItemTimeline(i)">
+      </span>
+    </div>
+  </section>
+  <section class="museum-items-section">
+    <div class="section-title">
+      <h2>Itens em Destaque</h2>
+      <p>Alguns objetos que fazem parte da história da computação.</p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="museum-card" *ngFor="let item of itensMuseu">
+        <div class="card-image">
+          <img 
+            [src]="item.imagem" 
+            [alt]="item.titulo" 
+            (click)="abrirImagem(item.imagem)"
+            class="imagem-clicavel"
+          />
+        </div>
+
+        <div class="card-content">
+          <h3>{{ item.titulo }}</h3>
+          <p>{{ item.descricao }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</section>
+
+<div class="modal-overlay" *ngIf="imagemSelecionada" (click)="fecharImagem()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="btn-fechar" (click)="fecharImagem()">&times;</button>
+    <img [src]="imagemSelecionada" alt="Imagem ampliada" />
+  </div>
+</div>
