@@ -72,6 +72,7 @@ export class LinuxPuzzleComponent implements OnInit {
   currentPuzzle: number = 0;
   errorMessage: string = '';
   descriptionMessage: string = '';
+  terminalString: string = `tux@tux-desktop:~$`;
 
   ngOnInit(): void {}
 

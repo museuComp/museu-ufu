@@ -11,7 +11,7 @@
     </p>
     <div class="start-screen">
       <div class="shortcut">Press <b> Alt </b> + <b> 't' </b></div>
-      or
+      ou
       <button class="start-button" (click)="startGame()">Começar Puzzle</button>
     </div>
   </div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="terminal">
-      <label for="command"> tuxtux-desktop:~$ </label>
+      <label for="command"> {{ terminalString }} </label>
       <input
         type="text"
         id="command"
@@ -60,5 +60,9 @@
         autofocus
       />
     </div>
+  </div>
+  <div *ngIf="gameFinished" class="final-window">
+    <h2>$ Parabéns! Você completou o Puzzle de Linux! 🎉</h2>
+    <img [src]="tuxImage" />
   </div>
 </div>

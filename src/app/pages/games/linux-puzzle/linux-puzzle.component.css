@@ -212,7 +212,24 @@
 .character-gnu {
   position: absolute;
   bottom: 9px;
-  right: 0;
+  right: -12px;
   height: 150px;
   z-index: 1;
+}
+
+.final-window {
+  display: flex;
+  background-color: #1e1e1e;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 5px;
+}
+
+.final-window h2 {
+  color: chartreuse;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
 }
