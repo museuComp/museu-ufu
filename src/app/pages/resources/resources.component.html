@@ -58,9 +58,24 @@
     <!-- QUANDO O SERVIÇO DE POSTERES FOR FINALIZADO ISSO SUMIRÁ E VIRARÁ UM APP-CONTENT-SECTION-->
     <section class="content-container">
         <h1 class="content-title">Posteres</h1>
-        Em breve ...
+        <div class="posters-container">
+            <div class="poster-container" *ngFor="let p of posteres">
+                <img [src]="'public/posters/' + p.path" alt="poster" (click)="openModal(p.path)">
+                <h3>{{p.name}}</h3>
+            </div>
+        </div>
+        
         <div class="button-container">
             <a class="show-all-btn">Ver tudo</a>
         </div>
     </section>
+</div>
+
+<div class="image-modal-overlay" *ngIf="showModal">
+    <div class="image-modal-content">
+        <button mat-icon-button class="image-modal-close-button" aria-label="Fechar imagem ampliada" (click)="closeModal()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <img [src]="'public/posters/' + modalPath" alt="Imagem ampliada" class="image-modal-image">
+    </div>
 </div>
