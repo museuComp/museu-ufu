@@ -9,41 +9,54 @@ export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'login',
-    loadComponent: () => import('./features/login/login.component').then(m => m.LoginComponent),
+    loadComponent: () =>
+      import('./features/login/login.component').then((m) => m.LoginComponent),
     title: 'Login',
     data: {
       breadCrumb: false,
-    }
+    },
   },
   {
     path: 'resources',
     data: { breadCrumb: 'Recursos' },
     title: 'Recursos',
-    loadComponent: () => import('./pages/resources/resources.component').then(m => m.ResourcesComponent)
+    loadComponent: () =>
+      import('./pages/resources/resources.component').then(
+        (m) => m.ResourcesComponent,
+      ),
   },
   {
     path: 'personalities',
-    data: {breadCrumb: 'Personalidades'},
+    data: { breadCrumb: 'Personalidades' },
     title: 'Personalidades',
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/personalities/personalities.component').then(m => m.PersonalitiesComponent)
+        loadComponent: () =>
+          import('./pages/personalities/personalities.component').then(
+            (m) => m.PersonalitiesComponent,
+          ),
       },
       {
         path: 'detail/:id',
-        loadComponent: () => import('./pages/personalities/personalities-detail.component').then(m => m.PersonalitiesDetailComponent),
-        data: {breadCrumb: 'Detalhe'},
+        loadComponent: () =>
+          import('./pages/personalities/personalities-detail.component').then(
+            (m) => m.PersonalitiesDetailComponent,
+          ),
+        data: { breadCrumb: 'Detalhe' },
       },
       {
         path: 'create',
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/news/news-form/news-form.component').then(m => m.NewsFormComponent),
+        loadComponent: () =>
+          import('./pages/news/news-form/news-form.component').then(
+            (m) => m.NewsFormComponent,
+          ),
         data: {
           breadCrumb: 'Criar Personalidade',
         },
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'games',
@@ -55,27 +68,32 @@ export const routes: Routes = [
       {
         data: { breadCrumb: 'Jogos' },
         path: '',
-        loadComponent: () => import('./pages/games/games.component').then(m => m.GamesComponent),
+        loadComponent: () =>
+          import('./pages/games/games.component').then((m) => m.GamesComponent),
       },
       {
         data: { breadCrumb: 'Quiz' },
         path: 'quiz',
         title: 'Quiz',
         loadComponent: () =>
-          import('./pages/games/quiz/quiz.component').then(m => m.QuizComponent),
+          import('./pages/games/quiz/quiz.component').then(
+            (m) => m.QuizComponent,
+          ),
       },
       {
         data: { breadCrumb: 'Jogo da Memória' },
         path: 'puzzles',
         loadComponent: () =>
-          import('./pages/games/puzzles/puzzles.component').then(m => m.PuzzlesComponent),
+          import('./pages/games/puzzles/puzzles.component').then(
+            (m) => m.PuzzlesComponent,
+          ),
       },
       {
         data: { breadCrumb: 'Desafio Lógico' },
         path: 'logic-challenge',
         loadComponent: () =>
           import('./pages/games/logic-challenge/logic-challenge.component').then(
-            m => m.LogicChallengeComponent
+            (m) => m.LogicChallengeComponent,
           ),
       },
       {
@@ -83,7 +101,7 @@ export const routes: Routes = [
         path: 'word-search',
         loadComponent: () =>
           import('./pages/games/word-search/word-search.component').then(
-            m => m.WordSearchComponent
+            (m) => m.WordSearchComponent,
           ),
       },
       {
@@ -91,7 +109,7 @@ export const routes: Routes = [
         path: 'truth-table',
         loadComponent: () =>
           import('./pages/games/truth-table/truth-table.component').then(
-            m => m.TruthTableComponent
+            (m) => m.TruthTableComponent,
           ),
       },
       {
@@ -99,7 +117,7 @@ export const routes: Routes = [
         path: 'math-quiz',
         loadComponent: () =>
           import('./pages/games/math-quiz/math-quiz.component').then(
-            m => m.MathQuizComponent
+            (m) => m.MathQuizComponent,
           ),
       },
       {
@@ -107,14 +125,41 @@ export const routes: Routes = [
         path: 'history-quiz',
         loadComponent: () =>
           import('./pages/games/history-quiz/history-quiz.component').then(
-            m => m.HistoryQuizComponent
+            (m) => m.HistoryQuizComponent,
           ),
-      }
-    ]
+      },
+      {
+        data: { breadCrumb: 'Puzzle de Linux' },
+        path: 'linux-puzzle',
+        loadComponent: () =>
+          import('./pages/games/linux-puzzle/linux-puzzle.component').then(
+            (m) => m.LinuxPuzzleComponent,
+          ),
+      },
+      {
+        data: { breadCrumb: 'Computing Dungeons' },
+        path: 'computing-dungeons',
+        title: 'Computing Dungeons',
+        loadComponent: () =>
+          import('./pages/games/computing-dungeons/computing-dungeons.component').then(
+            (m) => m.ComputingDungeonsComponent,
+          ),
+      },
+      {
+        data: { breadCrumb: 'MuseuDle' },
+        path: 'museudle',
+        title: 'MuseuDle',
+        loadComponent: () =>
+          import('./pages/games/museudle/museudle.component').then(
+            (m) => m.MuseudleComponent,
+          ),
+      },
+    ],
   },
   {
     path: 'home',
-    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+    loadComponent: () =>
+      import('./features/home/home.component').then((m) => m.HomeComponent),
     title: 'Home',
     data: {
       breadCrumb: 'Home',
@@ -129,12 +174,16 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/news/news.component').then(m => m.NewsComponent),
+        loadComponent: () =>
+          import('./pages/news/news.component').then((m) => m.NewsComponent),
       },
       {
         path: 'create',
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/news/news-form/news-form.component').then(m => m.NewsFormComponent),
+        loadComponent: () =>
+          import('./pages/news/news-form/news-form.component').then(
+            (m) => m.NewsFormComponent,
+          ),
         data: {
           breadCrumb: 'Criar Notícia',
         },
@@ -142,48 +191,61 @@ export const routes: Routes = [
       {
         path: 'edit/:id',
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/news/news-form/news-form.component').then(m => m.NewsFormComponent),
+        loadComponent: () =>
+          import('./pages/news/news-form/news-form.component').then(
+            (m) => m.NewsFormComponent,
+          ),
         data: {
           breadCrumb: 'Editar Notícia',
         },
       },
       {
         path: 'detail/:id',
-        loadComponent: () => import('./pages/news/news-detail.component').then(m => m.NewsDetailComponent),
+        loadComponent: () =>
+          import('./pages/news/news-detail.component').then(
+            (m) => m.NewsDetailComponent,
+          ),
         data: {
           breadCrumb: 'Detalhe da Notícia',
         },
       },
-    ]
+    ],
   },
   {
     path: 'about',
-    loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent),
+    loadComponent: () =>
+      import('./pages/about/about.component').then((m) => m.AboutComponent),
     title: 'Sobre nós',
     data: {
       breadCrumb: 'Sobre',
     },
   },
-   {
+  {
     path: 'norms',
-    loadComponent: () => import('./pages/norms/norms.component').then(m => m.NormsComponent),
+    loadComponent: () =>
+      import('./pages/norms/norms.component').then((m) => m.NormsComponent),
     title: 'Normas',
     data: {
       breadCrumb: 'Normas',
     },
   },
   {
-  path: 'visita-virtual',
-  loadComponent: () =>
-    import('./pages/virtual-tour/virtual-tour.component').then(m => m.VirtualTourComponent),
-  title: 'Visita Virtual',
-  data: {
-    breadCrumb: 'Visita Virtual',
-  },
+    path: 'visita-virtual',
+    loadComponent: () =>
+      import('./pages/virtual-tour/virtual-tour.component').then(
+        (m) => m.VirtualTourComponent,
+      ),
+    title: 'Visita Virtual',
+    data: {
+      breadCrumb: 'Visita Virtual',
+    },
   },
   {
     path: 'donations',
-    loadComponent: () => import('./pages/donations/donations.component').then(m => m.DonationsComponent),
+    loadComponent: () =>
+      import('./pages/donations/donations.component').then(
+        (m) => m.DonationsComponent,
+      ),
     title: 'Doações',
     data: {
       breadCrumb: 'Donations',
@@ -191,53 +253,70 @@ export const routes: Routes = [
   },
   {
     path: 'accessibility',
-    loadComponent: () => import('./pages/accessibility/accessibility.component').then(m => m.AccessibilityComponent),
+    loadComponent: () =>
+      import('./pages/accessibility/accessibility.component').then(
+        (m) => m.AccessibilityComponent,
+      ),
     title: 'accessibility',
     data: {
       breadCrumb: 'Acessibilidade',
     },
   },
   {
-    path:'magazine',
-    loadComponent: () => import('./pages/magazine/magazine.component').then(m => m.MagazineComponent),
+    path: 'magazine',
+    loadComponent: () =>
+      import('./pages/magazine/magazine.component').then(
+        (m) => m.MagazineComponent,
+      ),
     title: 'Revista',
-
   },
   {
     path: 'videos',
     title: 'Vídeos',
     data: {
-      breadCrumb: "Vídeos"
+      breadCrumb: 'Vídeos',
     },
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/videos/videos.component').then(m => m.VideosComponent),
+        loadComponent: () =>
+          import('./pages/videos/videos.component').then(
+            (m) => m.VideosComponent,
+          ),
       },
       {
         path: 'detail/:id',
-        loadComponent: () => import('./pages/videos/video-detail/video-detail.component').then(m => m.VideoDetailComponent),
+        loadComponent: () =>
+          import('./pages/videos/video-detail/video-detail.component').then(
+            (m) => m.VideoDetailComponent,
+          ),
         data: {
-          breadCrumb: "Detalhe do vídeo"
-        }
+          breadCrumb: 'Detalhe do vídeo',
+        },
       },
       {
         path: 'create',
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/videos/video-form/video-form.component').then(m => m.VideoFormComponent),
+        loadComponent: () =>
+          import('./pages/videos/video-form/video-form.component').then(
+            (m) => m.VideoFormComponent,
+          ),
         data: {
-          breadCrumb: "Criar publicação"
-        }
+          breadCrumb: 'Criar publicação',
+        },
       },
       {
         path: 'edit/:id',
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/videos/video-form/video-form.component').then(m => m.VideoFormComponent),
+        loadComponent: () =>
+          import('./pages/videos/video-form/video-form.component').then(
+            (m) => m.VideoFormComponent,
+          ),
         data: {
-          breadCrumb: "Editar publicação"
-        }
-      }
-    ]
+          breadCrumb: 'Editar publicação',
+        },
+      },
+    ],
   },
   {
     path: 'dashboard',
@@ -246,36 +325,42 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: NewsDashboardComponent
+        component: NewsDashboardComponent,
       },
       {
         path: 'news',
-        component: NewsDashboardComponent
+        component: NewsDashboardComponent,
       },
       {
         path: 'videos',
-        component: VideosDashboardComponent
+        component: VideosDashboardComponent,
       },
       {
         path: 'personalities',
-        component: PersonalitiesDashboardComponent
-      }
-    ]
+        component: PersonalitiesDashboardComponent,
+      },
+    ],
   },
   {
     path: 'statistics',
-    loadComponent: () => import('./pages/statistics/statistics.component').then(m => m.StatisticsComponent),
+    loadComponent: () =>
+      import('./pages/statistics/statistics.component').then(
+        (m) => m.StatisticsComponent,
+      ),
     title: 'Estatísticas',
     data: {
       breadCrumb: 'Estatísticas',
-    }
+    },
   },
   {
     path: '**',
-    loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
+    loadComponent: () =>
+      import('./features/not-found/not-found.component').then(
+        (m) => m.NotFoundComponent,
+      ),
     title: 'Página Não Encontrada',
     data: {
       breadCrumb: 'Página Não Encontrada',
-    }
+    },
   },
-]
+];

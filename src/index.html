@@ -1,83 +1,111 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <title>Museu UFU</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta charset="utf-8" />
-  <title>Museu UFU</title>
-  <base href="/" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="public/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="public/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="public/favicon/favicon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="public/favicon/favicon.png"
+    />
+    <link
+      rel="mask-icon"
+      href="public/favicon/safari-pinned-tab.svg"
+      color="#021c69"
+    />
 
-  <link rel="shortcut icon" href="public/favicon/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="public/favicon/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="public/favicon/favicon.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="public/favicon/favicon.png" />
-  <link rel="mask-icon" href="public/favicon/safari-pinned-tab.svg" color="#021c69" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-  <link rel="manifest" href="/manifest.webmanifest" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
-  <meta name="apple-mobile-web-app-title" content="Museu UFU" />
-  <meta name="application-name" content="Museu UFU" />
-  <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta name="msapplication-config" content="/browserconfig.xml" />
-  <meta name="theme-color" content="#021C69" />
+    <meta name="apple-mobile-web-app-title" content="Museu UFU" />
+    <meta name="application-name" content="Museu UFU" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="theme-color" content="#021C69" />
 
-  <meta
-    name="description"
-    content="Conecte-se com a UFU após a graduação! O Sistema de Egressos da Universidade Federal de Uberlândia facilita o contato entre ex-alunos e a instituição, promovendo networking e oportunidades."
-  />
-  <meta
-    name="keywords"
-    content="UFU, Universidade Federal de Uberlândia, egressos, ex-alunos, alumni, networking, universidade"
-  />
-  <meta name="author" content="Universidade Federal de Uberlândia" />
-  <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="Conecte-se com a UFU após a graduação! O Sistema de Egressos da Universidade Federal de Uberlândia facilita o contato entre ex-alunos e a instituição, promovendo networking e oportunidades."
+    />
+    <meta
+      name="keywords"
+      content="UFU, Universidade Federal de Uberlândia, egressos, ex-alunos, alumni, networking, universidade"
+    />
+    <meta name="author" content="Universidade Federal de Uberlândia" />
+    <meta name="robots" content="index, follow" />
 
-  <!-- Open Graph para Facebook e redes sociais -->
-  <meta property="og:title" content="Museu UFU" />
-  <meta
-    property="og:description"
-    content="Conecte-se com a UFU após a graduação! O Sistema de Egressos da Universidade Federal de Uberlândia facilita o contato entre ex-alunos e a instituição, promovendo networking e oportunidades."
-  />
+    <!-- Open Graph para Facebook e redes sociais -->
+    <meta property="og:title" content="Museu UFU" />
+    <meta
+      property="og:description"
+      content="Conecte-se com a UFU após a graduação! O Sistema de Egressos da Universidade Federal de Uberlândia facilita o contato entre ex-alunos e a instituição, promovendo networking e oportunidades."
+    />
 
-  <meta property="og:image" content="/logos/ufu_white_hor.png" />
-  <meta property="og:url" content="https://kind-tree-06e47270f.5.azurestaticapps.net/" />
-  <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logos/ufu_white_hor.png" />
+    <meta
+      property="og:url"
+      content="https://kind-tree-06e47270f.5.azurestaticapps.net/"
+    />
+    <meta property="og:type" content="website" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:title" content="Museu UFU" />
-  <meta
-    name="twitter:description"
-    content="Conecte-se com a UFU após a graduação! O Sistema de Egressos da Universidade Federal de Uberlândia facilita o contato entre ex-alunos e a instituição, promovendo networking e oportunidades."
-  />
-  <meta name="twitter:image" content="/logos/ufu_white_hor.png" />
+    <!-- Twitter Card -->
+    <meta name="twitter:title" content="Museu UFU" />
+    <meta
+      name="twitter:description"
+      content="Conecte-se com a UFU após a graduação! O Sistema de Egressos da Universidade Federal de Uberlândia facilita o contato entre ex-alunos e a instituição, promovendo networking e oportunidades."
+    />
+    <meta name="twitter:image" content="/logos/ufu_white_hor.png" />
 
-  <meta
-    property="creator.productor"
-    content="http://estruturaorganizacional.dados.gov.br/id/unidade-organizacional/253618"
-  />
+    <script defer src="https://www.youtube.com/iframe_api"></script>
+    <script
+      defer="defer"
+      src="https://barra.brasil.gov.br/barra_2.0.js"
+      type="text/javascript"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
 
-  <script defer src="https://www.youtube.com/iframe_api"></script>
-  <script defer="defer" src="https://barra.brasil.gov.br/barra_2.0.js" type="text/javascript"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M29PJKZS0R"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-  </script>
-  
-</head>
-<body>
-<app-root></app-root>
-<noscript>Please enable JavaScript to continue using this application.</noscript>
-</body>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-M29PJKZS0R"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+  </body>
 </html>

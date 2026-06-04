@@ -13,6 +13,69 @@ declare var pannellum: any;
 export class VirtualTourComponent implements AfterViewInit {
   imagemSelecionada: string | null = null;
 
+  indiceAtualTimeline = 0;
+
+  linhaDoTempoArmazenamento = [
+    {
+      titulo: 'Disquete 8"',
+      ano: '1971',
+      descricao: 'Os primeiros disquetes comerciais criados pela IBM, estabelecendo a base do armazenamento portátil.',
+      imagem: 'public/itens/disquete8.jpg' 
+    },
+    {
+      titulo: 'Disquete 5.25" e 3.5"',
+      ano: 'Anos 80 e 90',
+      descricao: 'Formatos mais compactos e rígidos que se tornaram o padrão absoluto nos primeiros computadores pessoais.',
+      imagem: 'public/itens/disquetes.jpg'
+    },
+    {
+      titulo: 'CD-ROM',
+      ano: '1982',
+      descricao: 'O disco óptico revolucionou a capacidade de armazenamento, permitindo a era dos jogos multimídia e softwares pesados.',
+      imagem: 'public/itens/cdrom.jpg'
+    },
+    {
+      titulo: 'Pendrive (USB)',
+      ano: '2000',
+      descricao: 'A memória flash portátil que decretou o fim dos disquetes pela sua velocidade, tamanho diminuto e resistência.',
+      imagem: 'public/itens/pendrive.jpg'
+    },
+    {
+      titulo: 'Disco Rígido (HD SATA)',
+      ano: 'Evolução contínua',
+      descricao: 'Discos magnéticos de alta capacidade que dominaram os PCs por décadas devido ao baixo custo por Gigabyte.',
+      imagem: 'public/itens/hd.jpg'
+    },
+    {
+      titulo: 'SSD SATA',
+      ano: 'Anos 2000',
+      descricao: 'Unidades de estado sólido sem partes mecânicas móveis. Trouxeram um ganho massivo em velocidade de leitura e gravação.',
+      imagem: 'public/itens/ssd.jpg'
+    },
+    {
+      titulo: 'SSD NVMe M.2',
+      ano: 'Atualidade',
+      descricao: 'O padrão moderno. Conectado diretamente à placa-mãe, eliminou os cabos e oferece velocidades extremas.',
+      imagem: 'public/itens/m2.jpg'
+    }
+  ];
+
+  proximoItemTimeline(): void {
+    if (this.indiceAtualTimeline < this.linhaDoTempoArmazenamento.length - 1) {
+      this.indiceAtualTimeline++;
+    }
+  }
+
+  itemAnteriorTimeline(): void {
+    if (this.indiceAtualTimeline > 0) {
+      this.indiceAtualTimeline--;
+    }
+  }
+
+  irParaItemTimeline(index: number): void {
+    this.indiceAtualTimeline = index;
+  }
+
   itensMuseu = [
     {
       titulo: 'Gravador Panasonic',
@@ -140,7 +203,7 @@ export class VirtualTourComponent implements AfterViewInit {
       imagem: 'public/itens/servidor_torre_ibm_thumb.jpg'
     }
   ];
-
+  
   abrirImagem(imagemUrl: string): void {
     this.imagemSelecionada = imagemUrl;
   }

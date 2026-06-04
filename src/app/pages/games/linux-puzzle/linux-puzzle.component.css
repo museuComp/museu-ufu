@@ -1,0 +1,235 @@
+* {
+  box-sizing: border-box;
+}
+
+.puzzle-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.puzzle-header {
+  text-align: center;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.puzzle-header h1 {
+  color: darkblue;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7rem;
+  font-size: 1.2rem;
+}
+
+.shortcut {
+  padding: 1rem 1rem;
+  margin-right: 2rem;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.start-button,
+.restart-button {
+  padding: 1rem 1rem;
+  margin-left: 2rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover,
+.restart-button:hover {
+  background-color: #2980b9;
+}
+
+/* --- ÁREA DO JOGO --- */
+
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.question {
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.question h2 {
+  color: white;
+}
+
+.options {
+  margin-top: 1.5rem;
+  background: rgba(41, 128, 185, 0.9);
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.options h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.options ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.options button {
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  font-family: monospace;
+  transition: background-color 0.5s;
+}
+
+.options button:hover {
+  background-color: #2980b9;
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.description-message {
+  color: #6b6bff;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+/* --- TERMINAL --- */
+
+.terminal {
+  width: 100%;
+  max-width: 600px;
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+  padding: 1.5rem 1.5rem 15rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.terminal label {
+  color: chartreuse;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.terminal input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1.1rem;
+}
+
+/* -------------------------- */
+/* CLASSES TO MAKE MODAL WORK */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 1;
+}
+/* -------------------------- */
+/* PROGRESS BAR */
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #000080;
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.character-tux {
+  position: absolute;
+  bottom: 7px;
+  transform: translateX(-50%);
+  transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 60px;
+  z-index: 2;
+}
+
+.character-gnu {
+  position: absolute;
+  bottom: 9px;
+  right: -12px;
+  height: 150px;
+  z-index: 1;
+}
+
+.final-window {
+  display: flex;
+  background-color: #1e1e1e;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 5px;
+}
+
+.final-window h2 {
+  color: chartreuse;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+}

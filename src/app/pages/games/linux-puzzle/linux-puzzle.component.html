@@ -1,0 +1,68 @@
+<div class="overlay" *ngIf="gameStarted"></div>
+
+<div class="puzzle-container">
+  <div *ngIf="!gameStarted" class="puzzle-header">
+    <h1>Puzzle de Linux</h1>
+    <p>
+      Resolva os desafios a seguir para ajudar Tux, mascote do sistema
+      operacional Linux, a chegar no seu amigo GNU GPL e a adquirir as 4
+      liberdades essenciais:
+      <b>rodar, estudar, modificar e redistribuir</b>
+    </p>
+    <div class="start-screen">
+      <div class="shortcut">Press <b> Alt </b> + <b> 't' </b></div>
+      ou
+      <button class="start-button" (click)="startGame()">Começar Puzzle</button>
+    </div>
+  </div>
+
+  <div *ngIf="gameStarted && !gameFinished" class="game-area">
+    <div class="progress-container">
+      <img
+        class="character-tux"
+        [src]="tuxImage"
+        [style.left.%]="progressPercentage()"
+        [alt]="Tux"
+      />
+      <img class="character-gnu" [src]="gnuImage" [alt]="Gnu" />
+      <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="progressPercentage()"></div>
+      </div>
+    </div>
+    <div class="question">
+      <h2>{{ puzzles[currentPuzzle].question }}</h2>
+
+      <div class="options">
+        <h3>Comands disponíveis:</h3>
+        <ul>
+          <button
+            *ngFor="let options of puzzles[currentPuzzle].options"
+            (click)="showDescription(options)"
+          >
+            {{ options }}
+          </button>
+        </ul>
+      </div>
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="description-message" *ngIf="descriptionMessage">
+        {{ descriptionMessage }}
+      </div>
+    </div>
+
+    <div class="terminal">
+      <label for="command"> {{ terminalString }} </label>
+      <input
+        type="text"
+        id="command"
+        name="command"
+        [formControl]="cliUserInput"
+        autocomplete="off"
+        autofocus
+      />
+    </div>
+  </div>
+  <div *ngIf="gameFinished" class="final-window">
+    <h2>$ Parabéns! Você completou o Puzzle de Linux! 🎉</h2>
+    <img [src]="tuxImage" />
+  </div>
+</div>

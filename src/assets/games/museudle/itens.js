@@ -1,0 +1,370 @@
+// Avoid redeclaration on reload
+if (typeof window.itensData === 'undefined') {
+  window.itensData = [
+  {
+    "Nome": "Alan Turing",
+    "Categoria": "Pessoa",
+    "Ano": 1936,
+    "Criador/Empresa": "Universidade de Cambridge / Bletchley Park",
+    "Link": "https://www.nationalgeographicbrasil.com/ciencia/2023/06/quem-foi-alan-turing-pioneiro-no-desenvolvimento-da-inteligencia-artificial-e-da-computacao-moderna"
+  },
+  {
+    "Nome": "ENIAC",
+    "Categoria": "Hardware",
+    "Ano": 1945,
+    "Criador/Empresa": "John Mauchly / J. Presper Eckert",
+    "Link": "https://www.hardware.com.br/guias/eniac/"
+  },
+  {
+    "Nome": "Grace Hopper",
+    "Categoria": "Pessoa",
+    "Ano": 1952,
+    "Criador/Empresa": "Marinha dos EUA / Remington Rand",
+    "Link": "https://canaltech.com.br/software/mulheres-historicas-grace-hopper-a-vovo-do-cobol-76811/"
+  },
+  {
+    "Nome": "Algoritmo de Dijkstra",
+    "Categoria": "Algoritmo",
+    "Ano": 1956,
+    "Criador/Empresa": "Edsger W. Dijkstra",
+    "Link": "https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/dijkstra.html"
+  },
+  {
+    "Nome": "Fortran",
+    "Categoria": "Linguagem",
+    "Ano": 1957,
+    "Criador/Empresa": "IBM",
+    "Link": "https://fortran-lang.org/pt/"
+  },
+  {
+    "Nome": "Margaret Hamilton",
+    "Categoria": "Pessoa",
+    "Ano": 1969,
+    "Criador/Empresa": "MIT / NASA",
+    "Link": "https://science-nasa-gov.translate.goog/people/margaret-hamilton/?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc"
+  },
+  {
+    "Nome": "ARPANET",
+    "Categoria": "Rede",
+    "Ano": 1969,
+    "Criador/Empresa": "DARPA",
+    "Link": "https://developer.mozilla.org/pt-BR/docs/Glossary/Arpanet"
+  },
+  {
+    "Nome": "Unix",
+    "Categoria": "Sistema Operacional",
+    "Ano": 1969,
+    "Criador/Empresa": "AT&T Bell Labs / Ken Thompson / Dennis Ritchie",
+    "Link": "https://tecnoblog.net/responde/o-que-e-unix-conheca-a-historia-do-pai-dos-sistemas-operacionais/"
+  },
+  {
+    "Nome": "Intel 4004",
+    "Categoria": "Hardware",
+    "Ano": 1971,
+    "Criador/Empresa": "Intel",
+    "Link": "https://www-intel-com.translate.goog/content/www/us/en/history/virtual-vault/articles/the-intel-4004.html?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc"
+  },
+  {
+    "Nome": "C",
+    "Categoria": "Linguagem",
+    "Ano": 1972,
+    "Criador/Empresa": "Dennis Ritchie",
+    "Link": "https://embarcados.com.br/linguagem-c-guia-completo/"
+  },
+  {
+    "Nome": "Árvore B+",
+    "Categoria": "Algoritmo",
+    "Ano": 1973,
+    "Criador/Empresa": "Rudolf Bayer / Edward M. McCreight",
+    "Link": "https://pt.wikipedia.org/wiki/%C3%81rvore_B%2B"
+  },
+  {
+    "Nome": "Apple II",
+    "Categoria": "Hardware",
+    "Ano": 1977,
+    "Criador/Empresa": "Apple",
+    "Link": "https://www-computerhistory-org.translate.goog/revolution/personal-computers/17/300?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc"
+  },
+  {
+    "Nome": "World Wide Web",
+    "Categoria": "Software",
+    "Ano": 1989,
+    "Criador/Empresa": "Tim Berners-Lee / CERN",
+    "Link": "https://tecnoblog.net/responde/o-que-significa-www-conheca-a-historia-da-rede-mundial-de-computadores/"
+  },
+  {
+    "Nome": "Python",
+    "Categoria": "Linguagem",
+    "Ano": 1991,
+    "Criador/Empresa": "Guido van Rossum",
+    "Link": "https://aws.amazon.com/pt/what-is/python/"
+  },
+  {
+    "Nome": "Linux",
+    "Categoria": "Sistema Operacional",
+    "Ano": 1991,
+    "Criador/Empresa": "Linus Torvalds",
+    "Link": "https://www.ibm.com/br-pt/think/topics/linux"
+  },
+  {
+    "Nome": "Windows 95",
+    "Categoria": "Sistema Operacional",
+    "Ano": 1995,
+    "Criador/Empresa": "Microsoft",
+    "Link": "https://jornal.usp.br/radio-usp/ha-30-anos-o-windows-95-moldava-o-futuro-da-computacao/"
+  },
+  {
+    "Nome": "Java",
+    "Categoria": "Linguagem",
+    "Ano": 1995,
+    "Criador/Empresa": "Sun Microsystems",
+    "Link": "https://giulianabezerra.medium.com/uma-breve-historia-do-java-f58d1761154"
+  },
+  {
+    "Nome": "Google Search",
+    "Categoria": "Software",
+    "Ano": 1997,
+    "Criador/Empresa": "Larry Page / Sergey Brin",
+    "Link": "https://www.google.com/intl/pt-BR/search/howsearchworks/our-history/"
+  },
+  {
+    "Nome": "Git",
+    "Categoria": "Software",
+    "Ano": 2005,
+    "Criador/Empresa": "Linus Torvalds",
+    "Link": "https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Uma-Breve-Hist%C3%B3ria-do-Git"
+  },
+  {
+    "Nome": "Ada Lovelace",
+    "Categoria": "Pessoa",
+    "Ano": 1843,
+    "Criador/Empresa": "N/A",
+    "Link": "https://www.nationalgeographicbrasil.com/ciencia/2023/10/a-primeira-mulher-programadora-da-historia-previu-a-existencia-da-inteligencia-artificial"
+  },
+  {
+    "Nome": "Calculadora mecânica FACIT",
+    "Categoria": "Mecânico (cálculo)",
+    "Ano": 1920,
+    "Criador/Empresa": "Facit",
+    "Link": "https://coopermiti.com.br/museu/calculadora-sueca-facit/"
+  },
+  {
+    "Nome": "Máquina de escrever Olivetti",
+    "Categoria": "Mecânico (escrita)",
+    "Ano": 1910,
+    "Criador/Empresa": "Olivetti",
+    "Link": "https://fernandovitolo.com.br/olivetti/"
+  },
+  {
+    "Nome": "Cartão perfurado",
+    "Categoria": "Mecânico / Papel",
+    "Ano": 1890,
+    "Criador/Empresa": "Herman Hollerith / IBM",
+    "Link": "https://www-ibm-com.translate.goog/history/punched-card?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc"
+  },
+  {
+    "Nome": "Disco rígido (HDD)",
+    "Categoria": "Magnético",
+    "Ano": 1956,
+    "Criador/Empresa": "IBM",
+    "Link": "https://www.techtudo.com.br/noticias/2015/12/o-que-e-hdd-conheca-tecnologia-que-guarda-seus-dados-para-sempre.ghtml"
+  },
+  {
+    "Nome": "Disquete (floppy disk)",
+    "Categoria": "Magnético removível",
+    "Ano": 1971,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-armazenamento/disquete/"
+  },
+  {
+    "Nome": "Fita cassete (dados)",
+    "Categoria": "Magnético removível",
+    "Ano": 1970,
+    "Criador/Empresa": "Philips",
+    "Link": "https://www.tecmundo.com.br/produto/406384-fitas-cassete-historia-evolucao-e-renascimento-dessa-forma-classica-de-guardar-musicas.htm"
+  },
+  {
+    "Nome": "MAU (Multistation Access Unit)",
+    "Categoria": "Rede (hardware Token Ring)",
+    "Ano": 1980,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-redes/token-ring-ibm-8228/"
+  },
+  {
+    "Nome": "CD (Compact Disc)",
+    "Categoria": "Óptico",
+    "Ano": 1982,
+    "Criador/Empresa": "Sony / Philips",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-armazenamento/disco-compacto-cd/"
+  },
+  {
+    "Nome": "DVD",
+    "Categoria": "Óptico",
+    "Ano": 1995,
+    "Criador/Empresa": "Sony / Toshiba",
+    "Link": "https://www.historiadetudo.com/dvd"
+  },
+  {
+    "Nome": "Cartão SD",
+    "Categoria": "Memória flash",
+    "Ano": 1999,
+    "Criador/Empresa": "SanDisk / Panasonic / Toshiba",
+    "Link": "https://www.techtudo.com.br/guia/2023/09/o-que-e-cartao-sd-tudo-sobre-o-armazenamento-edinfoeletro.ghtml"
+  },
+  {
+    "Nome": "Pen Drive (USB Flash)",
+    "Categoria": "Memória flash",
+    "Ano": 2000,
+    "Criador/Empresa": "IBM / M-Systems",
+    "Link": "https://www.giftcampaign.pt/blog/historia-memoria-usb/"
+  },
+  {
+    "Nome": "SSD",
+    "Categoria": "Memória flash",
+    "Ano": 1991,
+    "Criador/Empresa": "SanDisk",
+    "Link": "https://www.kingspec.com/pt/news/the-development-and-history-of-solid-state-drives.html"
+  },
+  {
+    "Nome": "Armazenamento em nuvem",
+    "Categoria": "Rede / Distribuído",
+    "Ano": 2006,
+    "Criador/Empresa": "Amazon",
+    "Link": "https://acervonet.com.br/blog/quando-surgiu-o-armazenamento-em-nuvem/"
+  },
+  {
+    "Nome": "Patinho Feio",
+    "Categoria": "Computador (experimental)",
+    "Ano": 1972,
+    "Criador/Empresa": "USP",
+    "Link": "https://jornal.usp.br/radio-usp/patinho-feio-primeiro-computador-construido-pela-escola-politecnica-completa-50-anos/"
+  },
+  {
+    "Nome": "Cobra 530",
+    "Categoria": "Computador (minicomputador)",
+    "Ano": 1980,
+    "Criador/Empresa": "COBRA",
+    "Link": "https://coopermiti.com.br/museu/computador-cobra-ti-240/"
+  },
+  {
+    "Nome": "CP-500",
+    "Categoria": "Microcomputador",
+    "Ano": 1982,
+    "Criador/Empresa": "Prológica",
+    "Link": "http://cpmarchives.classiccmp.org/trs80/mirrors/mdutra/www.mdutra.com/pt-br/node/2"
+  },
+  {
+    "Nome": "MSX (Brasil)",
+    "Categoria": "Microcomputador",
+    "Ano": 1985,
+    "Criador/Empresa": "Gradiente / Sharp",
+    "Link": "https://msx.zbr.com.br/post/msx-no-brasil/"
+  },
+  {
+    "Nome": "Atari 2600 - Atari Video Computer System",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1977,
+    "Criador/Empresa": "Atari, Inc.",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-entretenimento/atari-2600-atari-video-computer-system/"
+  },
+  {
+    "Nome": "Controle PS One",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 2000,
+    "Criador/Empresa": "Sony",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-entretenimento/controle-ps-one/"
+  },
+  {
+    "Nome": "DVD Player (TF-DVD7333)",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1996,
+    "Criador/Empresa": "Coby Electronics",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-entretenimento/dvd-player-tf-dvd7333/"
+  },
+  {
+    "Nome": "Floppy Disk",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1990,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-armazenamento/floppy-disk/"
+  },
+  {
+    "Nome": "HD161HJ",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 2007,
+    "Criador/Empresa": "Samsung",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-armazenamento/hd161hj/"
+  },
+  {
+    "Nome": "IBM 8229",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1990,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-redes/ibm-8229/"
+  },
+  {
+    "Nome": "IBM 8230",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1990,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-redes/ibm-8230/"
+  },
+  {
+    "Nome": "Processador Intel Xeon E5-2420",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 2012,
+    "Criador/Empresa": "Intel",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-hardware/processador-intel-xeon-e5-2420/"
+  },
+  {
+    "Nome": "PS One (SCPH-101)",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 2000,
+    "Criador/Empresa": "Sony",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-entretenimento/ps-one-scph-101/"
+  },
+  {
+    "Nome": "Radinho Smart WM-1001",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1990,
+    "Criador/Empresa": "Smart / CSP",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-comunicacao/radinho-smart-wm-1001/"
+  },
+  {
+    "Nome": "Sega Mega Drive Genesis",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1988,
+    "Criador/Empresa": "Sega / Tectoy",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-entretenimento/sega-mega-drive-genesis/"
+  },
+  {
+    "Nome": "Solaris 10 operating system",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 2005,
+    "Criador/Empresa": "Sun Microsystems",
+    "Link": "https://tainacan.facom.ufu.br/software/solaris-10-operating-system/"
+  },
+  {
+    "Nome": "Telefone sem fio Digital, TS 40 ID",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 2010,
+    "Criador/Empresa": "Intelbras",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-comunicacao/telefone-sem-fio-digital-ts-40-id/"
+  },
+  {
+    "Nome": "Token Ring IBM 53F5501",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1990,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-redes/token-ring-ibm-53f5501/"
+  },
+  {
+    "Nome": "Token Ring IBM Type 8220 (96X5810)",
+    "Categoria": "Acervo Tainacan",
+    "Ano": 1990,
+    "Criador/Empresa": "IBM",
+    "Link": "https://tainacan.facom.ufu.br/itens-de-redes/token-ring-ibm-type-8220-96x5810/"
+  }
+];
+}
+const itensData = window.itensData;
