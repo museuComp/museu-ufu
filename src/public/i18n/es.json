@@ -1,1 +1,36 @@
-{}
+{
+    "breadcrumb": {
+        "home": "Inicio",
+        "login": "Iniciar sesión",
+        "about": "Quiénes somos",
+        "norms": "Normas",
+        "resources": "Recursos",
+        "personalities": "Personalidades",
+        "news": "Noticias",
+        "tour": "Visita virtual",
+        "donations": "Donaciones",
+        "accessibility": "Accesibilidad",
+        "magazine": "Revistas",
+        "statistics": "Estadísticas",
+        "notfound": "Página no encontrada",
+        "videos": "Videos",
+        "dashboard": "Panel de gestión",
+        "games": {
+            "title": "Juegos",
+            "quiz": "Trivia",
+            "memorygame": "Juego de memoria",
+            "logic": "Desafío lógico",
+            "wordsearch": "Sopa de letras",
+            "truthtable": "Tabla de verdad",
+            "mathquiz": "Trivia matemática",
+            "histquiz": "Trivia histórica",
+            "cdungeons": "Computing Dungeons",
+            "museudle": "MuseuDle",
+            "linux": "Rompecabezas de Linux"
+        },
+
+        "detail": "Detalle",
+        "create": "Crear",
+        "edit": "Editar"
+    }
+}

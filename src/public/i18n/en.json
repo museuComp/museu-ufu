@@ -1,1 +1,36 @@
-{}
+{
+    "breadcrumb": {
+        "home": "Home",
+        "login": "Login",
+        "about": "About Us",
+        "norms": "Guidelines",
+        "resources": "Resources",
+        "personalities": "Personalities",
+        "news": "News",
+        "tour": "Virtual Tour",
+        "donations": "Donations",
+        "accessibility": "Accessibility",
+        "magazine": "Magazines",
+        "statistics": "Statistics",
+        "notfound": "Page Not Found",
+        "videos": "Videos",
+        "dashboard": "Dashboard",
+        "games": {
+            "title": "Games",
+            "quiz": "Quiz",
+            "memorygame": "Memory Game",
+            "logic": "Logic Challenge",
+            "wordsearch": "Word Search",
+            "truthtable": "Truth Table",
+            "mathquiz": "Math Quiz",
+            "histquiz": "History Quiz",
+            "cdungeons": "Computing Dungeons",
+            "museudle": "MuseuDle",
+            "linux": "Linux Puzzle"
+        },
+
+        "detail": "Detail",
+        "create": "Create",
+        "edit": "Edit"
+    }
+}
