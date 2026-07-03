@@ -6,19 +6,27 @@
     <div class="timer">Tempo: {{ timeElapsed }}</div>
   </div>
 
+  <!-- Região de anúncios para leitores de tela: informa o que acontece a cada jogada -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement }}</div>
+
   <div class="memory-board">
-    <div class="cards-grid">
+    <div class="cards-grid" role="group" [attr.aria-label]="'Tabuleiro do jogo da memória, ' + cards.length + ' cartas'">
       <div *ngFor="let card of cards"
            class="card"
+           role="button"
+           tabindex="0"
            [class.flipped]="card.isFlipped"
            [class.matched]="card.isMatched"
-           (click)="flipCard(card)">
+           [attr.aria-label]="getCardLabel(card)"
+           [attr.aria-pressed]="card.isFlipped || card.isMatched"
+           (click)="flipCard(card)"
+           (keydown)="onCardKeydown($event, card)">
         <div class="card-inner">
           <div class="card-front">
-            <img src="public/images/card-back.png" alt="Verso da carta">
+            <img src="public/images/card-back.png" alt="" aria-hidden="true">
           </div>
           <div class="card-back">
-            <img [src]="card.image" [alt]="'Imagem ' + card.id">
+            <img [src]="card.image" [alt]="card.name">
           </div>
         </div>
       </div>

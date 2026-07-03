@@ -24,6 +24,19 @@
   padding: 10px;
 }
 
+/* Esconde visualmente mas mantém disponível para leitores de tela (região aria-live) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .card {
   width: 100%;
   aspect-ratio: 3 / 3;
@@ -32,6 +45,11 @@
   perspective: 1000px;
   cursor: pointer;
   border-radius: 18px;
+}
+
+.card:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
 }
 
 .card-inner {
