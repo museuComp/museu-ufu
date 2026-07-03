@@ -15,6 +15,7 @@
         "notfound": "Page Not Found",
         "videos": "Videos",
         "dashboard": "Dashboard",
+        "collection": "Collection",
         "games": {
             "title": "Games",
             "quiz": "Quiz",
@@ -32,5 +33,21 @@
         "detail": "Detail",
         "create": "Create",
         "edit": "Edit"
+    },
+
+    "header": {
+        "logo": "Go to home page",
+        "accessibility": {
+            "zoom_in": "Zoom In",
+            "zoom_out": "Zoom Out",
+            "reset": "Reset Zoom",
+            "constrast": "Invert Colors"
+        }
+    },
+
+    "menu": {
+        "ufu": "Federal University of Uberlândia",
+        "ministry": "Ministry of Education",
+        "social": "Social Media"
     }
 }
