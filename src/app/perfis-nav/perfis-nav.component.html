@@ -1,31 +1,32 @@
 <div class="container perfis mt-3">
-  <div class="row d-flex align-items-center justify-content-center">
+  <div class="row d-flex align-items-center justify-content-center" *transloco="let t">
     <div class="col-md col-6">
-      <a href="/about" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Sobre</a>
+      <a [routerLink]="nav.route('about')" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.about')}}</a>
     </div>
 
     <div class="col-md col-6">
-      <a href="/news" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Notícias</a>
+      <a [routerLink]="nav.route('news')" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.news')}}</a>
     </div>
 
     <div class="col-md col-6">
-      <a href="/resources" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Recursos</a>
+      <a [routerLink]="nav.route('resources')" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.resources')}}</a>
     </div>
 
     <div class="col-md col-6">
-      <a href="https://tainacan.facom.ufu.br" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Coleção</a>
+      <a href="https://tainacan.facom.ufu.br" target="_blank"
+        class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.collection')}}</a>
     </div>
 
     <div class="col-md-2 col-6">
-      <a href="/visita-virtual" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Visitação Virtual</a>
+      <a [routerLink]="nav.route('tour')"class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.tour')}}</a>
     </div>
     
     <div class="col-md col-6">
-      <a href="/norms" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Normas</a>
+      <a [routerLink]="nav.route('norms')" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.norms')}}</a>
     </div>
 
     <div class="col-md col-6">
-      <a href="/donations" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">Doações</a>
+      <a [routerLink]="nav.route('donations')" class="btn btn-sm btn-outline-primary rounded-pill p-2 h-100 w-100 mb-3">{{t('breadcrumb.donations')}}</a>
     </div>
   </div>
 </div>

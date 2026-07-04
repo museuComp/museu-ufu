@@ -49,5 +49,21 @@
         "ufu": "Universidad Federal de Uberlândia",
         "ministry": "Ministerio de Educación",
         "social": "Redes sociales"
+    },
+
+    "footer": {
+        "institutional": "Institucional",
+        "subject": "Temas",
+        "content": "Centro de contenido",
+        "service": "Canales de atención",
+        "contact": "Contacto",
+        "social": {
+            "twitter": "Visite nuestro X (antes Twitter)",
+            "instagram": "Visite nuestro Instagram",
+            "facebook": "Visite nuestro Facebook",
+            "linkedin": "Visite nuestro LinkedIn",
+            "youtube": "Visite nuestro YouTube"
+        },
+        "info": "Acceso a la información"
     }
 }
