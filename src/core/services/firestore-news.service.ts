@@ -11,9 +11,10 @@ export interface NewsPost {
     title: string;
     description: string;
     category: string;
-    mainImage: string; 
+    mainImage: string;
+    writer: string; 
   };
-  fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string }>;
+  fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string; imageSource?: string; imageSourceLink?: string; }>;
   createdAt?: Date; 
 }
 

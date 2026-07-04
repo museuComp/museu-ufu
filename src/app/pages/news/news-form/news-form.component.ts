@@ -14,8 +14,10 @@ interface ContentItem {
   id: string;
   type: 'title' | 'text' | 'image';
   content: string;
-  fileName?: string; // Para exibir o nome da imagem
-  error?: string;    // Para exibir o erro de tamanho ou formato
+  fileName?: string;
+  error?: string;
+  imageSource?: string;     // Novo campo para o texto da fonte
+  imageSourceLink?: string; // Novo campo para o link da fonte
 }
 
 @Component({
@@ -67,6 +69,7 @@ export class NewsFormComponent implements OnInit {
       summaryDescription: ['', [Validators.required, Validators.minLength(10)]],
       category: ['', Validators.required],
       mainImage: ['', Validators.required],
+      writer: ['', Validators.required], // Novo campo obrigatório para o redator
     });
   }
 
@@ -80,14 +83,17 @@ export class NewsFormComponent implements OnInit {
             summaryTitle: newsData.summary.title,
             summaryDescription: newsData.summary.description,
             category: newsData.summary.category,
-            mainImage: newsData.summary.mainImage
+            mainImage: newsData.summary.mainImage,
+            writer: (newsData.summary as any).writer || '' // Atribui o redator salvo (usando any temporariamente até ajustarmos o service)
           });
           
           this.fullContent = (newsData.fullContent && Array.isArray(newsData.fullContent))
             ? newsData.fullContent.map((item, index) => ({
               id: `item-${Date.now()}-${index}`,
               type: item.type,
-              content: item.content
+              content: item.content,
+              imageSource: (item as any).imageSource || '',
+              imageSourceLink: (item as any).imageSourceLink || ''
             }))
             : [];
           this.mainImageFileName = newsData.summary.mainImage ? 'Imagem Carregada' : null;
@@ -108,11 +114,14 @@ export class NewsFormComponent implements OnInit {
           description: formValue.summaryDescription,
           category: formValue.category,
           mainImage: formValue.mainImage,
-        },
+          writer: formValue.writer,
+        } as any,
         fullContent: this.fullContent.map(item => ({ 
           type: item.type,
           content: item.content, 
-        }))
+          imageSource: item.imageSource || '',       // Salvando texto da fonte
+          imageSourceLink: item.imageSourceLink || '' // Salvando link da fonte
+        })) as any
       };
 
       if (this.isEditMode && this.newsId) { 
