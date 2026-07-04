@@ -5,6 +5,17 @@
       <ul class="lista-barra-brasil">
         <li class="espacador"></li>
         <li class="list-item">
+            <details class="lang-select">
+                <summary>{{transloco.getActiveLang().toUpperCase()}}</summary>
+              <ul class="lang-select-list">
+                <li><a (click)="changeLang('pt-br')">PT-BR</a></li>
+                <li><a (click)="changeLang('en')">EN</a></li>
+                <li><a (click)="changeLang('es')">ES</a></li>
+              </ul>
+            </details>
+        </li>
+        <li class="espacador"></li>
+        <li class="list-item">
           <a href="http://www.gov.br/secom/pt-br/acesso-a-informacao/comunicabr" class="link-barra link-externo-barra">Comunica BR</a>
         </li>
         <li class="espacador"></li>
