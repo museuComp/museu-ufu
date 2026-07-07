@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Museu Virtual FACOM/UFU — Documentação</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="Portal de documentação técnica do Museu Virtual da FACOM/UFU."
+    />
+    <!-- Tema Vue (limpo e profissional) -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
+    />
+  </head>
+  <body>
+    <div id="app">Carregando a documentação…</div>
+    <script>
+      window.$docsify = {
+        name: 'Museu Virtual FACOM/UFU',
+        repo: '',
+        loadSidebar: true,
+        subMaxLevel: 3,
+        auto2top: true,
+        maxLevel: 4,
+        search: {
+          placeholder: 'Buscar na documentação…',
+          noData: 'Nenhum resultado encontrado.',
+          depth: 4,
+        },
+      };
+    </script>
+    <!-- Docsify core -->
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+    <!-- Busca nativa -->
+    <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+    <!-- Realce de sintaxe para blocos de código (TypeScript / Bash) -->
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+    <!-- Botão de copiar nos blocos de código -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  </body>
+</html>
