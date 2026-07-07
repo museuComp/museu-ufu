@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 interface Card {
   id: number;
   image: string;
+  name: string;
   isFlipped: boolean;
   isMatched: boolean;
 }
@@ -23,6 +24,7 @@ export class PuzzlesComponent implements OnInit {
   private flippedCards: Card[] = [];
   private canFlip: boolean = true;
   gameWon: boolean = false;
+  announcement: string = '';
 
   ngOnInit() {
     this.startNewGame();
@@ -39,28 +41,29 @@ export class PuzzlesComponent implements OnInit {
     this.startTimer();
 
     // Inicializar as cartas
-    const images = [
-      'public/images/charles_babbage.png',
-      'public/images/ada_lovelace.png',
-      'public/images/eniac.png',
-      'public/images/alan_turing.png',
-      'public/images/transitor.png',
-      'public/images/internet.png',
-      'public/images/steve_jobs.png',
-      'public/images/bill_gates.png',
-      'public/images/quantum.png'
+    const images: { image: string; name: string }[] = [
+      { image: 'public/images/charles_babbage.png', name: 'Charles Babbage' },
+      { image: 'public/images/ada_lovelace.png', name: 'Ada Lovelace' },
+      { image: 'public/images/eniac.png', name: 'ENIAC' },
+      { image: 'public/images/alan_turing.png', name: 'Alan Turing' },
+      { image: 'public/images/transitor.png', name: 'Transistor' },
+      { image: 'public/images/internet.png', name: 'Internet' },
+      { image: 'public/images/steve_jobs.png', name: 'Steve Jobs' },
+      { image: 'public/images/bill_gates.png', name: 'Bill Gates' },
+      { image: 'public/images/quantum.png', name: 'Computação Quântica' }
     ];
 
     // Criar pares de cartas
     this.cards = [];
     let id = 1;
-    images.forEach(image => {
-      this.cards.push({ id: id++, image, isFlipped: false, isMatched: false });
-      this.cards.push({ id: id++, image, isFlipped: false, isMatched: false });
+    images.forEach(({ image, name }) => {
+      this.cards.push({ id: id++, image, name, isFlipped: false, isMatched: false });
+      this.cards.push({ id: id++, image, name, isFlipped: false, isMatched: false });
     });
 
     // Embaralhar as cartas
     this.shuffleCards();
+    this.announcement = 'Novo jogo iniciado. ' + this.cards.length + ' cartas embaralhadas.';
   }
 
   private shuffleCards() {
@@ -87,6 +90,7 @@ export class PuzzlesComponent implements OnInit {
 
     card.isFlipped = true;
     this.flippedCards.push(card);
+    this.announcement = `Carta virada: ${card.name}.`;
 
     if (this.flippedCards.length === 2) {
       this.canFlip = false;
@@ -102,21 +106,43 @@ export class PuzzlesComponent implements OnInit {
       card2.isMatched = true;
       this.flippedCards = [];
       this.canFlip = true;
+      this.announcement = `Par encontrado: ${card1.name}.`;
 
       // Verificar se o jogo acabou
       if (this.cards.every(card => card.isMatched)) {
         clearInterval(this.timerInterval);
         setTimeout(() => {
           this.gameWon = true;
+          this.announcement = `Parabéns! Você completou o jogo da memória em ${this.timeElapsed}.`;
         }, 500);
       }
     } else {
+      this.announcement = `${card1.name} e ${card2.name} não formam um par. Cartas serão fechadas novamente.`;
       setTimeout(() => {
         card1.isFlipped = false;
         card2.isFlipped = false;
         this.flippedCards = [];
         this.canFlip = true;
       }, 1000);
+    }
+  }
+
+  /** Rótulo acessível de cada carta, usado no aria-label para leitores de tela. */
+  getCardLabel(card: Card): string {
+    if (card.isMatched) {
+      return `Carta ${card.name}, par já encontrado.`;
+    }
+    if (card.isFlipped) {
+      return `Carta ${card.name}, virada.`;
+    }
+    return `Carta fechada, posição ${this.cards.indexOf(card) + 1} de ${this.cards.length}. Pressione Enter para virar.`;
+  }
+
+  /** Permite virar a carta pelo teclado (Enter ou Espaço), equivalente ao clique do mouse. */
+  onCardKeydown(event: KeyboardEvent, card: Card) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      this.flipCard(card);
     }
   }
 }
