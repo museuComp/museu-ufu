@@ -63,6 +63,37 @@
   padding: 1rem;
 }
 
+/* Esconde visualmente mas mantém disponível para leitores de tela (região aria-live e status de acerto/erro) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  color: #b0b7bd;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.move-button:focus-visible,
+.complete-button:focus-visible,
+.start-button:focus-visible,
+.restart-button:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
 .timeline-event {
   position: relative;
 }
