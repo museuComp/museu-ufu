@@ -1,0 +1,54 @@
+{
+"norms": {
+    "title": "Visitation Guidelines",
+    "subtitle": "Plan your visit to the UFU Computing Museum",
+    "schedule": {
+        "title": "Scheduling and Location",
+        "location": [
+            "In its initial phase of implementation, the Computing Museum is located in a temporary room ",
+            "(1B215, Block 1B, Santa Mônica Campus)",
+            ", with the collection still in the process of organization."
+        ], 
+        "advance": [
+            "For this reason, visits must be scheduled in advance with a ",
+            "minimum of 5 days notice"
+        ],
+        "email": "museucomp@facom.ufu.br"
+    },
+    "visits": {
+        "title": "How do the visits work?",
+        "duration": [
+            "20-minute sessions:",
+            " Conducted by student monitors from the museum's extension project."
+        ],
+        "limit": [
+            "Up to 15 visitors per session:",
+            " Ideal amount to ensure safety, experience quality, and preservation of the collection."
+        ],
+        "guidance": [
+            "Guided Orientation:",
+            " Monitors welcome visitors, guide the flow within the space, and provide information regarding the use and possible interaction with the equipment."
+        ]
+    },
+    "exhibitions": {
+        "title": "Exhibition Structure",
+        "structure": "Exhibitions are presented on adapted benches and surfaces, as the museum does not yet have its definitive exhibition furniture.",
+        "highlight": "Despite structural limitations, the visit offers an enriching opportunity to learn about historical equipment, rare documents, and fundamental elements of the history of computing at UFU and in Brazil."
+    }
+},
+"about": {
+    "title": "About the UFU Virtual Museum",
+    "intro": "Welcome to the UFU Virtual Computing Museum! Our primary objective is to make the history of computing accessible to all, enabling people from anywhere in the world to explore our collections and understand the technological transformation that influences today's world. This environment was created to keep history alive, promote learning, and strengthen the bond between the university and society.",
+    "historyTitle": "Our History",
+    "historyText": "Conceived in 2025, the Computing Museum began as an initiative of the Faculty of Computing (FACOM) at UFU, alongside the Center for Information and Communication Technology (CTIC) and other departments. This idea sparked from a fascination with the technological trajectory and the desire to preserve the objects and narratives that illustrate the development of computing systems at the university and in Uberlândia. The project seeks to gather and organize equipment while building a dynamic environment for knowledge.",
+    "missionTitle": "Our Mission",
+    "missionText": "Our mission is to preserve and facilitate the exploration of information technology history, focusing particularly on the materials and stories of UFU and the community of Uberlândia. We aim to be a space for study, teaching, and knowledge sharing, highlighting the importance of our technological legacy, enriching university education, and bringing the academic institution closer to the community through dynamic experiences, both online and (soon) physical.",
+    "teamTitle": "Faculty & Coordination",
+    "coordinationRole": "Coordination",
+    "professorRole": "Professor",
+    "devsTitle": "Developers",
+    "devsSubtitle": "Technical team responsible for the implementation and maintenance of the Virtual Museum.",
+    "techLeadRole": "Tech Lead",
+    "devRole": "Developer"
+}
+}

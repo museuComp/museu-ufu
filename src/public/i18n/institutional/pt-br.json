@@ -1,0 +1,54 @@
+{
+"norms": {
+    "title": "Normas de Visitação",
+    "subtitle": "Planeje sua visita ao Museu da Computação da UFU",
+    "schedule": {
+        "title": "Agendamento e Localização",
+        "location": [
+            "Em fase inicial de implantação, o Museu da Computação encontra-se em sala temporária ",
+            "(1B215, Bloco 1B, Campus Santa Mônica)",
+            ", com o acervo ainda em processo de organização."
+        ], 
+        "advance": [
+            "Por esse motivo, as visitas devem ser agendadas previamente com o ",
+            "mínimo de 5 dias de antecedência"
+        ],
+        "email": "museucomp@facom.ufu.br"
+    },
+    "visits": {
+        "title": "Como funcionam as visitas?",
+        "duration": [
+            "Sessões de 20 minutos:",
+            " Conduzidas por alunos monitores do projeto de extensão do museu."
+        ],
+        "limit": [
+            "Até 15 visitantes por sessão:",
+            " Quantidade ideal para garantir a segurança, a qualidade na experiência e a preservação do acervo."
+        ],
+        "guidance": [
+            "Orientação Guiada:",
+            " Os monitores recebem os visitantes, orientam o fluxo no espaço e fornecem informações sobre o uso e a interação possível com os equipamentos."]
+    },
+    "exhibitions": {
+        "title": "Estrutura das Exposições",
+        "structure": "As exposições são apresentadas em bancadas e superfícies adaptadas, uma vez que o museu ainda não dispõe de mobiliário expositivo definitivo.",
+        "highlight": "Apesar das limitações estruturais, a visita oferece uma oportunidade enriquecedora para conhecer equipamentos históricos, documentos raros e elementos fundamentais da trajetória da computação na UFU e no Brasil."
+    }
+},
+
+"about": {
+    "title": "Sobre o Museu Virtual UFU",
+    "intro": "Bem-vindo ao Museu Virtual da Computação da UFU! Nosso objetivo primordial é tornar a história da computação acessível a todos, possibilitando que pessoas de qualquer parte do mundo conheçam os nossos acervos e entendam a transformação tecnológica que influencia o mundo atual. Este ambiente foi criado para manter viva a história, promover o aprendizado e fortalecer a ligação entre a universidade e a sociedade.",
+    "historyTitle": "Nossa História",
+    "historyText": "Idealizado em 2025, o Museu da Computação começou como uma iniciativa da Faculdade de Computação (FACOM) da UFU, junto ao Centro de Tecnologia da Informação e Comunicação (CTIC) e outros departamentos. Essa ideia brotou do fascínio pela trajetória tecnológica e do desejo de manter vivos os objetos e relatos que ilustram o desenvolvimento dos sistemas de computação na universidade e em Uberlândia. A proposta busca reunir e organizar equipamentos, e também construir um ambiente dinâmico de conhecimento.",
+    "missionTitle": "Nossa Missão",
+    "missionText": "A nossa missão é cuidar e facilitar a exploração da história da informática, focando em particular no conjunto de materiais e nas histórias da UFU e do pessoal de Uberlândia. Almejamos ser um local para estudo, ensino e compartilhamento de conhecimento, incentivando a importância do legado tecnológico, enriquecendo o aprendizado universitário e aproximando a instituição de ensino e a população por meio de vivências dinâmicas, tanto online quanto (em breve) físicas.",
+    "teamTitle": "Equipe Docente & Coordenação",
+    "coordinationRole": "Coordenação",
+    "professorRole": "Docente",
+    "devsTitle": "Desenvolvedores",
+    "devsSubtitle": "Equipe técnica responsável pela implementação e manutenção do Museu Virtual.",
+    "techLeadRole": "Tech Lead",
+    "devRole": "Desenvolvedor"
+}
+}
