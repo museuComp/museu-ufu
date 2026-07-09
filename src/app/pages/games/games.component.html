@@ -1,84 +1,18 @@
 <div class="games-container">
   <h1 class="games-title">Jogos Educativos</h1>
   <div class="games-grid">
-    <div class="game-card" routerLink="./quiz">
+    <!-- Página de jogos renderizada a partir da lista definida no componente TypeScript -->
+    <div
+      class="game-card"
+      *ngFor="let game of games"
+      [routerLink]="game.route"
+    >
       <div class="game-icon">
-        <i class="fas fa-question-circle"></i>
+        <i [class]="game.iconClass"></i>
       </div>
-      <h2>Quiz</h2>
-      <p>Teste seus conhecimentos sobre o museu com perguntas divertidas!</p>
-    </div>
 
-    <div class="game-card" routerLink="./puzzles">
-      <div class="game-icon">
-        <i class="fas fa-puzzle-piece"></i>
-      </div>
-      <h2>Jogo da Memória</h2>
-      <p>Complete o jogo da mémoria com imagens da história da computação</p>
-    </div>
-
-    <div class="game-card" routerLink="./logic-challenge">
-      <div class="game-icon">
-        <i class="fas fa-brain"></i>
-      </div>
-      <h2>Desafio Lógico</h2>
-      <p>Resolva desafios e enigmas relacionados ao acervo do museu!</p>
-    </div>
-    <div class="game-card" routerLink="./word-search">
-      <div class="game-icon">
-        <i class="fas fa-dumbbell"></i>
-      </div>
-      <h2>Caça Palavras</h2>
-      <p>Jogue um caça palavras temático sobre a história da computação</p>
-    </div>
-    <div class="game-card" routerLink="./truth-table">
-      <div class="game-icon">
-        <i class="fas fa-desktop"></i>
-      </div>
-      <h2>Tabela Verdade</h2>
-      <p>
-        Teste seus conhecimentos em lógica booleana completando as tabelas de
-        cada expressão.
-      </p>
-    </div>
-    <div class="game-card" routerLink="./math-quiz">
-      <div class="game-icon">
-        <i class="fas fa-calculator"></i>
-      </div>
-      <h2>Quiz de Matemática</h2>
-      <p>Resolva as perguntas de matemática e teste suas habilidades</p>
-    </div>
-
-    <div class="game-card" routerLink="./history-quiz">
-      <div class="game-icon">
-        <i class="fas fa-book"></i>
-      </div>
-      <h2>Quiz de História</h2>
-      <p>Teste seus conhecimentos sobre a história da computação!</p>
-    </div>
-
-    <div class="game-card" routerLink="./computing-dungeons">
-      <div class="game-icon">
-        <i class="fas fa-dungeon"></i>
-      </div>
-      <h2>Computing Dungeons</h2>
-      <p>Explore as masmorras e aprenda sobre a história da computação!</p>
-    </div>
-
-    <div class="game-card" routerLink="./museudle">
-      <div class="game-icon">
-        <i class="fas fa-lightbulb"></i>
-      </div>
-      <h2>MuseuDle</h2>
-      <p>Adivinhe o artefato do dia sobre a história da computação!</p>
-    </div>
-
-    <div class="game-card" routerLink="./linux-puzzle">
-      <div class="game-icon">
-        <i class="fas fa-terminal"></i>
-      </div>
-      <h2>Puzzle de Linux</h2>
-      <p>Aprenda comandos básicos do sistema operacional Linux!</p>
+      <h2>{{ game.title }}</h2>
+      <p>{{ game.description }}</p>
     </div>
   </div>
 </div>
