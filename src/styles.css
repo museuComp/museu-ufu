@@ -1,5 +1,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import '@govbr-ds/core/dist/core.min.css';
+@import 'nes.css/css/nes.min.css';
+
 
 /* Estilos globais */
 * {
