@@ -84,7 +84,7 @@ export class NewsFormComponent implements OnInit {
             summaryDescription: newsData.summary.description,
             category: newsData.summary.category,
             mainImage: newsData.summary.mainImage,
-            writer: (newsData.summary as any).writer || '' // Atribui o redator salvo (usando any temporariamente até ajustarmos o service)
+            writer: newsData.summary.writer || '' // Atribui o redator salvo (usando any temporariamente até ajustarmos o service)
           });
           
           this.fullContent = (newsData.fullContent && Array.isArray(newsData.fullContent))
@@ -92,8 +92,8 @@ export class NewsFormComponent implements OnInit {
               id: `item-${Date.now()}-${index}`,
               type: item.type,
               content: item.content,
-              imageSource: (item as any).imageSource || '',
-              imageSourceLink: (item as any).imageSourceLink || ''
+              imageSource: item.imageSource || '',
+              imageSourceLink: item.imageSourceLink || ''
             }))
             : [];
           this.mainImageFileName = newsData.summary.mainImage ? 'Imagem Carregada' : null;
@@ -106,39 +106,35 @@ export class NewsFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.newsForm.valid) {
-      const formValue = this.newsForm.value;
-      const newsData: NewsPost = { 
-        summary: {
-          title: formValue.summaryTitle,
-          description: formValue.summaryDescription,
-          category: formValue.category,
-          mainImage: formValue.mainImage,
-          writer: formValue.writer,
-        } as any,
-        fullContent: this.fullContent.map(item => ({ 
-          type: item.type,
-          content: item.content, 
-          imageSource: item.imageSource || '',       // Salvando texto da fonte
-          imageSourceLink: item.imageSourceLink || '' // Salvando link da fonte
-        })) as any
-      };
+  if (this.newsForm.valid) {
+    const formValue = this.newsForm.value;
+    const newsData: NewsPost = { 
+      summary: {
+        title: formValue.summaryTitle,
+        description: formValue.summaryDescription,
+        category: formValue.category,
+        mainImage: formValue.mainImage,
+        writer: formValue.writer,
+      },
+      fullContent: this.fullContent.map(item => ({ 
+        type: item.type,
+        content: item.content, 
+        imageSource: item.imageSource || '',
+        imageSourceLink: item.imageSourceLink || ''
+      }))
+    };
 
-      if (this.isEditMode && this.newsId) { 
-        this.firestoreNewsService.updateNews(this.newsId, newsData)
-          .then(() => {
-            this.router.navigate(['/dashboard']);
-          })
-          .catch(error => console.error('Erro ao atualizar notícia:', error));
-      } else {
-        this.firestoreNewsService.addNews(newsData)
-          .then(() => {
-            this.router.navigate(['/dashboard']);
-          })
-          .catch(error => console.error('Erro ao criar notícia:', error));
-      }
+    if (this.isEditMode && this.newsId) { 
+      this.firestoreNewsService.updateNews(this.newsId, newsData)
+        .then(() => this.router.navigate(['/dashboard']))
+        .catch(error => console.error('Erro ao atualizar notícia:', error));
+    } else {
+      this.firestoreNewsService.addNews(newsData)
+        .then(() => this.router.navigate(['/dashboard']))
+        .catch(error => console.error('Erro ao criar notícia:', error));
     }
   }
+}
 
   onMainImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;
