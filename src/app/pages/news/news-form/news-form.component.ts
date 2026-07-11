@@ -84,7 +84,7 @@ export class NewsFormComponent implements OnInit {
             summaryDescription: newsData.summary.description,
             category: newsData.summary.category,
             mainImage: newsData.summary.mainImage,
-            writer: (newsData.summary as any).writer || '' // Atribui o redator salvo (usando any temporariamente até ajustarmos o service)
+            writer: newsData.summary.writer || '' // Atribui o redator salvo (usando any temporariamente até ajustarmos o service)
           });
           
           this.fullContent = (newsData.fullContent && Array.isArray(newsData.fullContent))
@@ -92,8 +92,8 @@ export class NewsFormComponent implements OnInit {
               id: `item-${Date.now()}-${index}`,
               type: item.type,
               content: item.content,
-              imageSource: (item as any).imageSource || '',
-              imageSourceLink: (item as any).imageSourceLink || ''
+              imageSource: item.imageSource || '',
+              imageSourceLink: item.imageSourceLink || ''
             }))
             : [];
           this.mainImageFileName = newsData.summary.mainImage ? 'Imagem Carregada' : null;
