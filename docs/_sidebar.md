@@ -1,4 +1,7 @@
 - [Visão Geral](README.md)
 - [Primeiros Passos](QUICKSTART.md)
 - [Arquitetura e Tecnologias](ARCHITECTURE.md)
+- [Autenticação e Acesso](AUTH.md)
+- [Painel Administrativo](ADMIN-DASHBOARD.md)
+- [CI/CD e Deploy](DEPLOY.md)
 - [Guia de Contribuição](CONTRIBUTING.md)

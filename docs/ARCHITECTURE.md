@@ -58,13 +58,13 @@ consumido por features e pages.
 ```
 core/
 ├── auth/
-│   ├── services/auth.service.ts        → Autenticação com Signals + guards de rota
-│   └── interceptors/auth.interceptor.ts→ Injeta Bearer token nas requisições
+│   ├── services/auth.service.ts              → Autenticação com Signals + guards de rota
+│   └── interceptors/auth.interceptor.ts      → Injeta Bearer token e trata logout em 401
 ├── interceptors/
-│   └── global-http.interceptor.ts      → Tratamento centralizado de erros HTTP
-├── services/menu.service.ts            → Estado/lógica do menu
-├── strategy/title.strategy.ts          → Título das páginas (CustomPageTitleStrategy)
-└── update/check-update.service.ts      → Checagem de atualização (service worker / PWA)
+│   └── global-http.interceptor.ts            → Tratamento centralizado de erros HTTP
+├── services/menu.service.ts                  → Estado/lógica do menu
+├── strategy/title.strategy.ts                → Título das páginas (CustomPageTitleStrategy)
+└── update/check-update.service.ts            → Checagem de atualização (service worker / PWA)
 ```
 
 **Padrões encontrados aqui:**
@@ -76,13 +76,20 @@ core/
   **`authGuard`** e **`authGuardStudent`** usados nas rotas protegidas.
 
 - **Interceptors HTTP funcionais** (padrão `HttpInterceptorFn`):
-  - `global-http.interceptor.ts` — captura erros com `catchError`, mapeia `HttpStatusCode`
-    (0, 400, 401, 403, 404, 413, 415, 429…) para mensagens amigáveis exibidas via `AlertService`.
-    Respeita o parâmetro especial `hideNotification` (`KEY_HIDE_NOTIFICATION`) para silenciar o
-    alerta de uma requisição.
-  - `auth.interceptor.ts` — clona a requisição e adiciona `Authorization: Bearer <token>` quando
-    autenticado; respeita o parâmetro `noAuth` (`KEY_NO_AUTH`) e ignora URLs de `assets`. Em `401`
-    dispara `logout()`.
+  - `global-http.interceptor.ts` (`core/interceptors/`) — captura erros com `catchError`, mapeia
+    `HttpStatusCode` (0, 400, 401, 403, 404, 413, 415, 429…) para mensagens amigáveis exibidas via
+    `AlertService`. Respeita o parâmetro `hideNotification` (`KEY_HIDE_NOTIFICATION`) para silenciar
+    o alerta de uma requisição específica.
+  - `auth.interceptor.ts` (`core/auth/interceptors/`) — clona a requisição e adiciona
+    `Authorization: Bearer <token>` quando o usuário está autenticado; ignora requisições que
+    contenham o parâmetro `noAuth` (`KEY_NO_AUTH`) ou cujas URLs incluam `assets`. Em caso de
+    resposta `401 Unauthorized`, chama `authService.logout()` automaticamente.
+
+  > ⚠️ **Gap conhecido:** o `authInterceptor` está implementado mas **não está registrado** em
+  > `app.config.ts`. O `withInterceptors` atual inclui apenas `[globalInterceptor, loadingInterceptor]`.
+  > Isso significa que o token Bearer **não é injetado automaticamente** nas requisições à API.
+  > Registrar o interceptor ou investigar se há outro mecanismo de injeção de token é uma ação
+  > pendente da equipe.
 
 - **Registro dos interceptors:** feito em `app.config.ts` via
   `provideHttpClient(withInterceptors([globalInterceptor, loadingInterceptor]), withFetch())`.
@@ -102,7 +109,8 @@ features/
 ├── dashboard/       → Painel administrativo (protegido por authGuard) com sub-views:
 │                       news-dashboard, videos-dashboard, personalities-dashboard
 ├── profile/         → Perfil do usuário e edição (profile-edit)
-└── not-found/       → Página 404 (rota curinga '**')
+├── perfis-nav/      → Componente de navegação contextual por perfil
+└── not-found/       → Página 404 (rota coringa '**')
 ```
 
 **Padrões:**
@@ -112,6 +120,14 @@ features/
   para gerenciar notícias, vídeos e personalidades.
 - `login/models/credentials.model.ts` define `Credentials` e o enum `Role`
   (`ADMIN`, `STUDENT`, `PUBLIC`) que orienta a exibição de menu e o controle de acesso.
+
+### `src/app/perfis-nav/` — Navegação por perfis
+
+Componente standalone localizado fora das pastas `features/` e `pages/`, no nível direto de `app/`.
+Atua como um seletor de navegação condicionado ao perfil do usuário autenticado, consumindo
+o `Role` exposto pelo `AuthService` para exibir opções de menu contextuais. Trabalha em conjunto
+com `shared/components/menu/const/list-menu.ts` (`LIST_MENU_BY_ROLE`) para determinar quais
+itens são visíveis para cada perfil.
 
 ---
 
@@ -161,6 +177,60 @@ Todos os jogos são **componentes standalone** carregados via `loadComponent` so
   controla timer e verificação de acerto via `BehaviorSubject`.
 - **`PuzzlesComponent`** — jogo da memória: monta pares a partir de imagens em `public/images/`
   (personalidades e marcos históricos), embaralha, controla flips, matches e timer.
+
+---
+
+## Mapa de Rotas
+
+Todas as rotas são definidas em `src/app/app.routes.ts`. O mecanismo de título e breadcrumb
+funciona assim:
+
+- **`title`** — processado pela `CustomPageTitleStrategy` (`core/strategy/title.strategy.ts`),
+  que formata o título da aba do navegador.
+- **`data.breadCrumb`** — consumido pelo `BreadcrumbComponent` (`shared/components/breadcrump/`)
+  para montar a trilha de navegação hierárquica. Quando `breadCrumb: false`, o breadcrumb não é
+  exibido (ex.: página de login).
+- **Rota coringa `**`** — captura qualquer URL não reconhecida e exibe a página 404
+  (`NotFoundComponent`). Deve sempre ser a última rota da lista.
+
+### Rotas públicas
+
+| Rota | Título | Descrição |
+| --- | --- | --- |
+| `/` | — | Redireciona para `/home` |
+| `/home` | Home | Página inicial |
+| `/about` | Sobre nós | História e linha do tempo da FACOM |
+| `/news` | Notícias | Listagem de notícias |
+| `/news/detail/:id` | — | Detalhe de uma notícia |
+| `/personalities` | Personalidades | Listagem de personalidades |
+| `/personalities/detail/:id` | — | Detalhe de uma personalidade |
+| `/videos` | Vídeos | Galeria de vídeos |
+| `/videos/detail/:id` | — | Detalhe de um vídeo |
+| `/games` | Jogos | Hub de jogos educativos |
+| `/games/*` | (ver tabela acima) | 10 jogos individuais |
+| `/visita-virtual` | Visita Virtual | Tour 360° com Pannellum |
+| `/resources` | Recursos | Agrega personalidades, vídeos, revistas e pôsteres |
+| `/magazine` | Revista | Revista digital em PDF |
+| `/statistics` | Estatísticas | Gráficos do acervo (ng2-charts) |
+| `/donations` | Doações | Formulário de doação ao acervo |
+| `/norms` | Normas | Normas do museu |
+| `/accessibility` | Acessibilidade | Configurações de acessibilidade |
+| `/login` | Login | Autenticação (breadCrumb desativado) |
+| `/**` | Página Não Encontrada | Rota coringa (404) |
+
+### Rotas protegidas (`canActivate: [authGuard]`)
+
+| Rota | Descrição |
+| --- | --- |
+| `/news/create` | Criar nova notícia |
+| `/news/edit/:id` | Editar notícia existente |
+| `/videos/create` | Criar nova publicação de vídeo |
+| `/videos/edit/:id` | Editar vídeo existente |
+| `/personalities/create` | Criar nova personalidade |
+| `/dashboard` | Painel administrativo (raiz) |
+| `/dashboard/news` | Gerenciar notícias via dashboard |
+| `/dashboard/videos` | Gerenciar vídeos via dashboard |
+| `/dashboard/personalities` | Gerenciar personalidades via dashboard |
 
 ---
 
@@ -298,3 +368,43 @@ template consome com `async` pipe** — é o modelo a seguir para novas telas de
   `videos/edit/:id`, `dashboard`).
 - **Aliases sempre:** importe com `@core`, `@shared`, `@features`, `@app`.
 - **UI reutilizável mora em `shared/`;** regra de negócio e dados moram em `core/`.
+
+---
+
+## Configurações relevantes do `angular.json`
+
+O arquivo `angular.json` centraliza as opções de build, serve e test do workspace. Os pontos
+mais importantes para contribuidores:
+
+### Schematics (padrões de geração de código)
+
+```json
+"schematics": {
+  "@schematics/angular:component": {
+    "style": "scss",      // SCSS em vez de CSS para todos os componentes gerados
+    "skipTests": true     // Não gera .spec.ts por padrão
+  }
+}
+```
+
+> Para gerar um componente **com** arquivo de teste: `ng g c nome --skip-tests=false`
+
+### Budgets de tamanho do bundle
+
+| Tipo | Aviso | Erro |
+| --- | --- | --- |
+| Bundle inicial | 2 MB | 3 MB |
+| Chunk individual | 1 MB | 2 MB |
+
+Se o build emitir aviso de tamanho, revise as dependências importadas (preferência por imports
+de sub-módulo em vez de import completo de bibliotecas como Angular Material).
+
+### Configurações `development` vs. `production`
+
+| Opção | `development` | `production` |
+| --- | --- | --- |
+| Output hashing | Desativado | Ativado (`[hash]`) |
+| Service Worker | Desativado | Ativado (`ngsw-config.json`) |
+| Source maps | Ativados | Desativados |
+| Otimização | Desativada | Ativada (minificação, tree-shaking) |
+| `baseHref` | `/` | `/` (Nginx) ou `/museu-ufu/` (GitHub Pages) |

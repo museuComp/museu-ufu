@@ -1,9 +1,16 @@
-# Guia de Contribuição e Boas Práticas
+## Canais e contatos
 
-Bem-vindo(a) ao **Museu Virtual da FACOM/UFU**! Este guia é o manual prático para você contribuir
-mantendo a **consistência técnica e estética** do projeto. Leia o
-[ARCHITECTURE.md](./ARCHITECTURE.md) antes de escrever a primeira linha — as decisões abaixo
-derivam de padrões que já existem no código.
+Se tiver dúvidas, encontrar um bug ou querer propor uma melhoria antes de começar a implementar,
+use os canais abaixo:
+
+| Canal | Uso |
+| --- | --- |
+| **Issues do GitHub** | Reportar bugs, propor features, discutir alterações de arquitetura. |
+| **Notion do Projeto** | Acompanhar o planejamento e tarefas em andamento. |
+| **E-mail / Discord da equipe** | _(a preencher pelos mantenedores)_ |
+
+> Os mantenedores responsáveis pelo projeto estão definidos em `.github/CODEOWNERS`:
+> `@museuComp`, `@D-Salge` e `@salgeee`.
 
 ---
 
@@ -17,15 +24,20 @@ derivam de padrões que já existem no código.
 3. Use prefixos de branch/commit claros: `feat/`, `fix/`, `docs/`, `refactor/`, `test/`.
 4. Mantenha os PRs **pequenos e temáticos** — uma feature ou correção por PR.
 
-### Convenção de commits (recomendada)
+### Convenção de commits — Conventional Commits
 
-```
-feat: adiciona card de exposição digital de disquetes
-fix: corrige logout ao receber 401 no dashboard
-docs: atualiza guia de arquitetura
-```
+O projeto adota o padrão [Conventional Commits](https://www.conventionalcommits.org/). Use o
+prefixo correto para que o histórico seja legível e para facilitar a geração de changelogs.
 
----
+| Prefixo | Quando usar | Exemplo |
+| --- | --- | --- |
+| `feat:` | Nova funcionalidade | `feat: adiciona card de disquetes na exposição` |
+| `fix:` | Correção de bug | `fix: corrige logout ao receber 401 no dashboard` |
+| `docs:` | Alterações apenas na documentação | `docs: atualiza guia de arquitetura` |
+| `refactor:` | Refatoração sem mudar comportamento | `refactor: extrai lógica de quiz para serviço` |
+| `test:` | Adiciona ou corrige testes | `test: adiciona spec do AuthService` |
+| `chore:` | Tarefas de manutenção (deps, config) | `chore: atualiza Angular para 19.2.13` |
+| `style:` | Formatação, espaços (sem mudar lógica) | `style: aplica editorconfig no shared/` |
 
 ## 1. Como criar uma nova funcionalidade (feature)
 
@@ -262,6 +274,47 @@ Diretrizes alinhadas ao que já é praticado no repositório:
 
 ---
 
+## Como contribuir com a Documentação
+
+A documentação técnica do projeto vive em `docs/` e é renderizada pelo
+[Docsify](https://docsify.js.org/) (configurado em `docs/index.html`). Para contribuir:
+
+1. Edite ou crie o arquivo `.md` correspondente em `docs/`.
+2. Adicione o novo documento ao `docs/_sidebar.md` para que apareça na navegação lateral.
+3. Use o mesmo tom e formatação dos documentos existentes (tabelas, blocos de código, callouts
+   com `>`).
+4. Para testar a renderização localmente, instale o Docsify CLI e rode:
+   ```bash
+   npm install -g docsify-cli
+   docsify serve docs
+   # acesse http://localhost:3000
+   ```
+5. Commits de documentação devem usar o prefixo `docs:` (Conventional Commits).
+
+---
+
+## Como reportar bugs
+
+1. **Verifique primeiro** se já existe uma Issue aberta para o mesmo problema.
+2. Abra uma nova Issue com o template:
+   - **Título:** `[Bug] Descrição curta do problema`
+   - **Passos para reproduzir:** lista numerada
+   - **Comportamento esperado:** o que deveria acontecer
+   - **Comportamento atual:** o que acontece de fato
+   - **Ambiente:** versão do Node, navegador, SO
+3. Se souber corrigir, crie um PR com o prefixo `fix/` na branch e referencie a Issue (`Closes #N`).
+
+## Como propor novas funcionalidades
+
+1. **Discuta antes de implementar:** abra uma Issue com `[Feature]` no título e descreva:
+   - O problema que a feature resolve
+   - A solução proposta
+   - Alternativas consideradas
+2. Aguarde feedback dos mantenedores antes de investir tempo na implementação.
+3. Após aprovação, crie a branch com prefixo `feat/` e abra o PR referenciando a Issue.
+
+---
+
 ## Checklist de Pull Request
 
 - [ ] Branch a partir de `main` com prefixo (`feat/`, `fix/`, `docs/`…).
@@ -273,4 +326,5 @@ Diretrizes alinhadas ao que já é praticado no repositório:
 - [ ] Assets referenciados a partir de `public/`.
 - [ ] `ng build` passa sem estourar budgets; `ng test` verde para o que toquei.
 - [ ] Sem `console.log` esquecido, sem `any` desnecessário, imports com aliases.
-```
+- [ ] Veriquei o `.github/CODEOWNERS`: se algum arquivo alterado tiver owner definido, o PR
+      só pode ser mergeado após aprovação de `@museuComp`, `@D-Salge` ou `@salgeee`.

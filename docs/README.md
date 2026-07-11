@@ -4,6 +4,17 @@
 > **Universidade Federal de Uberlândia (UFU)**. Este é o ponto de entrada para desenvolvedores:
 > aqui você entende *o que* é o projeto, *como* rodá-lo, *como* ele está organizado por dentro e
 > *como* contribuir sem quebrar os padrões existentes.
+>
+> 📌 **Este arquivo (`docs/README.md`) é o documento canônico da wiki.** O `README.md` da raiz
+> do repositório serve apenas como cartão de visitas no GitHub; toda a documentação técnica vive aqui.
+
+| | |
+|---|---|
+| **Status** | ✅ Em desenvolvimento ativo |
+| **Versão** | 0.0.0 (pré-release) |
+| **Site de produção** | <https://museu.facom.ufu.br/home> |
+| **Repositório** | <https://github.com/museuComp/museu-ufu> |
+| **Stack principal** | Angular 19 · Firebase Firestore · Gov.br DS |
 
 ---
 
@@ -47,6 +58,18 @@ front-end.
 - **Doações** — canal para a comunidade contribuir com o acervo (rota `donations`).
 - **Acessibilidade** — recursos e configurações de acessibilidade, alinhados ao padrão **Gov.br DS**.
 
+### Perfis de acesso
+
+O sistema possui três perfis, definidos pelo enum `Role` em `features/login/models/credentials.model.ts`:
+
+| Perfil | Como é atribuído | O que pode fazer |
+| --- | --- | --- |
+| **Público** (`PUBLIC`) | Qualquer visitante não autenticado | Acessa todas as páginas públicas: home, notícias, personalidades, jogos, visita virtual, vídeos, recursos, estatísticas, revista, doações, normas e acessibilidade. |
+| **Estudante** (`STUDENT`) | Login com conta de estudante | Mesmas permissões do perfil Público (verificar com a equipe se há páginas exclusivas para estudantes). |
+| **Admin** (`ADMIN`) | Login com conta administrativa | Tudo do Público + acesso ao `/dashboard` e às rotas protegidas de criação/edição de notícias, vídeos e personalidades. |
+
+> Para entender o fluxo de login e os guards de rota, consulte **[AUTH.md](./AUTH.md)** _(a criar)_.
+
 ---
 
 ## Motivação do projeto
@@ -88,7 +111,7 @@ acervo e dar a ele uma vitrine pública cumpre três objetivos:
 ## Primeiros passos rápidos
 
 ```bash
-git clone <url-do-repositorio> museu-ufu
+git clone https://github.com/museuComp/museu-ufu museu-ufu
 cd museu-ufu
 npm install
 ng serve
