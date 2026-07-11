@@ -1,7 +1,8 @@
+<!--
 <div class="games-container">
   <h1 class="games-title">Jogos Educativos</h1>
   <div class="games-grid">
-    <!-- Página de jogos renderizada a partir da lista definida no componente TypeScript -->
+    <!-- Página de jogos renderizada a partir da lista definida no componente TypeScript
     <div
       class="game-card"
       *ngFor="let game of games"
@@ -16,4 +17,35 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
+-->
+
+<div class="games-container">
+  <h1 class="games-title">Jogos Educativos</h1>
+
+  <div class="games-grid">
+    <div
+      class="game-card"
+      *ngFor="let game of games"
+      [routerLink]="game.route"
+    >
+      <!-- Imagem de referência do jogo -->
+      <div class="game-image-wrapper">
+        <img
+          class="game-image"
+          [src]="game.image"
+          [alt]="game.imageAlt"
+        />
+
+        <span class="game-icon-badge">
+          <i [class]="game.iconClass"></i>
+        </span>
+      </div>
+
+      <h2>{{ game.title }}</h2>
+      <p>{{ game.description }}</p>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>
