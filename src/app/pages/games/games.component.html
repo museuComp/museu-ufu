@@ -1,50 +1,44 @@
-<!--
-<div class="games-container">
-  <h1 class="games-title">Jogos Educativos</h1>
+<!-- Área arcade da página de jogos, agora com visual 8-bit e componentes do NES.css -->
+<div class="games-container games-arcade-page">
+  <section class="games-hero nes-container is-dark with-title">
+    <p class="title">Área Arcade</p>
+
+    <h1 class="games-title">Jogos Educativos</h1>
+    <p class="games-subtitle">
+      Explore jogos inspirados na história da computação em uma experiência visual estilo 8-bit.
+    </p>
+  </section>
+
   <div class="games-grid">
-    <!-- Página de jogos renderizada a partir da lista definida no componente TypeScript
-    <div
-      class="game-card"
+    <!-- Lista os jogos cadastrados no componente -->
+    <a
+      class="game-card-link"
       *ngFor="let game of games"
       [routerLink]="game.route"
     >
-      <div class="game-icon">
-        <i [class]="game.iconClass"></i>
-      </div>
+      <section class="game-card nes-container is-dark with-title">
+        <p class="title">{{ game.category }}</p>
 
-      <h2>{{ game.title }}</h2>
-      <p>{{ game.description }}</p>
-    </div>
-  </div>
-</div>
-<router-outlet></router-outlet>
--->
+        <div class="game-image-wrapper">
+          <img
+            class="game-image"
+            [src]="game.image"
+            [alt]="game.imageAlt"
+          />
 
-<div class="games-container">
-  <h1 class="games-title">Jogos Educativos</h1>
+          <span class="game-icon-badge">
+            <i [class]="game.iconClass"></i>
+          </span>
+        </div>
 
-  <div class="games-grid">
-    <div
-      class="game-card"
-      *ngFor="let game of games"
-      [routerLink]="game.route"
-    >
-      <!-- Imagem de referência do jogo -->
-      <div class="game-image-wrapper">
-        <img
-          class="game-image"
-          [src]="game.image"
-          [alt]="game.imageAlt"
-        />
+        <h2>{{ game.title }}</h2>
+        <p>{{ game.description }}</p>
 
-        <span class="game-icon-badge">
-          <i [class]="game.iconClass"></i>
-        </span>
-      </div>
-
-      <h2>{{ game.title }}</h2>
-      <p>{{ game.description }}</p>
-    </div>
+        <button class="nes-btn is-success game-button" type="button">
+          Jogar agora
+        </button>
+      </section>
+    </a>
   </div>
 </div>
 
