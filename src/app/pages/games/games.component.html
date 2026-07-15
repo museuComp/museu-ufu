@@ -1,85 +1,45 @@
-<div class="games-container">
-  <h1 class="games-title">Jogos Educativos</h1>
+<!-- Área arcade da página de jogos, agora com visual 8-bit e componentes do NES.css -->
+<div class="games-container games-arcade-page">
+  <section class="games-hero nes-container is-dark with-title">
+    <p class="title">Área Arcade</p>
+
+    <h1 class="games-title">Jogos Educativos</h1>
+    <p class="games-subtitle">
+      Explore jogos inspirados na história da computação em uma experiência visual estilo 8-bit.
+    </p>
+  </section>
+
   <div class="games-grid">
-    <div class="game-card" routerLink="./quiz">
-      <div class="game-icon">
-        <i class="fas fa-question-circle"></i>
-      </div>
-      <h2>Quiz</h2>
-      <p>Teste seus conhecimentos sobre o museu com perguntas divertidas!</p>
-    </div>
+    <!-- Lista os jogos cadastrados no componente -->
+    <a
+      class="game-card-link"
+      *ngFor="let game of games"
+      [routerLink]="game.route"
+    >
+      <section class="game-card nes-container is-dark with-title">
+        <p class="title">{{ game.category }}</p>
 
-    <div class="game-card" routerLink="./puzzles">
-      <div class="game-icon">
-        <i class="fas fa-puzzle-piece"></i>
-      </div>
-      <h2>Jogo da Memória</h2>
-      <p>Complete o jogo da mémoria com imagens da história da computação</p>
-    </div>
+        <div class="game-image-wrapper">
+          <img
+            class="game-image"
+            [src]="game.image"
+            [alt]="game.imageAlt"
+          />
 
-    <div class="game-card" routerLink="./logic-challenge">
-      <div class="game-icon">
-        <i class="fas fa-brain"></i>
-      </div>
-      <h2>Desafio Lógico</h2>
-      <p>Resolva desafios e enigmas relacionados ao acervo do museu!</p>
-    </div>
-    <div class="game-card" routerLink="./word-search">
-      <div class="game-icon">
-        <i class="fas fa-dumbbell"></i>
-      </div>
-      <h2>Caça Palavras</h2>
-      <p>Jogue um caça palavras temático sobre a história da computação</p>
-    </div>
-    <div class="game-card" routerLink="./truth-table">
-      <div class="game-icon">
-        <i class="fas fa-desktop"></i>
-      </div>
-      <h2>Tabela Verdade</h2>
-      <p>
-        Teste seus conhecimentos em lógica booleana completando as tabelas de
-        cada expressão.
-      </p>
-    </div>
-    <div class="game-card" routerLink="./math-quiz">
-      <div class="game-icon">
-        <i class="fas fa-calculator"></i>
-      </div>
-      <h2>Quiz de Matemática</h2>
-      <p>Resolva as perguntas de matemática e teste suas habilidades</p>
-    </div>
+          <span class="game-icon-badge">
+            <i [class]="game.iconClass"></i>
+          </span>
+        </div>
 
-    <div class="game-card" routerLink="./history-quiz">
-      <div class="game-icon">
-        <i class="fas fa-book"></i>
-      </div>
-      <h2>Quiz de História</h2>
-      <p>Teste seus conhecimentos sobre a história da computação!</p>
-    </div>
+        <h2>{{ game.title }}</h2>
+        <p>{{ game.description }}</p>
 
-    <div class="game-card" routerLink="./computing-dungeons">
-      <div class="game-icon">
-        <i class="fas fa-dungeon"></i>
-      </div>
-      <h2>Computing Dungeons</h2>
-      <p>Explore as masmorras e aprenda sobre a história da computação!</p>
-    </div>
-
-    <div class="game-card" routerLink="./museudle">
-      <div class="game-icon">
-        <i class="fas fa-lightbulb"></i>
-      </div>
-      <h2>MuseuDle</h2>
-      <p>Adivinhe o artefato do dia sobre a história da computação!</p>
-    </div>
-
-    <div class="game-card" routerLink="./linux-puzzle">
-      <div class="game-icon">
-        <i class="fas fa-terminal"></i>
-      </div>
-      <h2>Puzzle de Linux</h2>
-      <p>Aprenda comandos básicos do sistema operacional Linux!</p>
-    </div>
+        <button class="nes-btn is-success game-button" type="button">
+          Jogar agora
+        </button>
+      </section>
+    </a>
   </div>
 </div>
+
 <router-outlet></router-outlet>
