@@ -20,6 +20,7 @@ export class BarraBrasilComponent {
   changeLang(lang:string): void {
     let url = this.router.url;
     url = url.replace(this.transloco.getActiveLang(), lang);
+    this.transloco.setActiveLang(lang);
     this.router.navigate([url]);
   }
 } 

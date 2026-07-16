@@ -50,5 +50,158 @@
     "devsSubtitle": "Technical team responsible for the implementation and maintenance of the Virtual Museum.",
     "techLeadRole": "Tech Lead",
     "devRole": "Developer"
-}
+},
+
+"tour": {
+    "title": "Virtual Tour",
+    "intro": "Explore the UFU Computing Museum in an immersive experience. Navigate the 360° room and discover historical collection items.",
+    "timelineTitle": "Storage Timeline",
+    "timelineIntro": "Follow the evolution of media: from the classic floppy disk to the ultra-fast M.2.",
+    "itemsTitle": "Featured Items",
+    "itemsIntro": "Selected objects that are part of the history of computing.",
+    "enlargedImageAlt": "Enlarged image"
+},
+
+"storage": {
+    "timeline": [
+        {
+            "title": "8\" Floppy Disk",
+            "year": "1971",
+            "description": "The first commercial floppy disks created by IBM, establishing the foundation for portable storage."
+        },
+        {
+            "title": "5.25\" and 3.5\" Floppy Disks",
+            "year": "1980s and 1990s",
+            "description": "More compact and rigid formats that became the absolute standard in early personal computers."
+        },
+        {
+            "title": "CD-ROM",
+            "year": "1982",
+            "description": "The optical disc revolutionized storage capacity, enabling the era of multimedia gaming and heavy software."
+        },
+        {
+            "title": "USB Flash Drive",
+            "year": "2000",
+            "description": "Portable flash memory that marked the end of floppy disks due to its speed, diminutive size, and durability."
+        },
+        {
+            "title": "Hard Disk Drive (SATA HDD)",
+            "year": "Continuous evolution",
+            "description": "High-capacity magnetic disks that dominated PCs for decades due to their low cost per Gigabyte."
+        },
+        {
+            "title": "SATA SSD",
+            "year": "2000s",
+            "description": "Solid-state drives without moving mechanical parts. Brought massive gains in read and write speeds."
+        },
+        {
+            "title": "M.2 NVMe SSD",
+            "year": "Present day",
+            "description": "The modern standard. Connected directly to the motherboard, it eliminated cables and offers extreme speeds."
+        }
+    ]
+},
+
+"museumItems": [
+    {
+        "title": "Panasonic Recorder",
+        "description": "Portable microcassette voice recorder, a classic device used for interviews and audio notes before digital recorders."
+    },
+    {
+        "title": "Typewriter",
+        "description": "Typewriter, the standard mechanical equipment for text document production before the popularization of computers."
+    },
+    {
+        "title": "Floppy Disk Box",
+        "description": "5.25-inch flexible floppy disks, one of the most popular physical media for data storage and transfer in the early days of personal computing."
+    },
+    {
+        "title": "Classic Peripherals",
+        "description": "Set of speakers and peripherals, essential multimedia and connectivity components of early desktop computers."
+    },
+    {
+        "title": "Facit Calculator",
+        "description": "A historical mechanical calculator used in offices to perform mathematical operations prior to the invention of electronic calculators."
+    },
+    {
+        "title": "HP Printer",
+        "description": "Early laser printer model, equipment that revolutionized the speed and quality of document printing in offices."
+    },
+    {
+        "title": "Napier's Bones",
+        "description": "A historical instrument known as \"Napier's Bones\", created in the 17th century and considered one of the earliest manual devices designed to facilitate calculations."
+    },
+    {
+        "title": "Graphics Card",
+        "description": "Legacy graphics card, hardware component responsible for processing graphics and games on computers."
+    },
+    {
+        "title": "Portable DVD Player",
+        "description": "Portable DVD player, a classic personal video entertainment device before the advent of tablets and streaming."
+    },
+    {
+        "title": "IBM Network Equipment",
+        "description": "Classic infrastructure device used to connect computer networks in enterprise environments."
+    },
+    {
+        "title": "Communication Modules",
+        "description": "Essential components that formed the basis of data communication in legacy corporate networks."
+    },
+    {
+        "title": "Legacy Hard Drives",
+        "description": "Fundamental components for local data storage in past generations of computers."
+    },
+    {
+        "title": "PS One Console",
+        "description": "A historical video game console that popularized CD-media games and defined digital entertainment."
+    },
+    {
+        "title": "Classic PC Interior",
+        "description": "Internal view of an early desktop computer, highlighting the hardware standard of past generations."
+    },
+    {
+        "title": "CCE Supergame Console",
+        "description": "Retro video game system that brought early cartridge games to many homes in Brazil."
+    },
+    {
+        "title": "IBM Classic Keyboard",
+        "description": "Robust and traditional peripheral that defined typing on early desktop computers."
+    },
+    {
+        "title": "Video Computer System",
+        "description": "Historical console representing the beginning of popularization and the golden age of home video games."
+    },
+    {
+        "title": "Classic Camera and Webcam",
+        "description": "Early devices used for image capture and visual communication in the early days of the internet."
+    },
+    {
+        "title": "Classic PC Case",
+        "description": "Traditional beige chassis that housed hardware components of desktop computers in past decades."
+    },
+    {
+        "title": "Network and Connectivity Modules",
+        "description": "Switching and transmission devices essential for establishing communication in early corporate network infrastructures."
+    },
+    {
+        "title": "Overhead Projector",
+        "description": "Classic optical equipment widely used in classrooms and presentations to project transparencies prior to the digital era."
+    },
+    {
+        "title": "Switch and Hub Panel",
+        "description": "Set of network distribution equipment responsible for interconnecting multiple computers in early work environments."
+    },
+    {
+        "title": "Classic Mobile Phone Collection",
+        "description": "Collection of devices illustrating the early phases and design evolution in the history of mobile communication."
+    },
+    {
+        "title": "iPad Packaging Collection",
+        "description": "Packaging from the early generations of Apple's tablet, a device that helped define the modern mobile computing market."
+    },
+    {
+        "title": "IBM Tower Server",
+        "description": "Robust enterprise computer used for heavy processing and centralized data storage in businesses."
+    }
+]
 }

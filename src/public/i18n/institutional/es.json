@@ -51,5 +51,158 @@
     "devsSubtitle": "Equipo técnico responsable de la implementación y mantenimiento del Museo Virtual.",
     "techLeadRole": "Tech Lead",
     "devRole": "Desarrollador"
-}
+},
+
+"tour": {
+    "title": "Visita virtual",
+    "intro": "Explore el Museo de la Computación de la UFU en una experiencia inmersiva. Navegue por la sala en 360° y conozca algunos objetos del acervo histórico.",
+    "timelineTitle": "Línea del tiempo del almacenamiento",
+    "timelineIntro": "Acompañe la evolución de los medios de almacenamiento: del clásico disquete al ultrarrápido M.2.",
+    "itemsTitle": "Piezas destacadas",
+    "itemsIntro": "Algunos objetos que forman parte de la historia de la computación.",
+    "enlargedImageAlt": "Imagen ampliada"
+},
+
+"storage": {
+    "timeline": [
+        {
+            "title": "Disquete de 8\"",
+            "year": "1971",
+            "description": "Los primeros disquetes comerciales creados por IBM, estableciendo las bases del almacenamiento portátil."
+        },
+        {
+            "title": "Disquetes de 5.25\" y 3.5\"",
+            "year": "Años 80 y 90",
+            "description": "Formatos más compactos y rígidos que se convirtieron en el estándar absoluto de las primeras computadoras personales."
+        },
+        {
+            "title": "CD-ROM",
+            "year": "1982",
+            "description": "El disco óptico revolucionó la capacidad de almacenamiento, dando paso a la era de los juegos multimedia y el software pesado."
+        },
+        {
+            "title": "Memoria USB (Pendrive)",
+            "year": "2000",
+            "description": "La memoria flash portátil que decretó el fin de los disquetes por su velocidad, tamaño reducido y resistencia."
+        },
+        {
+            "title": "Disco duro (HD SATA)",
+            "year": "Evolución continua",
+            "description": "Discos magnéticos de alta capacidad que dominaron las PC durante décadas debido a su bajo costo por Gigabyte."
+        },
+        {
+            "title": "SSD SATA",
+            "year": "Años 2000",
+            "description": "Unidades de estado sólido sin partes mecánicas móviles. Trajeron un aumento masivo en las velocidades de lectura y escritura."
+        },
+        {
+            "title": "SSD NVMe M.2",
+            "year": "Actualidad",
+            "description": "El estándar moderno. Conectado directamente a la tarjeta madre, eliminó los cables y ofrece velocidades extremas."
+        }
+    ]
+},
+
+"museumItems": [
+    {
+        "title": "Grabadora Panasonic",
+        "description": "Grabadora de voz portátil de minicasete, equipo clásico utilizado para entrevistas y notas de audio antes de las grabadoras digitales."
+    },
+    {
+        "title": "Máquina de escribir",
+        "description": "Máquina de escribir, el equipo mecánico estándar para la producción de documentos de texto antes de la popularización de las computadoras."
+    },
+    {
+        "title": "Caja de disquetes",
+        "description": "Disquetes flexibles de 5,25 pulgadas, uno de los medios físicos más populares para el almacenamiento y la transferencia de datos en los inicios de la computación personal."
+    },
+    {
+        "title": "Periféricos antiguos",
+        "description": "Conjunto de altavoces y periféricos, componentes esenciales de multimedia y conectividad de las antiguas computadoras de escritorio."
+    },
+    {
+        "title": "Calculadora Facit",
+        "description": "Calculadora mecánica histórica, utilizada en oficinas para realizar operaciones matemáticas antes de la invención de las calculadoras electrónicas."
+    },
+    {
+        "title": "Impresora HP",
+        "description": "Modelo antiguo de impresora láser, equipo que revolucionó la velocidad y la calidad de impresión de documentos en oficinas."
+    },
+    {
+        "title": "Ábaco de Napier",
+        "description": "Instrumento histórico conocido como \"Ábaco de Napier\", creado en el siglo XVII y considerado uno de los primeros dispositivos manuales para facilitar cálculos matemáticos."
+    },
+    {
+        "title": "Tarjeta de video",
+        "description": "Tarjeta de video de generaciones pasadas, componente de hardware responsable de procesar gráficos y juegos en las computadoras."
+    },
+    {
+        "title": "Reproductor de DVD portátil",
+        "description": "Reproductor portátil de DVD, un dispositivo clásico de entretenimiento de video personal antes del surgimiento de las tabletas y del streaming."
+    },
+    {
+        "title": "Equipo de red IBM",
+        "description": "Dispositivo clásico de infraestructura utilizado para conectar redes de computadoras en empresas."
+    },
+    {
+        "title": "Módulos de comunicación",
+        "description": "Componentes esenciales que formaban la base de la comunicación de datos en redes corporativas antiguas."
+    },
+    {
+        "title": "Discos duros antiguos",
+        "description": "Piezas fundamentales para el almacenamiento local de datos en las generaciones pasadas de computadoras."
+    },
+    {
+        "title": "Consola PS One",
+        "description": "Consola histórica que popularizó los juegos en formato CD y marcó un hito en el entretenimiento digital."
+    },
+    {
+        "title": "Interior de una PC clásica",
+        "description": "Vista interna de una computadora de escritorio antigua, evidenciando el estándar de hardware de generaciones pasadas."
+    },
+    {
+        "title": "Consola Supergame CCE",
+        "description": "Sistema de videojuegos retro que llevó los primeros juegos de cartucho a muchos hogares en Brasil."
+    },
+    {
+        "title": "Teclado clásico IBM",
+        "description": "Periférico robusto y tradicional que marcó la escritura en las antiguas computadoras de escritorio."
+    },
+    {
+        "title": "Video Computer System",
+        "description": "Consola histórica que representa el inicio de la popularización y la era dorada de los videojuegos caseros."
+    },
+    {
+        "title": "Cámara y webcam clásicas",
+        "description": "Primeros dispositivos utilizados para la captura de imagen y la comunicación visual en los inicios de internet."
+    },
+    {
+        "title": "Gabinete de PC clásico",
+        "description": "Estructura de color beige tradicional que albergaba los componentes de hardware de las computadoras de escritorio en décadas pasadas."
+    },
+    {
+        "title": "Módulos de red y conectividad",
+        "description": "Dispositivos de conmutación y transmisión esenciales para establecer la comunicación en las primeras infraestructuras de red corporativa."
+    },
+    {
+        "title": "Proyector de acetatos",
+        "description": "Equipo óptico clásico ampliamente utilizado en aulas y presentaciones para proyectar transparencias antes de la era digital."
+    },
+    {
+        "title": "Panel de switches y hubs",
+        "description": "Conjunto de equipos de distribución de red responsables de interconectar múltiples computadoras en los antiguos entornos de trabajo."
+    },
+    {
+        "title": "Colección de teléfonos celulares clásicos",
+        "description": "Acervo de teléfonos que ilustra las fases iniciales y la evolución del diseño en la historia de la comunicación móvil."
+    },
+    {
+        "title": "Colección de empaques de iPad",
+        "description": "Cajas de las primeras generaciones de la tableta de Apple, dispositivo que ayudó a definir el mercado moderno de la computación móvil."
+    },
+    {
+        "title": "Servidor de torre IBM",
+        "description": "Robusta computadora corporativa utilizada para el procesamiento intensivo y el almacenamiento centralizado de datos en empresas."
+    }
+]
 }
