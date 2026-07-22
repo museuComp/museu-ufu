@@ -52,6 +52,26 @@
     background-color: #4CAF50;
     color: white;
   }
+
+  &:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: -3px;
+    z-index: 1;
+    position: relative;
+  }
+}
+
+/* Esconde visualmente mas mantém disponível para leitores de tela (instruções e anúncios) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .word-list {
@@ -152,4 +172,4 @@
   &:hover {
     background-color: #45a049;
   }
-} 
+}
