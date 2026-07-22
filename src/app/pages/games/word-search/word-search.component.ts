@@ -19,6 +19,9 @@ export class WordSearchComponent implements OnInit, OnDestroy {
   isSelecting: boolean = false;
   gameComplete: boolean = false;
   showCongratulations: boolean = false;
+  focusedRow: number = 0;
+  focusedCol: number = 0;
+  announcement: string = '';
   private subscriptions: Subscription[] = [];
 
   constructor(private gameService: GameService) {}
@@ -40,6 +43,11 @@ export class WordSearchComponent implements OnInit, OnDestroy {
           this.gameComplete = true;
           this.gameService.endGame();
           this.showCongratulations = true;
+          // Move o foco para o título do modal assim que ele for renderizado,
+          // garantindo que o NVDA anuncie a vitória automaticamente
+          setTimeout(() => {
+            document.getElementById('modal-title')?.focus();
+          });
         }
       })
     );
@@ -77,9 +85,12 @@ export class WordSearchComponent implements OnInit, OnDestroy {
   onMouseUp(): void {
     if (this.isSelecting) {
       this.isSelecting = false;
+      const selectedText = this.selectedCells.map(p => this.grid[p.row][p.col]).join('');
       if (this.gameService.checkWord(this.selectedCells)) {
         // Palavra encontrada!
+        this.announcement = `Palavra encontrada: ${selectedText}!`;
       } else {
+        this.announcement = `Nenhuma palavra corresponde a "${selectedText}". Seleção desfeita.`;
         this.selectedCells = [];
       }
     }
@@ -113,6 +124,69 @@ export class WordSearchComponent implements OnInit, OnDestroy {
     return this.words.find(w => w.word === word)?.found || false;
   }
 
+  /** Verifica se a célula faz parte de uma palavra já encontrada, para informar o leitor de tela. */
+  isCellInFoundWord(row: number, col: number): boolean {
+    return this.words.some(w => w.found && w.positions.some(p => p.row === row && p.col === col));
+  }
+
+  /** Monta o texto que o NVDA anuncia ao focar em cada célula da grade. */
+  getCellLabel(cell: string, row: number, col: number): string {
+    let label = `Letra ${cell}, linha ${row + 1}, coluna ${col + 1}`;
+    if (this.isCellSelected(row, col)) {
+      label += ', selecionada';
+    }
+    if (this.isCellInFoundWord(row, col)) {
+      label += ', parte de uma palavra já encontrada';
+    }
+    return label;
+  }
+
+  /**
+   * Navegação e seleção por teclado, equivalente ao arrastar do mouse:
+   * setas movem o foco pela grade; Enter/Espaço inicia a seleção numa letra
+   * e a confirma na letra final; Escape cancela a seleção em andamento.
+   */
+  onCellKeydown(event: KeyboardEvent, row: number, col: number): void {
+    const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+
+    if (arrowKeys.includes(event.key)) {
+      event.preventDefault();
+      let newRow = row;
+      let newCol = col;
+
+      if (event.key === 'ArrowUp') newRow = Math.max(0, row - 1);
+      if (event.key === 'ArrowDown') newRow = Math.min(this.grid.length - 1, row + 1);
+      if (event.key === 'ArrowLeft') newCol = Math.max(0, col - 1);
+      if (event.key === 'ArrowRight') newCol = Math.min(this.grid[0].length - 1, col + 1);
+
+      this.focusedRow = newRow;
+      this.focusedCol = newCol;
+
+      // Se já existe uma seleção em andamento, estende-a até a nova posição
+      if (this.isSelecting) {
+        this.onMouseOver(newRow, newCol);
+      }
+
+      // Move o foco real do navegador para a nova célula, após o Angular
+      // atualizar o tabindex (roving tabindex)
+      setTimeout(() => {
+        document.getElementById(`cell-${newRow}-${newCol}`)?.focus();
+      });
+    } else if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      if (!this.isSelecting) {
+        this.onMouseDown(row, col);
+        this.announcement = `Seleção iniciada na letra ${this.grid[row][col]}, linha ${row + 1}, coluna ${col + 1}. Use as setas até a última letra e pressione Enter para confirmar.`;
+      } else {
+        this.onMouseUp();
+      }
+    } else if (event.key === 'Escape' && this.isSelecting) {
+      this.isSelecting = false;
+      this.selectedCells = [];
+      this.announcement = 'Seleção cancelada.';
+    }
+  }
+
   closeModal(): void {
     this.showCongratulations = false;
   }
@@ -124,5 +198,8 @@ export class WordSearchComponent implements OnInit, OnDestroy {
     this.selectedCells = [];
     this.gameComplete = false;
     this.showCongratulations = false;
+    this.focusedRow = 0;
+    this.focusedCol = 0;
+    this.announcement = 'Jogo reiniciado.';
   }
 }
