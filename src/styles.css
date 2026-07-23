@@ -1,5 +1,35 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import '@govbr-ds/core/dist/core.min.css';
+@import 'nes.css/css/nes.min.css';
+
+/* Cursor padrão para o site inteiro */
+body,
+body * {
+  cursor: auto !important;
+}
+
+/* Cursor de clique padrão fora da área arcade */
+a,
+button,
+[role='button'],
+input[type='submit'],
+input[type='button'] {
+  cursor: pointer !important;
+}
+
+/* Cursor Personalizado apenas dentro da área arcade */
+body.arcade-games-page .games-arcade-page,
+body.arcade-games-page .games-arcade-page * {
+  cursor: url('public/images/games/cursors/cursor.png'), auto !important;
+}
+
+/* Cursor NES de clique apenas em elementos clicáveis da área arcade */
+body.arcade-games-page .games-arcade-page a,
+body.arcade-games-page .games-arcade-page button,
+body.arcade-games-page .games-arcade-page .game-card,
+body.arcade-games-page .games-arcade-page .game-card-link {
+  cursor: url('public/images/games/cursors/cursor-click.png'), pointer !important;
+}
 
 /* Estilos globais */
 * {
