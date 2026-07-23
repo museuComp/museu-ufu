@@ -1,4 +1,5 @@
-<!-- Área arcade da página de jogos, agora com visual 8-bit e componentes do NES.css -->
+<!--
+Área arcade da página de jogos, agora com visual 8-bit e componentes do NES.css 
 <div class="games-container games-arcade-page">
   <section class="games-hero nes-container is-dark with-title">
     <p class="title">Área Arcade</p>
@@ -10,7 +11,7 @@
   </section>
 
   <div class="games-grid">
-    <!-- Lista os jogos cadastrados no componente -->
+    Lista os jogos cadastrados no componente 
     <a
       class="game-card-link"
       *ngFor="let game of games"
@@ -40,6 +41,113 @@
       </section>
     </a>
   </div>
+</div>
+
+<router-outlet></router-outlet>
+-->
+
+<div class="games-container games-arcade-page">
+  <!-- Área arcade da página de jogos, com visual 8-bit e componentes do NES.css -->
+  <section class="games-hero nes-container is-dark with-title">
+    <p class="title">Área Arcade</p>
+
+    <h1 class="games-title">Jogos Educativos</h1>
+    <p class="games-subtitle">
+      Explore jogos inspirados na história da computação em uma experiência visual estilo 8-bit.
+    </p>
+  </section>
+
+  <!-- Carrossel de destaque -->
+  <div class="featured-carousel-wrapper">
+    <button
+      class="featured-arrow featured-arrow-left"
+      type="button"
+      aria-label="Jogo anterior"
+      (click)="changeFeaturedGame('previous')"
+    >
+      ◀
+    </button>
+
+    <section class="featured-game nes-container is-dark with-title">
+      <p class="title">Destaque</p>
+
+      <div class="featured-game-content">
+        <div class="featured-game-text">
+          <span class="featured-category">
+            {{ featuredGame.category }}
+          </span>
+
+          <h2>{{ featuredGame.title }}</h2>
+          <p>{{ featuredGame.description }}</p>
+
+          <a
+            class="nes-btn is-success featured-button"
+            [routerLink]="featuredGame.route"
+          >
+            Jogar agora
+          </a>
+        </div>
+
+        <div class="featured-image-wrapper">
+          <img
+            class="featured-image"
+            [src]="featuredGame.image"
+            [alt]="featuredGame.imageAlt"
+          />
+        </div>
+      </div>
+    </section>
+
+    <button
+      class="featured-arrow featured-arrow-right"
+      type="button"
+      aria-label="Próximo jogo"
+      (click)="changeFeaturedGame('next')"
+    >
+      ▶
+    </button>
+  </div>
+
+  <!-- Catálogo de jogos em grid -->
+  <section class="games-catalog-section">
+    <div class="catalog-header">
+      <span class="catalog-label">Catálogo</span>
+      <h2>Escolha seu jogo</h2>
+    </div>
+
+    <div class="games-grid">
+      <!-- Renderiza os cards a partir da lista de jogos definida no TypeScript -->
+      <a
+        class="game-card-link"
+        *ngFor="let game of games; trackBy: trackByGameTitle"
+        [routerLink]="game.route"
+      >
+        <section class="game-card nes-container is-dark with-title">
+          <p class="title">{{ game.category }}</p>
+
+          <!-- Imagem de referência do jogo -->
+          <div class="game-image-wrapper">
+            <img
+              class="game-image"
+              [src]="game.image"
+              [alt]="game.imageAlt"
+            />
+
+            <span class="game-icon-badge">
+              <i [class]="game.iconClass"></i>
+            </span>
+          </div>
+
+          <h2>{{ game.title }}</h2>
+          <p>{{ game.description }}</p>
+
+          <span class="nes-btn is-success game-button">
+            Jogar agora
+          </span>
+        </section>
+      </a>
+    </div>
+  </section>
 </div>
 
 <router-outlet></router-outlet>
