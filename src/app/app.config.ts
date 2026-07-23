@@ -25,7 +25,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getApps } from 'firebase/app';
 import { env } from '../../enviroment';
-
+import { provideMarkdown } from 'ngx-markdown';
 
 registerLocaleData(localePt);
 
@@ -40,6 +40,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([globalInterceptor, loadingInterceptor]), withFetch()),
     provideAnimationsAsync(),
     provideEnvironmentNgxMask(),
+    provideMarkdown(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:3000',
