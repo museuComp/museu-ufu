@@ -20,6 +20,7 @@ export default class Game {
         
         this.questionEl = document.getElementById('question-text');
         this.statusEl = document.getElementById('status-msg');
+        this.doorOptionsEl = document.getElementById('door-options');
 
         this.doors = [];
         this.setupDoors();
@@ -53,14 +54,36 @@ export default class Game {
             // Mostra a Tela de Vitória em HTML e esconde o texto da pergunta
             document.getElementById('victory-screen').style.display = 'flex';
             document.getElementById('ui-layer').style.display = 'none';
+            // Move o foco para o título, garantindo que o leitor de tela anuncie a vitória
+            const victoryTitle = document.getElementById('victory-title');
+            if (victoryTitle) victoryTitle.focus();
             return;
         }
 
         const q = this.selectedQuestions[this.currentQuestionIndex];
         this.questionEl.innerText = q.text;
+        this.renderDoorOptions(q);
         
         this.player.x = this.gameWidth / 2 - this.player.width / 2;
         this.player.y = this.gameHeight - 100;
+    }
+
+    // Cria botões reais (não desenhados no canvas) com o texto de cada porta,
+    // para que leitores de tela consigam anunciar e selecionar as alternativas.
+    renderDoorOptions(q) {
+        if (!this.doorOptionsEl) return;
+        this.doorOptionsEl.innerHTML = '';
+        this.doorOptionsEl.style.display = '';
+        q.options.forEach((optionText, index) => {
+            if (!optionText) return;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'door-answer-btn';
+            btn.textContent = `Porta ${index + 1}: ${optionText}`;
+            btn.setAttribute('aria-label', `Responder pela porta ${index + 1}: ${optionText}`);
+            btn.addEventListener('click', () => this.checkAnswer(index));
+            this.doorOptionsEl.appendChild(btn);
+        });
     }
 
     update(deltaTime) { 
@@ -82,6 +105,7 @@ export default class Game {
     }
 
     checkAnswer(answerIndex) {
+        if (this.gameState !== 'PLAYING') return;
         const correctIndex = this.selectedQuestions[this.currentQuestionIndex].correct;
 
         if (answerIndex === correctIndex) {
@@ -102,6 +126,11 @@ export default class Game {
         const q = this.selectedQuestions[this.currentQuestionIndex];
         document.getElementById('curiosity-text').innerText = q.curiosity;
         document.getElementById('curiosity-modal').style.display = 'flex';
+        // Esconde as alternativas enquanto o modal estiver aberto, evitando que o
+        // leitor de tela navegue até botões de uma pergunta já respondida
+        if (this.doorOptionsEl) this.doorOptionsEl.style.display = 'none';
+        const curiosityTitle = document.getElementById('curiosity-title');
+        if (curiosityTitle) curiosityTitle.focus();
     }
 
     // Chamada quando o jogador clica em "Avançar"
