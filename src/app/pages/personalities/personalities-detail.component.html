@@ -5,7 +5,8 @@
       <mat-card-subtitle class="personality-detail-category">
         {{ personalityItem.summary.category }}
         <!-- EXIBIÇÃO DO REDATOR (Atividade 6) -->
-        <span *ngIf="personalityItem.summary.writer" class="personality-detail-writer" style="margin-left: 8px; font-style: italic; color: #666;">
+        <span *ngIf="personalityItem.summary.writer" class="personality-detail-writer"
+          style="margin-left: 8px; font-style: italic; color: #666;">
           | Por: {{ personalityItem.summary.writer }}
         </span>
       </mat-card-subtitle>
@@ -29,20 +30,25 @@
       <div class="personality-full-content" *ngIf="personalityItem.fullContent && personalityItem.fullContent.length">
         <div *ngFor="let item of personalityItem.fullContent" [ngSwitch]="item.type" class="content-item">
           <h3 *ngSwitchCase="'title'" class="content-item-title">{{ item.content }}</h3>
-          <p *ngSwitchCase="'text'" class="content-item-text">{{ item.content }}</p>
-          
+          <div *ngSwitchCase="'text'" class="content-item-text">
+            <markdown [data]="item.content"></markdown>
+          </div>
+
           <div *ngSwitchCase="'image'" class="content-item-image-container" style="margin-bottom: 16px;">
             <div class="content-item-image-wrapper" (click)="openImageModal(item.content)">
-              <img alt="item" [src]="item.content" [alt]="personalityItem.summary.title + ' - detalhe'" class="content-item-image">
+              <img alt="item" [src]="item.content" [alt]="personalityItem.summary.title + ' - detalhe'"
+                class="content-item-image">
               <div class="image-zoom-indicator-small">
                 <mat-icon>zoom_in</mat-icon>
               </div>
             </div>
 
             <!-- EXIBIÇÃO DA FONTE DA IMAGEM E LINK (Atividade 6) -->
-            <div *ngIf="item.imageSource" class="image-source-caption" style="font-size: 13px; color: #555; margin-top: 4px; padding-left: 4px;">
+            <div *ngIf="item.imageSource" class="image-source-caption"
+              style="font-size: 13px; color: #555; margin-top: 4px; padding-left: 4px;">
               <span>Fonte: </span>
-              <a *ngIf="item.imageSourceLink; else textOnly" [href]="item.imageSourceLink" target="_blank" rel="noopener noreferrer" style="color: #004b84; text-decoration: underline;">
+              <a *ngIf="item.imageSourceLink; else textOnly" [href]="item.imageSourceLink" target="_blank"
+                rel="noopener noreferrer" style="color: #004b84; text-decoration: underline;">
                 {{ item.imageSource }}
               </a>
               <ng-template #textOnly>{{ item.imageSource }}</ng-template>
