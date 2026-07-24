@@ -4,7 +4,8 @@
         <mat-card-subtitle class="video-detail-category">
             {{video.summary.category}}
             <!-- EXIBIÇÃO DO REDATOR (Atividade 6) -->
-            <span *ngIf="video.summary.writer" class="video-detail-writer" style="margin-left: 8px; font-style: italic; color: #666;">
+            <span *ngIf="video.summary.writer" class="video-detail-writer"
+                style="margin-left: 8px; font-style: italic; color: #666;">
                 | Por: {{video.summary.writer}}
             </span>
         </mat-card-subtitle>
@@ -12,20 +13,22 @@
 
     <mat-card-content class="video-container">
         <!-- EXIBIÇÃO DA FONTE DA IMAGEM DE CAPA DO VÍDEO (Atividade 6) -->
-        <div *ngIf="video.summary.coverSource" class="image-source-caption" style="font-size: 13px; color: #555; margin-bottom: 12px; padding-left: 4px;">
+        <div *ngIf="video.summary.coverSource" class="image-source-caption"
+            style="font-size: 13px; color: #555; margin-bottom: 12px; padding-left: 4px;">
             <span>Fonte da capa: </span>
-            <a *ngIf="video.summary.coverSourceLink; else textOnly" [href]="video.summary.coverSourceLink" target="_blank" rel="noopener noreferrer" style="color: #004b84; text-decoration: underline;">
+            <a *ngIf="video.summary.coverSourceLink; else textOnly" [href]="video.summary.coverSourceLink"
+                target="_blank" rel="noopener noreferrer" style="color: #004b84; text-decoration: underline;">
                 {{video.summary.coverSource}}
             </a>
             <ng-template #textOnly>{{video.summary.coverSource}}</ng-template>
         </div>
 
-        <app-video-player [src]="video.videoUrl"/>
+        <app-video-player [src]="video.videoUrl" />
 
         <div class="divider"></div>
 
         <article class="video-description">
-            <p>{{video.description}}</p>
+            <markdown [data]="video.description"></markdown>
         </article>
     </mat-card-content>
     <div class="divider"></div>
@@ -44,7 +47,7 @@
             <ul>
                 <li *ngFor="let guest of video.guests">
                     {{guest}}
-                </li>  
+                </li>
             </ul>
         </div>
     </mat-card-footer>
@@ -64,5 +67,5 @@
     </mat-card-actions>
 </mat-card>
 <ng-template #notFound>
-  <p class="message-placeholder">Vídeo não encontrado</p>
+    <p class="message-placeholder">Vídeo não encontrado</p>
 </ng-template>
