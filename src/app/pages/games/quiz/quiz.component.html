@@ -1,45 +1,110 @@
-<div class="quiz-container">
-  <div class="quiz-header">
-    <h1>Quiz de Computação</h1>
-    <div class="progress">
-      <div class="progress-bar" [style.width]="(currentQuestionIndex / questions.length) * 100 + '%'"></div>
-    </div>
-    <div class="score">Pontuação: {{ score }}/{{ questions.length }}</div>
-  </div>
+<main class="arcade-scope">
+  <div class="arcade-game-shell">
+    <!-- Voltar para o catálogo de jogos -->
+    <a class="nes-btn arcade-back-link" routerLink="/games">
+      ◀ Voltar aos jogos
+    </a>
 
-  <div class="quiz-content" *ngIf="!quizCompleted">
-    <div class="question">
-      <h2>{{ questions[currentQuestionIndex].question }}</h2>
-    </div>
+    <!-- Cabeçalho padrão do jogo -->
+    <section class="arcade-game-header nes-container is-dark with-title">
+      <p class="title">Quiz</p>
 
-    <div class="options">
-      <button
-        *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
-        [class.selected]="selectedAnswer === i"
-        [class.correct]="showFeedback && i === questions[currentQuestionIndex].correctAnswer"
-        [class.incorrect]="showFeedback && selectedAnswer === i && !isCorrect"
-        (click)="selectAnswer(i)"
-        [disabled]="selectedAnswer !== null"
-      >
-        {{ option }}
-      </button>
-    </div>
-
-    <div class="feedback" *ngIf="showFeedback">
-      <p [class.correct]="isCorrect" [class.incorrect]="!isCorrect">
-        {{ isCorrect ? 'Resposta correta! 🎉' : 'Resposta incorreta! 😢' }}
+      <h1 class="arcade-game-title">Quiz de Computação</h1>
+      <p class="arcade-game-subtitle">
+        Teste seus conhecimentos sobre computação em uma experiência estilo arcade.
       </p>
-    </div>
-  </div>
+    </section>
 
-  <div class="quiz-completed" *ngIf="quizCompleted">
-    <h2>Quiz Concluído!</h2>
-    <p>Sua pontuação final: {{ score }}/{{ questions.length }}</p>
-    <div class="result-message">
-      <p *ngIf="score === questions.length">Parabéns! Você acertou todas as questões! 🎉</p>
-      <p *ngIf="score >= questions.length * 0.7 && score < questions.length">Bom trabalho! Você se saiu muito bem! 👍</p>
-      <p *ngIf="score < questions.length * 0.7">Continue estudando! Você pode melhorar! 💪</p>
-    </div>
-    <button class="restart-button" (click)="resetQuiz()">Jogar Novamente</button>
+    <!-- Painel principal do jogo -->
+    <section class="arcade-game-panel nes-container is-dark with-title">
+      <p class="title">{{ quizCompleted ? 'Resultado' : 'Perguntas' }}</p>
+
+      <div class="arcade-game-board quiz-arcade-board">
+        <div class="quiz-content" *ngIf="!quizCompleted">
+          <div class="arcade-game-status quiz-status">
+            <div class="arcade-score-card">
+              Questão
+              <strong>{{ currentQuestionIndex + 1 }}/{{ questions.length }}</strong>
+            </div>
+
+            <div class="arcade-score-card">
+              Pontuação
+              <strong>{{ score }}/{{ questions.length }}</strong>
+            </div>
+          </div>
+
+          <div class="progress" aria-label="Progresso do quiz">
+            <div
+              class="progress-bar"
+              [style.width]="((currentQuestionIndex + 1) / questions.length) * 100 + '%'"
+            ></div>
+          </div>
+
+          <div class="question">
+            <h2>{{ questions[currentQuestionIndex].question }}</h2>
+          </div>
+
+          <div class="options">
+            <button
+              class="nes-btn quiz-option"
+              type="button"
+              *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+              [class.selected]="selectedAnswer === i"
+              [class.correct]="showFeedback && i === questions[currentQuestionIndex].correctAnswer"
+              [class.incorrect]="showFeedback && selectedAnswer === i && !isCorrect"
+              (click)="selectAnswer(i)"
+              [disabled]="selectedAnswer !== null"
+            >
+              {{ option }}
+            </button>
+          </div>
+
+          <div
+            class="feedback arcade-game-message"
+            *ngIf="showFeedback"
+            [class.arcade-game-message--success]="isCorrect"
+            [class.arcade-game-message--error]="!isCorrect"
+            aria-live="polite"
+          >
+            <p>
+              {{ isCorrect ? 'Resposta correta! 🎉' : 'Resposta incorreta! 😢' }}
+            </p>
+          </div>
+        </div>
+
+        <div class="quiz-completed" *ngIf="quizCompleted">
+          <h2>Quiz Concluído!</h2>
+
+          <div class="arcade-game-status">
+            <div class="arcade-score-card">
+              Pontuação final
+              <strong>{{ score }}/{{ questions.length }}</strong>
+            </div>
+          </div>
+
+          <div class="result-message arcade-game-message arcade-game-message--info">
+            <p *ngIf="score === questions.length">
+              Parabéns! Você acertou todas as questões! 🎉
+            </p>
+
+            <p *ngIf="score >= questions.length * 0.7 && score < questions.length">
+              Bom trabalho! Você se saiu muito bem! 👍
+            </p>
+
+            <p *ngIf="score < questions.length * 0.7">
+              Continue estudando! Você pode melhorar! 💪
+            </p>
+          </div>
+
+          <button
+            class="nes-btn is-success restart-button"
+            type="button"
+            (click)="resetQuiz()"
+          >
+            Jogar Novamente
+          </button>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
+</main>

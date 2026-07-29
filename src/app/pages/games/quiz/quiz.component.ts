@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonModule} from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface Question {
   question: string;
@@ -10,7 +11,7 @@ interface Question {
 @Component({
   selector: 'app-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
 })
