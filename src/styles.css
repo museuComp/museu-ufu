@@ -1,14 +1,15 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import '@govbr-ds/core/dist/core.min.css';
 @import 'nes.css/css/nes.min.css';
+@import './app/pages/games/styles/game-arcade-theme.css';
 
-/* Cursor padrão para o site inteiro */
+/* Mantém o cursor padrão no restante do site */
 body,
 body * {
   cursor: auto !important;
 }
 
-/* Cursor de clique padrão fora da área arcade */
+/* Mantém o cursor de clique padrão fora das áreas arcade */
 a,
 button,
 [role='button'],
@@ -17,17 +18,24 @@ input[type='button'] {
   cursor: pointer !important;
 }
 
-/* Cursor Personalizado apenas dentro da área arcade */
+/* Cursor personalizado no catálogo arcade e nas páginas internas dos jogos */
 body.arcade-games-page .games-arcade-page,
-body.arcade-games-page .games-arcade-page * {
+body.arcade-games-page .games-arcade-page *,
+.arcade-scope,
+.arcade-scope * {
   cursor: url('public/images/games/cursors/cursor.png'), auto !important;
 }
 
-/* Cursor NES de clique apenas em elementos clicáveis da área arcade */
+/* Cursor personalizado de clique nas áreas arcade */
 body.arcade-games-page .games-arcade-page a,
 body.arcade-games-page .games-arcade-page button,
 body.arcade-games-page .games-arcade-page .game-card,
-body.arcade-games-page .games-arcade-page .game-card-link {
+body.arcade-games-page .games-arcade-page .game-card-link,
+.arcade-scope a,
+.arcade-scope button,
+.arcade-scope [role='button'],
+.arcade-scope .nes-btn,
+.arcade-scope .arcade-choice {
   cursor: url('public/images/games/cursors/cursor-click.png'), pointer !important;
 }
 
