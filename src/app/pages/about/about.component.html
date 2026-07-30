@@ -1,152 +1,134 @@
-<div class="about-container">
+    <div class="about-container" *transloco="let t; scope: 'institutional';">
 
-  <header class="about-header">
-    <h1 class="titulo-centralizado">Sobre o Museu Virtual UFU</h1>
-    <p class="intro-text">
-      Bem-vindo ao Museu Virtual da Computação da UFU! Nosso objetivo primordial é tornar a história da
-      computação acessível a todos, possibilitando que pessoas de qualquer parte do mundo conheçam
-      os nossos acervos e entendam a transformação tecnológica que influencia o mundo atual. Este ambiente
-      foi criado para manter viva a história, promover o aprendizado e fortalecer a ligação entre a universidade e a
-      sociedade.
-    </p>
-  </header>
+      <header class="about-header">
+        <h1 class="titulo-centralizado">{{t('institutional.about.title')}}</h1>
+        <p class="intro-text">{{t('institutional.about.intro')}}</p>
+      </header>
 
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="card-icon"><i class="fas fa-landmark"></i></div>
-      <h2>Nossa História</h2>
-      <p>
-        Idealizado em 2025, o Museu da Computação começou como uma iniciativa da Faculdade de Computação (FACOM)
-        da UFU, junto ao Centro de Tecnologia da Informação e Comunicação (CTIC) e outros departamentos. Essa
-        ideia brotou do fascínio pela trajetória tecnológica e do desejo de manter vivos os objetos e relatos
-        que ilustram o desenvolvimento dos sistemas de computação na universidade e em Uberlândia. A proposta
-        busca reunir e organizar equipamentos, e também construir um ambiente dinâmico de conhecimento.
-      </p>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="card-icon"><i class="fas fa-landmark"></i></div>
+          <h2>{{t('institutional.about.historyTitle')}}</h2>
+          <p>{{t('institutional.about.historyText')}}</p>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+          <h2>{{t('institutional.about.missionTitle')}}</h2>
+          <p>{{t('institutional.about.missionText')}}</p>
+        </div>
+      </div>
+
+      <section class="secao-equipe">
+        <h2 class="section-title">{{t('institutional.about.teamTitle')}}</h2>
+        <div class="grid-cards">
+          <div class="card-membro">
+            <div class="avatar">
+              <img src="../../../public/professores/maria.jpg" alt="Maria Adriana">
+            </div>
+            <div class="membro-nome">Maria Adriana</div>
+            <div class="membro-cargo">{{t('institutional.about.coordinationRole')}}</div>
+          </div>
+          <div class="card-membro">
+            <div class="avatar">
+              <img src="../../../public/professores/paulo.jpg" alt="Paulo Henrique">
+            </div>
+            <div class="membro-nome">Paulo Henrique</div>
+            <div class="membro-cargo">{{t('institutional.about.professorRole')}}</div>
+          </div>
+          <div class="card-membro">
+            <div class="avatar">
+              <img src="../../../public/professores/faina.jpg" alt="Luiz Fernando Faina">
+            </div>
+            <div class="membro-nome">Luiz Fernando Faina</div>
+            <div class="membro-cargo">{{t('institutional.about.professorRole')}}</div>
+          </div>
+          <div class="card-membro">
+            <div class="avatar">
+              <img src="../../../public/professores/gustavo.jpg" alt="Luiz Gustavo Martins">
+            </div>
+            <div class="membro-nome">Luiz Gustavo Martins</div>
+            <div class="membro-cargo">{{t('institutional.about.professorRole')}}</div>
+          </div>
+          <div class="card-membro">
+            <div class="avatar">
+              <img src="../../../public/professores/bruno.jpg" alt="Bruno Travencolo">
+            </div>
+            <div class="membro-nome">Bruno Travencolo</div>
+            <div class="membro-cargo">{{t('institutional.about.professorRole')}}</div>
+          </div>
+          <div class="card-membro">
+            <div class="avatar">
+              <img src="../../../public/professores/daniel.jpg" alt="Daniel Duarte Abdala">
+            </div>
+            <div class="membro-nome">Daniel Duarte Abdala</div>
+            <div class="membro-cargo">{{t('institutional.about.professorRole')}}</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao-desenvolvedores">
+        <h2 class="section-title">{{t('institutional.about.devsTitle')}}</h2>
+        <p class="subtitle-text">{{t('institutional.about.devsSubtitle')}}</p>
+
+        <div class="grid-cards">
+          <div class="card-membro">
+            <div class="avatar dev-avatar">LS</div>
+            <div class="membro-nome">Leonardo Ferreira Salge</div>
+            <div class="membro-cargo">{{t('institutional.about.techLeadRole')}}</div>
+            <a href="https://github.com/salgeee" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+          <div class="card-membro">
+            <div class="avatar dev-avatar">GA</div>
+            <div class="membro-nome">Guilherme Gomes Alves</div>
+            <div class="membro-cargo">{{t('institutional.about.devRole')}}</div>
+            <a href="https://github.com/GomesGA" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+          <div class="card-membro">
+            <div class="avatar dev-avatar">DS</div>
+            <div class="membro-nome">Daniel Solis Salge</div>
+            <div class="membro-cargo">{{t('institutional.about.devRole')}}</div>
+            <a href="https://github.com/D-Salge" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+          <div class="card-membro">
+            <div class="avatar dev-avatar">VS</div>
+            <div class="membro-nome">Vinícius Ferreira Salge</div>
+            <div class="membro-cargo">Developer</div>
+            <a href="https://github.com/vinicius-salge" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+          <div class="card-membro">
+            <div class="avatar dev-avatar">LS</div>
+            <div class="membro-nome">Leandro Sousa</div>
+            <div class="membro-cargo">{{t('institutional.about.devRole')}}</div>
+            <a href="https://github.com/leandrosousa007" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+          <div class="card-membro">
+            <div class="avatar dev-avatar">LS</div>
+            <div class="membro-nome">Mateus Alves Viegas</div>
+            <div class="membro-cargo">{{t('institutional.about.devRole')}}</div>
+            <a href="https://github.com/MateusViegasCode" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+          <div class="card-membro">
+            <div class="avatar dev-avatar">VO</div>
+            <div class="membro-nome">Vitor Dias Oliveira</div>
+            <div class="membro-cargo">{{t('institutional.about.devRole')}}</div>
+            <a href="https://github.com/vitor-oliveira474" target="_blank" class="btn-github">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
     </div>
-
-    <div class="info-card">
-      <div class="card-icon"><i class="fas fa-bullseye"></i></div>
-      <h2>Nossa Missão</h2>
-      <p>
-        A nossa missão é cuidar e facilitar a exploração da história da informática, focando em
-        particular no conjunto de materiais e nas histórias da UFU e do pessoal de Uberlândia. Almejamos ser
-        um local para estudo, ensino e compartilhamento de conhecimento, incentivando a importância do legado
-        tecnológico, enriquecendo o aprendizado universitário e aproximando a instituição de ensino e a população
-        por meio de vivências dinâmicas, tanto online quanto (em breve) físicas.
-      </p>
-    </div>
-  </div>
-
-  <section class="secao-equipe">
-    <h2 class="section-title">Equipe Docente & Coordenação</h2>
-    <div class="grid-cards">
-      <div class="card-membro">
-        <div class="avatar">
-          <img src="../../../public/professores/maria.jpg" alt="Maria Adriana">
-        </div>
-        <div class="membro-nome">Maria Adriana</div>
-        <div class="membro-cargo">Coordenação</div>
-      </div>
-      <div class="card-membro">
-        <div class="avatar">
-          <img src="../../../public/professores/paulo.jpg" alt="Paulo Henrique">
-        </div>
-        <div class="membro-nome">Paulo Henrique</div>
-        <div class="membro-cargo">Docente</div>
-      </div>
-      <div class="card-membro">
-        <div class="avatar">
-          <img src="../../../public/professores/faina.jpg" alt="Luiz Fernando Faina">
-        </div>
-        <div class="membro-nome">Luiz Fernando Faina</div>
-        <div class="membro-cargo">Docente</div>
-      </div>
-      <div class="card-membro">
-        <div class="avatar">
-          <img src="../../../public/professores/gustavo.jpg" alt="Luiz Gustavo Martins">
-        </div>
-        <div class="membro-nome">Luiz Gustavo Martins</div>
-        <div class="membro-cargo">Docente</div>
-      </div>
-      <div class="card-membro">
-        <div class="avatar">
-          <img src="../../../public/professores/bruno.jpg" alt="Bruno Travencolo">
-        </div>
-        <div class="membro-nome">Bruno Travencolo</div>
-        <div class="membro-cargo">Docente</div>
-      </div>
-      <div class="card-membro">
-        <div class="avatar">
-          <img src="../../../public/professores/daniel.jpg" alt="Daniel Duarte Abdala">
-        </div>
-        <div class="membro-nome">Daniel Duarte Abdala</div>
-        <div class="membro-cargo">Docente</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="secao-desenvolvedores">
-    <h2 class="section-title">Desenvolvedores</h2>
-    <p class="subtitle-text">Equipe técnica responsável pela implementação e manutenção do Museu Virtual.</p>
-
-    <div class="grid-cards">
-      <div class="card-membro">
-        <div class="avatar dev-avatar">LS</div>
-        <div class="membro-nome">Leonardo Ferreira Salge</div>
-        <div class="membro-cargo">Tech Lead</div>
-        <a href="https://github.com/salgeee" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-      <div class="card-membro">
-        <div class="avatar dev-avatar">GA</div>
-        <div class="membro-nome">Guilherme Gomes Alves</div>
-        <div class="membro-cargo">Developer</div>
-        <a href="https://github.com/GomesGA" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-      <div class="card-membro">
-        <div class="avatar dev-avatar">DS</div>
-        <div class="membro-nome">Daniel Solis Salge</div>
-        <div class="membro-cargo">Developer</div>
-        <a href="https://github.com/D-Salge" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-      <div class="card-membro">
-        <div class="avatar dev-avatar">VS</div>
-        <div class="membro-nome">Vinícius Ferreira Salge</div>
-        <div class="membro-cargo">Developer</div>
-        <a href="https://github.com/vinicius-salge" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-      <div class="card-membro">
-        <div class="avatar dev-avatar">LS</div>
-        <div class="membro-nome">Leandro Sousa</div>
-        <div class="membro-cargo">Developer</div>
-        <a href="https://github.com/leandrosousa007" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-      <div class="card-membro">
-        <div class="avatar dev-avatar">LS</div>
-        <div class="membro-nome">Mateus Alves Viegas</div>
-        <div class="membro-cargo">Developer</div>
-        <a href="https://github.com/MateusViegasCode" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-      <div class="card-membro">
-        <div class="avatar dev-avatar">VO</div>
-        <div class="membro-nome">Vitor Dias Oliveira</div>
-        <div class="membro-cargo">Developer</div>
-        <a href="https://github.com/vitor-oliveira474" target="_blank" class="btn-github">
-          <i class="fab fa-github"></i> GitHub
-        </a>
-      </div>
-    </div>
-  </section>
-
-</div>
