@@ -1,15 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GameService, Position, Word } from '../service/game.service';
-import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { GameService, Position, Word } from '../service/game.service';
 
 @Component({
   selector: 'app-word-search',
   templateUrl: './word-search.component.html',
   styleUrls: ['./word-search.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
+
 export class WordSearchComponent implements OnInit, OnDestroy {
   grid: string[][] = [];
   words: Word[] = [];
