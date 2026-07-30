@@ -1,0 +1,45 @@
+<div class="quiz-container">
+  <div class="quiz-header">
+    <h1>Quiz de Matemática</h1>
+    <div class="progress">
+      <div class="progress-bar" [style.width]="(currentQuestionIndex / questions.length) * 100 + '%'"></div>
+    </div>
+    <div class="score">Pontuação: {{ score }}/{{ questions.length }}</div>
+  </div>
+
+  <div class="quiz-content" *ngIf="!quizCompleted">
+    <div class="question">
+      <h2>{{ questions[currentQuestionIndex].question }}</h2>
+    </div>
+
+    <div class="options">
+      <button
+        *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+        [class.selected]="selectedAnswer === i"
+        [class.correct]="showFeedback && i === questions[currentQuestionIndex].correctAnswer"
+        [class.incorrect]="showFeedback && selectedAnswer === i && !isCorrect"
+        (click)="selectAnswer(i)"
+        [disabled]="selectedAnswer !== null"
+      >
+        {{ option }}
+      </button>
+    </div>
+
+    <div class="feedback" *ngIf="showFeedback">
+      <p [class.correct]="isCorrect" [class.incorrect]="!isCorrect">
+        {{ isCorrect ? 'Resposta correta! 🎉' : 'Resposta incorreta! 😢' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="quiz-completed" *ngIf="quizCompleted">
+    <h2>Quiz Concluído!</h2>
+    <p>Sua pontuação final: {{ score }}/{{ questions.length }}</p>
+    <div class="result-message">
+      <p *ngIf="score === questions.length">Parabéns! Você acertou todas as questões! 🎉</p>
+      <p *ngIf="score >= questions.length * 0.7 && score < questions.length">Bom trabalho! Você se saiu muito bem! 👍</p>
+      <p *ngIf="score < questions.length * 0.7">Continue estudando! Você pode melhorar! 💪</p>
+    </div>
+    <button class="restart-button" (click)="resetQuiz()">Jogar Novamente</button>
+  </div>
+</div>

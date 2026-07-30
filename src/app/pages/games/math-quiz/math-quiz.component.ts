@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Estrutura de dados idêntica à do Quiz modelo
 interface Question {
@@ -11,7 +12,7 @@ interface Question {
 @Component({
   selector: 'app-math-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './math-quiz.component.html',
   styleUrls: ['./math-quiz.component.scss'],
 })
