@@ -26,7 +26,7 @@ export class FirestoreVideosService {
     private videosCollection;
     
     // RESTAURADO: Usando o seu token específico para não quebrar a conexão
-    constructor(@Inject('FIRESTORE_VIDEOS') private firestore : Firestore) {
+    constructor(@Inject('FIRESTORE_STANDARD') private firestore : Firestore) {
         this.videosCollection = collection(this.firestore, 'videos');
     }  
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { provideTranslocoScope, TranslocoModule, TranslocoService } from '@jsverse/transloco';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 declare var pannellum: any;
 
@@ -9,7 +9,7 @@ declare var pannellum: any;
   selector: 'app-virtual-tour',
   standalone: true,
   imports: [CommonModule, TranslocoModule],
-  providers: [provideTranslocoScope('institutional')],
+  providers: [provideTranslocoScope('virtualTour')],
   templateUrl: './virtual-tour.component.html',
   styleUrl: './virtual-tour.component.scss'
 })
@@ -127,5 +127,18 @@ export class VirtualTourComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.lang$.unsubscribe();
+  }
+  
+  initPanellum(): void {
+    pannellum.viewer('panorama', {
+      type: 'equirectangular',
+      panorama: 'public/visita-virtual/sala360.jpg',
+      autoLoad: true,
+      showZoomCtrl: true,
+      compass: false,
+      pitch: 0,
+      yaw: 0,
+      hfov: 110
+    });
   }
 }
