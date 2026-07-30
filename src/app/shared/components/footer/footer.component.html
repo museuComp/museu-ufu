@@ -1,44 +1,43 @@
 <footer class="br-footer" id="footer">
-  <div class="container-lg">
+  <div class="container-lg" *transloco="let t">
     <div class="br-grid">
 
       <img class="logo-gov-br" [src]="'/public/logos/gov-white.png'" alt="Logo gov.br"/>
 
       <div class="row">
       <div class="col-sm-6 col-md-3">
-        <div class="footer-title">Institucional</div>
+        <div class="footer-title">{{t('footer.institutional')}}</div>
         <ul class="br-list">
-          <li><a target="_blank" rel="noopener noreferrer" href="/about">Sobre o Museu</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/donations">Doações</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/statistics">Estatísticas</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('about')">{{t('breadcrumb.about')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('donations')">{{t('breadcrumb.donations')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('statistics')">{{t('breadcrumb.statistics')}}</a></li>
         </ul>
       </div>
 
       <div class="col-sm-6 col-md-3">
-        <div class="footer-title">Assuntos</div>
+        <div class="footer-title">{{t('footer.subject')}}</div>
         <ul class="br-list">
-          <li><a target="_blank" rel="noopener noreferrer" href="https://tainacan.facom.ufu.br/">Coleção</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/news">Notícias</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/magazine">Revistas</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" href="https://tainacan.facom.ufu.br/">{{t('breadcrumb.collection')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('news')">{{t('breadcrumb.news')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('magazine')">{{t('breadcrumb.magazine')}}</a></li>
         </ul>
       </div>
 
       <div class="col-sm-6 col-md-3">
-        <div class="footer-title">Centrais de Conteúdo</div>
+        <div class="footer-title">{{t('footer.content')}}</div>
         <ul class="br-list">
-          <li><a target="_blank" rel="noopener noreferrer" href="/visita-virtual">Visitação Virtual</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/games">Jogos Educativos</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/videos">Vídeos</a></li>
-          
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('tour')">{{t('breadcrumb.tour')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('games')">{{t('breadcrumb.games.title')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('videos')">{{t('breadcrumb.videos')}}</a></li>
         </ul>
       </div>
 
       <div class="col-sm-6 col-md-3">
-        <div class="footer-title">Canais de Atendimento</div>
+        <div class="footer-title">{{t('footer.service')}}</div>
         <ul class="br-list">
-          <li><a target="_blank" rel="noopener noreferrer" href="/norms">Normas de Visitação</a></li>
-          <li><a href="#">Fale Conosco</a></li>
-          <li><a target="_blank" rel="noopener noreferrer" href="/accessibility">Acessibilidade</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('norms')">{{t('breadcrumb.norms')}}</a></li>
+          <li><a href="#">{{t('footer.contact')}}</a></li>
+          <li><a target="_blank" rel="noopener noreferrer" [routerLink]="nav.route('accessibility')">{{t('breadcrumb.accessibility')}}</a></li>
         </ul>
       </div>
     </div>
@@ -48,20 +47,20 @@
 
     <div class="footer-bottom">
       <div class="social-links">
-        <div class="footer-title mb-2">Redes Sociais</div>
-        <a target="_blank" rel="noopener noreferrer" href="https://x.com/UFU_Oficial" class="br-button circle" target="_blank" aria-label="Acesse nosso X (antigo Twitter)">
+        <div class="footer-title mb-2">{{t('menu.social')}}</div>
+        <a target="_blank" rel="noopener noreferrer" href="https://x.com/UFU_Oficial" class="br-button circle" target="_blank" [attr.aria-label]="t('footer.social.twitter')">
           <i class="fab fa-x-twitter"></i>
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/museu.compufu/" class="br-button circle" target="_blank" aria-label="Acesse nosso Instagram">
+        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/museu.compufu/" class="br-button circle" target="_blank" [attr.aria-label]="t('footer.social.instagram')">
           <i class="fab fa-instagram"></i>
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ComunicacaoUfu" class="br-button circle" target="_blank" aria-label="Acesse nosso Facebook">
+        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ComunicacaoUfu" class="br-button circle" target="_blank" [attr.aria-label]="t('footer.social.facebook')">
           <i class="fab fa-facebook-f"></i>
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/school/ufuoficial/" class="br-button circle" target="_blank" aria-label="Acesse nosso Linkedin">
+        <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/school/ufuoficial/" class="br-button circle" target="_blank" [attr.aria-label]="t('footer.social.linkedin')">
           <i class="fab fa-linkedin-in"></i>
         </a>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/CanaldaFACOM" class="br-button circle" target="_blank" aria-label="Acesse nosso YouTube">
+        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/CanaldaFACOM" class="br-button circle" target="_blank" [attr.aria-label]="t('footer.social.youtube')">
           <i class="fab fa-youtube"></i>
         </a>
       </div>
@@ -82,8 +81,8 @@
       </div>
 
       <div class="logo-acesso-container">
-      <a target="_blank" rel="noopener noreferrer" href="https://www.gov.br/acessoainformacao/" title="Acesso à informação">
-          <img [src]="'/public/logos/acesso-informacao.svg'"  alt="Logo Acesso à Informação" class="logo-acesso-footer"/>
+      <a target="_blank" rel="noopener noreferrer" href="https://www.gov.br/acessoainformacao/" [title]="t('footer.info')">
+          <img [src]="'/public/logos/acesso-informacao.svg'"  [alt]="'Logo ' + t('footer.info')" class="logo-acesso-footer"/>
       </a>
       </div>
 

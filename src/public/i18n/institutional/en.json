@@ -1,0 +1,207 @@
+{
+"norms": {
+    "title": "Visitation Guidelines",
+    "subtitle": "Plan your visit to the UFU Computing Museum",
+    "schedule": {
+        "title": "Scheduling and Location",
+        "location": [
+            "In its initial phase of implementation, the Computing Museum is located in a temporary room ",
+            "(1B215, Block 1B, Santa Mônica Campus)",
+            ", with the collection still in the process of organization."
+        ], 
+        "advance": [
+            "For this reason, visits must be scheduled in advance with a ",
+            "minimum of 5 days notice"
+        ],
+        "email": "museucomp@facom.ufu.br"
+    },
+    "visits": {
+        "title": "How do the visits work?",
+        "duration": [
+            "20-minute sessions:",
+            " Conducted by student monitors from the museum's extension project."
+        ],
+        "limit": [
+            "Up to 15 visitors per session:",
+            " Ideal amount to ensure safety, experience quality, and preservation of the collection."
+        ],
+        "guidance": [
+            "Guided Orientation:",
+            " Monitors welcome visitors, guide the flow within the space, and provide information regarding the use and possible interaction with the equipment."
+        ]
+    },
+    "exhibitions": {
+        "title": "Exhibition Structure",
+        "structure": "Exhibitions are presented on adapted benches and surfaces, as the museum does not yet have its definitive exhibition furniture.",
+        "highlight": "Despite structural limitations, the visit offers an enriching opportunity to learn about historical equipment, rare documents, and fundamental elements of the history of computing at UFU and in Brazil."
+    }
+},
+"about": {
+    "title": "About the UFU Virtual Museum",
+    "intro": "Welcome to the UFU Virtual Computing Museum! Our primary objective is to make the history of computing accessible to all, enabling people from anywhere in the world to explore our collections and understand the technological transformation that influences today's world. This environment was created to keep history alive, promote learning, and strengthen the bond between the university and society.",
+    "historyTitle": "Our History",
+    "historyText": "Conceived in 2025, the Computing Museum began as an initiative of the Faculty of Computing (FACOM) at UFU, alongside the Center for Information and Communication Technology (CTIC) and other departments. This idea sparked from a fascination with the technological trajectory and the desire to preserve the objects and narratives that illustrate the development of computing systems at the university and in Uberlândia. The project seeks to gather and organize equipment while building a dynamic environment for knowledge.",
+    "missionTitle": "Our Mission",
+    "missionText": "Our mission is to preserve and facilitate the exploration of information technology history, focusing particularly on the materials and stories of UFU and the community of Uberlândia. We aim to be a space for study, teaching, and knowledge sharing, highlighting the importance of our technological legacy, enriching university education, and bringing the academic institution closer to the community through dynamic experiences, both online and (soon) physical.",
+    "teamTitle": "Faculty & Coordination",
+    "coordinationRole": "Coordination",
+    "professorRole": "Professor",
+    "devsTitle": "Developers",
+    "devsSubtitle": "Technical team responsible for the implementation and maintenance of the Virtual Museum.",
+    "techLeadRole": "Tech Lead",
+    "devRole": "Developer"
+},
+
+"tour": {
+    "title": "Virtual Tour",
+    "intro": "Explore the UFU Computing Museum in an immersive experience. Navigate the 360° room and discover historical collection items.",
+    "timelineTitle": "Storage Timeline",
+    "timelineIntro": "Follow the evolution of media: from the classic floppy disk to the ultra-fast M.2.",
+    "itemsTitle": "Featured Items",
+    "itemsIntro": "Selected objects that are part of the history of computing.",
+    "enlargedImageAlt": "Enlarged image"
+},
+
+"storage": {
+    "timeline": [
+        {
+            "title": "8\" Floppy Disk",
+            "year": "1971",
+            "description": "The first commercial floppy disks created by IBM, establishing the foundation for portable storage."
+        },
+        {
+            "title": "5.25\" and 3.5\" Floppy Disks",
+            "year": "1980s and 1990s",
+            "description": "More compact and rigid formats that became the absolute standard in early personal computers."
+        },
+        {
+            "title": "CD-ROM",
+            "year": "1982",
+            "description": "The optical disc revolutionized storage capacity, enabling the era of multimedia gaming and heavy software."
+        },
+        {
+            "title": "USB Flash Drive",
+            "year": "2000",
+            "description": "Portable flash memory that marked the end of floppy disks due to its speed, diminutive size, and durability."
+        },
+        {
+            "title": "Hard Disk Drive (SATA HDD)",
+            "year": "Continuous evolution",
+            "description": "High-capacity magnetic disks that dominated PCs for decades due to their low cost per Gigabyte."
+        },
+        {
+            "title": "SATA SSD",
+            "year": "2000s",
+            "description": "Solid-state drives without moving mechanical parts. Brought massive gains in read and write speeds."
+        },
+        {
+            "title": "M.2 NVMe SSD",
+            "year": "Present day",
+            "description": "The modern standard. Connected directly to the motherboard, it eliminated cables and offers extreme speeds."
+        }
+    ]
+},
+
+"museumItems": [
+    {
+        "title": "Panasonic Recorder",
+        "description": "Portable microcassette voice recorder, a classic device used for interviews and audio notes before digital recorders."
+    },
+    {
+        "title": "Typewriter",
+        "description": "Typewriter, the standard mechanical equipment for text document production before the popularization of computers."
+    },
+    {
+        "title": "Floppy Disk Box",
+        "description": "5.25-inch flexible floppy disks, one of the most popular physical media for data storage and transfer in the early days of personal computing."
+    },
+    {
+        "title": "Classic Peripherals",
+        "description": "Set of speakers and peripherals, essential multimedia and connectivity components of early desktop computers."
+    },
+    {
+        "title": "Facit Calculator",
+        "description": "A historical mechanical calculator used in offices to perform mathematical operations prior to the invention of electronic calculators."
+    },
+    {
+        "title": "HP Printer",
+        "description": "Early laser printer model, equipment that revolutionized the speed and quality of document printing in offices."
+    },
+    {
+        "title": "Napier's Bones",
+        "description": "A historical instrument known as \"Napier's Bones\", created in the 17th century and considered one of the earliest manual devices designed to facilitate calculations."
+    },
+    {
+        "title": "Graphics Card",
+        "description": "Legacy graphics card, hardware component responsible for processing graphics and games on computers."
+    },
+    {
+        "title": "Portable DVD Player",
+        "description": "Portable DVD player, a classic personal video entertainment device before the advent of tablets and streaming."
+    },
+    {
+        "title": "IBM Network Equipment",
+        "description": "Classic infrastructure device used to connect computer networks in enterprise environments."
+    },
+    {
+        "title": "Communication Modules",
+        "description": "Essential components that formed the basis of data communication in legacy corporate networks."
+    },
+    {
+        "title": "Legacy Hard Drives",
+        "description": "Fundamental components for local data storage in past generations of computers."
+    },
+    {
+        "title": "PS One Console",
+        "description": "A historical video game console that popularized CD-media games and defined digital entertainment."
+    },
+    {
+        "title": "Classic PC Interior",
+        "description": "Internal view of an early desktop computer, highlighting the hardware standard of past generations."
+    },
+    {
+        "title": "CCE Supergame Console",
+        "description": "Retro video game system that brought early cartridge games to many homes in Brazil."
+    },
+    {
+        "title": "IBM Classic Keyboard",
+        "description": "Robust and traditional peripheral that defined typing on early desktop computers."
+    },
+    {
+        "title": "Video Computer System",
+        "description": "Historical console representing the beginning of popularization and the golden age of home video games."
+    },
+    {
+        "title": "Classic Camera and Webcam",
+        "description": "Early devices used for image capture and visual communication in the early days of the internet."
+    },
+    {
+        "title": "Classic PC Case",
+        "description": "Traditional beige chassis that housed hardware components of desktop computers in past decades."
+    },
+    {
+        "title": "Network and Connectivity Modules",
+        "description": "Switching and transmission devices essential for establishing communication in early corporate network infrastructures."
+    },
+    {
+        "title": "Overhead Projector",
+        "description": "Classic optical equipment widely used in classrooms and presentations to project transparencies prior to the digital era."
+    },
+    {
+        "title": "Switch and Hub Panel",
+        "description": "Set of network distribution equipment responsible for interconnecting multiple computers in early work environments."
+    },
+    {
+        "title": "Classic Mobile Phone Collection",
+        "description": "Collection of devices illustrating the early phases and design evolution in the history of mobile communication."
+    },
+    {
+        "title": "iPad Packaging Collection",
+        "description": "Packaging from the early generations of Apple's tablet, a device that helped define the modern mobile computing market."
+    },
+    {
+        "title": "IBM Tower Server",
+        "description": "Robust enterprise computer used for heavy processing and centralized data storage in businesses."
+    }
+]
+}
