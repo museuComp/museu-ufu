@@ -1,0 +1,100 @@
+<div class="truth-table-container">
+  <!-- Tela inicial -->
+  <div *ngIf="!gameStarted" class="start-screen">
+    <div class="game-header">
+      <h1>Desafio da Tabela Verdade</h1>
+      <p>Teste seus conhecimentos em lógica booleana completando as tabelas de cada expressão.</p>
+    </div>
+    <button class="start-button" (click)="iniciarJogo()">
+      Começar Desafio
+    </button>
+  </div>
+
+  <!-- Área do jogo -->
+  <div *ngIf="gameStarted && !gameCompleted" class="game-area">
+    <div class="game-header">
+      <h1>{{ levels[current].name }}</h1>
+      <div class="level-info">Nível {{ levels[current].id }}/{{ levels.length }}</div>
+    </div>
+
+    <!-- Tabela Verdade -->
+    <div class="table-container">
+      <table class="truth-table">
+        <thead>
+          <tr>
+            <th *ngFor="let variable of levels[current].vars">{{ variable }}</th>
+            <th class="output-header">{{ levels[current].name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of tableRows; let rowIndex = index" 
+              [class.correct]="row.isCorrect === true"
+              [class.incorrect]="row.isCorrect === false">
+            <td *ngFor="let input of row.inputs">{{ input }}</td>
+            <td class="output-cell">
+              <select 
+                [(ngModel)]="row.userAnswer" 
+                [disabled]="row.isCorrect !== undefined"
+                class="output-select">
+                <option value="">?</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Controles do jogo -->
+    <div class="game-controls">
+      <button class="btn primary" (click)="checkAnswers()" [disabled]="!canCheck()">
+        Verificar
+      </button>
+      <button class="btn secondary" (click)="resetAnswers()">
+        Limpar
+      </button>
+    </div>
+
+    <!-- Feedback -->
+    <div class="feedback" [ngClass]="feedbackClass">
+      {{ feedbackMessage }}
+    </div>
+  </div>
+
+  <!-- Tela de conclusão do nível -->
+  <div *ngIf="levelCompleted" class="level-completion">
+    <h2>Parabéns!</h2>
+    <p>Você completou este nível.</p>
+    <div class="curiosity-box">
+      <h4>Você sabia?</h4>
+      <p>{{ curiosities[current] }}</p>
+    </div>
+    
+    <div class="completion-controls">
+      <button *ngIf="current < levels.length - 1" 
+              class="btn primary" 
+              (click)="nextLevel()">
+        Próximo Nível
+      </button>
+      <button *ngIf="current === levels.length - 1" 
+              class="btn primary" 
+              (click)="completeGame()">
+        Finalizar Jogo
+      </button>
+    </div>
+  </div>
+
+  <!-- Tela de conclusão final -->
+  <div *ngIf="gameCompleted" class="game-completion">
+    <h2>Jogo Concluído!</h2>
+    <p>Parabéns! Você dominou todos os conceitos de lógica booleana!</p>
+    <div class="final-message">
+      <p>Você completou todos os {{ levels.length }} níveis do desafio da tabela verdade.</p>
+    </div>
+    
+    <button class="btn primary" (click)="resetGame()">
+      Jogar Novamente
+    </button>
+  </div>
+</div>
