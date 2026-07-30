@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 interface TimelineEvent {
@@ -14,7 +15,7 @@ interface TimelineEvent {
 @Component({
   selector: 'app-logic-challenge',
   standalone: true,
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, RouterModule,DragDropModule],
   templateUrl: './logic-challenge.component.html',
   styleUrl: './logic-challenge.component.css'
 })
