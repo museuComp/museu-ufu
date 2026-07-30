@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 interface Puzzle {
@@ -12,7 +13,7 @@ interface Puzzle {
 @Component({
   selector: 'app-linux',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './linux-puzzle.component.html',
   styleUrl: './linux-puzzle.component.css',
 })
