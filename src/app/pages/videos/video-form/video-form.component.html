@@ -21,6 +21,17 @@
         <input matInput id="title" formControlName="title" required autocomplete="off">
       </mat-form-field>
 
+      <!-- NOVO CAMPO: REDATOR -->
+      <div class="form-label-row">
+        <label for="writer">Redator do Conteúdo*</label>
+        <span class="form-error" *ngIf="videoForm.get('writer')?.invalid && (videoForm.get('writer')?.dirty || videoForm.get('writer')?.touched)">
+          <ng-container *ngIf="videoForm.get('writer')?.hasError('required')">Obrigatório</ng-container>
+        </span>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <input matInput id="writer" formControlName="writer" required autocomplete="off" placeholder="Nome do criador do conteúdo">
+      </mat-form-field>
+
       <!-- Categoria -->
       <div class="form-label-row">
         <label for="category">Categoria*</label>
@@ -56,6 +67,22 @@
         <span *ngIf="videoForm.get('coverUrl')?.hasError('required') && videoForm.get('coverUrl')?.touched && !coverImageError" class="form-error" style="display: block; margin-top: 5px;">
           Imagem de capa é obrigatória.
         </span>
+
+        <!-- NOVOS CAMPOS: FONTE DA IMAGEM DE CAPA -->
+        <div class="image-source-container" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+          <div>
+            <label style="font-size: 14px; font-weight: 500;">Fonte da Imagem de Capa (Texto)</label>
+            <mat-form-field appearance="outline" class="full-width rounded-input" style="margin-top: 4px;">
+              <input matInput formControlName="coverSource" placeholder="Ex: Print do YouTube / Nome do Fotógrafo">
+            </mat-form-field>
+          </div>
+          <div>
+            <label style="font-size: 14px; font-weight: 500;">Link da Fonte (URL)</label>
+            <mat-form-field appearance="outline" class="full-width rounded-input" style="margin-top: 4px;">
+              <input matInput formControlName="coverSourceLink" placeholder="Ex: https://linkdafonte.com">
+            </mat-form-field>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -69,7 +96,7 @@
 
       <!-- URL Vídeo -->
       <div class="form-label-row">
-        <label for="title">URL do Vídeo*</label>
+        <label for="videoUrl">URL do Vídeo*</label>
         <span class="form-error" *ngIf="videoForm.get('videoUrl')?.invalid && (videoForm.get('videoUrl')?.dirty || videoForm.get('videoUrl')?.touched)">
           <ng-container *ngIf="videoForm.get('videoUrl')?.hasError('required')">Obrigatório</ng-container>
           <ng-container *ngIf="videoForm.get('videoUrl')?.hasError('minlength')">Mín. 3 caracteres</ng-container>
@@ -86,7 +113,6 @@
       <mat-form-field appearance="outline" class="full-width rounded-input">
         <textarea matInput id="description" formControlName="description" rows="6" autocomplete="off"></textarea>
       </mat-form-field>
-      
     </div>
 
     <!-- Seção de Participantes -->
@@ -101,7 +127,7 @@
         <label for="contributors">Contribuidores</label>
       </div>
       <mat-form-field appearance="outline" class="full-width rounded-input">
-        <input matInput id="contributors" formControlName="contributors" autocomplete="off"  rows="3 "placeholder="Separe os nomes do contribuidores por vírgula">
+        <input matInput id="contributors" formControlName="contributors" autocomplete="off" placeholder="Separe os nomes do contribuidores por vírgula">
       </mat-form-field>
 
       <!-- Convidados -->
@@ -111,7 +137,6 @@
       <mat-form-field appearance="outline" class="full-width rounded-input">
         <textarea matInput id="guests" formControlName="guests" rows="3" autocomplete="off" placeholder="Separe os nomes do contribuidores por vírgula"></textarea>
       </mat-form-field>
-
     </div>
 
     <div class="form-actions">
@@ -121,4 +146,4 @@
       </button>
     </div>
   </form>
-</div> 
+</div>

@@ -6,10 +6,10 @@ import { RouterModule } from '@angular/router';
 type GameCard = {
   title: string;
   description: string;
-  route: string;
-  iconClass: string;
   image: string;
   imageAlt: string;
+  route: string;
+  iconClass: string;
   category: string;
 };
 
