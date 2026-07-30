@@ -1,54 +1,164 @@
-<div class="museudle-game">
-<div class="main-wrapper">
-    <aside class="sidebar">
-        <div class="sidebar-header">Itens Disponíveis</div>
-        <ul id="available-items-list"></ul>
-    </aside>
+<main class="arcade-scope">
+  <div class="arcade-game-shell">
+    <!-- Voltar para o catálogo de jogos -->
+    <a class="nes-btn arcade-back-link" routerLink="/games">
+      ◀ Voltar aos jogos
+    </a>
 
-    <main class="game-container">
-        <div class="input-section">
-            <input type="text" id="guess-input" list="guess-datalist" placeholder="Digite seu palpite..." autocomplete="off">
-            <datalist id="guess-datalist"></datalist>
-            <button id="submit-btn" class="interactive-btn">Adivinhar</button>
-        </div>
+    <!-- Cabeçalho padrão do jogo -->
+    <section class="arcade-game-header nes-container is-dark with-title">
+      <p class="title">Descoberta</p>
 
-        <div class="legend-container">
-            <div class="legend-item"><span class="legend-box verde"></span> Correto</div>
-            <div class="legend-item"><span class="legend-box amarelo"></span> Parcial</div>
-            <div class="legend-item"><span class="legend-box cinza"></span> Incorreto</div>
-            <div class="legend-item"><span class="legend-box font-icon">⬆️⬇️</span> Dica de Ano</div>
-        </div>
+      <h1 class="arcade-game-title">
+        MuseuDle
+      </h1>
 
-        <div class="table-header">
-            <span>Nome</span>
-            <span>Categoria</span>
-            <span>Ano</span>
-            <span>Criador/Empresa</span>
-        </div>
-        
-        <div id="guesses-grid" class="guesses-grid">
-            <!-- Palpites aparecerão aqui -->
-        </div>
+      <p class="arcade-game-subtitle">
+        Descubra o artefato da computação usando pistas de categoria, ano e criador.
+      </p>
+    </section>
 
-        <div id="game-over-modal" class="hidden">
-            <div class="modal-content">
-                <div id="modal-primary-content">
+    <!-- Painel principal do jogo -->
+    <section class="arcade-game-panel nes-container is-dark with-title">
+      <p class="title">Palpites</p>
+
+      <div class="arcade-game-board museudle-arcade-board">
+        <div class="museudle-game">
+          <div class="main-wrapper">
+            <aside class="sidebar">
+              <div class="sidebar-header">
+                Itens Disponíveis
+              </div>
+
+              <ul id="available-items-list"></ul>
+            </aside>
+
+            <section class="game-container">
+              <div class="input-section">
+                <input
+                  type="text"
+                  id="guess-input"
+                  list="guess-datalist"
+                  placeholder="Digite seu palpite..."
+                  autocomplete="off"
+                />
+
+                <datalist id="guess-datalist"></datalist>
+
+                <button
+                  id="submit-btn"
+                  class="nes-btn is-success interactive-btn"
+                  type="button"
+                >
+                  Adivinhar
+                </button>
+              </div>
+
+              <div class="legend-container">
+                <div class="legend-item">
+                  <span class="legend-box verde"></span>
+                  Correto
+                </div>
+
+                <div class="legend-item">
+                  <span class="legend-box amarelo"></span>
+                  Parcial
+                </div>
+
+                <div class="legend-item">
+                  <span class="legend-box cinza"></span>
+                  Incorreto
+                </div>
+
+                <div class="legend-item">
+                  <span class="legend-box font-icon">⬆️⬇️</span>
+                  Dica de Ano
+                </div>
+              </div>
+
+              <div class="table-header">
+                <span>Nome</span>
+                <span>Categoria</span>
+                <span>Ano</span>
+                <span>Criador/Empresa</span>
+              </div>
+
+              <div id="guesses-grid" class="guesses-grid">
+                <!-- Palpites aparecerão aqui pelo script do MuseuDle -->
+              </div>
+
+              <div id="game-over-modal" class="hidden">
+                <div class="modal-content nes-container is-dark with-title">
+                  <p class="title">Resultado</p>
+
+                  <div id="modal-primary-content">
                     <h2 id="modal-title"></h2>
                     <p id="modal-message"></p>
-                    <div class="daily-countdown">Próximo artefato em: <span id="countdown"></span></div>
-                    <button id="saiba-mais-btn" class="interactive-btn" style="background-color: var(--verde); margin-bottom: 10px; width: 100%;">Saiba Mais</button>
-                    <button id="close-modal-btn" class="interactive-btn">Fechar</button>
+
+                    <div class="daily-countdown">
+                      Próximo artefato em:
+                      <span id="countdown"></span>
+                    </div>
+
+                    <button
+                      id="saiba-mais-btn"
+                      class="nes-btn is-success interactive-btn museudle-modal-button"
+                      type="button"
+                    >
+                      Saiba Mais
+                    </button>
+
+                    <button
+                      id="close-modal-btn"
+                      class="nes-btn interactive-btn museudle-modal-button"
+                      type="button"
+                    >
+                      Fechar
+                    </button>
+                  </div>
+
+                  <div id="modal-secondary-content" class="hidden">
+                    <h3 id="info-nome"></h3>
+
+                    <p>
+                      <strong>Categoria:</strong>
+                      <span id="info-categoria"></span>
+                    </p>
+
+                    <p>
+                      <strong>Ano:</strong>
+                      <span id="info-ano"></span>
+                    </p>
+
+                    <p>
+                      <strong>Criador/Empresa:</strong>
+                      <span id="info-criador"></span>
+                    </p>
+
+                    <a
+                      id="info-search-link"
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="nes-btn is-warning interactive-btn museudle-info-link"
+                    >
+                      Pesquisar no Google
+                    </a>
+
+                    <button
+                      id="back-modal-btn"
+                      class="nes-btn interactive-btn museudle-modal-button"
+                      type="button"
+                    >
+                      Voltar
+                    </button>
+                  </div>
                 </div>
-                <div id="modal-secondary-content" class="hidden">
-                    <h3 id="info-nome" style="color: var(--text-color); margin-top: 0; margin-bottom: 1rem;"></h3>
-                    <p><strong>Categoria:</strong> <span id="info-categoria"></span></p>
-                    <p><strong>Ano:</strong> <span id="info-ano"></span></p>
-                    <p><strong>Criador/Empresa:</strong> <span id="info-criador"></span></p>
-                    <a id="info-search-link" href="#" target="_blank" class="interactive-btn" style="display:block; margin: 15px 0; background-color: var(--amarelo); text-decoration: none; color: white; padding: 10px;">Pesquisar no Google</a>
-                    <button id="back-modal-btn" class="interactive-btn" style="width: 100%;">Voltar</button>
-                </div>
-            </div>
+              </div>
+            </section>
+          </div>
         </div>
-    </main>
-</div>
-</div>
+      </div>
+    </section>
+  </div>
+</main>
