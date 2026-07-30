@@ -57,7 +57,10 @@ export class VideoFormComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]],
       category: ['', Validators.required],
       videoUrl: ['', [Validators.required, Validators.minLength(3)]],
-      coverUrl: ['', Validators.required], // Adicionado required para validar igual à notícia
+      coverUrl: ['', Validators.required],
+      writer: ['', Validators.required],          // Novo campo: Redator
+      coverSource: [''],                          // Novo campo: Fonte da Capa
+      coverSourceLink: [''],                      // Novo campo: Link da Fonte
       description: [''],
       contributors: [''],
       guests: ['']
@@ -76,6 +79,9 @@ export class VideoFormComponent implements OnInit {
             coverUrl: videoData.summary.coverUrl,
             videoUrl: videoData.videoUrl,
             description: videoData.description,
+            writer: (videoData.summary as any).writer || '',
+            coverSource: (videoData.summary as any).coverSource || '',
+            coverSourceLink: (videoData.summary as any).coverSourceLink || '',
             contributors: videoData.contributors?.join(', ') || '',
             guests: videoData.guests?.join(', ') || '',
           });
@@ -102,18 +108,20 @@ export class VideoFormComponent implements OnInit {
       summary: {
         title: formValue.title,
         coverUrl: formValue.coverUrl,
-        category: formValue.category
-      },
+        category: formValue.category,
+        writer: formValue.writer,                     // Salvando o redator
+        coverSource: formValue.coverSource || '',     // Salvando texto da fonte
+        coverSourceLink: formValue.coverSourceLink || '' // Salvando link da fonte
+      } as any,
       videoUrl: formValue.videoUrl,
       description: formValue.description,
-      // Limpando os espaços em branco nos arrays de nomes
       contributors: formValue.contributors ? formValue.contributors.split(',').map((s: string) => s.trim()) : [],
       guests: formValue.guests ? formValue.guests.split(',').map((s: string) => s.trim()) : []
     };
 
     if (this.editMode && this.videoId) {
       videoData.createdAt = Date.now();
-      
+
       this.firestoreVideosService.updateVideoPost(this.videoId, videoData)
         .then(() => {
           this.router.navigate(['/dashboard']);
