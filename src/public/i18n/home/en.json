@@ -1,0 +1,72 @@
+{
+    "welcome": {
+        "title": "Welcome to the FACOM Virtual Museum",
+        "description": "Explore our digital collection, virtual exhibitions, and educational games. Discover history and culture through the collection of the UFU Museum."
+    },
+
+    "museum": {
+        "title": "Inside the FACOM Virtual Museum",
+        "video": {
+            "title": "Videos",
+            "desc": "Browse through our videos and historical computing documents.",
+            "btn": "Explore Videos"
+        },
+        "magazine": {
+            "title": "Magazines",
+            "desc": "Visit our magazine to learn about the latest museum news.",
+            "btn": "Explore Magazines"
+        },
+        "game": {
+            "title": "Games",
+            "desc": "Learn about the history of technology in a fun way.",
+            "btn": "Explore Games"
+        },
+        "donation": "Donations",
+        "accessibility": "Accessibility",
+        "norms": "Visitation Guidelines",
+        "tour": {
+            "title": "Virtual Tour",
+            "desc": "Take a look at our 360° exhibition and explore historical items.",
+            "btn": "View Full Virtual Tour"
+        }
+    },
+
+    "errors": {
+        "videotag": "Your browser does not support the video tag."
+    },
+
+    "slides": [
+        {
+            "alt": "Instagram of the Computing Museum",
+            "title": "Computing Museum Instagram",
+            "subtitle": "Discover updates, events, and interesting facts about the museum on our Instagram!"
+        },
+        {
+            "alt": "Antique punched card used in early computers",
+            "title": "Punched Card",
+            "subtitle": "How were the first computers programmed?"
+        },
+        {
+            "alt": "Cover of the Sonic game for the Super Nintendo",
+            "title": "Super Nintendo Sonic Game",
+            "subtitle": "Recall the video game classics!"
+        }
+    ],
+
+    "items": [
+        {
+            "title": "PS One Console",
+            "desc": "A historical video game console that popularized CD-media games and defined digital entertainment."
+        },
+        {
+            "title": "Facit Calculator",
+            "desc": "A mechanical calculator used in offices to perform mathematical operations prior to the invention of electronic calculators."
+        },
+        {
+            "title": "Napier's Bones",
+            "desc": "A historical instrument created in the 17th century, considered one of the earliest manual devices designed to facilitate calculations."
+        }
+    ],
+    
+    "banner": "Support the FACOM Virtual Museum"
+}

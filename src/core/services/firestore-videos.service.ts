@@ -9,14 +9,17 @@ export interface Video {
     summary: {
         title: string,
         coverUrl: string,
-        category: string
+        category: string,
+        writer: string;             // Novo campo obrigatório (Atividade 6)
+        coverSource?: string;       // Novo campo opcional (Atividade 6)
+        coverSourceLink?: string;   // Novo campo opcional (Atividade 6)
     };
     videoUrl: string;
     description?: string;
     contributors?: Array<string>;
     guests?: Array<string>;
-    createdAt?: any; // Mantido genérico para aceitar o serverTimestamp
-    order?: number;  // Adicionado para salvar a posição do arrastar e soltar
+    createdAt?: any; 
+    order?: number;  
 };
 
 @Injectable({
@@ -26,7 +29,7 @@ export class FirestoreVideosService {
     private videosCollection;
     
     // RESTAURADO: Usando o seu token específico para não quebrar a conexão
-    constructor(@Inject('FIRESTORE_VIDEOS') private firestore : Firestore) {
+    constructor(@Inject('FIRESTORE_STANDARD') private firestore : Firestore) {
         this.videosCollection = collection(this.firestore, 'videos');
     }  
 
