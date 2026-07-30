@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Estrutura de dados idêntica à do componente 'quiz'
 interface Question {
@@ -11,7 +12,7 @@ interface Question {
 @Component({
   selector: 'app-history-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './history-quiz.component.html',
   styleUrls: ['./history-quiz.component.scss'], // Mantive a extensão .scss, mas o conteúdo será o mesmo do .css
 })
