@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
+import { ShareButtonsComponent } from '@shared/components/share-buttons/share-buttons.component';
 
 
 @Component({
@@ -16,7 +17,8 @@ import {MatIconButton} from '@angular/material/button';
     RouterModule,
     MatCardModule,
     MatIconModule,
-    MatIconButton
+    MatIconButton,
+    ShareButtonsComponent
   ],
   templateUrl: './personalities-detail.component.html',
   styleUrl: './personalities-detail.component.scss'

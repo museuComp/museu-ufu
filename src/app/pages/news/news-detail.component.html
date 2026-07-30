@@ -17,6 +17,9 @@
 
     <mat-card-content class="news-detail-content">
       <p class="news-detail-description">{{ newsItem.summary.description }}</p>
+
+      <app-share-buttons [title]="newsItem.summary.title"></app-share-buttons>
+
       <hr class="news-separator">
       <div class="news-full-content" *ngIf="newsItem.fullContent && newsItem.fullContent.length">
         <div *ngFor="let item of newsItem.fullContent" [ngSwitch]="item.type" class="content-item">
