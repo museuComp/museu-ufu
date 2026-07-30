@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface Card {
   id: number;
@@ -12,7 +13,7 @@ interface Card {
 @Component({
   selector: 'app-puzzles',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './puzzles.component.html',
   styleUrls: ['./puzzles.component.css']
 })

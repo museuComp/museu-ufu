@@ -1,47 +1,111 @@
-<div class="puzzle-container">
-  <h1>Jogo da Memória - História da Computação</h1>
+<main class="arcade-scope">
+  <div class="arcade-game-shell">
+    <!-- Voltar para o catálogo de jogos -->
+    <a class="nes-btn arcade-back-link" routerLink="/games">
+      ◀ Voltar aos jogos
+    </a>
 
-  <div class="game-info">
-    <p>Encontre os pares de cartas!</p>
-    <div class="timer">Tempo: {{ timeElapsed }}</div>
-  </div>
+    <!-- Cabeçalho padrão do jogo -->
+    <section class="arcade-game-header nes-container is-dark with-title">
+      <p class="title">Memória</p>
 
-  <!-- Região de anúncios para leitores de tela: informa o que acontece a cada jogada -->
-  <div class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement }}</div>
+      <h1 class="arcade-game-title">
+        Jogo da Memória
+      </h1>
 
-  <div class="memory-board">
-    <div class="cards-grid" role="group" [attr.aria-label]="'Tabuleiro do jogo da memória, ' + cards.length + ' cartas'">
-      <div *ngFor="let card of cards"
-           class="card"
-           role="button"
-           tabindex="0"
-           [class.flipped]="card.isFlipped"
-           [class.matched]="card.isMatched"
-           [attr.aria-label]="getCardLabel(card)"
-           [attr.aria-pressed]="card.isFlipped || card.isMatched"
-           (click)="flipCard(card)"
-           (keydown)="onCardKeydown($event, card)">
-        <div class="card-inner">
-          <div class="card-front">
-            <img src="public/images/card-back.png" alt="" aria-hidden="true">
+      <p class="arcade-game-subtitle">
+        Encontre os pares de cartas relacionados à história da computação.
+      </p>
+    </section>
+
+    <!-- Painel principal do jogo -->
+    <section class="arcade-game-panel nes-container is-dark with-title">
+      <p class="title">Tabuleiro</p>
+
+      <div class="arcade-game-board memory-arcade-board">
+        <div class="arcade-game-status memory-status">
+          <div class="arcade-score-card">
+            Tempo
+            <strong>{{ timeElapsed }}</strong>
           </div>
-          <div class="card-back">
-            <img [src]="card.image" [alt]="card.name">
+
+          <div class="arcade-score-card">
+            Cartas
+            <strong>{{ cards.length }}</strong>
           </div>
         </div>
+
+        <p class="memory-instruction">
+          Encontre todos os pares para concluir o desafio.
+        </p>
+
+        <!-- Região de anúncios para leitores de tela: informa o que acontece a cada jogada -->
+        <div class="sr-only" aria-live="polite" aria-atomic="true">
+          {{ announcement }}
+        </div>
+
+        <div class="memory-board">
+          <div
+            class="cards-grid"
+            role="group"
+            [attr.aria-label]="'Tabuleiro do jogo da memória, ' + cards.length + ' cartas'"
+          >
+            <div
+              *ngFor="let card of cards"
+              class="card"
+              role="button"
+              tabindex="0"
+              [class.flipped]="card.isFlipped"
+              [class.matched]="card.isMatched"
+              [attr.aria-label]="getCardLabel(card)"
+              [attr.aria-pressed]="card.isFlipped || card.isMatched"
+              (click)="flipCard(card)"
+              (keydown)="onCardKeydown($event, card)"
+            >
+              <div class="card-inner">
+                <div class="card-front">
+                  <img
+                    src="public/images/card-back.png"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <div class="card-back">
+                  <img [src]="card.image" [alt]="card.name" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arcade-game-actions memory-actions">
+          <button
+            class="nes-btn is-success"
+            type="button"
+            (click)="startNewGame()"
+          >
+            Novo Jogo
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 
-  <div class="controls">
-    <button (click)="startNewGame()">Novo Jogo</button>
-  </div>
-</div>
+  <div class="game-over-modal" *ngIf="gameWon">
+    <section class="modal-content nes-container is-dark with-title">
+      <p class="title">Vitória</p>
 
-<div class="game-over-modal" *ngIf="gameWon">
-  <div class="modal-content">
-    <h2>🎉 Parabéns!</h2>
-    <p>Você completou o jogo da memória em {{ timeElapsed }}!</p>
-    <button (click)="startNewGame()">Jogar novamente</button>
+      <h2>🎉 Parabéns!</h2>
+      <p>Você completou o jogo da memória em {{ timeElapsed }}!</p>
+
+      <button
+        class="nes-btn is-success"
+        type="button"
+        (click)="startNewGame()"
+      >
+        Jogar novamente
+      </button>
+    </section>
   </div>
-</div>
+</main>

@@ -1,0 +1,47 @@
+<div class="puzzle-container">
+  <h1>Jogo da Memória - História da Computação</h1>
+
+  <div class="game-info">
+    <p>Encontre os pares de cartas!</p>
+    <div class="timer">Tempo: {{ timeElapsed }}</div>
+  </div>
+
+  <!-- Região de anúncios para leitores de tela: informa o que acontece a cada jogada -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement }}</div>
+
+  <div class="memory-board">
+    <div class="cards-grid" role="group" [attr.aria-label]="'Tabuleiro do jogo da memória, ' + cards.length + ' cartas'">
+      <div *ngFor="let card of cards"
+           class="card"
+           role="button"
+           tabindex="0"
+           [class.flipped]="card.isFlipped"
+           [class.matched]="card.isMatched"
+           [attr.aria-label]="getCardLabel(card)"
+           [attr.aria-pressed]="card.isFlipped || card.isMatched"
+           (click)="flipCard(card)"
+           (keydown)="onCardKeydown($event, card)">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="public/images/card-back.png" alt="" aria-hidden="true">
+          </div>
+          <div class="card-back">
+            <img [src]="card.image" [alt]="card.name">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button (click)="startNewGame()">Novo Jogo</button>
+  </div>
+</div>
+
+<div class="game-over-modal" *ngIf="gameWon">
+  <div class="modal-content">
+    <h2>🎉 Parabéns!</h2>
+    <p>Você completou o jogo da memória em {{ timeElapsed }}!</p>
+    <button (click)="startNewGame()">Jogar novamente</button>
+  </div>
+</div>
