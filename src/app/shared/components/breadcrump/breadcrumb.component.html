@@ -1,5 +1,5 @@
 @if (showBreadcrumb()) {
-	<ul class="crumb-list">
+	<ul class="crumb-list" *transloco="let t">
 		@for (crumb of crumbs; track crumb.label; let first = $first; let last = $last) {
 			<li [ngClass]="{ home: first }" class="crumb" [attr.data-active]="last ? 'active' : null">
 				@if (first) {
@@ -9,10 +9,10 @@
 					</a>
 				} @else if (!first && !last) {
 					<i class="icon fas fa-chevron-right"></i>
-					<a [routerLink]="[crumb.url]">{{ crumb.label }}</a>
+					<a [routerLink]="[crumb.url]">{{ t(crumb.label)}}</a>
 				} @else {
 					<i class="icon fas fa-chevron-right"></i>
-					<span>{{ crumb.label }}</span>
+					<span>{{ t(crumb.label) }}</span>
 				}
 			</li>
 		}

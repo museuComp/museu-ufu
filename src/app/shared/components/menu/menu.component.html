@@ -2,18 +2,18 @@
 <div class="menu-overlay" [class.visible]="isOpen" (click)="closeMenu()"></div>
 
 <!-- Sidebar Menu -->
-<nav class="sidebar-menu" [class.open]="isOpen">
+<nav class="sidebar-menu" [class.open]="isOpen" *transloco="let t">
   <!-- Cabeçalho -->
   <div class="header-container">
     <div class="header-content">
       <div class="logo-container">
-        <img [src]="'/public/logos/museu-computacao-azul1.png'" alt="Logo Museu da Computação">
+        <img [src]="'/public/logos/museu-computacao-azul1.png'" alt="Logo">
       </div>
       <div class="header-text">
         <div class="university-name">
-          <a [routerLink]="">Universidade Federal de <br> Uberlândia</a>
+          <a href="https://ufu.br" target="_blank">{{t('menu.ufu')}}</a>
         </div>
-        <div class="ministry-name">Ministério da Educação</div>
+        <div class="ministry-name">{{t('menu.ministry')}}</div>
       </div>
     </div>
     <button class="menu-close-button" (click)="closeMenu()">
@@ -29,12 +29,12 @@
         <ng-container *ngIf="!item.children?.length">
           <!-- Interno -->
           <a *ngIf="!item.external"
-             [routerLink]="item.url"
+             [routerLink]="nav.route(item.url)"
              [routerLinkActive]="'active'"
              class="menu-item"
              (click)="closeMenu()">
             <span class="menu-icon"><i [class]="item.icon"></i></span>
-            <span class="menu-item-label">{{ item.label }}</span>
+            <span class="menu-item-label" [title]="t(item.label)">{{ t(item.label) }}</span>
           </a>
 
           <!-- Externo -->
@@ -45,7 +45,7 @@
              rel="noopener noreferrer"
              (click)="closeMenu()">
             <span class="menu-icon"><i [class]="item.icon"></i></span>
-            <span class="menu-item-label">{{ item.label }}</span>
+            <span class="menu-item-label" [title]="t(item.label)">{{ t(item.label)}}</span>
           </a>
         </ng-container>
 
@@ -53,7 +53,7 @@
         <div *ngIf="item.children?.length" class="menu-folder">
           <div class="menu-item" (click)="toggleSubmenu(item)">
             <span class="menu-icon"><i [class]="item.icon"></i></span>
-            <span class="menu-item-label">{{ item.label }}</span>
+            <span class="menu-item-label">{{ t('item.label') }}</span>
             <span class="menu-arrow">
               <i class="fas" [class.fa-angle-down]="!item.expanded" [class.fa-angle-up]="item.expanded"></i>
             </span>
@@ -64,23 +64,23 @@
             <ng-container *ngFor="let subItem of item.children">
               <!-- Interno -->
               <a *ngIf="!subItem.external"
-                 [routerLink]="subItem.url"
+                 [routerLink]="nav.route(subItem.url)"
                  [routerLinkActive]="'active'"
                  class="menu-item"
                  (click)="closeMenu()">
                 <i [class]="subItem.icon"></i>
-                <span class="menu-item-label">{{ subItem.label }}</span>
+                <span class="menu-item-label">{{ t(subItem.label) }}</span>
               </a>
 
               <!-- Externo -->
               <a *ngIf="subItem.external"
-                 [href]="subItem.url"
+                 [href]="t(subItem.url)"
                  class="menu-item"
                  target="_blank"
                  rel="noopener noreferrer"
                  (click)="closeMenu()">
                 <i [class]="subItem.icon"></i>
-                <span class="menu-item-label">{{ subItem.label }}</span>
+                <span class="menu-item-label">{{ t(subItem.label) }}</span>
               </a>
             </ng-container>
           </div>
@@ -91,7 +91,7 @@
 
   <!-- Rodapé do Menu: Redes Sociais -->
   <div class="menu-bottom-section">
-    <p class="social-title">Redes Sociais</p>
+    <p class="social-title">{{t('menu.social')}}</p>
     <div class="social-links">
       <a target="_blank" href="https://www.youtube.com/@CanaldaUFU" aria-label="Youtube" title="Youtube">
         <i class="fab fa-youtube"></i>
