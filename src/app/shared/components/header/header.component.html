@@ -1,6 +1,6 @@
 <app-barra-brasil></app-barra-brasil>
 <header class="br-header" id="header" data-sticky="data-sticky">
-	<div class="container" *transloco="let t">
+	<div class="container">
 		<div class="row d-flex align-items-start justify-content-between">
 			<div class="col-md-auto col-9 d-flex align-items-start">
 				<button class="navbar-toggler me-3" type="button" (click)="toggleMenu()" aria-label="Toggle navigation">
@@ -12,10 +12,11 @@
 				<div class="region region-nav-branding">
 					<div class="marca">
 						<div class="logo" [class.scrolled]="isScrolled">
-							<a [routerLink]="nav.route('home')" [title]="t('header.logo')" rel="home">
-								<img src="public/logos/museu-computacao-azul1.png" alt="Logo">
+							<a routerLink="/home" title="Ils -l /var/www/museu-ufu/início" rel="home">
+								<img src="public/logos/museu-computacao-azul1.png" alt="Início">
 							</a>
-						</div>	
+						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -25,12 +26,12 @@
 					<div class="d-none d-md-block">
 						<p class="d-flex align-items-center justify-content-md-end my-3 my-md-1">
 						<div class="header-accessibility">
-							<a [routerLink]="nav.route('accessibility')" [title]="t('breadcrumb.accessibility')">{{t('breadcrumb.accessibility')}}</a>
+							<a [routerLink]="['/accessibility']" title="Acessibilidade">Acessibilidade</a>
 						</div>
-						<a (click)="decreaseZoom()" href="javascript:void(0)" [title]="t('header.accessibility.zoom_out')">A-</a>
-						<a (click)="resetZoom()" href="javascript:void(0)" [title]="t('header.accessibility.reset')">A</a>
-						<a (click)="increaseZoom()" href="javascript:void(0)" [title]="t('header.accessibility.zoom_in')">A+</a>
-						<a (click)="toggleContrast()" href="javascript:void(0)" [title]="t('header.accessibility.constrast')">
+						<a (click)="decreaseZoom()" href="javascript:void(0)" title="Menos Zoom">A-</a>
+						<a (click)="resetZoom()" href="javascript:void(0)" title="Reiniciar Zoom">A</a>
+						<a (click)="increaseZoom()" href="javascript:void(0)" title="Mais Zoom">A+</a>
+						<a (click)="toggleContrast()" title="Inverter Cores" href="javascript:void(0)">
 							<i class="fas fa-adjust"></i>
 						</a>
 					</div>

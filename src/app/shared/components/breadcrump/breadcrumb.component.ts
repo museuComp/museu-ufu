@@ -10,7 +10,6 @@ import {
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import BRBreadcrumb from '@govbr-ds/core/dist/components/breadcrumb/breadcrumb';
 import { NgClass } from '@angular/common';
-import { TranslocoDirective, TranslocoService } from "@jsverse/transloco";
 
 /**
  * Componente BreadcrumbComponent é responsável por exibir a navegação de breadcrumb.
@@ -24,7 +23,7 @@ import { TranslocoDirective, TranslocoService } from "@jsverse/transloco";
 @Component({
 	selector: 'app-breadcrumb',
 	standalone: true,
-	imports: [RouterLink, NgClass, TranslocoDirective],
+	imports: [RouterLink, NgClass],
 	host: {
 		class: 'br-breadcrumb',
 		'[class.d-none]': '!showBreadcrumb()',
@@ -46,7 +45,6 @@ export class BreadcrumbComponent implements AfterViewInit, OnInit {
 	router = inject(Router);
 	/** Instância do ActivatedRoute para acessar informações da rota */
 	route = inject(ActivatedRoute);
-	private readonly transloco = inject(TranslocoService);
 
 	constructor() {}
 
@@ -96,14 +94,15 @@ export class BreadcrumbComponent implements AfterViewInit, OnInit {
 	 */
 	buildBreadcrumbs(route: ActivatedRoute, url: string = '') {
 		if (route.snapshot.routeConfig) {
-			const routePath = route.snapshot.routeConfig.path.replace(':lang',this.transloco.getActiveLang());
+			const routePath = route.snapshot.routeConfig.path;
+
 			if (routePath) {
 				url += `/${routePath}`;
 			}
 
 			if (route.snapshot.data['breadCrumb'] && routePath) {
 				this.crumbs.push({
-					label: `breadcrumb.${route.snapshot.data['breadCrumb']}`,
+					label: route.snapshot.data['breadCrumb'],
 					url: url,
 					active: route.children.length === 0,
 				});
