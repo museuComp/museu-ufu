@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, inject, signal, Input, OnInit } from '@angular/core';
-import { LIST_MENU_BY_ROLE, LIST_MENU_PUBLIC } from './const/list-menu';
+import { LIST_MENU_BY_ROLE } from './const/list-menu';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Role } from '@app/features/login/models/credentials.model';
 import { AuthService } from '@app/core/auth/services/auth.service';
@@ -10,8 +10,6 @@ import BRMenu from "@govbr-ds/core/dist/components/menu/menu";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuService } from '@app/core/services/menu.service';
-import { TranslocoDirective } from "@jsverse/transloco";
-import { NavigationService } from '@app/services/navigation.service';
 
 /**
  * Componente MenuComponent é responsável por exibir o menu da aplicação.
@@ -28,7 +26,7 @@ interface MenuItemState extends IMenu {
 	selector: 'app-menu',
 	standalone: true,
 	host: { class: 'br-menu push px-0' },
-	imports: [RouterLink, RouterLinkActive, CommonModule, RouterModule, TranslocoDirective],
+	imports: [RouterLink, RouterLinkActive, CommonModule, RouterModule],
 	templateUrl: './menu.component.html',
 	styleUrl: './menu.component.scss',
 })
@@ -42,7 +40,6 @@ export class MenuComponent implements AfterViewInit, OnInit {
 	private _authService = inject(AuthService);
 	private _breakpointObserver = inject(BreakpointObserver);
 	private _menuService = inject(MenuService);
-	readonly nav = inject(NavigationService);
 
 	constructor() {
 		// Garante que o menu comece fechado
@@ -83,7 +80,61 @@ export class MenuComponent implements AfterViewInit, OnInit {
 	}
 
 	ngOnInit() {
-		this.list = LIST_MENU_PUBLIC;
+		this.list = [
+			{
+				label: 'Início',
+				url: '/home',
+				icon: 'fas fa-home',
+				children: []
+			},
+			{
+				label: 'Notícias',
+				url: '/news',
+				icon: 'fas fa-newspaper',
+			},
+			{
+				label: 'Visitação Virtual',
+				url: '/visita-virtual',
+				icon: 'fas fa-street-view'
+			},
+			{
+				label: 'Normas de Visitação',
+				url: '/norms',
+				icon: 'fas fa-gavel'
+			},
+			{
+				label: 'Jogos',
+				url: '/games',
+				icon: 'fas fa-gamepad'
+			},
+			{
+				label: 'Revista',
+				url: '/magazine',
+				icon: 'fas fa-file-text'
+			},
+			{
+				label: 'Vídeos',
+				url: '/videos',
+				icon: 'fas fa-video'
+			},
+			{
+				label: 'Doações',
+				url: '/donations',
+				icon: 'fas fa-usd'
+			},
+			{
+				label: 'Coleção',
+				url: 'https://tainacan.facom.ufu.br',
+				icon: 'fas fa-university ',
+				external: true,
+			},
+			{
+				label: 'Sobre',
+				url: '/about',
+				icon: 'fas fa-info-circle'
+			},
+			
+		];
 	}
 
 	closeMenu() {

@@ -25,7 +25,6 @@
     "@angular/service-worker": "^19.2.13",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@govbr-ds/core": "^3.6.1",
-    "@jsverse/transloco": "^8.4.0",
     "@ngneat/spectator": "^19.4.1",
     "bootstrap": "^5.3.5",
     "dayjs": "^1.11.13",
