@@ -1,20 +1,23 @@
-<section class="virtual-tour-page" >
-  <div class="virtual-tour-header" *transloco="let t; scope:'institutional';">
-    <h1>{{t('institutional.tour.title')}}</h1>
-    <p>{{t('institutional.tour.intro')}}</p>
+<section class="virtual-tour-page">
+  <div class="virtual-tour-header">
+    <h1>Visita Virtual</h1>
+    <p>
+      Explore o Museu da Computação da UFU em uma experiência imersiva.
+      Navegue pela sala em 360° e conheça alguns itens do acervo histórico.
+    </p>
   </div>
 
   <div class="tour-viewer-wrapper">
     <div id="panorama" class="tour-viewer"></div>
   </div>
 
-  <section class="timeline-section" *transloco="let t; scope:'institutional';">
+  <section class="timeline-section">
     <div class="section-title">
-      <h2>{{t('institutional.tour.timelineTitle')}}</h2>
-      <p>{{t('institutional.tour.timelineIntro')}}</p>
+      <h2>Linha do Tempo do Armazenamento</h2>
+      <p>Acompanhe a evolução das mídias: do clássico disquete ao ultra-rápido M.2.</p>
     </div>
 
-    <div class="timeline-container" *transloco="let t; scope:'institutional';">
+    <div class="timeline-container">
       <button class="btn-nav" (click)="itemAnteriorTimeline()" [disabled]="indiceAtualTimeline === 0">&lt;</button>
       
       <div class="timeline-content-wrapper">
@@ -37,17 +40,17 @@
     </div>
 
     <div class="timeline-indicators">
-      <span *ngFor="let image of imagensTimeline; let i = index" 
+      <span *ngFor="let item of linhaDoTempoArmazenamento; let i = index" 
             class="indicator" 
             [class.active]="i === indiceAtualTimeline"
             (click)="irParaItemTimeline(i)">
       </span>
     </div>
   </section>
-  <section class="museum-items-section" *transloco="let t; scope:'institutional';">
+  <section class="museum-items-section">
     <div class="section-title">
-      <h2>{{t('institutional.tour.itemsTitle')}}</h2>
-      <p>{{t('institutional.tour.itemsIntro')}}</p>
+      <h2>Itens em Destaque</h2>
+      <p>Alguns objetos que fazem parte da história da computação.</p>
     </div>
 
     <div class="cards-grid">
@@ -73,6 +76,6 @@
 <div class="modal-overlay" *ngIf="imagemSelecionada" (click)="fecharImagem()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="btn-fechar" (click)="fecharImagem()">&times;</button>
-    <img [src]="imagemSelecionada" [alt]="'institutional.tour.enlargedImageAlt' | transloco"/>
+    <img [src]="imagemSelecionada" alt="Imagem ampliada" />
   </div>
 </div>

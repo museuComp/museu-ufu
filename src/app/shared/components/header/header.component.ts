@@ -5,13 +5,11 @@ import { MenuService } from '@app/core/services/menu.service'
 import { BarraBrasilComponent } from '../barra-brasil/barra-brasil.component';
 import { RouterLink } from '@angular/router';
 import { AccessibilityService } from '@app/services/accessibility.service';
-import { TranslocoModule } from '@jsverse/transloco';
-import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
 	selector: 'app-header',
 	standalone: true,
-  	imports: [CdkMenuModule, BarraBrasilComponent, RouterLink, TranslocoModule],
+  imports: [CdkMenuModule, BarraBrasilComponent, RouterLink],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,9 +19,7 @@ export class HeaderComponent {
 	hideNavbar = input<boolean>(false);
 	authService = inject(AuthService);
 	user = this.authService.credentials;
-
 	private _menuService = inject(MenuService);
-	readonly nav = inject(NavigationService);
 
 	isScrolled = false;
 

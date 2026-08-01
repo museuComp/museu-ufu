@@ -45,8 +45,8 @@
     .pic-gov {
       background: url('https://www.gov.br/++theme++padrao_govbr/img/govbr.png') no-repeat !important;
       background-size: contain !important;
-      min-width: 80px;
-      min-height: 40px;
+      width: 80px;
+      height: 40px;
       text-indent: -9999px;
       display: block;
       margin-top: 10px;
@@ -85,7 +85,6 @@
 
         .list-item {
           margin: 0 5px;
-          white-space: nowrap;
 
           .link-barra {
             color: #fff;
@@ -95,7 +94,6 @@
             border-radius: 4px;
             padding: 5px 10px;
             transition: all 0.2s;
-            white-space: nowrap;
 
             &:hover {
               opacity: 1 !important;
@@ -105,62 +103,6 @@
           }
         }
       }
-
-      .lang-select {
-        position: relative;
-        color: #fff;
-        font-size: 14px;
-
-	      summary {
-          cursor: pointer;
-          list-style: none;
-          padding: 4px 8px;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          user-select: none;
-
-          &::after {
-            content: '';
-            border: solid #fff;
-            border-width: 0 2px 2px 0;
-            padding: 3px;
-            transform: rotate(45deg);
-            transition: transform 0.2s;
-          }
-
-          &::-webkit-details-marker {
-            display: none;
-          }
-        }
-
-        &[open] summary::after {
-          transform: rotate(-135deg);
-        }
-
-        &-list {
-          position: absolute;
-          top: 100%;
-          right: 0;
-          background: #071d41; // azul escuro padrão gov.br
-          list-style: none;
-          margin: 4px 0 0;
-          padding: 8px 0;
-          min-width: 100px;
-          z-index: 10;
-
-          li a {
-            display: block;
-            padding: 6px 16px;
-            color: #fff;
-            text-decoration: none;
-
-            &:hover {
-              background: rgba(255, 255, 255, 0.1);
-            }
-          }
-        }
-}
     }
 
   }
