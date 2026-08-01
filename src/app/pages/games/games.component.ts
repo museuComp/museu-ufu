@@ -22,7 +22,7 @@ type GameCard = {
 })
 export class GamesComponent {
   // Lista centralizada dos jogos exibidos na página
-  games : GameCard[] = [
+  games: GameCard[] = [
     {
       title: 'Quiz',
       description: 'Teste seus conhecimentos sobre o museu com perguntas divertidas!',
