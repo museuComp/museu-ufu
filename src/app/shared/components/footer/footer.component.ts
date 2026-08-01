@@ -1,8 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { TranslocoDirective } from "@jsverse/transloco";
-import { AboutRoutingModule } from "@app/pages/about/about-routing.module";
-import { NavigationService } from '@app/services/navigation.service';
-import { RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
 
 /**
  * Componente FooterComponent é responsável por exibir o rodapé da aplicação.
@@ -14,12 +10,12 @@ import { RouterLink } from '@angular/router';
 @Component({
 	selector: 'app-footer',
 	standalone: true,
-	imports: [TranslocoDirective, AboutRoutingModule, RouterLink],
+	imports: [],
 	templateUrl: './footer.component.html',
 	styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-	readonly nav = inject(NavigationService);
+
 
 	license = {
 		text: 'Todo o conteúdo deste site está publicado sob a licença Creative Commons Atribuição-SemDerivações 3.0',
