@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
+import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {
   AlertComponent,
   LoadingComponent,
@@ -13,7 +13,6 @@ import {AuthService } from './core/auth/services/auth.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {CheckUpdateService} from './core/update/check-update.service';
 import { PerfisNavComponent } from "./perfis-nav/perfis-nav.component";
-import { TranslocoService } from '@jsverse/transloco';
 
 declare let gtag: Function;
 
@@ -42,7 +41,6 @@ export class AppComponent implements OnInit {
   breakpointObserver = inject(BreakpointObserver);
   router = inject(Router);
   checkUpdateService = inject(CheckUpdateService);
-  private readonly transloco = inject(TranslocoService);
 
   isPublic = this.authService.isPublic;
 
@@ -54,11 +52,8 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
         this.validateUrl(data.url);
-        let route = this.router.url.split('/');
-        this.transloco.setActiveLang(route[1]);
-        this.transloco.load(route[1]);
       
-        if (typeof gtag !== 'undefined') {
+      if (typeof gtag !== 'undefined') {
           gtag('config', 'G-M29PJKZS0R', {
             'page_path': data.urlAfterRedirects
           });

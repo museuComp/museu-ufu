@@ -1,49 +1,76 @@
-import { Component, signal, OnInit, OnDestroy, AfterViewInit, ViewChildren, QueryList, ElementRef, effect, inject } from '@angular/core';
+import { Component, signal, OnInit, OnDestroy, AfterViewInit, ChangeDetectionStrategy, ViewChildren, QueryList, ElementRef, effect } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { NavigationService } from '@app/services/navigation.service';
-import { AboutRoutingModule } from "@app/pages/about/about-routing.module";
 
 declare var pannellum: any;
 
-interface SlideMedia {
+// Interface para garantir a consistência e tipagem dos dados de cada slide.
+interface Slide {
 	type: 'image' | 'video';
 	src: string;
-}
-interface SlideText {
 	alt: string;
 	title: string;
 	subtitle: string;
 }
-interface Slide extends SlideMedia,SlideText {}
 
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, NgOptimizedImage, TranslocoDirective, AboutRoutingModule], // Adicionado NgOptimizedImage
-	providers: [provideTranslocoScope('home')],
+	imports: [CommonModule, NgOptimizedImage], // Adicionado NgOptimizedImage
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChildren('videoPlayer') videoPlayers!: QueryList<ElementRef<HTMLVideoElement>>;
-
-	private readonly transloco = inject(TranslocoService);
-	readonly nav = inject(NavigationService);
 	
-  	readonly slidesThumb: SlideMedia[] = [
-		{type: 'image', src: 'public/carrossel/insta.png'},
-		{type: 'image', src: 'public/carrossel/cartao_perfurado.jpg'},
-		{type: 'image', src: 'public/carrossel/JogoSonic.jpg'}
+  slides: Slide[] = [
+		{
+			type: 'image',
+			src: 'public/carrossel/insta.png',
+			alt: 'Instagram do Museu da Computação',
+			title: 'Instagram do Museu da Computação',
+			subtitle: 'Veja as novidades, eventos e curiosidades do museu em nosso Instagram!'
+		},
+		{
+			type: 'image',
+			src: 'public/carrossel/cartao_perfurado.jpg',
+			alt: 'Cartão perfurado antigo usado em computadores',
+			title: 'Cartão Perfurado',
+			subtitle: 'Como se programava os primeiros computadores?'
+		},
+		{
+			type: 'image',
+			src: 'public/carrossel/JogoSonic.jpg',
+			alt: 'Capa do jogo do Sonic para Super Nintendo',
+			title: 'Jogo do Sonic do Super Nintendo',
+			subtitle: 'Relembre os clássicos dos videogames!'
+		}
 	];
-	slides: Slide[] = [];
 
-	readonly itemsThumb = [
-		'public/itens/ps1_thumb.jpg',
-		'public/itens/calculadora_antiga_thumb.jpg',
-		'public/itens/ossos_de_naipier_thumb.jpg'
-	];
-	itensDestaque = [];
+  // 3 Itens aleatórios/interessantes do acervo para a Home
+  itensDestaque = [
+    {
+      titulo: 'Console PS One',
+      descricao: 'Videogame histórico que popularizou os jogos em mídia de CD e marcou o entretenimento digital.',
+      imagemThumb: 'public/itens/ps1_thumb.jpg'
+    },
+    {
+      titulo: 'Calculadora Facit',
+      descricao: 'Calculadora mecânica utilizada em escritórios para realizar operações matemáticas antes da invenção das calculadoras eletrônicas.',
+      imagemThumb: 'public/itens/calculadora_antiga_thumb.jpg'
+    },
+    {
+      titulo: 'Ossos de Napier',
+      descricao: 'Instrumento histórico criado no século XVII e considerado um dos primeiros dispositivos manuais para facilitar cálculos.',
+      imagemThumb: 'public/itens/ossos_de_naipier_thumb.jpg'
+    }
+  ];
+
+  	
+  	bannerDestaque = {
+    src: 'public/banner/banner-principal.png', // Coloque o caminho correto da imagem do seu banner aqui
+    alt: 'Apoie o Museu Virtual da FACOM',
+    
+  	};
 
 	currentIndex = signal(0);
 	isPaused = signal(false);
@@ -77,47 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngOnInit() {
-		this.translateData();
 		this.startAutoPlay();
-	}
-
-	translateData(): void {
-		this.transloco.selectTranslation('home').subscribe(() => {
-			const s = this.transloco.translateObject<SlideText[]>('home.slides');
-			this.slides = s.map((slide, i) => {
-				return {
-					...slide,
-					src: this.slidesThumb[i].src,
-					type: this.slidesThumb[i].type
-				}
-			});
-
-			const items = this.transloco.translateObject('home.items');
-			this.itensDestaque = items.map((item, i) => {
-				return {
-					...item,
-					imageThumb: this.itemsThumb[i]
-				}
-			});
-
-			setTimeout(() => this.initPannellum(), 0);
-		});
-	}
-
-	initPannellum(): void {
-		// Inicializa o 360 na home page. ID 'panorama-home' para não dar conflito.
-		if (typeof pannellum !== 'undefined') {
-		pannellum.viewer('panorama-home', {
-			type: 'equirectangular',
-			panorama: 'public/visita-virtual/sala360.jpg',
-			autoLoad: true, // Mudado para TRUE: carrega a imagem automaticamente sem o botão
-			showZoomCtrl: true,
-			compass: false,
-			pitch: 0,
-			yaw: 0,
-			hfov: 110
-		});
-		}
 	}
 
   ngAfterViewInit(): void {
