@@ -64,7 +64,7 @@ export const appConfig: ApplicationConfig = {
     provideStorage(() => getStorage()),
 
     {
-      provide: "FIRESTORE_VIDEOS",
+      provide: "FIRESTORE_STANDARD",
       useFactory: () => {
         const app = getApps().find(app => app.name === 'videosApp') ||
           initializeApp({
