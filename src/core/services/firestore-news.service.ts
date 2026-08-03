@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Firestore, collection, collectionData, addDoc, doc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
-import { limit, orderBy, query, serverTimestamp, where } from 'firebase/firestore';
+import { CollectionReference, limit, orderBy, query, serverTimestamp, where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // <-- Adicionamos a importação do map
 
@@ -11,7 +11,8 @@ export interface NewsPost {
     title: string;
     description: string;
     category: string;
-    mainImage: string; 
+    mainImage: string;
+    writer: string; 
   };
   fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string }>;
   createdAt?: any; 
@@ -21,10 +22,10 @@ export interface NewsPost {
   providedIn: 'root'
 })
 export class FirestoreNewsService {
-  private firestore: Firestore = inject(Firestore);
-  private newsCollection = collection(this.firestore, 'news'); 
+  private newsCollection: CollectionReference;
 
-  constructor() { }
+  constructor(@Inject('FIRESTORE_STANDARD') private firestore : Firestore) { 
+    this.newsCollection = collection(this.firestore, 'news');}
 
   // 2. Atualizamos o getAllNews para já entregar tudo ordenado
   getAllNews(): Observable<NewsPost[]> {
@@ -86,5 +87,4 @@ export class FirestoreNewsService {
     const newsDocRef = doc(this.firestore, `news/${id}`);
     return deleteDoc(newsDocRef);
   }
-  
 }

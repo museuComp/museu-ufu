@@ -46,6 +46,8 @@ export const appConfig: ApplicationConfig = {
     }),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    { provide: 'FIRESTORE_STANDARD',
+      useFactory: () => getFirestore()},
     {
       provide: DEFAULT_DIALOG_CONFIG,
       useValue: { panelClass: 'dialog', hasBackdrop: true, autoFocus: false },
