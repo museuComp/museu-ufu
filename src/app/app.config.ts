@@ -57,8 +57,6 @@ export const appConfig: ApplicationConfig = {
     },
     provideCharts(withDefaultRegisterables()),
 
-    // 1. PROJETO PRINCIPAL - Mantido como [DEFAULT]
-    // Responsável pela Autenticação, Storage, etc.
     provideFirebaseApp(() => initializeApp({ 
       projectId: "museu-ufu-news", 
       appId: "1:560844053254:web:f6d19f08a3892c9c821c87", 
@@ -92,11 +90,9 @@ export const appConfig: ApplicationConfig = {
     {
       provide: "FIRESTORE_STANDARD",
       useFactory: () => {
-        // Agora usamos as credenciais REAIS e completas do museu-comp-ufu
-        // e nomeamos essa instância como 'standardApp'
         const app = getApps().find(app => app.name === 'standardApp') ||
           initializeApp({
-            apiKey: env.API_KEY_FIRESTORE_VIDEOS, // Usando a mesma chave de API do comp-ufu
+            apiKey: env.API_KEY_FIRESTORE_VIDEOS, 
             authDomain: "museu-comp-ufu.firebaseapp.com",
             projectId: "museu-comp-ufu",
             storageBucket: "museu-comp-ufu.firebasestorage.app",

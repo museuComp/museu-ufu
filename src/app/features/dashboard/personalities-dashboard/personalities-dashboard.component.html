@@ -1,12 +1,9 @@
-<!-- Trocado news-list para personalities-list e loadingNews para loadingPersonalities -->
 <div class="personalities-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="!isLoading; else loadingPersonalities">
-    <!-- Trocado news-row para personality-row -->
     <div *ngFor="let personality of personalitiesItems; trackBy: trackByPersonalityId" class="personality-row" cdkDrag>
         <div class="personality-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
 
             <a [routerLink]="['/personalities/detail', personality.id]" style="flex: 1; text-decoration: none;">
-                <!-- Trocado news-title para personality-title -->
                 <span class="personality-title">{{ personality.summary.title }}</span>
             </a> 
 
@@ -22,7 +19,6 @@
               </button>
             </div>
         </div>
-        <!-- Trocado news-category para personality-category -->
         <div class="personality-category" style="margin-left: 36px;">
             {{ personality.summary.category }}
         </div>
@@ -30,7 +26,6 @@
     </div>
 </div>
 
-<!-- Trocado loadingNews para loadingPersonalities -->
 <ng-template #loadingPersonalities>
     <div class="loading-or-empty-container">
         <p>Carregando personalidades...</p>

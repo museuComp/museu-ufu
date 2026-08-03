@@ -18,7 +18,6 @@
   --transicao-padrao: all 0.3s ease-in-out;
 }
 
-/* Renomeado de .news-list para .personalities-list */
 .personalities-list {
     padding: calc(var(--espacamento-base) * 1.5);
     display: flex;
@@ -28,7 +27,6 @@
     overflow-y: scroll;
 }
 
-/* Renomeado de .news-row para .personality-row */
 .personality-row {
   border: 1px solid var(--cor-borda-suave);
   border-radius: var(--arredondamento-pequeno);
@@ -41,7 +39,6 @@
   }
 }
 
-/* Renomeado de .news-row-header para .personality-row-header */
 .personality-row-header {
   display: flex;
   justify-content: space-between;
@@ -50,7 +47,6 @@
   gap: var(--espacamento-base);
 }
 
-/* Renomeado de .news-title para .personality-title */
 .personality-title {
   font-weight: 600;
   font-size: 1rem;
@@ -59,7 +55,6 @@
   cursor: pointer;
 }
 
-/* Renomeado de .news-category para .personality-category */
 .personality-category {
   font-size: 0.875rem;
   color: var(--cor-texto-secundario);

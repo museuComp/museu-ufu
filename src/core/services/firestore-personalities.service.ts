@@ -24,12 +24,10 @@ export interface PersonalityPost {
 export class FirestorePersonalitiesService {
   private personalitiesCollection;
 
-  // Utilizando a estrutura exigida com o token FIRESTORE_STANDARD
   constructor(@Inject('FIRESTORE_STANDARD') private firestore: Firestore) {
     this.personalitiesCollection = collection(this.firestore, 'personalities');
   }
 
-  // Busca todas as personalidades da coleção nova
   getAllPersonalities(): Observable<PersonalityPost[]> {
     return (collectionData(this.personalitiesCollection, { idField: 'id' } as any) as Observable<PersonalityPost[]>).pipe(
       map(personalities => {

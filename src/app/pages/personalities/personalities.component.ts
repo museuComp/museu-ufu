@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-// Importando o novo serviço e a nova interface
 import { FirestorePersonalitiesService, PersonalityPost } from '../../../core/services/firestore-personalities.service';
 import { Observable } from 'rxjs';
 
@@ -20,7 +19,6 @@ import { Observable } from 'rxjs';
   ]
 })
 export class PersonalitiesComponent implements OnInit {
-  // Passando a usar PersonalityPost
   personalitiesList$: Observable<PersonalityPost[]>;
   
   // Injetando o novo serviço

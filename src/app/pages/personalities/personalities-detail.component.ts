@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-// Importando o novo serviço e a nova interface
 import { FirestorePersonalitiesService, PersonalityPost } from '../../../core/services/firestore-personalities.service';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +21,6 @@ import { MatIconButton } from '@angular/material/button';
   styleUrl: './personalities-detail.component.scss'
 })
 export class PersonalitiesDetailComponent {
-  // Passando a usar PersonalityPost
   personality$: Observable<PersonalityPost | undefined>;
   
   // Injetando o novo serviço
