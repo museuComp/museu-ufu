@@ -27,7 +27,6 @@ import { getApps } from 'firebase/app';
 import { env } from '../../enviroment';
 import { provideMarkdown } from 'ngx-markdown';
 
-
 registerLocaleData(localePt);
 
 export function scrollFactory(overlay: Overlay): () => NoopScrollStrategy {
