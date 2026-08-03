@@ -1,8 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, Inject } from '@angular/core';
 import { Firestore, collection, collectionData, addDoc, doc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
-import { limit, orderBy, query, where } from 'firebase/firestore';
+import { limit, orderBy, query, where, CollectionReference } from 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // <-- Adicionamos a importação do map
+import { map } from 'rxjs/operators';
 
 export interface NewsPost {
   id?: string; 
@@ -22,18 +22,17 @@ export interface NewsPost {
   providedIn: 'root'
 })
 export class FirestoreNewsService {
-  private firestore: Firestore = inject(Firestore);
-  private newsCollection = collection(this.firestore, 'news'); 
+  private newsCollection: CollectionReference<NewsPost>;
 
-  constructor() { }
+  constructor(@Inject('FIRESTORE_STANDARD') private firestore: Firestore) {
+    this.newsCollection = collection(this.firestore, 'news') as CollectionReference<NewsPost>;
+  }
 
-  // 2. Atualizamos o getAllNews para já entregar tudo ordenado
-  getAllNews(): Observable<NewsPost[]> {
-    return (collectionData(this.newsCollection, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
-      map(news => {
-        // Ordena as notícias baseado no campo 'order'. 
-        // Se a notícia for antiga e não tiver 'order', assume 0.
-        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
+  // Busca todas as personalidades
+  getAllPersonalities(): Observable<NewsPost[]> {
+    return collectionData(this.newsCollection, { idField: 'id' }).pipe(
+      map(personalities => {
+        return personalities.sort((a, b) => (a.order || 0) - (b.order || 0));
       })
     );
   }
@@ -46,10 +45,8 @@ export class FirestoreNewsService {
       orderBy('summary.category')
     );
 
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+    return collectionData(q, { idField: 'id' }).pipe(
       map(news => {
-        // Ordena as notícias baseado no campo 'order'. 
-        // Se a notícia for antiga e não tiver 'order', assume 0.
         return news.sort((a, b) => (a.order || 0) - (b.order || 0));
       })
     );
@@ -62,30 +59,28 @@ export class FirestoreNewsService {
       where('summary.category', '==', 'Personalidades'),
     );
 
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+    return collectionData(q, { idField: 'id' }).pipe(
       map(news => {
-        // Ordena as notícias baseado no campo 'order'. 
-        // Se a notícia for antiga e não tiver 'order', assume 0.
         return news.sort((a, b) => (a.order || 0) - (b.order || 0));
       })
     );
   }
 
-  getLimitedPersonalities(l:number): Observable<NewsPost[]> {
+  getLimitedPersonalities(l: number): Observable<NewsPost[]> {
     const q = query(
       this.newsCollection,
       where('summary.category', '==', 'Personalidades')
     );
     
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+    return collectionData(q, { idField: 'id' }).pipe(
       map(news => {
         return news.sort((a, b) => (a.order || 0) - (b.order || 0))
-          .slice(0,l);
+          .slice(0, l);
       })
     );
   }
 
-  getLimitedNews(l:number): Observable<NewsPost[]> {
+  getLimitedNews(l: number): Observable<NewsPost[]> {
     const q = query(
       this.newsCollection,
       where('summary.category', '!=', 'Personalidades'),
@@ -93,43 +88,41 @@ export class FirestoreNewsService {
       limit(l)
     );
     
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
+    return collectionData(q, { idField: 'id' }).pipe(
       map(news => {
         return news.sort((a, b) => (a.order || 0) - (b.order || 0));
       })
     );
   }
 
-  getPreviousNews(order: number): Observable<NewsPost | null>{
+  getPreviousNews(order: number): Observable<NewsPost | null> {
     const q = query(
       this.newsCollection,
       where('order', '<', order),
       orderBy('order', 'desc'),
       limit(15)
     );
-    const data = (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>)
-      .pipe(
-        map(items =>
-          (items as NewsPost[]).find(item => item.summary.category !== 'Personalidades') ?? null
-        )
-      );
-    return data;
+    
+    return collectionData(q, { idField: 'id' }).pipe(
+      map(items =>
+        items.find(item => item.summary.category !== 'Personalidades') ?? null
+      )
+    );
   }
 
-  getNextNews(order: number): Observable<NewsPost | null>{
-      const q = query(
-        this.newsCollection,
-        where('order', '>', order),
-        orderBy('order', 'asc'),
-        limit(15)
-      );
-      const data = (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>)
-        .pipe(
-          map(items =>
-            (items as NewsPost[]).find(item => item.summary.category !== 'Personalidades') ?? null
-          )
-        );
-      return data;
+  getNextNews(order: number): Observable<NewsPost | null> {
+    const q = query(
+      this.newsCollection,
+      where('order', '>', order),
+      orderBy('order', 'asc'),
+      limit(15)
+    );
+    
+    return collectionData(q, { idField: 'id' }).pipe(
+      map(items =>
+        items.find(item => item.summary.category !== 'Personalidades') ?? null
+      )
+    );
   }
  
   getNewsById(id: string): Observable<NewsPost | undefined> {
@@ -138,7 +131,6 @@ export class FirestoreNewsService {
   }
 
   addNews(news: NewsPost): Promise<any> {
-    // Quando criar uma nova, também podemos garantir que ela tenha um timestamp
     const newsWithTimestamp = { ...news, createdAt: new Date() };
     return addDoc(this.newsCollection, newsWithTimestamp);
   }
@@ -152,6 +144,4 @@ export class FirestoreNewsService {
     const newsDocRef = doc(this.firestore, `news/${id}`);
     return deleteDoc(newsDocRef);
   }
-  
-
 }

@@ -26,7 +26,6 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getApps } from 'firebase/app';
 import { env } from '../../enviroment';
 
-
 registerLocaleData(localePt);
 
 export function scrollFactory(overlay: Overlay): () => NoopScrollStrategy {
@@ -58,10 +57,21 @@ export const appConfig: ApplicationConfig = {
     },
     provideCharts(withDefaultRegisterables()),
 
-    provideFirebaseApp(() => initializeApp({ projectId: "museu-ufu-news", appId: "1:560844053254:web:f6d19f08a3892c9c821c87", storageBucket: "museu-ufu-news.firebasestorage.app", apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", authDomain: "museu-ufu-news.firebaseapp.com", messagingSenderId: "560844053254", measurementId: "G-B06W8DT2CT" })),
+    // 1. PROJETO PRINCIPAL - Mantido como [DEFAULT]
+    // Responsável pela Autenticação, Storage, etc.
+    provideFirebaseApp(() => initializeApp({ 
+      projectId: "museu-ufu-news", 
+      appId: "1:560844053254:web:f6d19f08a3892c9c821c87", 
+      storageBucket: "museu-ufu-news.firebasestorage.app", 
+      apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", 
+      authDomain: "museu-ufu-news.firebaseapp.com", 
+      messagingSenderId: "560844053254", 
+      measurementId: "G-B06W8DT2CT" 
+    })),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
 
+    // 2. BANCO DE VÍDEOS - Apontando para o museu-comp-ufu
     {
       provide: "FIRESTORE_VIDEOS",
       useFactory: () => {
@@ -77,5 +87,25 @@ export const appConfig: ApplicationConfig = {
         return getFirestore(app);
       }
     },
+    
+    // 3. BANCO STANDARD (Para Notícias e Personalidades) - Apontando para o museu-comp-ufu
+    {
+      provide: "FIRESTORE_STANDARD",
+      useFactory: () => {
+        // Agora usamos as credenciais REAIS e completas do museu-comp-ufu
+        // e nomeamos essa instância como 'standardApp'
+        const app = getApps().find(app => app.name === 'standardApp') ||
+          initializeApp({
+            apiKey: env.API_KEY_FIRESTORE_VIDEOS, // Usando a mesma chave de API do comp-ufu
+            authDomain: "museu-comp-ufu.firebaseapp.com",
+            projectId: "museu-comp-ufu",
+            storageBucket: "museu-comp-ufu.firebasestorage.app",
+            messagingSenderId: "306806823828",
+            appId: "1:306806823828:web:44e2b2ee486a1441554d81"
+          }, 'standardApp');
+        return getFirestore(app);
+      }
+    },
+
   ],
 };

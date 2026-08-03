@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
+// Importando o novo serviço e a nova interface
+import { FirestorePersonalitiesService, PersonalityPost } from '../../../core/services/firestore-personalities.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -19,8 +20,11 @@ import { Observable } from 'rxjs';
   ]
 })
 export class PersonalitiesComponent implements OnInit {
-  personalitiesList$: Observable<NewsPost[]>;
-  private firestoreNewsService = inject(FirestoreNewsService);
+  // Passando a usar PersonalityPost
+  personalitiesList$: Observable<PersonalityPost[]>;
+  
+  // Injetando o novo serviço
+  private firestorePersonalitiesService = inject(FirestorePersonalitiesService);
 
   constructor() {}
 
@@ -29,6 +33,7 @@ export class PersonalitiesComponent implements OnInit {
   }
 
   loadPersonalities(): void {
-    this.personalitiesList$ = this.firestoreNewsService.getPersonalities();
+    // Usando o método getAllPersonalities do serviço novo
+    this.personalitiesList$ = this.firestorePersonalitiesService.getAllPersonalities();
   }
 }
