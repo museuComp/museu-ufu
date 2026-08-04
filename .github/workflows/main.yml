@@ -12,6 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Clean temp files before build
+        run: |
+          rm -rf dist || true
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
