@@ -3,9 +3,10 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FirestorePersonalitiesService, PersonalityPost } from '../../../core/services/firestore-personalities.service';
 import { Observable } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconButton } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconButton} from '@angular/material/button';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-personalities-detail',
@@ -15,7 +16,8 @@ import { MatIconButton } from '@angular/material/button';
     RouterModule,
     MatCardModule,
     MatIconModule,
-    MatIconButton
+    MatIconButton,
+    MarkdownModule
   ],
   templateUrl: './personalities-detail.component.html',
   styleUrl: './personalities-detail.component.scss'

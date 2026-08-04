@@ -6,13 +6,13 @@ import { Observable, switchMap } from "rxjs";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { MatIcon } from "@angular/material/icon";
-
+import { MarkdownModule } from 'ngx-markdown';
 @Component({
     selector: 'app-video-detail',
     standalone: true,
     templateUrl: './video-detail.component.html',
     styleUrl: './video-detail.component.scss',
-    imports: [MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, VideoPlayerComponent, MatCardFooter, CommonModule, MatCardActions, MatIcon, RouterLink]
+    imports: [MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, VideoPlayerComponent, MatCardFooter, CommonModule, MatCardActions, MatIcon, RouterLink, MarkdownModule]
 })
 export class VideoDetailComponent implements OnInit {
     video$: Observable<Video | undefined>;

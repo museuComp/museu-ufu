@@ -25,6 +25,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getApps } from 'firebase/app';
 import { env } from '../../enviroment';
+import { provideMarkdown } from 'ngx-markdown';
 
 registerLocaleData(localePt);
 
@@ -39,6 +40,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([globalInterceptor, loadingInterceptor]), withFetch()),
     provideAnimationsAsync(),
     provideEnvironmentNgxMask(),
+    provideMarkdown(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:3000',
@@ -73,7 +75,7 @@ export const appConfig: ApplicationConfig = {
 
     // 2. BANCO DE VÍDEOS - Apontando para o museu-comp-ufu
     {
-      provide: "FIRESTORE_VIDEOS",
+      provide: "FIRESTORE_STANDARD",
       useFactory: () => {
         const app = getApps().find(app => app.name === 'videosApp') ||
           initializeApp({
