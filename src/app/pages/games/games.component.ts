@@ -6,10 +6,10 @@ import { RouterModule } from '@angular/router';
 type GameCard = {
   title: string;
   description: string;
-  image: string;
-  imageAlt: string;
   route: string;
   iconClass: string;
+  image: string;
+  imageAlt: string;
   category: string;
 };
 
@@ -22,7 +22,7 @@ type GameCard = {
 })
 export class GamesComponent {
   // Lista centralizada dos jogos exibidos na página
-  games : GameCard[] = [
+  games: GameCard[] = [
     {
       title: 'Quiz',
       description: 'Teste seus conhecimentos sobre o museu com perguntas divertidas!',
