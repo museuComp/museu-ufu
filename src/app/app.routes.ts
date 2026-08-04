@@ -49,11 +49,22 @@ export const routes: Routes = [
         path: 'create',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./pages/news/news-form/news-form.component').then(
-            (m) => m.NewsFormComponent,
+          import('./pages/personalities/personalities-form/personalities-form.component').then(
+            (m) => m.PersonalitiesFormComponent,
           ),
         data: {
           breadCrumb: 'Criar Personalidade',
+        },
+      },
+      {
+        path: 'edit/:id',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/personalities/personalities-form/personalities-form.component').then(
+            (m) => m.PersonalitiesFormComponent,
+          ),
+        data: {
+          breadCrumb: 'Editar Personalidade',
         },
       },
     ],

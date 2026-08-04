@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Firestore, collection, collectionData, addDoc, doc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
 import { CollectionReference, limit, orderBy, query, serverTimestamp, where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // <-- Adicionamos a importação do map
+import { map } from 'rxjs/operators';
 
 export interface NewsPost {
   id?: string; 
@@ -14,7 +14,8 @@ export interface NewsPost {
     mainImage: string;
     writer: string; 
   };
-  fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string }>;
+  fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string; 
+    imageSource?: string; imageSourceLink?: string;}>;
   createdAt?: any; 
 }
 
@@ -22,10 +23,11 @@ export interface NewsPost {
   providedIn: 'root'
 })
 export class FirestoreNewsService {
-  private newsCollection: CollectionReference;
+  private newsCollection: CollectionReference<NewsPost>;
 
-  constructor(@Inject('FIRESTORE_STANDARD') private firestore : Firestore) { 
-    this.newsCollection = collection(this.firestore, 'news');}
+  constructor(@Inject('FIRESTORE_STANDARD') private firestore: Firestore) {
+    this.newsCollection = collection(this.firestore, 'news') as CollectionReference<NewsPost>;
+  }
 
   // 2. Atualizamos o getAllNews para já entregar tudo ordenado
   getAllNews(): Observable<NewsPost[]> {
@@ -43,7 +45,7 @@ export class FirestoreNewsService {
     return collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>
   }
 
-  getPreviousNews(order: number): Observable<NewsPost | null>{
+  getPreviousNews(order: number): Observable<NewsPost | null> {
     const q = query(
       this.newsCollection,
       where('order', '<', order),
