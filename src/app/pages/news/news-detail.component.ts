@@ -1,12 +1,12 @@
-import {Component, inject} from '@angular/core';
-import {ActivatedRoute, Router, RouterModule} from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {FirestoreNewsService, NewsPost} from '../../../core/services/firestore-news.service';
-import { map, Observable, switchMap } from 'rxjs';
-import {MatIconModule} from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconButton} from '@angular/material/button';
+import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
+import { Observable, switchMap } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { MarkdownModule } from 'ngx-markdown';
+import { ReadingTimePipe } from '../../shared/pipes/reading-time/reading-time.pipe';
 
 @Component({
   selector: 'app-news-detail',
@@ -16,14 +16,14 @@ import { MarkdownModule } from 'ngx-markdown';
     RouterModule,
     MatCardModule,
     MatIconModule,
-    MatIconButton,
-    MarkdownModule
+    MarkdownModule,
+    ReadingTimePipe
   ],
   templateUrl: './news-detail.component.html',
   styleUrl: './news-detail.component.scss'
 })
 export class NewsDetailComponent {
-  news$: Observable<NewsPost | undefined>; // Alterado para Observable
+  news$: Observable<NewsPost | undefined>;
   prev$: Observable<NewsPost | null>;
   next$: Observable<NewsPost | null>;
 
@@ -32,7 +32,6 @@ export class NewsDetailComponent {
   modalImageUrl: string | null = null;
 
   constructor(private route: ActivatedRoute, private router: Router) {
-    // Para redirecionar quando for clicado os links de prev/next
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
 
@@ -40,15 +39,13 @@ export class NewsDetailComponent {
         this.news$ = this.firestoreNewsService.getNewsById(id);
 
         this.prev$ = this.news$.pipe(
-          switchMap(news => this.firestoreNewsService.getPreviousNews(news.order))
+          switchMap(news => this.firestoreNewsService.getPreviousNews(news!.order))
         );
 
         this.next$ = this.news$.pipe(
-          switchMap(news => this.firestoreNewsService.getNextNews(news.order))
+          switchMap(news => this.firestoreNewsService.getNextNews(news!.order))
         );
-      }
-      else {
-        // Tratar caso de ID não encontrado, talvez redirecionar
+      } else {
         console.error('ID da notícia não encontrado na rota');
       }
     });

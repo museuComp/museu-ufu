@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FirestoreNewsService, NewsPost } from '../../../../core/services/firestore-news.service';
+import { MarkdownModule } from 'ngx-markdown';
 
 interface ContentItem {
   id: string;
@@ -34,7 +35,8 @@ interface ContentItem {
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    DragDropModule
+    DragDropModule,
+    MarkdownModule
   ]
 })
 export class NewsFormComponent implements OnInit {
