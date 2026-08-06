@@ -1,0 +1,61 @@
+.share-buttons {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	padding: 0.5rem 0;
+}
+
+.share-label {
+	font-weight: 600;
+	color: #333;
+	margin-right: 0.25rem;
+}
+
+.share-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: none;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 16px;
+	font-family: inherit;
+	padding: 0;
+	transition: transform 0.15s ease, filter 0.15s ease;
+
+	&:hover {
+		filter: brightness(0.88);
+		transform: scale(1.08);
+	}
+
+	&:focus-visible {
+		outline: 3px solid #2563eb;
+		outline-offset: 2px;
+	}
+}
+
+/* Cores de marca de cada rede social */
+.share-button--facebook {
+	background-color: #1877f2;
+}
+
+.share-button--x {
+	background-color: #000000;
+}
+
+.share-button--linkedin {
+	background-color: #0a66c2;
+}
+
+.share-button--telegram {
+	background-color: #29a9eb;
+}
+
+.share-button--whatsapp {
+	background-color: #25d366;
+}

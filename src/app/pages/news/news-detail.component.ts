@@ -7,6 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
 import { MarkdownModule } from 'ngx-markdown';
+import { ShareButtonsComponent } from '@shared/components/share-buttons/share-buttons.component';
 
 @Component({
   selector: 'app-news-detail',
@@ -17,7 +18,8 @@ import { MarkdownModule } from 'ngx-markdown';
     MatCardModule,
     MatIconModule,
     MatIconButton,
-    MarkdownModule
+    MarkdownModule,
+    ShareButtonsComponent
   ],
   templateUrl: './news-detail.component.html',
   styleUrl: './news-detail.component.scss'

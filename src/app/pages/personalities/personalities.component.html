@@ -28,6 +28,6 @@
 <ng-template #loadingOrEmpty>
   <div class="loading-or-empty-container">
     <div *ngIf="!(personalitiesList$ | async); else noPersonalities">Carregando...</div>
-    <ng-template #noPersonalities>Nenhum artigo encontrado!.</ng-template>
+    <ng-template #noPersonalities>Nenhuma personalidade encontrada!.</ng-template>
   </div>
 </ng-template>

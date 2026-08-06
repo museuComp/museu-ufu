@@ -30,6 +30,8 @@
         <article class="video-description">
             <markdown [data]="video.description"></markdown>
         </article>
+
+        <app-share-buttons [title]="video.summary.title"></app-share-buttons>
     </mat-card-content>
     <div class="divider"></div>
     <mat-card-footer class="colaborators-container">

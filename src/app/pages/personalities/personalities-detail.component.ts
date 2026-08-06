@@ -1,12 +1,13 @@
-import {Component, inject} from '@angular/core';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {FirestoreNewsService, NewsPost} from '../../../core/services/firestore-news.service';
+import { FirestorePersonalitiesService, PersonalityPost } from '../../../core/services/firestore-personalities.service';
 import { Observable } from 'rxjs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
 import { MarkdownModule } from 'ngx-markdown';
+import { ShareButtonsComponent } from '@shared/components/share-buttons/share-buttons.component';
 
 @Component({
   selector: 'app-personalities-detail',
@@ -17,15 +18,17 @@ import { MarkdownModule } from 'ngx-markdown';
     MatCardModule,
     MatIconModule,
     MatIconButton,
-    MarkdownModule
+    MarkdownModule,
+    ShareButtonsComponent
   ],
   templateUrl: './personalities-detail.component.html',
   styleUrl: './personalities-detail.component.scss'
 })
 export class PersonalitiesDetailComponent {
-
-  personality$: Observable<NewsPost | undefined>;
-  private firestoreNewsService = inject(FirestoreNewsService);
+  personality$: Observable<PersonalityPost | undefined>;
+  
+  // Injetando o novo serviço
+  private firestorePersonalitiesService = inject(FirestorePersonalitiesService);
 
   showImageModal = false;
   modalImageUrl: string | null = null;
@@ -33,7 +36,8 @@ export class PersonalitiesDetailComponent {
   constructor(private route: ActivatedRoute) {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.personality$ = this.firestoreNewsService.getNewsById(id);
+      // Usando o método getPersonalityById do serviço novo
+      this.personality$ = this.firestorePersonalitiesService.getPersonalityById(id);
     } else {
       console.error('ID da personalidade não encontrado na rota');
     }

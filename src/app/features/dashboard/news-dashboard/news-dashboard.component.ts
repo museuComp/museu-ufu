@@ -50,8 +50,8 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
 
     ngOnInit(): void {
         if (this.isAdmin()) {
-            this.newsList$ = this.firestoreNewsService.getNews();
-            this.newsSubscription = this.firestoreNewsService.getNews().subscribe(news => {
+            this.newsList$ = this.firestoreNewsService.getAllNews();
+            this.newsSubscription = this.firestoreNewsService.getAllNews().subscribe(news => {
                 // Ignora a atualização visual se estiver salvando a ordem
                 if (this.isUpdatingOrder) return; 
             
