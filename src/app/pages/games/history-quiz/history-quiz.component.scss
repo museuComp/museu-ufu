@@ -103,16 +103,46 @@
   transform: none;
 }
 
-/* Feedback da resposta */
+/* Feedback e resultado */
 .feedback {
   text-align: center;
+  background: transparent !important;
 }
 
-/* Texto do feedback e do resultado */
-.feedback p,
-.result-message p {
+/* Corrige a caixa de feedback do resultado da resposta */
+.feedback.arcade-game-message {
+  padding: 1rem;
+  border: 3px solid var(--arcade-highlight) !important;
+  background: rgba(22, 7, 47, 0.95) !important;
+  color: #ffffff !important;
+  text-align: center;
+  box-shadow: inset 0 0 14px rgba(164, 243, 255, 0.25);
+}
+
+/* Feedback de resposta correta */
+.feedback.arcade-game-message--success {
+  border-color: var(--arcade-action) !important;
+  background: rgba(28, 54, 20, 0.95) !important;
+  color: var(--arcade-action) !important;
+  box-shadow:
+    inset 0 0 14px rgba(190, 255, 118, 0.25),
+    0 0 16px rgba(190, 255, 118, 0.35);
+}
+
+/* Feedback de resposta incorreta */
+.feedback.arcade-game-message--error {
+  border-color: var(--arcade-primary) !important;
+  background: rgba(54, 12, 45, 0.95) !important;
+  color: var(--arcade-primary) !important;
+  box-shadow:
+    inset 0 0 14px rgba(217, 83, 167, 0.25),
+    0 0 16px rgba(217, 83, 167, 0.35);
+}
+
+.feedback.arcade-game-message p {
   margin: 0;
-  color: inherit;
+  color: inherit !important;
+  font-weight: bold;
 }
 
 /* Tela de conclusão do quiz */
