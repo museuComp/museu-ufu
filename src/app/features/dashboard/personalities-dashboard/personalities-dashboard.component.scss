@@ -18,7 +18,7 @@
   --transicao-padrao: all 0.3s ease-in-out;
 }
 
-.news-list {
+.personalities-list {
     padding: calc(var(--espacamento-base) * 1.5);
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@
     overflow-y: scroll;
 }
 
-.news-row {
+.personality-row {
   border: 1px solid var(--cor-borda-suave);
   border-radius: var(--arredondamento-pequeno);
   transition: var(--transicao-padrao);
@@ -39,7 +39,7 @@
   }
 }
 
-.news-row-header {
+.personality-row-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +47,7 @@
   gap: var(--espacamento-base);
 }
 
-.news-title{
+.personality-title {
   font-weight: 600;
   font-size: 1rem;
   color: var(--cor-primaria-base);
@@ -55,7 +55,7 @@
   cursor: pointer;
 }
 
-.news-category {
+.personality-category {
   font-size: 0.875rem;
   color: var(--cor-texto-secundario);
   padding: 0 var(--espacamento-base) var(--espacamento-base);
@@ -115,7 +115,7 @@ button:focus-visible {
   box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.3);
 }
 
-/* Botão Adicionar Notícia  */
+/* Botão Adicionar Personalidade (comentário corrigido) */
 button[mat-stroked-button][color="warn"] {
   border-color: var(--cor-alerta-base);
   color: var(--cor-alerta-base);

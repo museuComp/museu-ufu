@@ -29,6 +29,6 @@ export class NewsComponent implements OnInit {
   }
 
   loadNews(): void {
-    this.newsList$ = this.firestoreNewsService.getNews();
+    this.newsList$ = this.firestoreNewsService.getAllNews();
   }
 }
