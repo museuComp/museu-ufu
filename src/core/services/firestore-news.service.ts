@@ -1,8 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Firestore, collection, collectionData, addDoc, doc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
-import { limit, orderBy, query, where } from 'firebase/firestore';
+import { CollectionReference, limit, orderBy, query, serverTimestamp, where } from 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // <-- Adicionamos a importação do map
+import { map } from 'rxjs/operators';
 
 export interface NewsPost {
   id?: string; 
@@ -11,20 +11,23 @@ export interface NewsPost {
     title: string;
     description: string;
     category: string;
-    mainImage: string; 
+    mainImage: string;
+    writer: string; 
   };
-  fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string }>;
-  createdAt?: Date; 
+  fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string; 
+    imageSource?: string; imageSourceLink?: string;}>;
+  createdAt?: any; 
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreNewsService {
-  private firestore: Firestore = inject(Firestore);
-  private newsCollection = collection(this.firestore, 'news'); 
+  private newsCollection: CollectionReference<NewsPost>;
 
-  constructor() { }
+  constructor(@Inject('FIRESTORE_STANDARD') private firestore: Firestore) {
+    this.newsCollection = collection(this.firestore, 'news') as CollectionReference<NewsPost>;
+  }
 
   // 2. Atualizamos o getAllNews para já entregar tudo ordenado
   getAllNews(): Observable<NewsPost[]> {
@@ -37,81 +40,20 @@ export class FirestoreNewsService {
     );
   }
 
-  // Busca somente notícias
-  getNews(): Observable<NewsPost[]> {
-    const q = query(
-      this.newsCollection,
-      where('summary.category', '!=', 'Personalidades'),
-      orderBy('summary.category')
-    );
-
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
-      map(news => {
-        // Ordena as notícias baseado no campo 'order'. 
-        // Se a notícia for antiga e não tiver 'order', assume 0.
-        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
-      })
-    );
-  }
-
-  // Busca somente personalidades
-  getPersonalities(): Observable<NewsPost[]> {
-    const q = query(
-      this.newsCollection,
-      where('summary.category', '==', 'Personalidades'),
-    );
-
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
-      map(news => {
-        // Ordena as notícias baseado no campo 'order'. 
-        // Se a notícia for antiga e não tiver 'order', assume 0.
-        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
-      })
-    );
-  }
-
-  getLimitedPersonalities(l:number): Observable<NewsPost[]> {
-    const q = query(
-      this.newsCollection,
-      where('summary.category', '==', 'Personalidades')
-    );
-    
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
-      map(news => {
-        return news.sort((a, b) => (a.order || 0) - (b.order || 0))
-          .slice(0,l);
-      })
-    );
-  }
-
   getLimitedNews(l:number): Observable<NewsPost[]> {
-    const q = query(
-      this.newsCollection,
-      where('summary.category', '!=', 'Personalidades'),
-      orderBy('summary.category'),
-      limit(l)
-    );
-    
-    return (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>).pipe(
-      map(news => {
-        return news.sort((a, b) => (a.order || 0) - (b.order || 0));
-      })
-    );
+    const q = query(this.newsCollection, orderBy('order', 'asc'), limit(l));
+    return collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>
   }
 
-  getPreviousNews(order: number): Observable<NewsPost | null>{
+  getPreviousNews(order: number): Observable<NewsPost | null> {
     const q = query(
       this.newsCollection,
       where('order', '<', order),
       orderBy('order', 'desc'),
-      limit(15)
+      limit(1)
     );
     const data = (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>)
-      .pipe(
-        map(items =>
-          (items as NewsPost[]).find(item => item.summary.category !== 'Personalidades') ?? null
-        )
-      );
+      .pipe(map(items => (items as NewsPost[])[0] ?? null));
     return data;
   }
 
@@ -120,14 +62,10 @@ export class FirestoreNewsService {
         this.newsCollection,
         where('order', '>', order),
         orderBy('order', 'asc'),
-        limit(15)
+        limit(1)
       );
       const data = (collectionData(q, { idField: 'id' }) as Observable<NewsPost[]>)
-        .pipe(
-          map(items =>
-            (items as NewsPost[]).find(item => item.summary.category !== 'Personalidades') ?? null
-          )
-        );
+        .pipe(map(items => (items as NewsPost[])[0] ?? null));
       return data;
   }
  
@@ -138,7 +76,7 @@ export class FirestoreNewsService {
 
   addNews(news: NewsPost): Promise<any> {
     // Quando criar uma nova, também podemos garantir que ela tenha um timestamp
-    const newsWithTimestamp = { ...news, createdAt: new Date() };
+    const newsWithTimestamp = { ...news, createdAt: serverTimestamp()};
     return addDoc(this.newsCollection, newsWithTimestamp);
   }
 
@@ -151,6 +89,4 @@ export class FirestoreNewsService {
     const newsDocRef = doc(this.firestore, `news/${id}`);
     return deleteDoc(newsDocRef);
   }
-  
-
 }

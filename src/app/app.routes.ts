@@ -46,7 +46,10 @@ const childrenRoutes: Routes = [
       { path: 'create',
         data: { breadCrumb: 'create',},
         canActivate: [authGuard],
-        loadComponent: () => import('./pages/news/news-form/news-form.component').then((m) => m.NewsFormComponent)
+        loadComponent: () =>
+          import('./pages/personalities/personalities-form/personalities-form.component').then(
+            (m) => m.PersonalitiesFormComponent,
+          )
       }
     ],
   },
@@ -97,6 +100,17 @@ const childrenRoutes: Routes = [
       { path: 'museudle',
         data: { breadCrumb: 'games.museudle' },
         loadComponent: () => import('./pages/games/museudle/museudle.component').then((m) => m.MuseudleComponent)
+      },
+      {
+        path: 'edit/:id',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/personalities/personalities-form/personalities-form.component').then(
+            (m) => m.PersonalitiesFormComponent,
+          ),
+        data: {
+          breadCrumb: 'Editar Personalidade',
+        },
       },
     ],
   },
@@ -208,6 +222,7 @@ const childrenRoutes: Routes = [
 
 export const routes: Routes = [
   { path:'', redirectTo:'pt-br', pathMatch:'full' },
+  {path:'login', redirectTo:'pt-br/login', pathMatch:'full'},
   {
     path: ':lang',
     children: childrenRoutes

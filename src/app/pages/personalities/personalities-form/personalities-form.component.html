@@ -1,19 +1,19 @@
-<div class="news-form-container">
-  <h1>{{isEditMode ? 'Editar' : 'Criar'}} Notícia</h1>
+<div class="personality-form-container">
+  <h1>{{isEditMode ? 'Editar' : 'Criar'}} Personalidade</h1>
 
-  <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" class="news-form">
+  <form [formGroup]="personalityForm" (ngSubmit)="onSubmit()" class="personality-form">
     <div class="form-section">
-      <h2>Resumo da Notícia</h2>
+      <h2>Resumo da Personalidade</h2>
       <p class="section-description">
-        Estas informações serão exibidas na lista de notícias e no card de destaque.
+        Estas informações serão exibidas na lista de personalidades e no card de destaque.
       </p>
 
       <div class="form-label-row">
-        <label for="summaryTitle">Título do Resumo*</label>
+        <label for="summaryTitle">Nome / Título do Resumo*</label>
         <span class="form-error"
-          *ngIf="newsForm.get('summaryTitle')?.invalid && (newsForm.get('summaryTitle')?.dirty || newsForm.get('summaryTitle')?.touched)">
-          <ng-container *ngIf="newsForm.get('summaryTitle')?.hasError('required')">Obrigatório</ng-container>
-          <ng-container *ngIf="newsForm.get('summaryTitle')?.hasError('minlength')">Mín. 3 caracteres</ng-container>
+          *ngIf="personalityForm.get('summaryTitle')?.invalid && (personalityForm.get('summaryTitle')?.dirty || personalityForm.get('summaryTitle')?.touched)">
+          <ng-container *ngIf="personalityForm.get('summaryTitle')?.hasError('required')">Obrigatório</ng-container>
+          <ng-container *ngIf="personalityForm.get('summaryTitle')?.hasError('minlength')">Mín. 3 caracteres</ng-container>
         </span>
       </div>
       <mat-form-field appearance="outline" class="full-width rounded-input">
@@ -23,9 +23,9 @@
       <div class="form-label-row">
         <label for="summaryDescription">Descrição do Resumo*</label>
         <span class="form-error"
-          *ngIf="newsForm.get('summaryDescription')?.invalid && (newsForm.get('summaryDescription')?.dirty || newsForm.get('summaryDescription')?.touched)">
-          <ng-container *ngIf="newsForm.get('summaryDescription')?.hasError('required')">Obrigatório</ng-container>
-          <ng-container *ngIf="newsForm.get('summaryDescription')?.hasError('minlength')">Mín. 10
+          *ngIf="personalityForm.get('summaryDescription')?.invalid && (personalityForm.get('summaryDescription')?.dirty || personalityForm.get('summaryDescription')?.touched)">
+          <ng-container *ngIf="personalityForm.get('summaryDescription')?.hasError('required')">Obrigatório</ng-container>
+          <ng-container *ngIf="personalityForm.get('summaryDescription')?.hasError('minlength')">Mín. 10
             caracteres</ng-container>
         </span>
       </div>
@@ -34,12 +34,11 @@
           autocomplete="off"></textarea>
       </mat-form-field>
 
-      <!-- NOVO CAMPO: REDATOR -->
       <div class="form-label-row">
         <label for="writer">Redator do Conteúdo*</label>
         <span class="form-error"
-          *ngIf="newsForm.get('writer')?.invalid && (newsForm.get('writer')?.dirty || newsForm.get('writer')?.touched)">
-          <ng-container *ngIf="newsForm.get('writer')?.hasError('required')">Obrigatório</ng-container>
+          *ngIf="personalityForm.get('writer')?.invalid && (personalityForm.get('writer')?.dirty || personalityForm.get('writer')?.touched)">
+          <ng-container *ngIf="personalityForm.get('writer')?.hasError('required')">Obrigatório</ng-container>
         </span>
       </div>
       <mat-form-field appearance="outline" class="full-width rounded-input">
@@ -50,8 +49,8 @@
       <div class="form-label-row">
         <label for="category">Categoria*</label>
         <span class="form-error"
-          *ngIf="newsForm.get('category')?.invalid && (newsForm.get('category')?.dirty || newsForm.get('category')?.touched)">
-          <ng-container *ngIf="newsForm.get('category')?.hasError('required')">Obrigatório</ng-container>
+          *ngIf="personalityForm.get('category')?.invalid && (personalityForm.get('category')?.dirty || personalityForm.get('category')?.touched)">
+          <ng-container *ngIf="personalityForm.get('category')?.hasError('required')">Obrigatório</ng-container>
         </span>
       </div>
       <mat-form-field appearance="outline" class="full-width rounded-input">
@@ -83,9 +82,9 @@
     </div>
 
     <div class="form-section">
-      <h2>Conteúdo Completo da Notícia</h2>
+      <h2>Conteúdo Completo da Personalidade</h2>
       <p class="section-description">
-        Adicione o conteúdo completo da notícia que será exibido na página detalhada.
+        Adicione o conteúdo completo da personalidade que será exibido na página detalhada.
         Você pode organizar os elementos na ordem desejada usando arrastar e soltar.
       </p>
 
@@ -160,7 +159,6 @@
                   <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">error</mat-icon>
                   {{ item.error }}
                 </div>
-                <!-- NOVOS CAMPOS PARA FONTE DA IMAGEM (Aparecem se a imagem já foi selecionada/existe conteúdo) -->
                 <div class="image-source-container"
                   style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
                   <div>
@@ -190,8 +188,8 @@
 
     <div class="form-actions">
       <button type="button" mat-button (click)="cancel()">Cancelar</button>
-      <button type="submit" mat-raised-button color="primary" [disabled]="!newsForm.valid">
-        {{isEditMode ? 'Salvar' : 'Criar'}} Notícia
+      <button type="submit" mat-raised-button color="primary" [disabled]="!personalityForm.valid">
+        {{isEditMode ? 'Salvar' : 'Criar'}} Personalidade
       </button>
     </div>
   </form>
