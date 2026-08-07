@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+
 // Interface usada para padronizar os dados de cada jogo exibido na página.
 type GameCard = {
   title: string;

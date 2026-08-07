@@ -1,9 +1,12 @@
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({ providedIn: 'root' })
 export class CustomPageTitleStrategy extends TitleStrategy {
+	private readonly transloco = inject(TranslocoService);
+
 	constructor(private readonly title: Title) {
 		super();
 	}
@@ -11,7 +14,9 @@ export class CustomPageTitleStrategy extends TitleStrategy {
 	override updateTitle(routerState: RouterStateSnapshot) {
 		const title = this.buildTitle(routerState);
 		if (title !== undefined) {
-			this.title.setTitle(`${title} | Museu Virtual Facom`);
+			this.transloco.selectTranslate(`breadcrumb.${title}`).subscribe(t => {
+				this.title.setTitle(`${t} | Museu Virtual Facom`);
+			});
 		}
 	}
 }

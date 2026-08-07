@@ -1,8 +1,10 @@
 import {
   ApplicationConfig,
   DEFAULT_CURRENCY_CODE,
+  inject,
   isDevMode,
   LOCALE_ID,
+  provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter, TitleStrategy } from '@angular/router';
@@ -25,6 +27,9 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getApps } from 'firebase/app';
 import { env } from '../../enviroment';
+import { TranslocoHttpLoader } from './transloco-loader';
+import { provideTransloco, provideTranslocoLoader, TranslocoService } from '@jsverse/transloco';
+
 import { provideMarkdown } from 'ngx-markdown';
 
 registerLocaleData(localePt);
@@ -89,6 +94,23 @@ export const appConfig: ApplicationConfig = {
         return getFirestore(app);
       }
     },
+    provideHttpClient(),
+
+    provideTransloco({
+        config: { 
+          availableLangs: ['pt-br', 'en', 'es'],
+          defaultLang: 'pt-br',
+          // Remove this option if your application doesn't support changing language in runtime.
+          reRenderOnLangChange: true,
+          prodMode: !isDevMode(),
+        },
+        loader: TranslocoHttpLoader
+      }),
+
+    provideAppInitializer(() => {
+        const transloco = inject(TranslocoService);
+        transloco.load(transloco.getActiveLang());
+    }),
     
     // 3. BANCO STANDARD (Para Notícias e Personalidades) - Apontando para o museu-comp-ufu
     {
