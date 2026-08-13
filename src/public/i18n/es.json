@@ -1,0 +1,69 @@
+{
+    "breadcrumb": {
+        "home": "Inicio",
+        "login": "Iniciar sesión",
+        "about": "Quiénes somos",
+        "norms": "Normas",
+        "resources": "Recursos",
+        "personalities": "Personalidades",
+        "news": "Noticias",
+        "tour": "Visita virtual",
+        "donations": "Donaciones",
+        "accessibility": "Accesibilidad",
+        "magazine": "Revistas",
+        "statistics": "Estadísticas",
+        "notfound": "Página no encontrada",
+        "videos": "Videos",
+        "dashboard": "Panel de gestión",
+        "collection": "Colección",
+        "games": {
+            "title": "Juegos",
+            "quiz": "Trivia",
+            "memorygame": "Juego de memoria",
+            "logic": "Desafío lógico",
+            "wordsearch": "Sopa de letras",
+            "truthtable": "Tabla de verdad",
+            "mathquiz": "Trivia matemática",
+            "histquiz": "Trivia histórica",
+            "cdungeons": "Computing Dungeons",
+            "museudle": "MuseuDle",
+            "linux": "Rompecabezas de Linux"
+        },
+
+        "detail": "Detalle",
+        "create": "Crear",
+        "edit": "Editar"
+    },
+
+    "header": {
+        "logo": "Ir a la página principal",
+        "accessibility": {
+            "zoom_in": "Aumentar zoom",
+            "zoom_out": "Disminuir zoom",
+            "reset": "Restablecer zoom",
+            "constrast": "Invertir colores"
+        }
+    },
+
+    "menu": {
+        "ufu": "Universidad Federal de Uberlândia",
+        "ministry": "Ministerio de Educación",
+        "social": "Redes sociales"
+    },
+
+    "footer": {
+        "institutional": "Institucional",
+        "subject": "Temas",
+        "content": "Centro de contenido",
+        "service": "Canales de atención",
+        "contact": "Contacto",
+        "social": {
+            "twitter": "Visite nuestro X (antes Twitter)",
+            "instagram": "Visite nuestro Instagram",
+            "facebook": "Visite nuestro Facebook",
+            "linkedin": "Visite nuestro LinkedIn",
+            "youtube": "Visite nuestro YouTube"
+        },
+        "info": "Acceso a la información"
+    }
+}

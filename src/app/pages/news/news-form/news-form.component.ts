@@ -14,8 +14,10 @@ interface ContentItem {
   id: string;
   type: 'title' | 'text' | 'image';
   content: string;
-  fileName?: string; // Para exibir o nome da imagem
-  error?: string;    // Para exibir o erro de tamanho ou formato
+  fileName?: string;
+  error?: string;
+  imageSource?: string;     // Novo campo para o texto da fonte
+  imageSourceLink?: string; // Novo campo para o link da fonte
 }
 
 @Component({
@@ -67,6 +69,7 @@ export class NewsFormComponent implements OnInit {
       summaryDescription: ['', [Validators.required, Validators.minLength(10)]],
       category: ['', Validators.required],
       mainImage: ['', Validators.required],
+      writer: ['', Validators.required], // Novo campo obrigatório para o redator
     });
   }
 
@@ -80,14 +83,17 @@ export class NewsFormComponent implements OnInit {
             summaryTitle: newsData.summary.title,
             summaryDescription: newsData.summary.description,
             category: newsData.summary.category,
-            mainImage: newsData.summary.mainImage
+            mainImage: newsData.summary.mainImage,
+            writer: newsData.summary.writer || '' // Atribui o redator salvo (usando any temporariamente até ajustarmos o service)
           });
           
           this.fullContent = (newsData.fullContent && Array.isArray(newsData.fullContent))
             ? newsData.fullContent.map((item, index) => ({
               id: `item-${Date.now()}-${index}`,
               type: item.type,
-              content: item.content
+              content: item.content,
+              imageSource: item.imageSource || '',
+              imageSourceLink: item.imageSourceLink || ''
             }))
             : [];
           this.mainImageFileName = newsData.summary.mainImage ? 'Imagem Carregada' : null;
@@ -100,36 +106,35 @@ export class NewsFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.newsForm.valid) {
-      const formValue = this.newsForm.value;
-      const newsData: NewsPost = { 
-        summary: {
-          title: formValue.summaryTitle,
-          description: formValue.summaryDescription,
-          category: formValue.category,
-          mainImage: formValue.mainImage,
-        },
-        fullContent: this.fullContent.map(item => ({ 
-          type: item.type,
-          content: item.content, 
-        }))
-      };
+  if (this.newsForm.valid) {
+    const formValue = this.newsForm.value;
+    const newsData: NewsPost = { 
+      summary: {
+        title: formValue.summaryTitle,
+        description: formValue.summaryDescription,
+        category: formValue.category,
+        mainImage: formValue.mainImage,
+        writer: formValue.writer,
+      },
+      fullContent: this.fullContent.map(item => ({ 
+        type: item.type,
+        content: item.content, 
+        imageSource: item.imageSource || '',
+        imageSourceLink: item.imageSourceLink || ''
+      }))
+    };
 
-      if (this.isEditMode && this.newsId) { 
-        this.firestoreNewsService.updateNews(this.newsId, newsData)
-          .then(() => {
-            this.router.navigate(['/dashboard']);
-          })
-          .catch(error => console.error('Erro ao atualizar notícia:', error));
-      } else {
-        this.firestoreNewsService.addNews(newsData)
-          .then(() => {
-            this.router.navigate(['/dashboard']);
-          })
-          .catch(error => console.error('Erro ao criar notícia:', error));
-      }
+    if (this.isEditMode && this.newsId) { 
+      this.firestoreNewsService.updateNews(this.newsId, newsData)
+        .then(() => this.router.navigate(['/dashboard']))
+        .catch(error => console.error('Erro ao atualizar notícia:', error));
+    } else {
+      this.firestoreNewsService.addNews(newsData)
+        .then(() => this.router.navigate(['/dashboard']))
+        .catch(error => console.error('Erro ao criar notícia:', error));
     }
   }
+}
 
   onMainImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;

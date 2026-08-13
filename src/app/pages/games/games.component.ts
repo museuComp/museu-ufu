@@ -2,14 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+
 // Interface usada para padronizar os dados de cada jogo exibido na página.
 type GameCard = {
   title: string;
   description: string;
-  image: string;
-  imageAlt: string;
   route: string;
   iconClass: string;
+  image: string;
+  imageAlt: string;
   category: string;
 };
 
@@ -22,7 +23,7 @@ type GameCard = {
 })
 export class GamesComponent implements OnInit, OnDestroy {
   // Lista centralizada dos jogos exibidos na página
-  games : GameCard[] = [
+  games: GameCard[] = [
     {
       title: 'Quiz',
       description: 'Teste seus conhecimentos sobre o museu com perguntas divertidas!',

@@ -1,8 +1,8 @@
-<div class="norms-container">
+<div class="norms-container" *transloco="let t; scope: 'institutional';">
   <header class="norms-header">
     <mat-icon class="header-icon">gavel</mat-icon>
-    <h1 class="titulo-centralizado">Normas de Visitação</h1>
-    <p class="subtitle">Planeje sua visita ao Museu da Computação da UFU</p>
+    <h1 class="titulo-centralizado">{{t('institutional.norms.title')}}</h1>
+    <p class="subtitle">{{t('institutional.norms.subtitle')}}</p>
   </header>
 
   <div class="norms-grid">
@@ -12,17 +12,18 @@
         <mat-icon>event_available</mat-icon>
       </div>
       <div class="card-content">
-        <h2>Agendamento e Localização</h2>
-        <p>
-          Em fase inicial de implantação, o Museu da Computação encontra-se em sala temporária 
-          <strong>(1B215, Bloco 1B, Campus Santa Mônica)</strong>, com o acervo ainda em processo de organização.
+        <h2>{{t('institutional.norms.schedule.title')}}</h2>
+        <p>{{t('institutional.norms.schedule.location')[0]}}
+          <strong>{{t('institutional.norms.schedule.location')[1]}}</strong>
+          {{t('institutional.norms.schedule.location')[2]}}
         </p>
         <p>
-          Por esse motivo, as visitas devem ser agendadas previamente com o <strong>mínimo de 5 dias de antecedência</strong>.
+          {{t('institutional.norms.schedule.advance')[0]}}
+          <strong>{{t('institutional.norms.schedule.advance')[1]}}</strong>.
         </p>
         <a mat-flat-button color="primary" href="mailto:museucomp@facom.ufu.br" class="action-button">
           <mat-icon>mail</mat-icon>
-          museucomp&#64;facom.ufu.br
+          {{t('institutional.norms.schedule.email')}}
         </a>
       </div>
     </div>
@@ -32,19 +33,25 @@
         <mat-icon>groups</mat-icon>
       </div>
       <div class="card-content">
-        <h2>Como funcionam as visitas?</h2>
+        <h2>{{t('institutional.norms.visits.title')}}</h2>
         <ul class="norm-list">
           <li>
             <mat-icon>timer</mat-icon> 
-            <span><strong>Sessões de 20 minutos:</strong> Conduzidas por alunos monitores do projeto de extensão do museu.</span>
+            <span>
+              <strong>{{t('institutional.norms.visits.duration')[0]}}</strong>
+              {{t('institutional.norms.visits.duration')[1]}}</span>
           </li>
           <li>
             <mat-icon>group_add</mat-icon> 
-            <span><strong>Até 15 visitantes por sessão:</strong> Quantidade ideal para garantir a segurança, a qualidade na experiência e a preservação do acervo.</span>
+            <span>
+              <strong>{{t('institutional.norms.visits.limit')[0]}}</strong>
+              {{t('institutional.norms.visits.limit')[1]}}</span>
           </li>
           <li>
             <mat-icon>directions_walk</mat-icon> 
-            <span><strong>Orientação Guiada:</strong> Os monitores recebem os visitantes, orientam o fluxo no espaço e fornecem informações sobre o uso e a interação possível com os equipamentos.</span>
+            <span>
+              <strong>{{t('institutional.norms.visits.guidance')[0]}}</strong>
+              {{t('institutional.norms.visits.guidance')[1]}}</span>
           </li>
         </ul>
       </div>
@@ -55,14 +62,14 @@
         <mat-icon>museum</mat-icon>
       </div>
       <div class="card-content">
-        <h2>Estrutura das Exposições</h2>
+        <h2>{{t('institutional.norms.exhibitions.title')}}</h2>
         <p>
-          As exposições são apresentadas em bancadas e superfícies adaptadas, uma vez que o museu ainda não dispõe de mobiliário expositivo definitivo.
+          {{t('institutional.norms.exhibitions.structure')}}
         </p>
         <div class="highlight-box">
           <mat-icon>lightbulb</mat-icon>
           <p>
-            Apesar das limitações estruturais, a visita oferece uma oportunidade enriquecedora para conhecer equipamentos históricos, documentos raros e elementos fundamentais da trajetória da computação na UFU e no Brasil.
+            {{t('institutional.norms.exhibitions.highlight')}}
           </p>
         </div>
       </div>

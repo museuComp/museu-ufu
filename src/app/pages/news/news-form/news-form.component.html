@@ -10,7 +10,8 @@
 
       <div class="form-label-row">
         <label for="summaryTitle">Título do Resumo*</label>
-        <span class="form-error" *ngIf="newsForm.get('summaryTitle')?.invalid && (newsForm.get('summaryTitle')?.dirty || newsForm.get('summaryTitle')?.touched)">
+        <span class="form-error"
+          *ngIf="newsForm.get('summaryTitle')?.invalid && (newsForm.get('summaryTitle')?.dirty || newsForm.get('summaryTitle')?.touched)">
           <ng-container *ngIf="newsForm.get('summaryTitle')?.hasError('required')">Obrigatório</ng-container>
           <ng-container *ngIf="newsForm.get('summaryTitle')?.hasError('minlength')">Mín. 3 caracteres</ng-container>
         </span>
@@ -21,18 +22,35 @@
 
       <div class="form-label-row">
         <label for="summaryDescription">Descrição do Resumo*</label>
-        <span class="form-error" *ngIf="newsForm.get('summaryDescription')?.invalid && (newsForm.get('summaryDescription')?.dirty || newsForm.get('summaryDescription')?.touched)">
+        <span class="form-error"
+          *ngIf="newsForm.get('summaryDescription')?.invalid && (newsForm.get('summaryDescription')?.dirty || newsForm.get('summaryDescription')?.touched)">
           <ng-container *ngIf="newsForm.get('summaryDescription')?.hasError('required')">Obrigatório</ng-container>
-          <ng-container *ngIf="newsForm.get('summaryDescription')?.hasError('minlength')">Mín. 10 caracteres</ng-container>
+          <ng-container *ngIf="newsForm.get('summaryDescription')?.hasError('minlength')">Mín. 10
+            caracteres</ng-container>
         </span>
       </div>
       <mat-form-field appearance="outline" class="full-width rounded-input">
-        <textarea matInput id="summaryDescription" formControlName="summaryDescription" rows="3" required autocomplete="off"></textarea>
+        <textarea matInput id="summaryDescription" formControlName="summaryDescription" rows="3" required
+          autocomplete="off"></textarea>
+      </mat-form-field>
+
+      <!-- NOVO CAMPO: REDATOR -->
+      <div class="form-label-row">
+        <label for="writer">Redator do Conteúdo*</label>
+        <span class="form-error"
+          *ngIf="newsForm.get('writer')?.invalid && (newsForm.get('writer')?.dirty || newsForm.get('writer')?.touched)">
+          <ng-container *ngIf="newsForm.get('writer')?.hasError('required')">Obrigatório</ng-container>
+        </span>
+      </div>
+      <mat-form-field appearance="outline" class="full-width rounded-input">
+        <input matInput id="writer" formControlName="writer" required autocomplete="off"
+          placeholder="Nome do criador do conteúdo">
       </mat-form-field>
 
       <div class="form-label-row">
         <label for="category">Categoria*</label>
-        <span class="form-error" *ngIf="newsForm.get('category')?.invalid && (newsForm.get('category')?.dirty || newsForm.get('category')?.touched)">
+        <span class="form-error"
+          *ngIf="newsForm.get('category')?.invalid && (newsForm.get('category')?.dirty || newsForm.get('category')?.touched)">
           <ng-container *ngIf="newsForm.get('category')?.hasError('required')">Obrigatório</ng-container>
         </span>
       </div>
@@ -45,16 +63,18 @@
       </mat-form-field>
 
       <div class="image-upload-section">
-        <label>Imagem Principal <span style="font-size: 12px; color: #666; font-weight: normal;">(Máx: 1MB)</span></label>
+        <label>Imagem Principal <span style="font-size: 12px; color: #666; font-weight: normal;">(Máx:
+            1MB)</span></label>
         <div class="image-upload">
-          <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onMainImageChange($event)" #mainImageInput style="display: none">
+          <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onMainImageChange($event)"
+            #mainImageInput style="display: none">
           <button type="button" mat-stroked-button (click)="mainImageInput.click()">
             <mat-icon>upload</mat-icon>
             Escolher Imagem
           </button>
           <span *ngIf="mainImageFileName" class="file-name">{{mainImageFileName}}</span>
         </div>
-        
+
         <div *ngIf="mainImageError" class="form-error" style="color: #f44336; margin-top: 8px; font-size: 13px;">
           <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">error</mat-icon>
           {{ mainImageError }}
@@ -68,7 +88,7 @@
         Adicione o conteúdo completo da notícia que será exibido na página detalhada.
         Você pode organizar os elementos na ordem desejada usando arrastar e soltar.
       </p>
-      
+
       <div class="additional-content-controls">
         <button type="button" class="content-type-button" (click)="addContent('title')">
           <mat-icon>title</mat-icon>
@@ -85,11 +105,8 @@
       </div>
 
       <div class="content-list" cdkDropList (cdkDropListDropped)="onContentDrop($event)">
-        <div *ngFor="let item of fullContent; let i = index" 
-             class="content-item" 
-             cdkDrag
-             [cdkDragData]="item">
-          
+        <div *ngFor="let item of fullContent; let i = index" class="content-item" cdkDrag [cdkDragData]="item">
+
           <div class="content-item-header">
             <span class="content-item-title">
               <mat-icon *ngIf="item.type === 'title'">title</mat-icon>
@@ -129,7 +146,8 @@
 
               <div *ngSwitchCase="'image'" class="image-upload">
                 <label>Imagem <span style="font-size: 12px; color: #666; font-weight: normal;">(Máx: 1MB)</span></label>
-                <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onImageUpload(item, $event)" #imageInput style="display: none">
+                <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onImageUpload(item, $event)"
+                  #imageInput style="display: none">
                 <button type="button" mat-stroked-button (click)="imageInput.click()">
                   <mat-icon>upload</mat-icon>
                   Escolher Imagem
@@ -137,10 +155,31 @@
                 <span *ngIf="item.fileName" class="file-name">
                   {{item.fileName}}
                 </span>
-                
+
                 <div *ngIf="item.error" class="form-error" style="color: #f44336; margin-top: 8px; font-size: 13px;">
                   <mat-icon style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle;">error</mat-icon>
                   {{ item.error }}
+                </div>
+                <!-- NOVOS CAMPOS PARA FONTE DA IMAGEM (Aparecem se a imagem já foi selecionada/existe conteúdo) -->
+                <div class="image-source-container"
+                  style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+                  <div>
+                    <label style="font-size: 14px; font-weight: 500;">Fonte da Imagem (Texto)</label>
+                    <mat-form-field appearance="outline" class="full-width rounded-input" style="margin-top: 4px;">
+                      <input matInput [value]="item.imageSource || ''"
+                        (input)="item.imageSource = $any($event.target).value"
+                        placeholder="Ex: Arquivo do Museu / Nome do Fotógrafo">
+                    </mat-form-field>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 14px; font-weight: 500;">Link da Fonte (URL)</label>
+                    <mat-form-field appearance="outline" class="full-width rounded-input" style="margin-top: 4px;">
+                      <input matInput [value]="item.imageSourceLink || ''"
+                        (input)="item.imageSourceLink = $any($event.target).value"
+                        placeholder="Ex: https://linkdafonte.com">
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
             </ng-container>
