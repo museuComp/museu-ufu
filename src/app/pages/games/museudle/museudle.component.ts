@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-museudle',
@@ -11,6 +12,7 @@ import { RouterModule } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class MuseudleComponent implements OnInit, AfterViewInit, OnDestroy {
+  readonly nav = inject(NavigationService);
   private scriptElements: HTMLScriptElement[] = [];
   private scriptsLoaded = false;
 

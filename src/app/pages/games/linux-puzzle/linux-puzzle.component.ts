@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface Puzzle {
   question: string;
@@ -18,6 +19,7 @@ interface Puzzle {
   styleUrl: './linux-puzzle.component.css',
 })
 export class LinuxPuzzleComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   puzzles: Puzzle[] = [
     {
       question: 'Descubra onde está Tux.',

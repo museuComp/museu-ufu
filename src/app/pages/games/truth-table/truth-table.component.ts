@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface TableRow {
   inputs: number[];
@@ -25,7 +26,7 @@ interface Level {
   styleUrls: ['./truth-table.component.scss']
 })
 export class TruthTableComponent implements OnInit {
-
+  readonly nav = inject(NavigationService);
   // Estados do jogo
   gameStarted: boolean = false;
   levelCompleted: boolean = false;

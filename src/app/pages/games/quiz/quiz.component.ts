@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface Question {
   question: string;
@@ -16,6 +17,7 @@ interface Question {
   styleUrls: ['./quiz.component.css'],
 })
 export class QuizComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   questions: Question[] = [
     {
       question: '1. Quem é considerado o "pai da computação"?',

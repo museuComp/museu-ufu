@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { GameService, Position, Word } from '../service/game.service';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-word-search',
@@ -14,6 +15,7 @@ import { GameService, Position, Word } from '../service/game.service';
 })
 
 export class WordSearchComponent implements OnInit, OnDestroy {
+   readonly nav = inject(NavigationService);
   grid: string[][] = [];
   words: Word[] = [];
   elapsedTime: number = 0;
@@ -32,6 +34,8 @@ export class WordSearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.grid = this.gameService.getGrid();
     this.words = this.gameService.getWords();
+    this.focusedRow = 0;
+    this.focusedCol = 0;
 
     this.subscriptions.push(
       this.gameService.getElapsedTime().subscribe(time => {
@@ -54,6 +58,7 @@ export class WordSearchComponent implements OnInit, OnDestroy {
         }
       })
     );
+
   }
 
   ngOnDestroy(): void {

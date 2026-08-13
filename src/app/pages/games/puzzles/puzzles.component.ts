@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface Card {
   id: number;
@@ -18,6 +19,7 @@ interface Card {
   styleUrls: ['./puzzles.component.css']
 })
 export class PuzzlesComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   timeElapsed: string = '00:00';
   private timerInterval: any;
   private startTime: Date = new Date();

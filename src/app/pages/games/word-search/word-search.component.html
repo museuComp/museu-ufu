@@ -1,7 +1,7 @@
 <main class="arcade-scope">
   <div class="arcade-game-shell">
     <!-- Voltar para o catálogo de jogos -->
-    <a class="nes-btn arcade-back-link" routerLink="/games">
+    <a class="nes-btn arcade-back-link" [routerLink]="nav.route('games')">
       ◀ Voltar aos jogos
     </a>
 
@@ -56,7 +56,7 @@
                   role="gridcell"
                   *ngFor="let cell of row; let j = index"
                   [id]="'cell-' + i + '-' + j"
-                  [tabindex]="(focusedRow === i && focusedCol === j) ? 0 : -1"
+                  [tabindex]="(focusedRow === i && focusedCol === j) || (i === 0 && j === 0 && focusedRow === 0 && focusedCol === 0) ? 0 : -1"
                   [class.selected]="isCellSelected(i, j)"
                   [class.found]="isCellInFoundWord(i, j)"
                   [attr.aria-label]="getCellLabel(cell, i, j)"
