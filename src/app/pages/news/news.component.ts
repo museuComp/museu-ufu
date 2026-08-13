@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
 import { Observable } from 'rxjs';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-news',
@@ -19,6 +20,7 @@ import { Observable } from 'rxjs';
   ]
 })
 export class NewsComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   newsList$: Observable<NewsPost[]>;
   private firestoreNewsService = inject(FirestoreNewsService);
 

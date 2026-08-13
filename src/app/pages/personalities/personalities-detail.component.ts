@@ -8,6 +8,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
 import { MarkdownModule } from 'ngx-markdown';
 import { ShareButtonsComponent } from '@shared/components/share-buttons/share-buttons.component';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-personalities-detail',
