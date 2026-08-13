@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { NavigationService } from '@app/services/navigation.service';
 
 // Estrutura de dados idêntica à do componente 'quiz'
 interface Question {
@@ -11,11 +13,12 @@ interface Question {
 @Component({
   selector: 'app-history-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './history-quiz.component.html',
   styleUrls: ['./history-quiz.component.scss'], // Mantive a extensão .scss, mas o conteúdo será o mesmo do .css
 })
 export class HistoryQuizComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   // Perguntas do 'history-quiz' adaptadas para a nova estrutura
   questions: Question[] = [
     {

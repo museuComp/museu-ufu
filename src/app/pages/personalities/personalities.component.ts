@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FirestorePersonalitiesService, PersonalityPost } from '../../../core/services/firestore-personalities.service';
 import { Observable } from 'rxjs';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-personalities',
@@ -20,6 +21,7 @@ import { Observable } from 'rxjs';
 })
 export class PersonalitiesComponent implements OnInit {
   personalitiesList$: Observable<PersonalityPost[]>;
+  readonly nav = inject(NavigationService);
   
   // Injetando o novo serviço
   private firestorePersonalitiesService = inject(FirestorePersonalitiesService);

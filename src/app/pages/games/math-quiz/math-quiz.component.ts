@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { NavigationService } from '@app/services/navigation.service';
 
 // Estrutura de dados idêntica à do Quiz modelo
 interface Question {
@@ -11,11 +13,12 @@ interface Question {
 @Component({
   selector: 'app-math-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './math-quiz.component.html',
   styleUrls: ['./math-quiz.component.scss'],
 })
 export class MathQuizComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   // Perguntas de matemática
   questions: Question[] = [
     {

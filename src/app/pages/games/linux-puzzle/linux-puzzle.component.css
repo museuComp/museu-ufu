@@ -1,7 +1,9 @@
+/* Ajustes gerais do componente */
 * {
   box-sizing: border-box;
 }
 
+/* Container usado pela área original do jogo após iniciar */
 .puzzle-container {
   max-width: 800px;
   margin: 0 auto;
@@ -10,52 +12,75 @@
   z-index: 10;
 }
 
-.puzzle-header {
+/* Tela inicial do Puzzle usando o tema arcade compartilhado */
+.linux-puzzle-start {
+  padding-top: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Painel inicial antes do desafio começar */
+.linux-start-board {
   text-align: center;
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.puzzle-header h1 {
-  color: darkblue;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+/* Texto explicativo da tela inicial */
+.linux-start-description {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #ffffff;
+  line-height: 1.7;
 }
 
-.start-screen {
+.linux-start-description strong {
+  color: var(--arcade-action);
+}
+
+/* Área com atalho e botão de iniciar */
+.linux-start-actions {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
-  margin-top: 7rem;
-  font-size: 1.2rem;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 2rem;
 }
 
-.shortcut {
-  padding: 1rem 1rem;
-  margin-right: 2rem;
-  background-color: white;
-  color: black;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Caixa que mostra o atalho Alt + t */
+.linux-start-shortcut {
+  padding: 1rem 1.2rem;
+  border: 3px solid var(--arcade-highlight);
+  background: rgba(22, 7, 47, 0.95);
+  color: #ffffff;
+  box-shadow:
+    0 0 0 3px var(--arcade-bg),
+    0 0 16px rgba(164, 243, 255, 0.35);
 }
 
-.start-button,
-.restart-button {
-  padding: 1rem 1rem;
-  margin-left: 2rem;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+/* Destaque das teclas do atalho */
+.linux-start-shortcut strong {
+  color: var(--arcade-action);
 }
 
-.start-button:hover,
-.restart-button:hover {
-  background-color: #2980b9;
+/* Texto "ou" entre o atalho e o botão */
+.linux-start-separator {
+  color: #ffffff;
+}
+
+/* Botão de iniciar usando NES.css */
+.start-button {
+  text-decoration: none;
+}
+
+/* Responsividade da tela inicial */
+@media (max-width: 600px) {
+  .linux-start-actions {
+    flex-direction: column;
+  }
+
+  .linux-start-shortcut,
+  .start-button {
+    width: 100%;
+  }
 }
 
 /* --- ÁREA DO JOGO --- */

@@ -1,169 +1,187 @@
-.quiz-container {
-  max-width: 800px;
-  margin: 2rem auto; /* Adicionado margem vertical */
-  padding: 2rem;
-  background-color: var(--card-background, #fff);
-  color: var(--text-color, #333);
-  border: 1px solid var(--border-color, #e0e0e0);
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Ajustes específicos do Quiz de Matemática usando o tema arcade compartilhado */
+.math-quiz-arcade-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.quiz-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.quiz-header h1 {
-  color: #021c69;
-  margin-bottom: 1rem;
-}
-
-/* Adaptação para temas */
-body.dark-theme .quiz-header h1,
-body.high-contrast .quiz-header h1 {
-  color: var(--primary-color);
-}
-
-.progress {
-  width: 100%;
-  height: 10px;
-  background-color: #f0f4ff;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #021c69;
-  transition: width 0.3s ease;
-}
-
-body.dark-theme .progress-bar,
-body.high-contrast .progress-bar {
-  background-color: var(--primary-color);
-}
-
-.score {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.question {
-  margin-bottom: 2rem;
-}
-
-.question h2 {
-  font-size: 1.5rem;
+/* Espaçamento da área de status */
+.math-quiz-status {
   margin-bottom: 1.5rem;
 }
 
+/* Barra de progresso do quiz */
+.progress {
+  width: 100%;
+  height: 16px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+
+  border: 3px solid var(--arcade-highlight);
+  background: rgba(12, 4, 28, 0.95);
+}
+
+/* Preenchimento da barra de progresso */
+.progress-bar {
+  height: 100%;
+  background: var(--arcade-action);
+  box-shadow: 0 0 14px rgba(190, 255, 118, 0.75);
+  transition: width 0.3s ease;
+}
+
+/* Caixa da pergunta */
+.question {
+  padding: 1.2rem;
+  border: 3px solid var(--arcade-highlight);
+  background: rgba(22, 7, 47, 0.9);
+}
+
+/* Texto da pergunta */
+.question h2 {
+  margin: 0;
+  color: var(--arcade-highlight);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-shadow: 3px 3px 0 var(--arcade-primary);
+}
+
+/* Lista de alternativas */
 .options {
   display: grid;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
 }
 
-.options button {
-  padding: 1rem;
-  border: 2px solid #021c69;
-  border-radius: 8px;
-  background-color: transparent;
-  color: var(--text-color);
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left; /* Garante alinhamento consistente */
+/* Botões das alternativas */
+.math-quiz-option {
+  width: 100%;
+  padding: 1rem !important;
+
+  border-color: var(--arcade-highlight) !important;
+  background: rgba(22, 7, 47, 0.95) !important;
+  color: #ffffff !important;
+
+  text-align: left;
+  white-space: normal;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-body.dark-theme .options button,
-body.high-contrast .options button {
-  border-color: var(--primary-color);
+/* Efeito ao passar o mouse em uma alternativa */
+.math-quiz-option:hover:not(:disabled) {
+  transform: translateY(-4px);
+  border-color: var(--arcade-action) !important;
+  box-shadow: 0 0 18px rgba(190, 255, 118, 0.45);
 }
 
-.options button:hover:not([disabled]) {
-  background-color: #f0f4ff;
+/* Alternativa selecionada */
+.math-quiz-option.selected {
+  border-color: var(--arcade-highlight) !important;
+  color: var(--arcade-highlight) !important;
 }
 
-body.dark-theme .options button:hover:not([disabled]) {
-  background-color: rgba(255, 255, 255, 0.1);
+/* Alternativa correta */
+.math-quiz-option.correct {
+  border-color: var(--arcade-action) !important;
+  color: var(--arcade-action) !important;
+  box-shadow: 0 0 18px rgba(190, 255, 118, 0.55);
 }
 
-.options button.selected {
-  background-color: #021c69;
-  color: white;
+/* Alternativa incorreta */
+.math-quiz-option.incorrect {
+  border-color: var(--arcade-primary) !important;
+  color: var(--arcade-primary) !important;
+  box-shadow: 0 0 18px rgba(217, 83, 167, 0.55);
 }
 
-.options button.correct {
-  background-color: #4caf50 !important;
-  color: white !important;
-  border-color: #4caf50 !important;
+/* Alternativas bloqueadas depois da resposta */
+.math-quiz-option:disabled {
+  opacity: 0.75;
+  transform: none;
 }
 
-.options button.incorrect {
-  background-color: #f44336 !important;
-  color: white !important;
-  border-color: #f44336 !important;
-}
-
-.options button[disabled] {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
+/* Feedback e resultado */
 .feedback {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+  background: transparent !important;
+}
+
+/* Corrige a caixa de feedback do resultado da resposta */
+.feedback.arcade-game-message {
+  padding: 1rem;
+  border: 3px solid var(--arcade-highlight) !important;
+  background: rgba(22, 7, 47, 0.95) !important;
+  color: #ffffff !important;
+  text-align: center;
+  box-shadow: inset 0 0 14px rgba(164, 243, 255, 0.25);
+}
+
+/* Feedback de resposta correta */
+.feedback.arcade-game-message--success {
+  border-color: var(--arcade-action) !important;
+  background: rgba(28, 54, 20, 0.95) !important;
+  color: var(--arcade-action) !important;
+  box-shadow:
+    inset 0 0 14px rgba(190, 255, 118, 0.25),
+    0 0 16px rgba(190, 255, 118, 0.35);
+}
+
+/* Feedback de resposta incorreta */
+.feedback.arcade-game-message--error {
+  border-color: var(--arcade-primary) !important;
+  background: rgba(54, 12, 45, 0.95) !important;
+  color: var(--arcade-primary) !important;
+  box-shadow:
+    inset 0 0 14px rgba(217, 83, 167, 0.25),
+    0 0 16px rgba(217, 83, 167, 0.35);
+}
+
+.feedback.arcade-game-message p {
+  margin: 0;
+  color: inherit !important;
   font-weight: bold;
 }
 
-.feedback p.correct {
-  color: #4caf50;
-}
-
-.feedback p.incorrect {
-  color: #f44336;
-}
-
+/* Tela de conclusão do quiz */
 .quiz-completed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
   text-align: center;
 }
 
+/* Título da tela final */
 .quiz-completed h2 {
-  color: #021c69;
-  margin-bottom: 1rem;
+  margin: 0;
+  color: var(--arcade-highlight);
+  text-shadow: 3px 3px 0 var(--arcade-primary);
 }
 
-body.dark-theme .quiz-completed h2,
-body.high-contrast .quiz-completed h2 {
-  color: var(--primary-color);
-}
-
+/* Caixa da mensagem final */
 .result-message {
-  margin: 2rem 0;
-  font-size: 1.2rem;
+  width: 100%;
 }
 
+/* Botão de jogar novamente */
 .restart-button {
-  padding: 1rem 2rem;
-  background-color: #021c69;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  align-self: center;
 }
 
-body.dark-theme .restart-button,
-body.high-contrast .restart-button {
-  background-color: var(--primary-color);
-  color: var(--background-color, #000); /* Garante contraste no botão */
-  font-weight: bold;
-}
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+  .question h2 {
+    font-size: 1.15rem;
+  }
 
-.restart-button:hover {
-  opacity: 0.9;
+  .math-quiz-option {
+    text-align: center;
+  }
+
+  .restart-button {
+    width: 100%;
+  }
 }
