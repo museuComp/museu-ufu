@@ -1,21 +1,58 @@
+<!-- Tela inicial com o tema arcade compartilhado -->
+<main class="arcade-scope linux-puzzle-start" *ngIf="!gameStarted">
+  <div class="arcade-game-shell">
+    <!-- Voltar para o catálogo de jogos -->
+    <a class="nes-btn arcade-back-link" [routerLink]="nav.route('games')">
+      ◀ Voltar aos jogos
+    </a>
+
+    <!-- Cabeçalho padrão dos jogos arcade -->
+    <section class="arcade-game-header nes-container is-dark with-title">
+      <p class="title">Linux</p>
+
+      <h1 class="arcade-game-title">
+        Puzzle de Linux
+      </h1>
+
+      <p class="arcade-game-subtitle">
+        Resolva desafios usando comandos Linux para ajudar Tux a encontrar seu amigo GNU GPL.
+      </p>
+    </section>
+
+    <!-- Painel inicial do Puzzle -->
+    <section class="arcade-game-panel nes-container is-dark with-title">
+      <p class="title">Início</p>
+
+      <div class="arcade-game-board linux-start-board">
+        <p class="linux-start-description">
+          Ajude Tux a chegar até o GNU GPL e conquistar as 4 liberdades essenciais:
+          <strong>rodar, estudar, modificar e redistribuir</strong>.
+        </p>
+
+        <div class="linux-start-actions">
+          <div class="linux-start-shortcut">
+            Pressione <strong>Alt</strong> + <strong>'t'</strong>
+          </div>
+
+          <span class="linux-start-separator">ou</span>
+
+          <button
+            class="nes-btn is-success start-button"
+            type="button"
+            (click)="startGame()"
+          >
+            Começar Puzzle
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- A partir daqui, a área do jogo continua com o visual original -->
 <div class="overlay" *ngIf="gameStarted"></div>
 
-<div class="puzzle-container">
-  <div *ngIf="!gameStarted" class="puzzle-header">
-    <h1>Puzzle de Linux</h1>
-    <p>
-      Resolva os desafios a seguir para ajudar Tux, mascote do sistema
-      operacional Linux, a chegar no seu amigo GNU GPL e a adquirir as 4
-      liberdades essenciais:
-      <b>rodar, estudar, modificar e redistribuir</b>
-    </p>
-    <div class="start-screen">
-      <div class="shortcut">Press <b> Alt </b> + <b> 't' </b></div>
-      ou
-      <button class="start-button" (click)="startGame()">Começar Puzzle</button>
-    </div>
-  </div>
-
+<div class="puzzle-container" *ngIf="gameStarted">
   <div *ngIf="gameStarted && !gameFinished" class="game-area">
     <div class="progress-container">
       <img
@@ -29,6 +66,7 @@
         <div class="progress-fill" [style.width.%]="progressPercentage()"></div>
       </div>
     </div>
+
     <div class="question">
       <h2>{{ puzzles[currentPuzzle].question }}</h2>
 
@@ -43,7 +81,11 @@
           </button>
         </ul>
       </div>
-      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
       <div class="description-message" *ngIf="descriptionMessage">
         {{ descriptionMessage }}
       </div>
@@ -61,6 +103,7 @@
       />
     </div>
   </div>
+
   <div *ngIf="gameFinished" class="final-window">
     <h2>$ Parabéns! Você completou o Puzzle de Linux! 🎉</h2>
     <img [src]="tuxImage" />

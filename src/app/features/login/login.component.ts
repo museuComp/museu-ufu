@@ -6,6 +6,7 @@ import { AlertService } from '@shared/components/alert/alert.service';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/auth/services/auth.service';
 import { FeedbackDirective } from '@shared/directives/feedback';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
     selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent {
     router = inject(Router);
     private _alertService = inject(AlertService);
     private _authService = inject(AuthService);
+    private _navService = inject(NavigationService);
 
     formLogin = new FormGroup({
         username: new FormControl('', [Validators.required]),
@@ -36,7 +38,7 @@ export class LoginComponent {
             next: response => {
                 if (response) {
                     this._alertService.clearAlerts();
-                    this.router.navigate(['/dashboard']); 
+                    this.router.navigate([this._navService.route('dashboard')]); 
                 } else {
                     this._alertService.showAlert('danger', 'Usuário ou senha inválidos.', undefined, false);
                 }

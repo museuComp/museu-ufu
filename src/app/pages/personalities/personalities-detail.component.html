@@ -26,6 +26,9 @@
 
     <mat-card-content class="personality-detail-content">
       <p class="personality-detail-description">{{ personalityItem.summary.description }}</p>
+
+      <app-share-buttons [title]="personalityItem.summary.title"></app-share-buttons>
+
       <hr class="personality-separator">
       <div class="personality-full-content" *ngIf="personalityItem.fullContent && personalityItem.fullContent.length">
         <div *ngFor="let item of personalityItem.fullContent" [ngSwitch]="item.type" class="content-item">

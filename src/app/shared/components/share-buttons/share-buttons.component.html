@@ -1,0 +1,14 @@
+<div class="share-buttons" role="group" aria-label="Compartilhar este conteúdo">
+	<span class="share-label">Compartilhar:</span>
+
+	<button
+		type="button"
+		*ngFor="let link of shareLinks"
+		[class]="'share-button share-button--' + link.name"
+		[attr.aria-label]="link.label"
+		[title]="link.label"
+		(click)="share(link, $event)"
+	>
+		<i [class]="link.icon" aria-hidden="true"></i>
+	</button>
+</div>

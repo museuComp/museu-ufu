@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore-news.service';
-import { Observable, switchMap } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MarkdownModule } from 'ngx-markdown';
 import { ReadingTimePipe } from '../../shared/pipes/reading-time/reading-time.pipe';
+import {FirestoreNewsService, NewsPost} from '../../../core/services/firestore-news.service';
+import { map, Observable, switchMap } from 'rxjs';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconButton} from '@angular/material/button';
+import { MarkdownModule } from 'ngx-markdown';
+import { ShareButtonsComponent } from '@shared/components/share-buttons/share-buttons.component';
 
 @Component({
   selector: 'app-news-detail',
@@ -17,7 +19,8 @@ import { ReadingTimePipe } from '../../shared/pipes/reading-time/reading-time.pi
     MatCardModule,
     MatIconModule,
     MarkdownModule,
-    ReadingTimePipe
+    ReadingTimePipe,
+    ShareButtonsComponent
   ],
   templateUrl: './news-detail.component.html',
   styleUrl: './news-detail.component.scss'

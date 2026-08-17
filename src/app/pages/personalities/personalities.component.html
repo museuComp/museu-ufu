@@ -1,7 +1,7 @@
 <div class="personalities-list" *ngIf="personalitiesList$ | async as personalities; else loadingOrEmpty">
   <mat-card *ngFor="let personality of personalities" class="personality-card">
     
-    <a [routerLink]="['/personalities/detail', personality.id]" class="personality-card-image-link">
+    <a [routerLink]="nav.route('personalities/detail/' + personality.id)" class="personality-card-image-link">
       <div class="personality-card-image-container">
         <img [src]="personality.summary.mainImage" [alt]="personality.summary.title" class="personality-main-image-card">
       </div>
@@ -10,7 +10,7 @@
     <div class="personality-card-content-area">
       <span class="personality-category">{{ personality.summary.category }}</span>
       
-      <a class="personality-title-link" [routerLink]="['/personalities/detail', personality.id]">
+      <a class="personality-title-link" [routerLink]="nav.route('personalities/detail/' + personality.id)">
         <h3 class="personality-title-text">{{ personality.summary.title }}</h3>
       </a>
 
@@ -20,7 +20,7 @@
 
     </div>
     <div class="personality-card-action-container">
-        <a [routerLink]="['/personalities/detail', personality.id]" class="btn-card-action">Ler Mais</a>
+        <a [routerLink]="nav.route('personalities/detail/' + personality.id)" class="btn-card-action">Ler Mais</a>
       </div>
   </mat-card>
 </div>
@@ -28,6 +28,6 @@
 <ng-template #loadingOrEmpty>
   <div class="loading-or-empty-container">
     <div *ngIf="!(personalitiesList$ | async); else noPersonalities">Carregando...</div>
-    <ng-template #noPersonalities>Nenhum artigo encontrado!.</ng-template>
+    <ng-template #noPersonalities>Nenhuma personalidade encontrada!.</ng-template>
   </div>
 </ng-template>

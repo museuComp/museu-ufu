@@ -1,7 +1,7 @@
 <div class="news-list" *ngIf="newsList$ | async as newsItems; else loadingOrEmpty">
   <mat-card *ngFor="let news of newsItems" class="news-card">
     
-    <a [routerLink]="['/news/detail', news.id]" class="news-card-image-link">
+    <a [routerLink]="nav.route('news/detail/' + news.id)" class="news-card-image-link">
       <div class="news-card-image-container">
         <img [src]="news.summary.mainImage" [alt]="news.summary.title" class="news-main-image-card">
       </div>
@@ -10,7 +10,7 @@
     <div class="news-card-content-area">
       <span class="news-category">{{ news.summary.category }}</span>
       
-      <a class="news-title-link" [routerLink]="['/news/detail', news.id]">
+      <a class="news-title-link" [routerLink]="nav.route('news/detail/' + news.id)">
         <h3 class="news-title-text">{{ news.summary.title }}</h3>
       </a>
 
@@ -20,7 +20,7 @@
 
     </div>
     <div class="news-card-action-container">
-        <a [routerLink]="['/news/detail', news.id]" class="btn-card-action">Ler Notícia</a>
+        <a [routerLink]="nav.route('news/detail/' + news.id)" class="btn-card-action">Ler Notícia</a>
       </div>
   </mat-card>
 </div>

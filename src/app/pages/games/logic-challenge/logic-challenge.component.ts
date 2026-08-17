@@ -1,6 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface TimelineEvent {
   id: number;
@@ -14,11 +16,12 @@ interface TimelineEvent {
 @Component({
   selector: 'app-logic-challenge',
   standalone: true,
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, RouterModule,DragDropModule],
   templateUrl: './logic-challenge.component.html',
   styleUrl: './logic-challenge.component.css'
 })
 export class LogicChallengeComponent implements OnInit {
+  readonly nav = inject(NavigationService);
   events: TimelineEvent[] = [
     {
       id: 1,

@@ -1,8 +1,10 @@
 import {
   ApplicationConfig,
   DEFAULT_CURRENCY_CODE,
+  inject,
   isDevMode,
   LOCALE_ID,
+  provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter, TitleStrategy } from '@angular/router';
@@ -25,6 +27,9 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getApps } from 'firebase/app';
 import { env } from '../../enviroment';
+import { TranslocoHttpLoader } from './transloco-loader';
+import { provideTransloco, provideTranslocoLoader, TranslocoService } from '@jsverse/transloco';
+
 import { provideMarkdown } from 'ngx-markdown';
 
 registerLocaleData(localePt);
@@ -47,6 +52,8 @@ export const appConfig: ApplicationConfig = {
     }),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    { provide: 'FIRESTORE_STANDARD',
+      useFactory: () => getFirestore()},
     {
       provide: DEFAULT_DIALOG_CONFIG,
       useValue: { panelClass: 'dialog', hasBackdrop: true, autoFocus: false },
@@ -59,10 +66,19 @@ export const appConfig: ApplicationConfig = {
     },
     provideCharts(withDefaultRegisterables()),
 
-    provideFirebaseApp(() => initializeApp({ projectId: "museu-ufu-news", appId: "1:560844053254:web:f6d19f08a3892c9c821c87", storageBucket: "museu-ufu-news.firebasestorage.app", apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", authDomain: "museu-ufu-news.firebaseapp.com", messagingSenderId: "560844053254", measurementId: "G-B06W8DT2CT" })),
+    provideFirebaseApp(() => initializeApp({ 
+      projectId: "museu-ufu-news", 
+      appId: "1:560844053254:web:f6d19f08a3892c9c821c87", 
+      storageBucket: "museu-ufu-news.firebasestorage.app", 
+      apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", 
+      authDomain: "museu-ufu-news.firebaseapp.com", 
+      messagingSenderId: "560844053254", 
+      measurementId: "G-B06W8DT2CT" 
+    })),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
 
+    // 2. BANCO DE VÍDEOS - Apontando para o museu-comp-ufu
     {
       provide: "FIRESTORE_STANDARD",
       useFactory: () => {
@@ -78,5 +94,40 @@ export const appConfig: ApplicationConfig = {
         return getFirestore(app);
       }
     },
+    provideHttpClient(),
+
+    provideTransloco({
+        config: { 
+          availableLangs: ['pt-br', 'en', 'es'],
+          defaultLang: 'pt-br',
+          // Remove this option if your application doesn't support changing language in runtime.
+          reRenderOnLangChange: true,
+          prodMode: !isDevMode(),
+        },
+        loader: TranslocoHttpLoader
+      }),
+
+    provideAppInitializer(() => {
+        const transloco = inject(TranslocoService);
+        transloco.load(transloco.getActiveLang());
+    }),
+    
+    // 3. BANCO STANDARD (Para Notícias e Personalidades) - Apontando para o museu-comp-ufu
+    {
+      provide: "FIRESTORE_STANDARD",
+      useFactory: () => {
+        const app = getApps().find(app => app.name === 'standardApp') ||
+          initializeApp({
+            apiKey: env.API_KEY_FIRESTORE_VIDEOS, 
+            authDomain: "museu-comp-ufu.firebaseapp.com",
+            projectId: "museu-comp-ufu",
+            storageBucket: "museu-comp-ufu.firebasestorage.app",
+            messagingSenderId: "306806823828",
+            appId: "1:306806823828:web:44e2b2ee486a1441554d81"
+          }, 'standardApp');
+        return getFirestore(app);
+      }
+    },
+
   ],
 };

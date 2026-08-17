@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
 
 // Interface usada para padronizar os dados de cada jogo exibido na página.
 type GameCard = {
@@ -20,7 +21,7 @@ type GameCard = {
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.css'],
 })
-export class GamesComponent {
+export class GamesComponent implements OnInit, OnDestroy {
   // Lista centralizada dos jogos exibidos na página
   games: GameCard[] = [
     {
@@ -114,6 +115,34 @@ export class GamesComponent {
       category: 'Linux',
     },
   ];
+
+  // Índice do jogo exibido no carrossel de destaque
+featuredGameIndex = 0;
+
+// Retorna o jogo atualmente exibido no destaque
+get featuredGame(): GameCard {
+  return this.games[this.featuredGameIndex];
+}
+
+// Troca o jogo em destaque para o anterior ou próximo
+changeFeaturedGame(direction: 'previous' | 'next'): void {
+  const lastGameIndex = this.games.length - 1;
+
+  if (direction === 'previous') {
+    this.featuredGameIndex =
+      this.featuredGameIndex === 0 ? lastGameIndex : this.featuredGameIndex - 1;
+
+    return;
+  }
+
+  this.featuredGameIndex =
+    this.featuredGameIndex === lastGameIndex ? 0 : this.featuredGameIndex + 1;
+}
+
+// Ajuda o Angular a identificar cada card renderizado
+trackByGameTitle(_: number, game: GameCard): string {
+  return game.title;
+}
 
   // Ativa estilos específicos da página de jogos enquanto o componente estiver aberto
   ngOnInit(): void {

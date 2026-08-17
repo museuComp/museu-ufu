@@ -1,3 +1,4 @@
+/*
 .museudle-game {
     --bg-color: #fafafa;
     --text-color: #333333;
@@ -35,7 +36,7 @@
     margin-bottom: 2rem;
 }
 
-/* Sidebar */
+/* Sidebar 
 .sidebar {
     width: 280px;
     background: var(--card-bg);
@@ -56,7 +57,7 @@
     text-align: center;
     color: var(--gov-blue);
     padding-bottom: 0.8rem;
-    border-bottom: 1px solid #dcdcdc; /* Subtle line under title */
+    border-bottom: 1px solid #dcdcdc; /* Subtle line under title 
 }
 
 #available-items-list {
@@ -106,7 +107,7 @@
     border-bottom: none;
 }
 
-/* Game Container */
+/* Game Container 
 .game-container {
     flex-grow: 1;
     max-width: 750px;
@@ -208,7 +209,7 @@
     color: var(--gov-blue);
 }
 
-/* Grids / Results */
+/* Grids / Results 
 .table-header {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
@@ -286,7 +287,7 @@
 .amarelo .card-back { background-color: var(--amarelo); border: 2px solid #d39e00; color: #333; }
 .cinza .card-back { background-color: var(--cinza); border: 2px solid #545b62; }
 
-/* Responsive tweaks */
+/* Responsive tweaks 
 @media (max-width: 850px) {
     .main-wrapper {
         flex-direction: column;
@@ -329,7 +330,7 @@
     }
 }
 
-/* Modal */
+/* Modal 
 .hidden { display: none !important; opacity: 0; pointer-events: none; }
 
 #game-over-modal {
@@ -389,7 +390,7 @@
 }
 #close-modal-btn:hover { background-color: #5a6268; }
 
-/* Toast Notifications */
+/* Toast Notifications 
 .museudle-toast {
     position: fixed;
     top: 20px;
@@ -446,4 +447,516 @@
     .museudle-toast.show {
         transform: translateY(0);
     }
+}
+*/
+
+/* Ajustes específicos do MuseuDle usando o tema arcade compartilhado */
+.museudle-arcade-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Variáveis usadas pelo script e pelo visual do MuseuDle */
+.museudle-game {
+  --verde: #BEFF76;
+  --amarelo: #f7d51d;
+  --cinza: #6c757d;
+  --white: #ffffff;
+  --text-color: #ffffff;
+  --card-bg: rgba(22, 7, 47, 0.95);
+  --border-color: rgba(164, 243, 255, 0.45);
+  --shadow: rgba(0, 0, 0, 0.35);
+  --shadow-color: rgba(0, 0, 0, 0.35);
+
+  width: 100%;
+  color: var(--text-color);
+}
+
+/* Organiza a lista lateral e a área principal do jogo */
+.museudle-game .main-wrapper {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Painel lateral com os itens disponíveis */
+.museudle-game .sidebar {
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  padding: 1.2rem;
+  border: 3px solid var(--arcade-primary);
+  background: rgba(22, 7, 47, 0.92);
+  box-shadow:
+    0 0 0 3px var(--arcade-bg),
+    0 0 18px rgba(217, 83, 167, 0.35);
+}
+
+/* Título da lista lateral */
+.museudle-game .sidebar-header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+
+  border-bottom: 2px solid var(--arcade-highlight);
+  color: var(--arcade-highlight);
+
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 0 var(--arcade-primary);
+}
+
+/* Lista de itens disponíveis */
+.museudle-game #available-items-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Cada item da lista lateral */
+.museudle-game #available-items-list li {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(164, 243, 255, 0.25);
+  color: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* Destaque ao passar o mouse nos itens */
+.museudle-game #available-items-list li:hover {
+  background: rgba(164, 243, 255, 0.12);
+  color: var(--arcade-highlight);
+}
+
+/* Item já tentado e incorreto */
+.museudle-game #available-items-list li.guessed-wrong {
+  background: rgba(108, 117, 125, 0.45);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Item correto */
+.museudle-game #available-items-list li.guessed-correct {
+  background: rgba(190, 255, 118, 0.22);
+  color: var(--arcade-action);
+  font-weight: bold;
+}
+
+/* Item eliminado */
+.museudle-game #available-items-list li.eliminated {
+  opacity: 0.4;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+/* Área principal dos palpites */
+.museudle-game .game-container {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Área do input e botão */
+.museudle-game .input-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Campo de palpite */
+.museudle-game #guess-input {
+  flex: 1;
+  min-width: 0;
+
+  padding: 0.9rem;
+  border: 3px solid var(--arcade-highlight);
+  background: rgba(12, 4, 28, 0.95);
+  color: #ffffff;
+
+  font-size: 1rem;
+}
+
+/* Foco do input */
+.museudle-game #guess-input:focus {
+  outline: none;
+  border-color: var(--arcade-action);
+  box-shadow: 0 0 18px rgba(190, 255, 118, 0.45);
+}
+
+/* Texto placeholder do input */
+.museudle-game #guess-input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Botões criados/usados pelo MuseuDle */
+.museudle-game .interactive-btn {
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* Legenda de cores */
+.museudle-game .legend-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+/* Cada item da legenda */
+.museudle-game .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Quadrados da legenda */
+.museudle-game .legend-box {
+  width: 22px;
+  height: 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Cor da legenda: correto */
+.museudle-game .legend-box.verde {
+  background: var(--verde);
+  color: var(--arcade-dark);
+}
+
+/* Cor da legenda: parcial */
+.museudle-game .legend-box.amarelo {
+  background: var(--amarelo);
+  color: var(--arcade-dark);
+}
+
+/* Cor da legenda: incorreto */
+.museudle-game .legend-box.cinza {
+  background: var(--cinza);
+}
+
+/* Caixa da dica de ano */
+.museudle-game .legend-box.font-icon {
+  background: rgba(12, 4, 28, 0.95);
+  color: var(--arcade-highlight);
+}
+
+/* Cabeçalho da tabela de palpites */
+.museudle-game .table-header {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 0.75rem;
+
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+
+  border-bottom: 3px solid var(--arcade-highlight);
+  color: var(--arcade-highlight);
+
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  text-shadow: 2px 2px 0 var(--arcade-primary);
+}
+
+/* Área onde os palpites aparecem */
+.museudle-game .guesses-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 120px;
+}
+
+/* Linha de palpite gerada pelo script */
+.museudle-game .guess-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 0.75rem;
+}
+
+/* Container de cada carta de resultado */
+.museudle-game .guess-card-container {
+  height: 64px;
+  perspective: 1000px;
+}
+
+/* Carta que vira ao revelar o resultado */
+.museudle-game .guess-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+/* Faces da carta */
+.museudle-game .card-face {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.4rem;
+  box-sizing: border-box;
+
+  border: 2px solid var(--arcade-highlight);
+  background: rgba(12, 4, 28, 0.95);
+  color: #ffffff;
+
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: bold;
+
+  backface-visibility: hidden;
+}
+
+/* Frente da carta */
+.museudle-game .card-front {
+  color: var(--arcade-highlight);
+}
+
+/* Verso da carta */
+.museudle-game .card-back {
+  transform: rotateX(180deg);
+}
+
+/* Animação de virar a carta */
+.museudle-game .guess-card.flipped {
+  transform: rotateX(180deg);
+}
+
+/* Resultado correto */
+.museudle-game .verde .card-back {
+  border-color: var(--verde);
+  background: rgba(190, 255, 118, 0.25);
+  color: var(--verde);
+}
+
+/* Resultado parcial */
+.museudle-game .amarelo .card-back {
+  border-color: var(--amarelo);
+  background: rgba(247, 213, 29, 0.22);
+  color: var(--amarelo);
+}
+
+/* Resultado incorreto */
+.museudle-game .cinza .card-back {
+  border-color: var(--cinza);
+  background: rgba(108, 117, 125, 0.4);
+  color: #ffffff;
+}
+
+/* Classe usada pelo script para esconder elementos */
+.museudle-game .hidden {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Fundo escuro do modal final */
+.museudle-game #game-over-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.72);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Caixa principal do modal */
+.museudle-game .modal-content {
+  width: min(520px, 100%);
+  text-align: center;
+  border-color: var(--arcade-action) !important;
+  background: rgba(22, 7, 47, 0.96) !important;
+  box-shadow:
+    0 0 0 4px var(--arcade-bg),
+    0 0 28px rgba(190, 255, 118, 0.45);
+
+  animation: museudleZoomIn 0.25s ease;
+}
+
+/* Título principal do modal */
+.museudle-game .modal-content h2,
+.museudle-game #info-nome {
+  margin-top: 0;
+  color: var(--arcade-action);
+  text-shadow: 3px 3px 0 var(--arcade-primary);
+}
+
+/* Textos do modal */
+.museudle-game .modal-content p {
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Contador diário */
+.museudle-game .daily-countdown {
+  margin: 1.5rem 0;
+  padding: 1rem;
+
+  border: 3px solid var(--arcade-highlight);
+  background: rgba(12, 4, 28, 0.95);
+  color: #ffffff;
+}
+
+/* Destaque do contador */
+.museudle-game #countdown {
+  color: var(--arcade-action);
+  font-weight: bold;
+}
+
+/* Botões do modal */
+.museudle-game .museudle-modal-button,
+.museudle-game .museudle-info-link {
+  display: block;
+  width: 100%;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+
+/* Animação de entrada do modal */
+@keyframes museudleZoomIn {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Toasts criados pelo script do MuseuDle */
+.museudle-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+
+  max-width: 350px;
+  padding: 1rem 1.4rem;
+
+  border: 3px solid #A4F3FF;
+  background: rgba(22, 7, 47, 0.96);
+  color: #ffffff;
+
+  font-size: 0.95rem;
+  font-weight: bold;
+  word-wrap: break-word;
+
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 18px rgba(164, 243, 255, 0.35);
+}
+
+/* Toast visível */
+.museudle-toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Toast informativo */
+.museudle-toast-info {
+  border-color: #A4F3FF;
+}
+
+/* Toast de aviso */
+.museudle-toast-warning {
+  border-color: #f7d51d;
+  color: #f7d51d;
+}
+
+/* Toast de sucesso */
+.museudle-toast-success {
+  border-color: #BEFF76;
+  color: #BEFF76;
+}
+
+/* Toast de erro */
+.museudle-toast-error {
+  border-color: #D953A7;
+  color: #D953A7;
+}
+
+/* Ajustes para tablets */
+@media (max-width: 900px) {
+  .museudle-game .main-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .museudle-game .sidebar {
+    order: 2;
+    max-height: none;
+  }
+
+  .museudle-game .game-container {
+    order: 1;
+  }
+}
+
+/* Ajustes para celulares */
+@media (max-width: 600px) {
+  .museudle-game .input-section {
+    flex-direction: column;
+  }
+
+  .museudle-game #guess-input,
+  .museudle-game #submit-btn {
+    width: 100%;
+  }
+
+  .museudle-game .table-header,
+  .museudle-game .guess-row {
+    grid-template-columns: 1fr 1fr 0.8fr 1fr;
+    gap: 0.35rem;
+  }
+
+  .museudle-game .table-header {
+    font-size: 0.62rem;
+  }
+
+  .museudle-game .guess-card-container {
+    height: 78px;
+  }
+
+  .museudle-game .card-face {
+    font-size: 0.68rem;
+    padding: 0.25rem;
+  }
+
+  .museudle-toast {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    transform: translateY(-100px);
+  }
+
+  .museudle-toast.show {
+    transform: translateY(0);
+  }
 }

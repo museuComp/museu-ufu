@@ -1,0 +1,207 @@
+{
+"norms": {
+    "title": "Normas de Visitação",
+    "subtitle": "Planeje sua visita ao Museu da Computação da UFU",
+    "schedule": {
+        "title": "Agendamento e Localização",
+        "location": [
+            "Em fase inicial de implantação, o Museu da Computação encontra-se em sala temporária ",
+            "(1B215, Bloco 1B, Campus Santa Mônica)",
+            ", com o acervo ainda em processo de organização."
+        ], 
+        "advance": [
+            "Por esse motivo, as visitas devem ser agendadas previamente com o ",
+            "mínimo de 5 dias de antecedência"
+        ],
+        "email": "museucomp@facom.ufu.br"
+    },
+    "visits": {
+        "title": "Como funcionam as visitas?",
+        "duration": [
+            "Sessões de 20 minutos:",
+            " Conduzidas por alunos monitores do projeto de extensão do museu."
+        ],
+        "limit": [
+            "Até 15 visitantes por sessão:",
+            " Quantidade ideal para garantir a segurança, a qualidade na experiência e a preservação do acervo."
+        ],
+        "guidance": [
+            "Orientação Guiada:",
+            " Os monitores recebem os visitantes, orientam o fluxo no espaço e fornecem informações sobre o uso e a interação possível com os equipamentos."]
+    },
+    "exhibitions": {
+        "title": "Estrutura das Exposições",
+        "structure": "As exposições são apresentadas em bancadas e superfícies adaptadas, uma vez que o museu ainda não dispõe de mobiliário expositivo definitivo.",
+        "highlight": "Apesar das limitações estruturais, a visita oferece uma oportunidade enriquecedora para conhecer equipamentos históricos, documentos raros e elementos fundamentais da trajetória da computação na UFU e no Brasil."
+    }
+},
+
+"about": {
+    "title": "Sobre o Museu Virtual UFU",
+    "intro": "Bem-vindo ao Museu Virtual da Computação da UFU! Nosso objetivo primordial é tornar a história da computação acessível a todos, possibilitando que pessoas de qualquer parte do mundo conheçam os nossos acervos e entendam a transformação tecnológica que influencia o mundo atual. Este ambiente foi criado para manter viva a história, promover o aprendizado e fortalecer a ligação entre a universidade e a sociedade.",
+    "historyTitle": "Nossa História",
+    "historyText": "Idealizado em 2025, o Museu da Computação começou como uma iniciativa da Faculdade de Computação (FACOM) da UFU, junto ao Centro de Tecnologia da Informação e Comunicação (CTIC) e outros departamentos. Essa ideia brotou do fascínio pela trajetória tecnológica e do desejo de manter vivos os objetos e relatos que ilustram o desenvolvimento dos sistemas de computação na universidade e em Uberlândia. A proposta busca reunir e organizar equipamentos, e também construir um ambiente dinâmico de conhecimento.",
+    "missionTitle": "Nossa Missão",
+    "missionText": "A nossa missão é cuidar e facilitar a exploração da história da informática, focando em particular no conjunto de materiais e nas histórias da UFU e do pessoal de Uberlândia. Almejamos ser um local para estudo, ensino e compartilhamento de conhecimento, incentivando a importância do legado tecnológico, enriquecendo o aprendizado universitário e aproximando a instituição de ensino e a população por meio de vivências dinâmicas, tanto online quanto (em breve) físicas.",
+    "teamTitle": "Equipe Docente & Coordenação",
+    "coordinationRole": "Coordenação",
+    "professorRole": "Docente",
+    "devsTitle": "Desenvolvedores",
+    "devsSubtitle": "Equipe técnica responsável pela implementação e manutenção do Museu Virtual.",
+    "techLeadRole": "Tech Lead",
+    "devRole": "Desenvolvedor"
+},
+
+"tour": {
+    "title": "Visita Virtual",
+    "intro": "Explore o Museu da Computação da UFU em uma experiência imersiva. Navegue pela sala em 360° e conheça alguns itens do acervo histórico.",
+    "timelineTitle": "Linha do Tempo do Armazenamento",
+    "timelineIntro": "Acompanhe a evolução das mídias: do clássico disquete ao ultra-rápido M.2.",
+    "itemsTitle": "Itens em Destaque",
+    "itemsIntro": "Alguns objetos que fazem parte da história da computação.",
+    "enlargedImageAlt": "Imagem ampliada"
+},
+
+"storage": {
+"timeline": [
+    {
+    "title": "Disquete 8\"",
+    "year": "1971",
+    "description": "Os primeiros disquetes comerciais criados pela IBM, estabelecendo a base do armazenamento portátil."
+    },
+    {
+    "title": "Disquete 5.25\" e 3.5\"",
+    "year": "Anos 80 e 90",
+    "description": "Formatos mais compactos e rígidos que se tornaram o padrão absoluto nos primeiros computadores pessoais."
+    },
+    {
+    "title": "CD-ROM",
+    "year": "1982",
+    "description": "O disco óptico revolucionou a capacidade de armazenamento, permitindo a era dos jogos multimídia e softwares pesados."
+    },
+    {
+    "title": "Pendrive (USB)",
+    "year": "2000",
+    "description": "A memória flash portátil que decretou o fim dos disquetes pela sua velocidade, tamanho diminuto e resistência."
+    },
+    {
+    "title": "Disco Rígido (HD SATA)",
+    "year": "Evolução contínua",
+    "description": "Discos magnéticos de alta capacidade que dominaram os PCs por décadas devido ao baixo custo por Gigabyte."
+    },
+    {
+    "title": "SSD SATA",
+    "year": "Anos 2000",
+    "description": "Unidades de estado sólido sem partes mecânicas móveis. Trouxeram um ganho massivo em velocidade de leitura e gravação."
+    },
+    {
+    "title": "SSD NVMe M.2",
+    "year": "Atualidade",
+    "description": "O padrão moderno. Conectado diretamente à placa-mãe, eliminou os cabos e oferece velocidades extremas."
+    }
+]
+},
+
+"museumItems": [
+    {
+    "title": "Gravador Panasonic",
+    "description": "Gravador de voz portátil a minicassete, equipamento clássico usado para entrevistas e anotações de áudio antes dos gravadores digitais."
+    },
+    {
+    "title": "Máquina de escrever",
+    "description": "Máquina de escrever, o equipamento mecânico padrão para a produção de documentos de texto antes da popularização dos computadores."
+    },
+    {
+    "title": "Caixa de disquetes",
+    "description": "Disquetes flexíveis de 5,25 polegadas, uma das mídias físicas mais populares para armazenamento e transferência de dados nos primórdios da computação pessoal."
+    },
+    {
+    "title": "Periféricos antigos",
+    "description": "Conjunto de caixas de som e periféricos, componentes essenciais de multimídia e conectividade dos antigos computadores de mesa."
+    },
+    {
+    "title": "Calculadora Facit",
+    "description": "Calculadora mecânica histórica, utilizada em escritórios para realizar operações matemáticas antes da invenção das calculadoras eletrônicas."
+    },
+    {
+    "title": "Impressora HP",
+    "description": "Modelo antigo de impressora a laser, equipamento que revolucionou a velocidade e a qualidade da impressão de documentos em escritórios."
+    },
+    {
+    "title": "Ossos de Napier",
+    "description": "Instrumento histórico conhecido como \"Ossos de Napier\", criado no século XVII e considerado um dos primeiros dispositivos manuais para facilitar cálculos matemáticos."
+    },
+    {
+    "title": "Placa de vídeo",
+    "description": "Placa de vídeo de gerações passadas, componente de hardware responsável por processar gráficos e jogos nos computadores."
+    },
+    {
+    "title": "DVD Player portátil",
+    "description": "Reprodutor portátil de DVDs, um dispositivo clássico de entretenimento de vídeo pessoal antes do surgimento dos tablets e do streaming."
+    },
+    {
+    "title": "Equipamento de Rede IBM",
+    "description": "Dispositivo clássico de infraestrutura utilizado para conectar redes de computadores nas empresas."
+    },
+    {
+    "title": "Módulos de Comunicação",
+    "description": "Componentes essenciais que formavam a base da comunicação de dados em redes corporativas antigas."
+    },
+    {
+    "title": "Discos Rígidos Antigos",
+    "description": "Peças fundamentais para o armazenamento de dados locais nas gerações passadas de computadores."
+    },
+    {
+    "title": "Console PS One",
+    "description": "Videogame histórico que popularizou os jogos em mídia de CD e marcou o entretenimento digital."
+    },
+    {
+    "title": "Interior de PC Clássico",
+    "description": "Visão interna de um computador de mesa antigo, evidenciando o padrão de hardware de gerações passadas."
+    },
+    {
+    "title": "Console Supergame CCE",
+    "description": "Sistema de videogame retrô que levou os primeiros jogos de cartucho para muitas casas no Brasil."
+    },
+    {
+    "title": "Teclado Clássico IBM",
+    "description": "Periférico robusto e tradicional que marcou a digitação nos antigos computadores de mesa."
+    },
+    {
+    "title": "Video Computer System",
+    "description": "Console histórico que representa o início da popularização e a era de ouro dos videogames caseiros."
+    },
+    {
+    "title": "Câmera e Webcam Clássicas",
+    "description": "Primeiros dispositivos utilizados para captura de imagem e comunicação visual nos primórdios da internet."
+    },
+    {
+    "title": "Gabinete de PC Clássico",
+    "description": "Estrutura de cor bege tradicional que abrigava os componentes de hardware dos computadores de mesa em décadas passadas."
+    },
+    {
+    "title": "Módulos de Rede e Conectividade",
+    "description": "Dispositivos de comutação e transmissão essenciais para estabelecer a comunicação nas primeiras infraestruturas de rede corporativa."
+    },
+    {
+    "title": "Retroprojetor",
+    "description": "Equipamento óptico clássico amplamente utilizado em salas de aula e apresentações para projetar transparências antes da era digital."
+    },
+    {
+    "title": "Painel de Switches e Hubs",
+    "description": "Conjunto de equipamentos de distribuição de rede responsáveis por interligar múltiplos computadores nos antigos ambientes de trabalho."
+    },
+    {
+    "title": "Coleção de Celulares Clássicos",
+    "description": "Acervo de aparelhos que ilustra as fases iniciais e a evolução do design na história da comunicação móvel."
+    },
+    {
+    "title": "Coleção de Embalagens de iPad",
+    "description": "Caixas das primeiras gerações do tablet da Apple, dispositivo que ajudou a definir o mercado moderno de computação móvel."
+    },
+    {
+    "title": "Servidor Torre IBM",
+    "description": "Robusto computador corporativo utilizado para o processamento intenso e o armazenamento centralizado de dados em empresas."
+    }
+]
+}

@@ -1,83 +1,181 @@
-<div class="challenge-container">
-  <div class="challenge-header">
-    <h1>Desafio da Linha do Tempo</h1>
-    <p>Organize os eventos da história da computação em ordem cronológica!</p>
-  </div>
+<main class="arcade-scope">
+  <div class="arcade-game-shell">
+    <!-- Voltar para o catálogo de jogos -->
+    <a class="nes-btn arcade-back-link" [routerLink]="nav.route('games')">
+      ◀ Voltar aos jogos
+    </a>
 
-  <div *ngIf="!gameStarted" class="start-screen">
-    <button class="start-button" (click)="startGame()">
-      Começar Desafio
-    </button>
-  </div>
+    <!-- Cabeçalho padrão do jogo -->
+    <section class="arcade-game-header nes-container is-dark with-title">
+      <p class="title">Lógica</p>
 
-  <div *ngIf="gameStarted && !gameCompleted" class="game-screen">
-    <div class="game-info">
-      <div class="score-display">
-        Pontuação: {{score}}
-      </div>
-      <div class="attempts-display">
-        Tentativas: {{attempts}}
-      </div>
-    </div>
+      <h1 class="arcade-game-title">
+        Desafio da Linha do Tempo
+      </h1>
 
-    <!-- Região de anúncios para leitores de tela: informa reordenações e resultados sem precisar navegar até aqui -->
-    <div class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement }}</div>
+      <p class="arcade-game-subtitle">
+        Organize os eventos da história da computação em ordem cronológica.
+      </p>
+    </section>
 
-    <div class="timeline-container"
-         cdkDropList
-         (cdkDropListDropped)="drop($event)"
-         role="list"
-         [attr.aria-label]="'Linha do tempo com ' + events.length + ' eventos. Use os botões mover para cima e para baixo para reordenar, ou arraste com o mouse.'">
-      <div class="timeline-event" *ngFor="let event of events; let i = index" cdkDrag role="listitem">
-        <div class="event-card" [ngClass]="{
-          'correct': event.isCorrect === true,
-          'incorrect': event.isCorrect === false
-        }">
-          <div class="drag-handle" cdkDragHandle aria-hidden="true" title="Arrastar para reordenar">
-            <i class="fas fa-grip-vertical"></i>
+    <!-- Painel principal do jogo -->
+    <section class="arcade-game-panel nes-container is-dark with-title">
+      <p class="title">
+        {{ gameCompleted ? 'Resultado' : gameStarted ? 'Desafio' : 'Início' }}
+      </p>
+
+      <div class="arcade-game-board logic-arcade-board">
+        <div *ngIf="!gameStarted" class="start-screen">
+          <p class="logic-instruction">
+            Reordene os eventos usando os botões de movimento ou arrastando os cards.
+          </p>
+
+          <button
+            class="nes-btn is-success start-button"
+            type="button"
+            (click)="startGame()"
+          >
+            Começar Desafio
+          </button>
+        </div>
+
+        <div *ngIf="gameStarted && !gameCompleted" class="game-screen">
+          <div class="arcade-game-status logic-status">
+            <div class="arcade-score-card">
+              Pontuação
+              <strong>{{ score }}</strong>
+            </div>
+
+            <div class="arcade-score-card">
+              Tentativas
+              <strong>{{ attempts }}</strong>
+            </div>
+
+            <div class="arcade-score-card">
+              Eventos
+              <strong>{{ events.length }}</strong>
+            </div>
           </div>
-          <div class="event-image">
-            <img [src]="event.imageUrl" [alt]="event.title">
+
+          <!-- Região de anúncios para leitores de tela -->
+          <div class="sr-only" aria-live="polite" aria-atomic="true">
+            {{ announcement }}
           </div>
-          <div class="event-info">
-            <h3>{{event.title}}</h3>
-            <p>{{event.description}}</p>
-            <span class="year" *ngIf="gameCompleted">{{event.year}}</span>
-            <span class="sr-only" *ngIf="event.isCorrect === true">Posição correta.</span>
-            <span class="sr-only" *ngIf="event.isCorrect === false">Posição incorreta.</span>
-          </div>
-          <div class="event-controls">
-            <button class="move-button"
+
+          <div
+            class="timeline-container"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            role="list"
+            [attr.aria-label]="'Linha do tempo com ' + events.length + ' eventos. Use os botões mover para cima e para baixo para reordenar, ou arraste com o mouse.'"
+          >
+            <div
+              class="timeline-event"
+              *ngFor="let event of events; let i = index"
+              cdkDrag
+              role="listitem"
+            >
+              <div
+                class="event-card"
+                [ngClass]="{
+                  'correct': event.isCorrect === true,
+                  'incorrect': event.isCorrect === false
+                }"
+              >
+                <div
+                  class="drag-handle"
+                  cdkDragHandle
+                  aria-hidden="true"
+                  title="Arrastar para reordenar"
+                >
+                  <i class="fas fa-grip-vertical"></i>
+                </div>
+
+                <div class="event-image">
+                  <img [src]="event.imageUrl" [alt]="event.title" />
+                </div>
+
+                <div class="event-info">
+                  <h3>{{ event.title }}</h3>
+                  <p>{{ event.description }}</p>
+
+                  <span class="year" *ngIf="gameCompleted">
+                    {{ event.year }}
+                  </span>
+
+                  <span class="sr-only" *ngIf="event.isCorrect === true">
+                    Posição correta.
+                  </span>
+
+                  <span class="sr-only" *ngIf="event.isCorrect === false">
+                    Posição incorreta.
+                  </span>
+                </div>
+
+                <div class="event-controls">
+                  <button
+                    class="nes-btn move-button"
+                    type="button"
                     (click)="moveEvent(i, 'up')"
                     [disabled]="i === 0"
-                    [attr.aria-label]="'Mover ' + event.title + ' para cima'">
-              <i class="fas fa-arrow-up" aria-hidden="true"></i>
-            </button>
-            <button class="move-button"
+                    [attr.aria-label]="'Mover ' + event.title + ' para cima'"
+                  >
+                    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                  </button>
+
+                  <button
+                    class="nes-btn move-button"
+                    type="button"
                     (click)="moveEvent(i, 'down')"
                     [disabled]="i === events.length - 1"
-                    [attr.aria-label]="'Mover ' + event.title + ' para baixo'">
-              <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                    [attr.aria-label]="'Mover ' + event.title + ' para baixo'"
+                  >
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arcade-game-actions complete-button-container">
+            <button
+              class="nes-btn is-success complete-button"
+              type="button"
+              (click)="checkOrder()"
+            >
+              Verificar Ordem
             </button>
           </div>
         </div>
+
+        <div *ngIf="gameCompleted" class="completion-screen">
+          <h2>Parabéns!</h2>
+
+          <p class="arcade-game-message arcade-game-message--success">
+            Você completou o desafio com sucesso!
+          </p>
+
+          <div class="arcade-game-status">
+            <div class="arcade-score-card">
+              Pontuação
+              <strong>{{ score }}</strong>
+            </div>
+
+            <div class="arcade-score-card">
+              Tentativas
+              <strong>{{ attempts }}</strong>
+            </div>
+          </div>
+
+          <button
+            class="nes-btn is-success restart-button"
+            type="button"
+            (click)="startGame()"
+          >
+            Jogar Novamente
+          </button>
+        </div>
       </div>
-    </div>
-
-    <div class="complete-button-container">
-      <button class="complete-button" (click)="checkOrder()">
-        Verificar Ordem
-      </button>
-    </div>
+    </section>
   </div>
-
-  <div *ngIf="gameCompleted" class="completion-screen">
-    <h2>Parabéns!</h2>
-    <p>Você completou o desafio com sucesso!</p>
-    <p>Sua pontuação: {{score}}</p>
-    <p>Número de tentativas: {{attempts}}</p>
-    <button class="restart-button" (click)="startGame()">
-      Jogar Novamente
-    </button>
-  </div>
-</div>
+</main>
