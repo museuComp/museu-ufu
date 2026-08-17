@@ -13,6 +13,7 @@ import { Role } from "@app/features/login/models/credentials.model";
 import { FirestoreNewsService, NewsPost } from "core/services/firestore-news.service";
 import { Observable, Subscription } from "rxjs";
 import { DashboardDeleteConfirmDialog } from "../dashboard.component";
+import { NavigationService } from "@app/services/navigation.service";
 
 @Component({
   selector: 'app-news-dashboard',
@@ -40,6 +41,7 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
 
     private newsSubscription?: Subscription;
     authService = inject(AuthService);
+    readonly nav = inject(NavigationService);
     private firestoreNewsService = inject(FirestoreNewsService);
 
     private router = inject(Router);
@@ -84,7 +86,7 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
     }
 
     editNews(newsItem: NewsPost): void {
-        this.router.navigate(['/news/edit', newsItem.id]);
+        this.router.navigate([this.nav.route('/news/edit/' + newsItem.id)]);
     }
 
     deleteNews(newsItem: NewsPost): void {

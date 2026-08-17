@@ -30,7 +30,7 @@
     <div class="management-container" *ngIf="isAdmin()">
       <div class="management-header">
         <h2>Gerenciar {{mapper[currentView]}}</h2>
-        <button mat-flat-button color="primary" [routerLink]="['..',currentView, 'create']">
+        <button mat-flat-button color="primary" [routerLink]="nav.route('../' + currentView + '/create')">
           <mat-icon>add</mat-icon>
           Criar {{mapper[currentView]}}
         </button>

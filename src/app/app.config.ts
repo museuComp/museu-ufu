@@ -22,7 +22,7 @@ import { registerLocaleData } from '@angular/common';
 import { CustomPageTitleStrategy } from '@core/strategy/title.strategy';
 import localePt from '@angular/common/locales/pt';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp, FirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getApps } from 'firebase/app';
@@ -31,6 +31,7 @@ import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco, provideTranslocoLoader, TranslocoService } from '@jsverse/transloco';
 
 import { provideMarkdown } from 'ngx-markdown';
+import { initializeFirestore } from 'firebase/firestore';
 
 registerLocaleData(localePt);
 
@@ -73,9 +74,12 @@ export const appConfig: ApplicationConfig = {
       apiKey: "AIzaSyCvRxmCP_nIZqSwksT4VZ41eVUa94PeVmk", 
       authDomain: "museu-ufu-news.firebaseapp.com", 
       messagingSenderId: "560844053254", 
-      measurementId: "G-B06W8DT2CT" 
+      measurementId: "G-B06W8DT2CT",
     })),
-    provideFirestore(() => getFirestore()),
+    provideFirestore(() => {
+      const app = inject(FirebaseApp);
+      return initializeFirestore(app, { ignoreUndefinedProperties: true });
+    }),
     provideStorage(() => getStorage()),
 
     // 2. BANCO DE VÍDEOS - Apontando para o museu-comp-ufu

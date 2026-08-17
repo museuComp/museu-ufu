@@ -30,6 +30,7 @@ export class PersonalitiesDetailComponent {
   
   // Injetando o novo serviço
   private firestorePersonalitiesService = inject(FirestorePersonalitiesService);
+  readonly nav = inject(NavigationService);
 
   showImageModal = false;
   modalImageUrl: string | null = null;

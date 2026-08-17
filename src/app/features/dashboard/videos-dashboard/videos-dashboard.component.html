@@ -3,7 +3,7 @@
         <div class="video-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
 
-            <a [routerLink]="['/videos/detail', video.id]" style="flex: 1; text-decoration: none;">
+            <a [routerLink]="nav.route('videos/detail/' + video.id)" style="flex: 1; text-decoration: none;">
                 <span class="video-title">{{ video.summary.title }}</span>
             </a> 
 

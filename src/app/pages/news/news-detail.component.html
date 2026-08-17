@@ -4,10 +4,16 @@
       <mat-card-title class="news-detail-title">{{ newsItem.summary.title }}</mat-card-title>
       <mat-card-subtitle class="news-detail-category">
         {{ newsItem.summary.category }}
+
         <!-- EXIBIÇÃO DO REDATOR -->
         <span *ngIf="newsItem.summary.writer" class="news-detail-writer"
           style="margin-left: 8px; font-style: italic; color: #666;">
           | Por: {{ newsItem.summary.writer }}
+        </span>
+
+        <!-- TEMPO ESTIMADO DE LEITURA -->
+        <span class="reading-time" style="margin-left: 8px; color: #666;">
+          | {{ newsItem.fullContent | readingTime }}
         </span>
       </mat-card-subtitle>
     </mat-card-header>

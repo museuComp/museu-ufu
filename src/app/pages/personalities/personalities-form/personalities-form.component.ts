@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FirestorePersonalitiesService, PersonalityPost } from '../../../../core/services/firestore-personalities.service';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface ContentItem {
   id: string;
@@ -44,6 +45,7 @@ export class PersonalitiesFormComponent implements OnInit {
   categories = ['Personalidades'];
 
   private firestorePersonalitiesService = inject(FirestorePersonalitiesService);
+  readonly nav = inject(NavigationService);
 
   constructor(
     private fb: FormBuilder,
@@ -85,7 +87,7 @@ export class PersonalitiesFormComponent implements OnInit {
           this.mainImageFileName = data.summary.mainImage ? 'Imagem Carregada' : null;
         } else {
           console.error('Personalidade para edição não encontrada');
-          this.router.navigate(['/dashboard']);
+          this.router.navigate([this.nav.route('dashboard/personalities')]);
         }
       });
     }
@@ -112,13 +114,15 @@ export class PersonalitiesFormComponent implements OnInit {
 
       if (this.isEditMode && this.personalityId) { 
         this.firestorePersonalitiesService.updatePersonality(this.personalityId, dataToSave)
-          .then(() => this.router.navigate(['/dashboard']))
+          .then(() => this.router.navigate([this.nav.route('dashboard/personalities')]))
           .catch(error => console.error('Erro ao atualizar personalidade:', error));
       } else {
         this.firestorePersonalitiesService.addPersonality(dataToSave)
-          .then(() => this.router.navigate(['/dashboard']))
+          .then(() => this.router.navigate([this.nav.route('dashboard/personalities')]))
           .catch(error => console.error('Erro ao criar personalidade:', error));
       }
+
+      this.router.navigate([this.nav.route('dashboard/personalities')]);
     }
   }
 
@@ -204,6 +208,6 @@ export class PersonalitiesFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([this.nav.route('dashboard/personalities')])
   }
 }

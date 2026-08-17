@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FirestoreNewsService, NewsPost } from '../../../../core/services/firestore-news.service';
+import { MarkdownModule } from 'ngx-markdown';
+import { NavigationService } from '@app/services/navigation.service';
 
 interface ContentItem {
   id: string;
@@ -34,7 +36,8 @@ interface ContentItem {
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    DragDropModule
+    DragDropModule,
+    MarkdownModule
   ]
 })
 export class NewsFormComponent implements OnInit {
@@ -58,6 +61,7 @@ export class NewsFormComponent implements OnInit {
   ];
 
   private firestoreNewsService = inject(FirestoreNewsService);
+  readonly nav = inject(NavigationService);
 
   constructor(
     private fb: FormBuilder,
@@ -99,7 +103,7 @@ export class NewsFormComponent implements OnInit {
           this.mainImageFileName = newsData.summary.mainImage ? 'Imagem Carregada' : null;
         } else {
           console.error('Notícia para edição não encontrada');
-          this.router.navigate(['/news']);
+          this.router.navigate([this.nav.route('news')]);
         }
       });
     }
@@ -126,13 +130,15 @@ export class NewsFormComponent implements OnInit {
 
     if (this.isEditMode && this.newsId) { 
       this.firestoreNewsService.updateNews(this.newsId, newsData)
-        .then(() => this.router.navigate(['/dashboard']))
+        .then(() => this.router.navigate([this.nav.route('dashboard')]))
         .catch(error => console.error('Erro ao atualizar notícia:', error));
     } else {
       this.firestoreNewsService.addNews(newsData)
-        .then(() => this.router.navigate(['/dashboard']))
+        .then(() => this.router.navigate([this.nav.route('dashboard')]))
         .catch(error => console.error('Erro ao criar notícia:', error));
     }
+
+    this.router.navigate([this.nav.route('dashboard')]);
   }
 }
 
@@ -226,6 +232,6 @@ export class NewsFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([this.nav.route('dashboard')]);
   }
 }

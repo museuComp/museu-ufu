@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { addDoc, collectionData, docData, Firestore } from "@angular/fire/firestore";
-import { collection, deleteDoc, doc, limit, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, limit, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators'; // <-- Importação necessária para a ordenação
 
@@ -33,9 +33,21 @@ export class FirestoreVideosService {
         this.videosCollection = collection(this.firestore, 'videos');
     }  
 
-    addVideoPost(video: Video): Promise<any> {
+    async addVideoPost(video: Video): Promise<any> {
+        const q = query(this.videosCollection, orderBy('order', 'desc'), limit(1));
+        const querySnapshot = await getDocs(q);
+
+        let nextOrder = 1; // Valor padrão se a coleção estiver vazia
+
+        if (!querySnapshot.empty) {
+            const lastVideo = querySnapshot.docs[0].data() as Video;
+            // Pega o maior 'order' existente e soma 1
+            nextOrder = (lastVideo.order || 0) + 1;
+        }
+
         const videoComplete = {
             ...video,
+            order: nextOrder,
             createdAt: serverTimestamp()
         };
 

@@ -13,6 +13,7 @@ import { FirestoreNewsService, NewsPost } from '../../../core/services/firestore
 import { FirestoreVideosService, Video } from '../../../core/services/firestore-videos.service';
 import { Role } from '@app/features/login/models/credentials.model';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
   currentView: string;
   
   authService = inject(AuthService);
+  readonly nav = inject(NavigationService);
   private router = inject(Router);
 
   mapper = {
@@ -49,18 +51,18 @@ export class DashboardComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/home']);
+    this.router.navigate([this.nav.route('home')]);
   }
 
   ngOnInit(): void {
     if (this.isAdmin()) {
-      this.currentView = this.router.url.split('/')[2] || 'news';
+      this.currentView = this.router.url.split('/')[3] || 'news';
     }
   }
 
   toggleView(type:string): void {
     this.currentView = type;
-    this.router.navigate(['dashboard', type]);
+    this.router.navigate([this.nav.route('dashboard/' + type)]);
   }
 }
 
