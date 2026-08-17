@@ -50,7 +50,15 @@ const childrenRoutes: Routes = [
           import('./pages/personalities/personalities-form/personalities-form.component').then(
             (m) => m.PersonalitiesFormComponent,
           )
-      }
+      },
+      { path: 'edit/:id',
+        data: { breadCrumb: 'edit',},
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./pages/personalities/personalities-form/personalities-form.component').then(
+            (m) => m.PersonalitiesFormComponent,
+          )
+      },
     ],
   },
 

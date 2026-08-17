@@ -13,6 +13,7 @@ import { Role } from "@app/features/login/models/credentials.model";
 import { FirestorePersonalitiesService, PersonalityPost } from "../../../../core/services/firestore-personalities.service";
 import { Observable, Subscription } from "rxjs";
 import { DashboardDeleteConfirmDialog } from "../dashboard.component";
+import { NavigationService } from "@app/services/navigation.service";
 
 @Component({
   selector: 'app-personalities-dashboard', // Ajustei o seletor para evitar confusão
@@ -43,7 +44,7 @@ export class PersonalitiesDashboardComponent implements OnInit, OnDestroy {
 
   private personalitiesSubscription?: Subscription;
   authService = inject(AuthService);
-  // Injetando o NOVO serviço
+  readonly nav = inject(NavigationService);
   private firestorePersonalitiesService = inject(FirestorePersonalitiesService);
 
   private router = inject(Router);
@@ -89,7 +90,7 @@ export class PersonalitiesDashboardComponent implements OnInit, OnDestroy {
 
   editPersonality(personalityItem: PersonalityPost): void {
     // Redirecionando para a rota de edição de personalidades
-    this.router.navigate(['/personalities/edit', personalityItem.id]);
+    this.router.navigate([this.nav.route('personalities/edit/' + personalityItem.id)]);
   }
 
   deletePersonality(personalityItem: PersonalityPost): void {

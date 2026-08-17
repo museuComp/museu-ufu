@@ -4,7 +4,7 @@
         <ng-container *ngIf="sectionContent | async as content; else loading">
                 <div class="section-list" *ngIf="content.length > 0; else empty">
                         <mat-card class="item-card" *ngFor="let item of content; trackBy: trackById">
-                                <a [routerLink]="['..', uri,'detail',item.id]" class="item-link">
+                                <a [routerLink]="nav.route('../' + uri + '/detail/' + item.id)" class="item-link">
                                         <div class="item-image-container">
                                                 <img [src]="item.summary.coverUrl || item.summary.mainImage" [alt]="item.summary.title" class="item-image">
                                         </div>
@@ -20,7 +20,7 @@
                         </mat-card>
                 </div>
                 <div class="button-container">
-                        <a [routerLink]="['..', uri]" class="show-all-btn">Ver tudo</a>
+                        <a [routerLink]="nav.route('../' + uri)" class="show-all-btn">Ver tudo</a>
                 </div>
         </ng-container>
 

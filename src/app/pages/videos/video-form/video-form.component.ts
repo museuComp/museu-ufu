@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FirestoreVideosService, Video } from 'core/services/firestore-videos.service';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-video-form',
@@ -47,6 +48,7 @@ export class VideoFormComponent implements OnInit {
   ];
 
   private firestoreVideosService = inject(FirestoreVideosService);
+  readonly nav = inject(NavigationService);
 
   constructor(
     private fb: FormBuilder,
@@ -89,7 +91,7 @@ export class VideoFormComponent implements OnInit {
           this.coverFileName = videoData.summary.coverUrl ? 'Imagem Carregada' : null;
         } else {
           console.error('Vídeo para edição não encontrado');
-          this.router.navigate(['/videos']);
+          this.router.navigate([this.nav.route('dashboard/videos')]);
         }
       });
     }
@@ -124,17 +126,19 @@ export class VideoFormComponent implements OnInit {
 
       this.firestoreVideosService.updateVideoPost(this.videoId, videoData)
         .then(() => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate([this.nav.route('dashboard/videos')]);
         })
         .catch(error => console.error('Erro ao atualizar vídeo:', error));
     } else {
       this.firestoreVideosService.addVideoPost(videoData as Video)
         .then(docRef => {
           console.log('✅ Documento salvo com ID:', docRef.id);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate([this.nav.route('dashboard/videos')]);
         })
         .catch(error => console.error('Erro ao criar vídeo:', error));
     }
+
+    this.router.navigate([this.nav.route('dashboard/videos')]);
   }
 
   onCoverSelected(event: Event): void {
@@ -173,6 +177,6 @@ export class VideoFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([this.nav.route('dashboard/videos')]);
   }
 }

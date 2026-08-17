@@ -3,7 +3,7 @@
         <div class="news-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <mat-icon cdkDragHandle style="cursor: grab; color: #888;">drag_indicator</mat-icon>
 
-            <a [routerLink]="['/news/detail', news.id]" style="flex: 1; text-decoration: none;">
+            <a [routerLink]="nav.route('/news/detail/' + news.id)" style="flex: 1; text-decoration: none;">
                 <span class="news-title">{{ news.summary.title }}</span>
             </a> 
 

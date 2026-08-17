@@ -9,6 +9,7 @@ import { magazines } from '../magazine/magazine.mock';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { posters } from './posters.mock';
 import { MatIcon } from '@angular/material/icon';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-resources',
@@ -18,8 +19,8 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class ResourcesComponent implements OnInit {
   private videoService = inject(FirestoreVideosService);
-  
   private personalitiesService = inject(FirestorePersonalitiesService);
+  readonly nav = inject(NavigationService);
   
   revistas = magazines;
   posteres = posters;

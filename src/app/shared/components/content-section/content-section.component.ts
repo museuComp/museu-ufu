@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCard } from "@angular/material/card";
 import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { NavigationService } from '@app/services/navigation.service';
 
 @Component({
   selector: 'app-content-section',
@@ -17,6 +18,8 @@ export class ContentSectionComponent implements OnInit{
 
   isLoading : boolean = true;
 
+  readonly nav = inject(NavigationService);
+  
   ngOnInit(): void {
     this.isLoading = false;
   }

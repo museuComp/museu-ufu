@@ -9,10 +9,10 @@ import { MatListModule } from "@angular/material/list";
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@app/core/auth/services/auth.service";
 import { Role } from "@app/features/login/models/credentials.model";
-import { FirestoreNewsService, NewsPost } from "core/services/firestore-news.service";
 import { Observable, Subscription } from "rxjs";
 import { DashboardDeleteConfirmDialog } from "../dashboard.component";
 import { FirestoreVideosService, Video } from "core/services/firestore-videos.service";
+import { NavigationService } from "@app/services/navigation.service";
 
 @Component({
   selector: 'app-news-dashboard',
@@ -39,6 +39,7 @@ export class VideosDashboardComponent implements OnInit,OnDestroy {
 
     private videosSubscription?: Subscription;
     authService = inject(AuthService);
+    readonly nav = inject(NavigationService);
     private firestoreVideoService = inject(FirestoreVideosService);
 
     private router = inject(Router);
@@ -83,7 +84,7 @@ export class VideosDashboardComponent implements OnInit,OnDestroy {
     }
 
     editVideo(videoItem: Video): void {
-        this.router.navigate(['/videos/edit', videoItem.id]);
+        this.router.navigate([this.nav.route('videos/edit/' + videoItem.id)]);
     }
 
     deleteVideo(videoItem: Video): void {
