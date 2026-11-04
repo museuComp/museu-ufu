@@ -1,15 +1,16 @@
 import { Injectable, inject } from "@angular/core";
 import { deleteObject, getDownloadURL, ref, Storage, uploadBytes } from "@angular/fire/storage";
+import { ImageStorageService, ImageUploadResult } from './image-storage.contract';
 
 @Injectable({
     providedIn: 'root'
 })
-export class FireStorageImagesService {
+export class FireStorageImagesService implements ImageStorageService {
     private storage: Storage = inject(Storage);
 
     constructor() {}
 
-    async uploadImage(file: File, folder: string): Promise<{url: string, path: string}> {
+    async uploadImage(file: File, folder: string): Promise<ImageUploadResult> {
         const fileName = `${Date.now()}-${file.name}`;
         const path = `${folder}/${fileName}`;
         const storageRef = ref(this.storage, path);
