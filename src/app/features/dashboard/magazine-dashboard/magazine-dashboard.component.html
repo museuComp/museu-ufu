@@ -1,0 +1,78 @@
+<div class="magazine-header">
+    <h2>Gerenciar revistas</h2>
+
+    <button
+        mat-raised-button
+        color="primary"
+        routerLink="/magazine/create"
+        aria-label="Cadastrar nova revista">
+
+        <mat-icon>add</mat-icon>
+        Cadastrar revista
+
+    </button>
+</div>
+
+<div class="news-list" cdkDropList (cdkDropListDropped)="onDrop($event)" *ngIf="!isLoading; else loadingMagazines">
+
+    <div *ngFor="let magazine of magazineItems; trackBy: trackByMagazineId" class="news-row" cdkDrag>
+
+        <div class="news-row-header" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+
+            <mat-icon cdkDragHandle style="cursor: grab; color: #888;">
+                drag_indicator
+            </mat-icon>
+
+            <a [routerLink]="['/magazine']" style="flex: 1; text-decoration: none;">
+
+                <span class="news-title">
+                    {{ magazine.title }}
+                </span>
+
+            </a>
+
+            <div class="list-item-actions">
+
+                <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="editMagazine(magazine)"
+                    [attr.aria-label]="'Editar revista ' + magazine.title">
+
+                    <mat-icon>edit</mat-icon>
+
+                </button>
+
+                <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="deleteMagazine(magazine)"
+                    [attr.aria-label]="'Excluir revista ' + magazine.title">
+
+                    <mat-icon>delete</mat-icon>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="news-category" style="margin-left: 36px;">
+
+            {{ magazine.year }}
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #loadingMagazines>
+
+    <div class="loading-or-empty-container">
+
+        <p>Carregando revistas...</p>
+
+    </div>
+
+</ng-template>

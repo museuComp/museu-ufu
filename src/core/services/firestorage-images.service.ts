@@ -9,7 +9,8 @@ export class FireStorageImagesService {
 
     constructor() {}
 
-    async uploadImage(file: File, folder: string): Promise<{url: string, path: string}> {
+//Faz upload de qualquer arquivo para o Firebase Storage.
+     async uploadImage(file: File, folder: string): Promise<{url: string, path: string}> {
         const fileName = `${Date.now()}-${file.name}`;
         const path = `${folder}/${fileName}`;
         const storageRef = ref(this.storage, path);

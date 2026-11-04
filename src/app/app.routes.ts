@@ -4,6 +4,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { NewsDashboardComponent } from './features/dashboard/news-dashboard/news-dashboard.component';
 import { VideosDashboardComponent } from './features/dashboard/videos-dashboard/videos-dashboard.component';
 import { PersonalitiesDashboardComponent } from './features/dashboard/personalities-dashboard/personalities-dashboard.component';
+import { MagazineDashboardComponent } from './features/dashboard/magazine-dashboard/magazine-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -262,14 +263,44 @@ export const routes: Routes = [
       breadCrumb: 'Acessibilidade',
     },
   },
-  {
-    path: 'magazine',
-    loadComponent: () =>
-      import('./pages/magazine/magazine.component').then(
-        (m) => m.MagazineComponent,
-      ),
-    title: 'Revista',
+{
+  path: 'magazine',
+  title: 'Revistas',
+  data: {
+    breadCrumb: 'Revistas',
   },
+  children: [
+    {
+      path: '',
+      loadComponent: () =>
+        import('./pages/magazine/magazine.component').then(
+          (m) => m.MagazineComponent,
+        ),
+    },
+    {
+      path: 'create',
+      canActivate: [authGuard],
+      loadComponent: () =>
+        import('./pages/magazine/magazine-form/magazine-form.component').then(
+          (m) => m.MagazineFormComponent,
+        ),
+      data: {
+        breadCrumb: 'Cadastrar Revista',
+      },
+    },
+    {
+      path: 'edit/:id',
+      canActivate: [authGuard],
+      loadComponent: () =>
+        import('./pages/magazine/magazine-form/magazine-form.component').then(
+          (m) => m.MagazineFormComponent,
+        ),
+      data: {
+        breadCrumb: 'Editar Revista',
+      },
+    }
+  ],
+},
   {
     path: 'videos',
     title: 'Vídeos',
@@ -339,6 +370,10 @@ export const routes: Routes = [
         path: 'personalities',
         component: PersonalitiesDashboardComponent,
       },
+      {
+  path: 'magazines',
+  component: MagazineDashboardComponent,
+},
     ],
   },
   {

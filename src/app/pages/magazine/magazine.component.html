@@ -3,7 +3,7 @@
 
   <div class="br-card d-flex flex-column align-items-center p-3">
     <img
-      [src]="revistas[revistaAtual].paginas[paginaAtual]"
+      [src]="revistas[revistaAtual].pages[paginaAtual]"
       alt="Página da revista"
       class="img-fluid"
       style="max-height: 80vh; object-fit: contain;"
@@ -19,51 +19,52 @@
       </button>
 
       <span class="mx-3">
-        Página {{ paginaAtual + 1 }} / {{ revistas[revistaAtual].paginas.length }}
+        Página {{ paginaAtual + 1 }} / {{ revistas[revistaAtual].pages.length }}
       </span>
 
       <button
         class="br-button secondary"
         (click)="proximaPagina()"
-        [disabled]="paginaAtual === revistas[revistaAtual].paginas.length - 1"
+        [disabled]="paginaAtual === revistas[revistaAtual].pages.length - 1"
       >
         Próxima ▶
       </button>
     </div>
   </div>
 
-<div class="mt-4">
-  <h3 class="br-heading-3">Outras Edições</h3>
+  <div class="mt-4">
+    <h3 class="br-heading-3">Outras Edições</h3>
 
-  <p class="mt-2">Selecione a revista que deseja visualizar:</p>
+    <p class="mt-2">Selecione a revista que deseja visualizar:</p>
 
-  <div *ngIf="revistas.length > 1; else nenhumaRevista">
-    <div class="revistas-container mt-2">
-      <div
-        *ngFor="let revista of revistas; let i = index"
-        class="revista-card"
-        [ngClass]="{ 'selecionada': i === revistaAtual }"
-        (click)="selecionarRevista(i)"
-      >
-        <div class="revista-icon">📖</div>
-
-        <p class="revista-titulo">
-          {{ revista.titulo }} ({{ revista.ano }})
-        </p>
-
-        <a
-          class="br-button circle small mt-2"
-          [href]="revista.linkDownload"
-          download
-          aria-label="Baixar revista {{ revista.titulo }}"
+    <div *ngIf="revistas.length > 1; else nenhumaRevista">
+      <div class="revistas-container mt-2">
+        <div
+          *ngFor="let revista of revistas; let i = index"
+          class="revista-card"
+          [ngClass]="{ 'selecionada': i === revistaAtual }"
+          (click)="selecionarRevista(i)"
         >
-          <i class="fas fa-download" aria-hidden="true"></i>
-        </a>
+          <div class="revista-icon">📖</div>
+
+          <p class="revista-titulo">
+            {{ revista.title }} ({{ revista.year }})
+          </p>
+
+          <a
+            class="br-button circle small mt-2"
+            [href]="revista.pdfUrl"
+            download
+            [attr.aria-label]="'Baixar revista ' + revista.title"
+          >
+            <i class="fas fa-download" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <ng-template #nenhumaRevista>
-    <p>Nenhuma outra edição disponível.</p>
-  </ng-template>
+    <ng-template #nenhumaRevista>
+      <p>Nenhuma outra edição disponível.</p>
+    </ng-template>
+  </div>
 </div>

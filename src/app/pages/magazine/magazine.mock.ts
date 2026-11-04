@@ -1,8 +1,9 @@
 export const magazines = [
   {
+    order: 1,
     titulo: 'Revista 2024-2',
     ano: 2024,
-    paginas: [
+          paginas: [
   'public/magazine/revista2024-2/revista2024-2_page-0001.jpg',
   'public/magazine/revista2024-2/revista2024-2_page-0002.jpg',
   'public/magazine/revista2024-2/revista2024-2_page-0003.jpg',
@@ -71,10 +72,12 @@ export const magazines = [
   ],
     linkDownload: 'public/magazine/revista2024-2/revista2024-2.pdf',
   },
+  
   {
+    order: 2,
     titulo: 'Revista 2025-1',
     ano: 2025,
-    paginas: [
+          paginas: [
       'public/magazine/revista2025-1/1.jpg',
       'public/magazine/revista2025-1/2.jpg',
       'public/magazine/revista2025-1/3.jpg',

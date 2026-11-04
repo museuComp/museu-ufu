@@ -1,41 +1,48 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { magazines } from './magazine.mock';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FirestoreMagazineService, Magazine } from '../../../core/services/firestore-magazine.service';
 
 @Component({
   selector: 'app-magazine',
-  standalone: true, 
-  imports: [CommonModule], 
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './magazine.component.html',
   styleUrl: './magazine.component.scss'
 })
-export class MagazineComponent {
+export class MagazineComponent implements OnInit {
 
-  revistas = magazines;
+  private firestoreMagazineService = inject(FirestoreMagazineService);
+
+  revistas: Magazine[] = [];
+
+  revistaAtual = 0;
+  paginaAtual = 0;
+
+  constructor() {}
   
   ngOnInit() {
-  console.log('Revistas carregadas:', this.revistas);
-}
+    this.firestoreMagazineService.getAllMagazines().subscribe(magazines => {
+      this.revistas = magazines;
 
-revistaAtual = 0;
-paginaAtual = 0;
-
-paginaAnterior() {
-  if (this.paginaAtual > 0) {
-    this.paginaAtual--;
+      console.log(this.revistas);
+    });
   }
-}
 
-proximaPagina() {
-  if (this.paginaAtual < this.revistas[this.revistaAtual].paginas.length - 1) {
-    this.paginaAtual++;
+  paginaAnterior() {
+    if (this.paginaAtual > 0) {
+      this.paginaAtual--;
+    }
   }
-}
 
-selecionarRevista(index: number) {
-  this.revistaAtual = index;
-  this.paginaAtual = 0;
-}
+  proximaPagina() {
+    if (this.paginaAtual < this.revistas[this.revistaAtual].pages.length - 1) {
+      this.paginaAtual++;
+    }
+  }
 
+  selecionarRevista(index: number) {
+    this.revistaAtual = index;
+    this.paginaAtual = 0;
+  }
 
 }

@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
     'news': 'Notícia',
     'videos': 'Vídeo',
     'personalities': 'Personalidade',
+    'magazines': 'Revista',
   };
 
   user = this.authService.credentials;

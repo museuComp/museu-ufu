@@ -1,0 +1,189 @@
+<form [formGroup]="magazineForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-section">
+
+
+<h2>{{ isEditMode ? 'Editar Revista' : 'Cadastrar Revista' }}</h2>
+
+<!-- Título -->
+
+<div class="form-label-row">
+  <label for="title">Título *</label>
+
+  <span
+    class="form-error"
+    *ngIf="magazineForm.get('title')?.invalid &&
+           (magazineForm.get('title')?.dirty ||
+            magazineForm.get('title')?.touched)">
+
+    <ng-container *ngIf="magazineForm.get('title')?.hasError('required')">
+      O título é obrigatório.
+    </ng-container>
+
+    <ng-container *ngIf="magazineForm.get('title')?.hasError('minlength')">
+      O título precisa ter pelo menos 3 caracteres.
+    </ng-container>
+
+  </span>
+</div>
+
+<mat-form-field appearance="outline" class="full-width">
+
+  <input
+    matInput
+    id="title"
+    formControlName="title"
+    aria-label="Título da revista">
+
+</mat-form-field>
+
+
+<!-- Ano -->
+
+<div class="form-label-row">
+
+  <label for="year">Ano *</label>
+
+  <span
+    class="form-error"
+    *ngIf="magazineForm.get('year')?.invalid &&
+           (magazineForm.get('year')?.dirty ||
+            magazineForm.get('year')?.touched)">
+
+    <ng-container *ngIf="magazineForm.get('year')?.hasError('required')">
+      O ano é obrigatório.
+    </ng-container>
+
+    <ng-container *ngIf="magazineForm.get('year')?.hasError('min') ||
+                         magazineForm.get('year')?.hasError('max') ||
+                         magazineForm.get('year')?.hasError('pattern')">
+      Informe um ano válido.
+    </ng-container>
+
+  </span>
+
+</div>
+
+<mat-form-field appearance="outline" class="full-width">
+
+  <input
+    matInput
+    id="year"
+    type="number"
+    formControlName="year"
+    aria-label="Ano de publicação da revista">
+
+</mat-form-field>
+
+
+<!-- Capa -->
+
+<div class="image-upload-section">
+
+  <label for="coverFile">Capa da revista</label>
+
+  <input
+    id="coverFile"
+    type="file"
+    accept="image/png,image/jpeg,image/webp"
+    (change)="onCoverChange($event)"
+    aria-describedby="coverHelp coverError">
+
+  <span id="coverHelp">
+    Formatos permitidos: PNG, JPEG e WEBP. Tamanho máximo: 10 MB.
+  </span>
+
+  <span *ngIf="coverFileName">
+    {{ coverFileName }}
+  </span>
+
+  <div
+    *ngIf="coverError"
+    id="coverError"
+    class="form-error"
+    role="alert">
+
+    {{ coverError }}
+
+  </div>
+
+</div>
+
+
+<!-- PDF -->
+
+<div class="image-upload-section">
+
+  <label for="pdfFile">Arquivo PDF da revista</label>
+
+  <input
+    id="pdfFile"
+    type="file"
+    accept=".pdf,application/pdf"
+    (change)="onPdfChange($event)"
+    aria-describedby="pdfHelp pdfError">
+
+  <span id="pdfHelp">
+    Formato permitido: PDF. Tamanho máximo: 10 MB.
+  </span>
+
+  <span *ngIf="pdfFileName">
+    {{ pdfFileName }}
+  </span>
+
+  <div
+    *ngIf="pdfError"
+    id="pdfError"
+    class="form-error"
+    role="alert">
+
+    {{ pdfError }}
+
+  </div>
+
+</div>
+
+
+<!-- Mensagem geral -->
+
+<div
+  *ngIf="submitError"
+  class="form-error"
+  role="alert">
+
+  {{ submitError }}
+
+</div>
+
+
+  </div>
+
+  <!-- Botões -->
+
+  <div class="form-actions">
+
+
+<button
+  mat-button
+  type="button"
+  (click)="cancel()"
+  [disabled]="isSaving">
+
+  Cancelar
+
+</button>
+
+<button
+  mat-raised-button
+  color="primary"
+  type="submit"
+  [disabled]="!magazineForm.valid || isSaving">
+
+  {{ isSaving ? 'Salvando...' : (isEditMode ? 'Salvar' : 'Cadastrar') }}
+
+</button>
+
+
+  </div>
+
+</form>
