@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FirestoreNewsService, NewsPost } from '../../../../core/services/firestore-news.service';
+import { IMAGE_STORAGE } from '../../../../core/services/image-storage.contract';
 import { MarkdownModule } from 'ngx-markdown';
 import { NavigationService } from '@app/services/navigation.service';
 
@@ -65,6 +66,7 @@ export class NewsFormComponent implements OnInit {
   ];
 
   private firestoreNewsService = inject(FirestoreNewsService);
+  private imageStorage = inject(IMAGE_STORAGE);
   readonly nav = inject(NavigationService);
 
   constructor(
@@ -113,38 +115,61 @@ export class NewsFormComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-  if (this.newsForm.valid) {
-    const formValue = this.newsForm.value;
-    const newsData: NewsPost = { 
-      summary: {
-        title: formValue.summaryTitle,
-        description: formValue.summaryDescription,
-        category: formValue.category,
-        mainImage: formValue.mainImage,
-        writer: formValue.writer,
-      },
-      fullContent: this.fullContent.map(item => ({ 
-        type: item.type,
-        content: item.content, 
-        imageSource: item.imageSource || '',
-        imageSourceLink: item.imageSourceLink || ''
-      }))
-    };
-
-    if (this.isEditMode && this.newsId) { 
-      this.firestoreNewsService.updateNews(this.newsId, newsData)
-        .then(() => this.router.navigate([this.nav.route('dashboard')]))
-        .catch(error => console.error('Erro ao atualizar notícia:', error));
-    } else {
-      this.firestoreNewsService.addNews(newsData)
-        .then(() => this.router.navigate([this.nav.route('dashboard')]))
-        .catch(error => console.error('Erro ao criar notícia:', error));
+  async onSubmit(): Promise<void> {
+    if (this.newsForm.invalid) {
+      this.newsForm.markAllAsTouched();
+      return;
     }
 
-    this.router.navigate([this.nav.route('dashboard')]);
+    const formValue = this.newsForm.value;
+
+    try {
+      // Por padrão, preserva a imagem que já está no formulário.
+      // Isso mantém compatibilidade com notícias antigas em Base64
+      // e com notícias que já possuam uma URL.
+      let finalMainImage: string = formValue.mainImage;
+
+      // Somente realiza upload quando o usuário selecionou
+      // um novo arquivo nesta sessão do formulário.
+      if (this.selectedMainImageFile) {
+        const uploadResult = await this.imageStorage.uploadImage(
+          this.selectedMainImageFile,
+          'news'
+        );
+
+        finalMainImage = uploadResult.url;
+      }
+
+      const newsData: NewsPost = {
+        summary: {
+          title: formValue.summaryTitle,
+          description: formValue.summaryDescription,
+          category: formValue.category,
+          mainImage: finalMainImage,
+          writer: formValue.writer,
+        },
+        fullContent: this.fullContent.map(item => ({
+          type: item.type,
+          content: item.content,
+          imageSource: item.imageSource || '',
+          imageSourceLink: item.imageSourceLink || ''
+        }))
+      };
+
+      if (this.isEditMode && this.newsId) {
+        await this.firestoreNewsService.updateNews(this.newsId, newsData);
+      } else {
+        await this.firestoreNewsService.addNews(newsData);
+      }
+
+      await this.router.navigate([this.nav.route('dashboard')]);
+    } catch (error) {
+      console.error('Erro ao salvar notícia:', error);
+
+      this.mainImageError =
+        'Não foi possível salvar a notícia ou enviar a imagem. Tente novamente.';
+    }
   }
-}
 
   onMainImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;
