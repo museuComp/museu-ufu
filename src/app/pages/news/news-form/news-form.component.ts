@@ -46,6 +46,10 @@ export class NewsFormComponent implements OnInit {
   newsId: string | null = null;
   fullContent: ContentItem[] = [];
   mainImageFileName: string | null = null;
+
+  // Arquivo original selecionado para futura gravação no Image Storage.
+  // Permanece null durante a edição enquanto nenhuma nova imagem for escolhida.
+  selectedMainImageFile: File | null = null;
   
   // Variáveis para validação de imagem
   readonly MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB em bytes
@@ -145,34 +149,44 @@ export class NewsFormComponent implements OnInit {
   onMainImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    
+
     this.mainImageError = null; // Reseta o erro anterior
 
     if (file) {
       // VALIDAÇÃO: Tamanho máximo (1MB)
       if (file.size > this.MAX_IMAGE_SIZE) {
         this.mainImageError = 'A imagem excede o tamanho máximo permitido de 1MB.';
-        input.value = ''; // Limpa o input
+        input.value = '';
         this.newsForm.get('mainImage')?.setErrors({ 'maxSize': true });
         return;
       }
 
       // VALIDAÇÃO: Tipo de arquivo
       const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+
       if (!allowedTypes.includes(file.type)) {
         this.mainImageError = 'Tipo de arquivo não permitido. Use PNG, JPEG ou WEBP.';
-        input.value = ''; // Limpa o input
+        input.value = '';
         this.newsForm.get('mainImage')?.setErrors({ 'invalidType': true });
         return;
       }
 
-      // Se passou nas validações, converte para Base64
+      // Mantém o arquivo original para o futuro upload no serviço de imagens.
+      this.selectedMainImageFile = file;
+
+      // Mantém o comportamento atual:
+      // Base64 continua sendo usado somente para a pré-visualização.
       const reader = new FileReader();
+
       reader.onload = () => {
-        this.newsForm.patchValue({ mainImage: reader.result as string });
+        this.newsForm.patchValue({
+          mainImage: reader.result as string
+        });
+
         this.mainImageFileName = file.name;
         this.newsForm.get('mainImage')?.setErrors(null);
       };
+
       reader.readAsDataURL(file);
     }
   }
