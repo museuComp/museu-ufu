@@ -33,6 +33,9 @@ import { provideTransloco, provideTranslocoLoader, TranslocoService } from '@jsv
 import { provideMarkdown } from 'ngx-markdown';
 import { initializeFirestore } from 'firebase/firestore';
 
+import { FireStorageImagesService } from '../core/services/firestorage-images.service';
+import { IMAGE_STORAGE } from '../core/services/image-storage.contract';
+
 registerLocaleData(localePt);
 
 export function scrollFactory(overlay: Overlay): () => NoopScrollStrategy {
@@ -47,6 +50,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideEnvironmentNgxMask(),
     provideMarkdown(),
+    {
+      provide: IMAGE_STORAGE,
+      useExisting: FireStorageImagesService,
+    },
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:3000',
