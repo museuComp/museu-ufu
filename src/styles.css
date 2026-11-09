@@ -70,7 +70,8 @@ body {
 .container.perfis {
   position: relative;
   z-index: 1;
-  padding-top: 120px;
+  /* O cabeçalho já ocupa espaço na página, mesmo quando a pesquisa muda sua altura. */
+  padding-top: 40px;
 }
 
 .container {

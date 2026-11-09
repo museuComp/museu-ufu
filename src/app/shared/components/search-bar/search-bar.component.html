@@ -1,0 +1,40 @@
+<ng-container *transloco="let t">
+  <!-- O campo recolhido fica fora da navegação por teclado e dos leitores de tela. -->
+  <form
+    id="portal-search-form"
+    class="portal-search"
+    role="search"
+    [formGroup]="form"
+    [attr.aria-label]="t('search.label')"
+    [attr.aria-hidden]="!isOpen()"
+    [attr.inert]="isOpen() ? null : ''"
+    (ngSubmit)="search()"
+  >
+    <input
+      #searchInput
+      type="search"
+      name="q"
+      formControlName="q"
+      [placeholder]="t('search.label')"
+      [attr.aria-label]="t('search.label')"
+      enterkeyhint="search"
+      required
+    >
+    <button type="submit" class="search-submit" [attr.aria-label]="t('search.submit')" [title]="t('search.submit')" [disabled]="!query.value.trim()">
+      <i class="fas fa-search" aria-hidden="true"></i>
+    </button>
+  </form>
+  <!-- A mesma lupa abre a barra e passa a funcionar como botão de fechar. -->
+  <button
+    #searchTrigger
+    type="button"
+    class="search-trigger"
+    [attr.aria-label]="t(isOpen() ? 'search.close' : 'search.label')"
+    [title]="t(isOpen() ? 'search.close' : 'search.label')"
+    aria-controls="portal-search-form"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggle()"
+  >
+    <i class="fas" [class.fa-search]="!isOpen()" [class.fa-times]="isOpen()" aria-hidden="true"></i>
+  </button>
+</ng-container>
