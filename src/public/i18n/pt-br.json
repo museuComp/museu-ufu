@@ -52,6 +52,8 @@
         "submit": "Pesquisar",
         "title": "Resultados da pesquisa",
         "hint": "Use aspas duplas para buscar uma frase exata, como \"história da computação\".",
+        "tooLong": "Use até {{maxLength}} caracteres na pesquisa.",
+        "tooManyTerms": "Use até {{maxTerms}} palavras ou frases entre aspas na pesquisa.",
         "prompt": "Use o ícone de lupa no cabeçalho para pesquisar os textos do portal.",
         "loading": "Pesquisando no portal…",
         "countOne": "{{count}} resultado encontrado para “{{query}}”.",

@@ -5,6 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { distinctUntilChanged, filter, map, startWith, tap } from 'rxjs';
 import { NavigationService } from '@app/services/navigation.service';
+import { parseSearchQuery, SEARCH_QUERY_LIMITS } from '@shared/utils/search-text.utils';
 
 /**
  * Componente SearchBarComponent exibe a lupa e a barra expansível do cabeçalho.
@@ -34,7 +35,14 @@ export class SearchBarComponent {
   private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
   /** Indica se a barra está expandida; o formulário guarda o termo digitado. */
   readonly isOpen = signal(false);
-  readonly query = new FormControl('', { nonNullable: true });
+  readonly queryLimits = SEARCH_QUERY_LIMITS;
+  readonly query = new FormControl('', {
+    nonNullable: true,
+    validators: control => {
+      const error = parseSearchQuery(control.value).error;
+      return error ? { searchQuery: error } : null;
+    },
+  });
   readonly form = new FormGroup({ q: this.query });
 
   constructor() {
@@ -85,6 +93,7 @@ export class SearchBarComponent {
 
   /** Abre a página de resultados no idioma atual e grava o termo no parâmetro q. */
   search(): void {
+    if (this.query.invalid) return;
     const query = this.query.value.trim();
     // Pesquisas com apenas espaços não iniciam uma navegação.
     if (query) {

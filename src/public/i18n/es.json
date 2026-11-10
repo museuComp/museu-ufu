@@ -52,6 +52,8 @@
         "submit": "Buscar",
         "title": "Resultados de búsqueda",
         "hint": "Use comillas para buscar una frase exacta, como \"historia de la computación\".",
+        "tooLong": "Use hasta {{maxLength}} caracteres en la búsqueda.",
+        "tooManyTerms": "Use hasta {{maxTerms}} palabras o frases entre comillas en la búsqueda.",
         "prompt": "Use el icono de lupa del encabezado para buscar los textos del portal.",
         "loading": "Buscando en el portal…",
         "countOne": "{{count}} resultado encontrado para «{{query}}».",

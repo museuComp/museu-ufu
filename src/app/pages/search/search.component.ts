@@ -6,6 +6,7 @@ import { BehaviorSubject, catchError, combineLatest, distinctUntilChanged, map, 
 import { NavigationService } from '@app/services/navigation.service';
 import { SEARCH_MODULE_LABELS, SEARCH_MODULES, SearchModule, SearchResult } from '@shared/models/search-result.model';
 import { SearchFilters, selectSearchPage } from '@shared/utils/search-results.utils';
+import { parseSearchQuery, SEARCH_QUERY_LIMITS, SearchQueryError } from '@shared/utils/search-text.utils';
 import { HighlightSearchPipe } from '@shared/pipes/highlight-search/highlight-search.pipe';
 import { PortalSearchService } from 'core/services/portal-search.service';
 
@@ -14,7 +15,8 @@ interface SearchState {
   query: string;
   language: string;
   approximate: boolean;
-  status: 'idle' | 'loading' | 'success' | 'error';
+  status: 'idle' | 'loading' | 'success' | 'error' | 'invalid';
+  queryError?: SearchQueryError;
   results: SearchResult[];
 }
 
@@ -42,6 +44,7 @@ export class SearchComponent {
   private readonly refresh$ = new BehaviorSubject<void>(undefined);
 
   readonly moduleLabels = SEARCH_MODULE_LABELS;
+  readonly queryLimits = SEARCH_QUERY_LIMITS;
 
   /** Ordena as opções pelo nome traduzido de cada módulo no idioma selecionado. */
   private readonly modules$ = this.transloco.selectTranslate<string[]>(Object.values(SEARCH_MODULE_LABELS)).pipe(
@@ -52,7 +55,7 @@ export class SearchComponent {
   /** Refaz a busca quando o termo, o idioma, a aproximação ou a tentativa mudam. */
   private readonly data$: Observable<SearchState> = combineLatest([
     this.route.queryParamMap.pipe(
-      map(params => ({ query: (params.get('q') ?? '').trim(), approximate: params.get('approximate') === '1' })),
+      map(params => ({ query: params.get('q') ?? '', approximate: params.get('approximate') === '1' })),
       distinctUntilChanged((previous, current) => previous.query === current.query && previous.approximate === current.approximate),
     ),
     this.transloco.langChanges$.pipe(distinctUntilChanged()),
@@ -60,13 +63,17 @@ export class SearchComponent {
   ]).pipe(
     // Considera apenas a consulta mais recente quando o visitante troca o termo.
     switchMap(([{ query, approximate }, language]): Observable<SearchState> => {
-      const state = { query, language, approximate };
-      if (!query) {
+      const { error: queryError } = parseSearchQuery(query);
+      const state = { query: queryError ? '' : query.trim(), language, approximate };
+      if (queryError) {
+        return of({ ...state, status: 'invalid', queryError, results: [] });
+      }
+      if (!state.query) {
         return of({ ...state, status: 'idle', results: [] });
       }
 
       // Informa o carregamento e transforma falhas em uma mensagem recuperável.
-      return this.searchService.search(query, { language, approximate }).pipe(
+      return this.searchService.search(state.query, { language, approximate }).pipe(
         map(results => ({ ...state, status: 'success' as const, results })),
         startWith({ ...state, status: 'loading' as const, results: [] }),
         catchError(() => of({ ...state, status: 'error' as const, results: [] })),

@@ -1,3 +1,7 @@
+/** Limites compartilhados pelo campo, pela URL e pelo processamento da busca. */
+export const SEARCH_QUERY_LIMITS = { maxLength: 200, maxTerms: 10 } as const;
+export type SearchQueryError = 'tooLong' | 'tooManyTerms';
+
 /** Trecho de texto e indicação de que ele deve aparecer destacado. */
 export interface SearchTextPart {
   text: string;
@@ -16,6 +20,7 @@ export interface SearchQuery {
   phrase: string;
   /** Termos entre aspas sempre exigem a escrita exata, sem tolerância a erros. */
   exactTerms: string[];
+  error?: SearchQueryError;
 }
 
 /** Separa os acentos das letras e remove esses sinais para comparar a escrita. */
@@ -37,11 +42,15 @@ export function normalizeSearchText(text: string): string {
 /**
  * Separa palavras livres e mantém cada frase entre aspas como um único termo.
  * @param query Pesquisa digitada pelo visitante.
- * @returns Termos obrigatórios e frase completa, sem as aspas de busca.
+ * @returns Termos e frase sem aspas; consultas acima dos limites retornam um erro e termos vazios.
  * @example
  * parseSearchQuery('museu "Alan Turing"'); // Termos: 'museu' e 'alan turing'.
  */
 export function parseSearchQuery(query: string): SearchQuery {
+  // Recusa entradas grandes antes de normalizar ou percorrer seus termos.
+  if (query.length > SEARCH_QUERY_LIMITS.maxLength) {
+    return { terms: [], phrase: '', exactTerms: [], error: 'tooLong' };
+  }
   const terms: string[] = [];
   const exactTerms: string[] = [];
   // Aceita tanto aspas retas quanto as aspas tipográficas copiadas de outros textos.
@@ -49,6 +58,10 @@ export function parseSearchQuery(query: string): SearchQuery {
   for (const match of input.matchAll(/"([^"]*)"|([^"\s]+)/gu)) {
     const term = normalizeSearchText(match[1] ?? match[2]);
     if (term) {
+      // Uma frase entre aspas conta como um termo; recusa a consulta inteira.
+      if (terms.length === SEARCH_QUERY_LIMITS.maxTerms) {
+        return { terms: [], phrase: '', exactTerms: [], error: 'tooManyTerms' };
+      }
       terms.push(term);
       if (match[1] !== undefined) exactTerms.push(term);
     }

@@ -10,17 +10,25 @@
     [attr.inert]="isOpen() ? null : ''"
     (ngSubmit)="search()"
   >
-    <input
-      #searchInput
-      type="search"
-      name="q"
-      formControlName="q"
-      [placeholder]="t('search.label')"
-      [attr.aria-label]="t('search.label')"
-      enterkeyhint="search"
-      required
-    >
-    <button type="submit" class="search-submit" [attr.aria-label]="t('search.submit')" [title]="t('search.submit')" [disabled]="!query.value.trim()">
+    <div class="search-field">
+      <input
+        #searchInput
+        type="search"
+        name="q"
+        formControlName="q"
+        [placeholder]="t('search.label')"
+        [attr.aria-label]="t('search.label')"
+        [attr.maxlength]="queryLimits.maxLength"
+        [attr.aria-invalid]="query.hasError('searchQuery') ? 'true' : null"
+        [attr.aria-describedby]="query.hasError('searchQuery') ? 'portal-search-error' : null"
+        enterkeyhint="search"
+        required
+      >
+      @if (query.getError('searchQuery'); as error) {
+        <span id="portal-search-error" class="search-error" role="alert">{{ t('search.' + error, queryLimits) }}</span>
+      }
+    </div>
+    <button type="submit" class="search-submit" [attr.aria-label]="t('search.submit')" [title]="t('search.submit')" [disabled]="query.invalid || !query.value.trim()">
       <i class="fas fa-search" aria-hidden="true"></i>
     </button>
   </form>

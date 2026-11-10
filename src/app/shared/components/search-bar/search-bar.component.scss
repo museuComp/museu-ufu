@@ -53,6 +53,18 @@
 }
 
 /* O campo ocupa o espaço que sobra entre os botões. */
+.search-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-error {
+  display: block;
+  margin-top: 0.25rem;
+  color: #b02a37;
+  font-size: 0.875rem;
+}
+
 input {
   flex: 1;
   width: 100%;

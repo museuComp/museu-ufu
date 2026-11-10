@@ -52,6 +52,8 @@
         "submit": "Search",
         "title": "Search results",
         "hint": "Use quotation marks to search for an exact phrase, such as \"history of computing\".",
+        "tooLong": "Use up to {{maxLength}} characters in your search.",
+        "tooManyTerms": "Use up to {{maxTerms}} words or quoted phrases in your search.",
         "prompt": "Use the search icon in the header to find text on the portal.",
         "loading": "Searching the portal…",
         "countOne": "{{count}} result found for “{{query}}”.",

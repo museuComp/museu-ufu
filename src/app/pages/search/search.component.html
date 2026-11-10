@@ -36,6 +36,9 @@
         @case ('idle') {
           <p>{{ t('search.prompt') }}</p>
         }
+        @case ('invalid') {
+          <p>{{ t('search.' + state.queryError, queryLimits) }}</p>
+        }
         @case ('loading') {
           <p>{{ t('search.loading') }}</p>
         }
