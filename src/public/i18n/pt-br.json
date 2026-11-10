@@ -7,6 +7,7 @@
         "resources": "Recursos",
         "personalities": "Personalidades",
         "news": "Notícias",
+        "search": "Pesquisa",
         "tour": "Visitação Virtual",
         "donations": "Doações",
         "accessibility": "Acessibilidade",
@@ -43,6 +44,39 @@
             "reset": "Resetar zoom",
             "constrast": "Inverter cores"
         }
+    },
+
+    "search": {
+        "label": "Pesquisar no portal",
+        "close": "Fechar pesquisa",
+        "submit": "Pesquisar",
+        "title": "Resultados da pesquisa",
+        "hint": "Use aspas duplas para buscar uma frase exata, como \"história da computação\".",
+        "tooLong": "Use até {{maxLength}} caracteres na pesquisa.",
+        "tooManyTerms": "Use até {{maxTerms}} palavras ou frases entre aspas na pesquisa.",
+        "prompt": "Use o ícone de lupa no cabeçalho para pesquisar os textos do portal.",
+        "loading": "Pesquisando no portal…",
+        "countOne": "{{count}} resultado encontrado para “{{query}}”.",
+        "countMany": "{{count}} resultados encontrados para “{{query}}”.",
+        "empty": "Nenhum conteúdo encontrado. Tente outras palavras ou confira a escrita.",
+        "error": "Não foi possível carregar os conteúdos para a pesquisa. Tente novamente.",
+        "retry": "Tentar novamente",
+        "noDescription": "Esta publicação não possui resumo.",
+        "filterModule": "Buscar em",
+        "allModules": "Todo o portal",
+        "sortLabel": "Ordenar por",
+        "sortRelevance": "Relevância",
+        "sortNewest": "Mais recentes",
+        "sortOldest": "Mais antigos",
+        "clearFilters": "Limpar filtros",
+        "range": "Exibindo {{start}}–{{end}} de {{total}} resultados.",
+        "pagination": "Páginas de resultados",
+        "previous": "Anterior",
+        "next": "Próxima",
+        "pageLabel": "Página {{page}} de {{total}}",
+        "goToPage": "Ir para a página {{page}}",
+        "approximate": "Correspondência aproximada",
+        "enableApproximate": "Incluir correspondências aproximadas"
     },
 
     "menu": {

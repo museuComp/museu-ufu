@@ -7,6 +7,7 @@
         "resources": "Recursos",
         "personalities": "Personalidades",
         "news": "Noticias",
+        "search": "Búsqueda",
         "tour": "Visita virtual",
         "donations": "Donaciones",
         "accessibility": "Accesibilidad",
@@ -43,6 +44,39 @@
             "reset": "Restablecer zoom",
             "constrast": "Invertir colores"
         }
+    },
+
+    "search": {
+        "label": "Buscar en el portal",
+        "close": "Cerrar búsqueda",
+        "submit": "Buscar",
+        "title": "Resultados de búsqueda",
+        "hint": "Use comillas para buscar una frase exacta, como \"historia de la computación\".",
+        "tooLong": "Use hasta {{maxLength}} caracteres en la búsqueda.",
+        "tooManyTerms": "Use hasta {{maxTerms}} palabras o frases entre comillas en la búsqueda.",
+        "prompt": "Use el icono de lupa del encabezado para buscar los textos del portal.",
+        "loading": "Buscando en el portal…",
+        "countOne": "{{count}} resultado encontrado para «{{query}}».",
+        "countMany": "{{count}} resultados encontrados para «{{query}}».",
+        "empty": "No se encontró contenido. Pruebe con otras palabras o revise la ortografía.",
+        "error": "No se pudo cargar el contenido para la búsqueda. Inténtelo de nuevo.",
+        "retry": "Intentar de nuevo",
+        "noDescription": "Esta publicación no tiene resumen.",
+        "filterModule": "Buscar en",
+        "allModules": "Todo el portal",
+        "sortLabel": "Ordenar por",
+        "sortRelevance": "Relevancia",
+        "sortNewest": "Más recientes",
+        "sortOldest": "Más antiguos",
+        "clearFilters": "Limpiar filtros",
+        "range": "Mostrando {{start}}–{{end}} de {{total}} resultados.",
+        "pagination": "Páginas de resultados",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "pageLabel": "Página {{page}} de {{total}}",
+        "goToPage": "Ir a la página {{page}}",
+        "approximate": "Coincidencia aproximada",
+        "enableApproximate": "Incluir coincidencias aproximadas"
     },
 
     "menu": {
