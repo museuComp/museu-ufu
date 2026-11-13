@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "compilerOptions": {
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "include": [
+    "src/app/pages/news/news-form/news-form.component.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
