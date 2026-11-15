@@ -1,0 +1,22 @@
+name: Open PR - main
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronized, reopened, edited]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate base branch
+        env:
+          HEAD: ${{ github.head_ref }}
+          BASE: ${{ github.base_ref }}
+        
+        run: |
+          case "$HEAD" in staging | hotfix/*)
+            echo "OK" ;;
+          *)
+            echo "PRs para main só podem vir de 'staging' ou 'hotfix/*'. Origem atual: $HEAD"
+            exit 1 ;;
+          esac
