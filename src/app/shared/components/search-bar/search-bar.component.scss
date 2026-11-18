@@ -1,5 +1,6 @@
 /* A largura cresce no cabeçalho e desloca os elementos vizinhos. */
 :host {
+  position: relative;
   display: inline-flex;
   align-items: center;
   width: 44px;
@@ -10,7 +11,7 @@
 
 /* Limita a barra ao espaço disponível em telas menores. */
 :host(.expanded) {
-  width: min(380px, calc(100vw - 2rem));
+  width: min(424px, calc(100vw - 2rem));
 }
 
 /* Mantém o botão de abrir e fechar com tamanho fixo durante a expansão. */
@@ -114,6 +115,57 @@ button {
   }
 }
 
+/* Diferencia o botão de ajuda do envio, mantendo a mesma área de toque. */
+.search-help-trigger {
+  width: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid #0c326f;
+  border-radius: 6px;
+  background: #fff;
+  color: #0c326f;
+  font-size: 1rem;
+
+  &:hover,
+  &[aria-expanded='true'] {
+    background: #edf2fa;
+  }
+}
+
+/* Painel das dicas abaixo da barra; a largura nunca passa da barra expandida. */
+.search-help {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  right: 0;
+  z-index: 1;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 1rem;
+  border: 1px solid #63748a;
+  border-radius: 6px;
+  background: #fff;
+  color: #212529;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: left;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+}
+
+.search-help-title {
+  margin: 0 0 0.5rem;
+  color: #0c326f;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 /* Respeita a preferência do visitante por uma interface sem animações. */
 @media (prefers-reduced-motion: reduce) {
   :host,
@@ -138,5 +190,15 @@ button:focus-visible {
   input:focus-visible,
   button:focus-visible {
     outline-color: #ffc107;
+  }
+
+  .search-help {
+    border-color: #fff;
+    background: #000;
+    color: #fff;
+  }
+
+  .search-help-title {
+    color: #ffc107;
   }
 }

@@ -28,10 +28,35 @@
         <span id="portal-search-error" class="search-error" role="alert">{{ t('search.' + error, queryLimits) }}</span>
       }
     </div>
+    <!-- Abre as dicas por clique ou toque; o painel fica fora do formulário para não ser cortado. -->
+    <button
+      #helpTrigger
+      type="button"
+      class="search-help-trigger"
+      [attr.aria-label]="t('search.help.label')"
+      [title]="t('search.help.label')"
+      [attr.aria-controls]="isHelpOpen() ? 'portal-search-help' : null"
+      [attr.aria-expanded]="isHelpOpen()"
+      (click)="toggleHelp()"
+    >
+      <i class="fas fa-question" aria-hidden="true"></i>
+    </button>
     <button type="submit" class="search-submit" [attr.aria-label]="t('search.submit')" [title]="t('search.submit')" [disabled]="query.invalid || !query.value.trim()">
       <i class="fas fa-search" aria-hidden="true"></i>
     </button>
   </form>
+  @if (isHelpOpen()) {
+    <div #helpPanel id="portal-search-help" class="search-help" aria-labelledby="portal-search-help-title">
+      <p id="portal-search-help-title" class="search-help-title">{{ t('search.help.title') }}</p>
+      <ul>
+        <li>{{ t('search.help.words') }}</li>
+        <li>{{ t('search.hint') }}</li>
+        <li>{{ t('search.help.accents') }}</li>
+        <li>{{ t('search.help.approximate') }}</li>
+        <li>{{ t('search.help.limits', queryLimits) }}</li>
+      </ul>
+    </div>
+  }
   <!-- A mesma lupa abre a barra e passa a funcionar como botão de fechar. -->
   <button
     #searchTrigger
