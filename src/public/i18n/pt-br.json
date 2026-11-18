@@ -76,7 +76,15 @@
         "pageLabel": "Página {{page}} de {{total}}",
         "goToPage": "Ir para a página {{page}}",
         "approximate": "Correspondência aproximada",
-        "enableApproximate": "Incluir correspondências aproximadas"
+        "enableApproximate": "Incluir correspondências aproximadas",
+        "help": {
+            "label": "Dicas de pesquisa",
+            "title": "Dicas de pesquisa",
+            "words": "Digite uma ou mais palavras: aparecem os conteúdos que contêm todas elas.",
+            "accents": "Acentos e maiúsculas não fazem diferença: computacao encontra Computação.",
+            "approximate": "Na página de resultados, ative “Incluir correspondências aproximadas” para tolerar pequenos erros de digitação e filtre por seção.",
+            "limits": "Use até {{maxTerms}} palavras ou frases e até {{maxLength}} caracteres."
+        }
     },
 
     "menu": {

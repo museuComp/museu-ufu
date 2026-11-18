@@ -76,7 +76,15 @@
         "pageLabel": "Página {{page}} de {{total}}",
         "goToPage": "Ir a la página {{page}}",
         "approximate": "Coincidencia aproximada",
-        "enableApproximate": "Incluir coincidencias aproximadas"
+        "enableApproximate": "Incluir coincidencias aproximadas",
+        "help": {
+            "label": "Consejos de búsqueda",
+            "title": "Consejos de búsqueda",
+            "words": "Escriba una o más palabras: aparecen los contenidos que contienen todas ellas.",
+            "accents": "Las tildes y las mayúsculas no importan: computacao encuentra Computação.",
+            "approximate": "En la página de resultados, active «Incluir coincidencias aproximadas» para tolerar pequeños errores de escritura y filtre por sección.",
+            "limits": "Use hasta {{maxTerms}} palabras o frases y hasta {{maxLength}} caracteres."
+        }
     },
 
     "menu": {
