@@ -115,20 +115,21 @@ button {
   }
 }
 
-/* Diferencia o botão de ajuda do envio, mantendo a mesma área de toque. */
+/* Botão de ajuda redondo, no azul da página, com o "?" branco em negrito. */
 .search-help-trigger {
   width: 44px;
   flex-shrink: 0;
   padding: 0;
   border: 1px solid #0c326f;
-  border-radius: 6px;
-  background: #fff;
-  color: #0c326f;
-  font-size: 1rem;
+  border-radius: 50%;
+  background: #0c326f;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 900;
 
   &:hover,
   &[aria-expanded='true'] {
-    background: #edf2fa;
+    background: #071d41;
   }
 }
 
