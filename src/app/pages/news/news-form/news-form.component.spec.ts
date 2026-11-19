@@ -112,7 +112,7 @@ describe('NewsFormComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('deve enviar nova imagem ao storage antes de criar a noticia', async () => {
+  it('deve persistir url e path da nova imagem antes de criar a noticia', async () => {
     const file = new File(
       ['conteudo-da-imagem'],
       'imagem.webp',
@@ -143,6 +143,9 @@ describe('NewsFormComponent', () => {
     expect(newsData.summary.mainImage)
       .toBe('https://cdn.exemplo.com/news/imagem.webp');
 
+    expect(newsData.summary.mainImagePath)
+      .toBe('news/imagem.webp');
+
     expect(firestoreNewsServiceMock.updateNews)
       .not.toHaveBeenCalled();
 
@@ -150,12 +153,16 @@ describe('NewsFormComponent', () => {
       .toHaveBeenCalledWith(['/pt-br/dashboard']);
   });
 
-  it('deve preservar imagem existente durante edicao sem novo arquivo', async () => {
+  it('deve preservar imagem e path existentes durante edicao sem novo arquivo', async () => {
     const existingImage =
       'https://cdn.exemplo.com/news/imagem-existente.webp';
 
+    const existingImagePath =
+      'news/news-123/imagem-existente.webp';
+
     component.isEditMode = true;
     component.newsId = 'news-123';
+    component.existingMainImagePath = existingImagePath;
 
     component.newsForm.setValue({
       summaryTitle: 'Notícia existente',
@@ -182,6 +189,56 @@ describe('NewsFormComponent', () => {
 
     expect(newsData.summary.mainImage)
       .toBe(existingImage);
+
+    expect(newsData.summary.mainImagePath)
+      .toBe(existingImagePath);
+
+    expect(firestoreNewsServiceMock.addNews)
+      .not.toHaveBeenCalled();
+  });
+
+  it('deve manter compatibilidade com noticia legada sem mainImagePath', async () => {
+    const existingImage =
+      'data:image/webp;base64,imagem-legada';
+
+    component.isEditMode = true;
+    component.newsId = 'news-legada';
+    component.existingMainImagePath = null;
+
+    component.newsForm.setValue({
+      summaryTitle: 'Notícia legada',
+      summaryDescription:
+        'Descrição válida para testar compatibilidade com notícia antiga.',
+      category: 'Notícias',
+      mainImage: existingImage,
+      writer: 'Guilherme'
+    });
+
+    component.selectedMainImageFile = null;
+
+    await component.onSubmit();
+
+    expect(imageStorageMock.uploadImage)
+      .not.toHaveBeenCalled();
+
+    expect(firestoreNewsServiceMock.updateNews)
+      .toHaveBeenCalledTimes(1);
+
+    const [newsId, newsData] =
+      firestoreNewsServiceMock.updateNews.calls.mostRecent().args;
+
+    expect(newsId)
+      .toBe('news-legada');
+
+    expect(newsData.summary.mainImage)
+      .toBe(existingImage);
+
+    expect(
+      Object.prototype.hasOwnProperty.call(
+        newsData.summary,
+        'mainImagePath'
+      )
+    ).toBeFalse();
 
     expect(firestoreNewsServiceMock.addNews)
       .not.toHaveBeenCalled();

@@ -51,6 +51,10 @@ export class NewsFormComponent implements OnInit {
   // Arquivo original selecionado para futura gravação no Image Storage.
   // Permanece null durante a edição enquanto nenhuma nova imagem for escolhida.
   selectedMainImageFile: File | null = null;
+
+  // Object key/path da imagem principal já persistida.
+  // Permanece null para notícias legadas que possuem apenas Base64 ou URL.
+  existingMainImagePath: string | null = null;
   
   // Variáveis para validação de imagem
   readonly MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB em bytes
@@ -106,6 +110,7 @@ export class NewsFormComponent implements OnInit {
               imageSourceLink: item.imageSourceLink || ''
             }))
             : [];
+          this.existingMainImagePath = newsData.summary.mainImagePath ?? null;
           this.mainImageFileName = newsData.summary.mainImage ? 'Imagem Carregada' : null;
         } else {
           console.error('Notícia para edição não encontrada');
@@ -128,6 +133,7 @@ export class NewsFormComponent implements OnInit {
       // Isso mantém compatibilidade com notícias antigas em Base64
       // e com notícias que já possuam uma URL.
       let finalMainImage: string = formValue.mainImage;
+      let finalMainImagePath: string | null = this.existingMainImagePath;
 
       // Somente realiza upload quando o usuário selecionou
       // um novo arquivo nesta sessão do formulário.
@@ -138,16 +144,23 @@ export class NewsFormComponent implements OnInit {
         );
 
         finalMainImage = uploadResult.url;
+        finalMainImagePath = uploadResult.path;
+      }
+
+      const summaryData: NewsPost['summary'] = {
+        title: formValue.summaryTitle,
+        description: formValue.summaryDescription,
+        category: formValue.category,
+        mainImage: finalMainImage,
+        writer: formValue.writer,
+      };
+
+      if (finalMainImagePath) {
+        summaryData.mainImagePath = finalMainImagePath;
       }
 
       const newsData: NewsPost = {
-        summary: {
-          title: formValue.summaryTitle,
-          description: formValue.summaryDescription,
-          category: formValue.category,
-          mainImage: finalMainImage,
-          writer: formValue.writer,
-        },
+        summary: summaryData,
         fullContent: this.fullContent.map(item => ({
           type: item.type,
           content: item.content,

@@ -12,6 +12,7 @@ export interface NewsPost {
     description: string;
     category: string;
     mainImage: string;
+    mainImagePath?: string;
     writer: string; 
   };
   fullContent: Array<{ type: 'title' | 'text' | 'image'; content: string; 
