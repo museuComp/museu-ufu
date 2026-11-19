@@ -128,6 +128,9 @@ export class NewsFormComponent implements OnInit {
 
     const formValue = this.newsForm.value;
 
+    const previousMainImagePath = this.existingMainImagePath;
+    let uploadedMainImagePath: string | null = null;
+
     try {
       // Por padrão, preserva a imagem que já está no formulário.
       // Isso mantém compatibilidade com notícias antigas em Base64
@@ -145,6 +148,7 @@ export class NewsFormComponent implements OnInit {
 
         finalMainImage = uploadResult.url;
         finalMainImagePath = uploadResult.path;
+        uploadedMainImagePath = uploadResult.path;
       }
 
       const summaryData: NewsPost['summary'] = {
@@ -169,10 +173,50 @@ export class NewsFormComponent implements OnInit {
         }))
       };
 
-      if (this.isEditMode && this.newsId) {
-        await this.firestoreNewsService.updateNews(this.newsId, newsData);
-      } else {
-        await this.firestoreNewsService.addNews(newsData);
+      try {
+        if (this.isEditMode && this.newsId) {
+          await this.firestoreNewsService.updateNews(
+            this.newsId,
+            newsData
+          );
+        } else {
+          await this.firestoreNewsService.addNews(newsData);
+        }
+      } catch (persistenceError) {
+        // O upload aconteceu, mas o Firestore não conseguiu persistir.
+        // Remove o arquivo recém-enviado para evitar objeto órfão.
+        if (uploadedMainImagePath) {
+          try {
+            await this.imageStorage.deleteImage(
+              uploadedMainImagePath
+            );
+          } catch (cleanupError) {
+            console.error(
+              'Erro ao remover nova imagem após falha na persistência:',
+              cleanupError
+            );
+          }
+        }
+
+        throw persistenceError;
+      }
+
+      if (
+        this.isEditMode &&
+        this.selectedMainImageFile &&
+        previousMainImagePath &&
+        previousMainImagePath !== uploadedMainImagePath
+      ) {
+        try {
+          await this.imageStorage.deleteImage(
+            previousMainImagePath
+          );
+        } catch (cleanupError) {
+          console.error(
+            'Notícia atualizada, mas não foi possível remover a imagem anterior:',
+            cleanupError
+          );
+        }
       }
 
       await this.router.navigate([this.nav.route('dashboard')]);

@@ -149,6 +149,9 @@ describe('NewsFormComponent', () => {
     expect(firestoreNewsServiceMock.updateNews)
       .not.toHaveBeenCalled();
 
+    expect(imageStorageMock.deleteImage)
+      .not.toHaveBeenCalled();
+
     expect(routerMock.navigate)
       .toHaveBeenCalledWith(['/pt-br/dashboard']);
   });
@@ -166,7 +169,8 @@ describe('NewsFormComponent', () => {
 
     component.newsForm.setValue({
       summaryTitle: 'Notícia existente',
-      summaryDescription: 'Descrição válida da notícia que está sendo editada.',
+      summaryDescription:
+        'Descrição válida da notícia que está sendo editada.',
       category: 'Notícias',
       mainImage: existingImage,
       writer: 'Guilherme'
@@ -185,7 +189,8 @@ describe('NewsFormComponent', () => {
     const [newsId, newsData] =
       firestoreNewsServiceMock.updateNews.calls.mostRecent().args;
 
-    expect(newsId).toBe('news-123');
+    expect(newsId)
+      .toBe('news-123');
 
     expect(newsData.summary.mainImage)
       .toBe(existingImage);
@@ -194,6 +199,9 @@ describe('NewsFormComponent', () => {
       .toBe(existingImagePath);
 
     expect(firestoreNewsServiceMock.addNews)
+      .not.toHaveBeenCalled();
+
+    expect(imageStorageMock.deleteImage)
       .not.toHaveBeenCalled();
   });
 
@@ -242,6 +250,179 @@ describe('NewsFormComponent', () => {
 
     expect(firestoreNewsServiceMock.addNews)
       .not.toHaveBeenCalled();
+
+    expect(imageStorageMock.deleteImage)
+      .not.toHaveBeenCalled();
+  });
+
+  it('deve excluir imagem anterior somente apos atualizar a noticia', async () => {
+    const oldImage =
+      'https://cdn.exemplo.com/news/imagem-antiga.webp';
+
+    const oldImagePath =
+      'news/news-123/imagem-antiga.webp';
+
+    component.isEditMode = true;
+    component.newsId = 'news-123';
+    component.existingMainImagePath = oldImagePath;
+
+    component.newsForm.setValue({
+      summaryTitle: 'Notícia atualizada',
+      summaryDescription:
+        'Descrição válida para testar substituição segura.',
+      category: 'Notícias',
+      mainImage: oldImage,
+      writer: 'Guilherme'
+    });
+
+    const file = new File(
+      ['nova-imagem'],
+      'nova-imagem.webp',
+      { type: 'image/webp' }
+    );
+
+    let resolveUpdate!: () => void;
+
+    firestoreNewsServiceMock.updateNews.and.returnValue(
+      new Promise<void>((resolve) => {
+        resolveUpdate = resolve;
+      })
+    );
+
+    component.selectedMainImageFile = file;
+
+    const submitPromise = component.onSubmit();
+
+    // Libera as continuações assíncronas do upload para que
+    // o fluxo chegue ao updateNews(), que permanece pendente.
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(imageStorageMock.uploadImage)
+      .toHaveBeenCalledWith(file, 'news');
+
+    expect(firestoreNewsServiceMock.updateNews)
+      .toHaveBeenCalledTimes(1);
+
+    // Enquanto o Firestore ainda não confirmou a atualização,
+    // a imagem antiga não pode ser excluída.
+    expect(imageStorageMock.deleteImage)
+      .not.toHaveBeenCalled();
+
+    // Simula a confirmação bem-sucedida do Firestore.
+    resolveUpdate();
+
+    await submitPromise;
+
+    // Somente depois da persistência bem-sucedida
+    // a imagem antiga pode ser removida.
+    expect(imageStorageMock.deleteImage)
+      .toHaveBeenCalledOnceWith(oldImagePath);
+
+    expect(routerMock.navigate)
+      .toHaveBeenCalledWith(['/pt-br/dashboard']);
+  });
+
+  it('deve substituir imagem de noticia legada sem tentar excluir path inexistente', async () => {
+    component.isEditMode = true;
+    component.newsId = 'news-legada';
+    component.existingMainImagePath = null;
+
+    component.newsForm.setValue({
+      summaryTitle: 'Notícia legada',
+      summaryDescription:
+        'Descrição válida para testar substituição em notícia antiga.',
+      category: 'Notícias',
+      mainImage: 'data:image/webp;base64,imagem-antiga',
+      writer: 'Guilherme'
+    });
+
+    const file = new File(
+      ['nova-imagem'],
+      'nova-imagem.webp',
+      { type: 'image/webp' }
+    );
+
+    component.selectedMainImageFile = file;
+
+    await component.onSubmit();
+
+    expect(imageStorageMock.uploadImage)
+      .toHaveBeenCalledWith(file, 'news');
+
+    expect(firestoreNewsServiceMock.updateNews)
+      .toHaveBeenCalledTimes(1);
+
+    const [, newsData] =
+      firestoreNewsServiceMock.updateNews.calls.mostRecent().args;
+
+    expect(newsData.summary.mainImage)
+      .toBe('https://cdn.exemplo.com/news/imagem.webp');
+
+    expect(newsData.summary.mainImagePath)
+      .toBe('news/imagem.webp');
+
+    expect(imageStorageMock.deleteImage)
+      .not.toHaveBeenCalled();
+  });
+
+  it('deve remover nova imagem quando atualizacao da noticia falhar', async () => {
+    spyOn(console, 'error');
+
+    const oldImagePath =
+      'news/news-123/imagem-antiga.webp';
+
+    component.isEditMode = true;
+    component.newsId = 'news-123';
+    component.existingMainImagePath = oldImagePath;
+
+    component.newsForm.setValue({
+      summaryTitle: 'Notícia com falha',
+      summaryDescription:
+        'Descrição válida para testar compensação após falha.',
+      category: 'Notícias',
+      mainImage:
+        'https://cdn.exemplo.com/news/imagem-antiga.webp',
+      writer: 'Guilherme'
+    });
+
+    const file = new File(
+      ['nova-imagem'],
+      'nova-imagem.webp',
+      { type: 'image/webp' }
+    );
+
+    component.selectedMainImageFile = file;
+
+    firestoreNewsServiceMock.updateNews
+      .and.returnValue(
+        Promise.reject(
+          new Error('Falha simulada no Firestore')
+        )
+      );
+
+    await component.onSubmit();
+
+    expect(imageStorageMock.uploadImage)
+      .toHaveBeenCalledWith(file, 'news');
+
+    expect(firestoreNewsServiceMock.updateNews)
+      .toHaveBeenCalledTimes(1);
+
+    // Como a persistência falhou, o arquivo recém-enviado
+    // deve ser removido para não ficar órfão no storage.
+    expect(imageStorageMock.deleteImage)
+      .toHaveBeenCalledOnceWith('news/imagem.webp');
+
+    // A imagem antiga continua sendo a referência válida
+    // da notícia e, portanto, não pode ser apagada.
+    expect(imageStorageMock.deleteImage)
+      .not.toHaveBeenCalledWith(oldImagePath);
+
+    expect(component.mainImageError)
+      .toBe(
+        'Não foi possível salvar a notícia ou enviar a imagem. Tente novamente.'
+      );
   });
 
   it('nao deve salvar noticia quando o upload da imagem falhar', async () => {
@@ -259,7 +440,8 @@ describe('NewsFormComponent', () => {
 
     component.newsForm.setValue({
       summaryTitle: 'Teste de erro',
-      summaryDescription: 'Descrição válida para testar uma falha no upload.',
+      summaryDescription:
+        'Descrição válida para testar uma falha no upload.',
       category: 'Notícias',
       mainImage: 'data:image/webp;base64,preview',
       writer: 'Guilherme'
@@ -276,6 +458,9 @@ describe('NewsFormComponent', () => {
       .not.toHaveBeenCalled();
 
     expect(firestoreNewsServiceMock.updateNews)
+      .not.toHaveBeenCalled();
+
+    expect(imageStorageMock.deleteImage)
       .not.toHaveBeenCalled();
 
     expect(component.mainImageError)
