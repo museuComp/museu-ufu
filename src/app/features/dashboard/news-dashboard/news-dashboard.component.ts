@@ -11,6 +11,7 @@ import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@app/core/auth/services/auth.service";
 import { Role } from "@app/features/login/models/credentials.model";
 import { FirestoreNewsService, NewsPost } from "core/services/firestore-news.service";
+import { IMAGE_STORAGE } from 'core/services/image-storage.contract';
 import { Observable, Subscription } from "rxjs";
 import { DashboardDeleteConfirmDialog } from "../dashboard.component";
 import { NavigationService } from "@app/services/navigation.service";
@@ -43,6 +44,7 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
     authService = inject(AuthService);
     readonly nav = inject(NavigationService);
     private firestoreNewsService = inject(FirestoreNewsService);
+    private imageStorage = inject(IMAGE_STORAGE);
 
     private router = inject(Router);
     private dialog = inject(MatDialog);
@@ -90,19 +92,45 @@ export class NewsDashboardComponent implements OnInit,OnDestroy {
     }
 
     deleteNews(newsItem: NewsPost): void {
-        if (!newsItem.id) return;
-        const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
-          width: '350px',
-          data: { title: newsItem.summary.title }
-        });
-    
-        dialogRef.afterClosed().subscribe(result => {
-          if (result === true) {
-            this.firestoreNewsService.deleteNews(newsItem.id!)
-              .then(() => console.log('Notícia deletada!'))
-              .catch(error => console.error('Erro:', error));
+      const newsId = newsItem.id;
+
+      if (!newsId) return;
+
+      const dialogRef = this.dialog.open(DashboardDeleteConfirmDialog, {
+        width: '350px',
+        data: { title: newsItem.summary.title }
+      });
+
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result !== true) return;
+
+        try {
+          // Primeiro remove o documento do Firestore.
+          // Dessa forma, uma falha no Firestore nunca apaga a imagem
+          // de uma notícia que continua existente.
+          await this.firestoreNewsService.deleteNews(newsId);
+
+          const mainImagePath = newsItem.summary.mainImagePath;
+
+          // Notícias antigas podem não possuir mainImagePath.
+          if (mainImagePath) {
+            try {
+              await this.imageStorage.deleteImage(mainImagePath);
+            } catch (cleanupError) {
+              // A notícia já foi removida do Firestore.
+              // Uma falha de limpeza não deve reverter a exclusão.
+              console.error(
+                'Notícia excluída, mas não foi possível remover a imagem associada:',
+                cleanupError
+              );
+            }
           }
-        });
+
+          console.log('Notícia deletada!');
+        } catch (error) {
+          console.error('Erro ao excluir notícia:', error);
+        }
+      });
     }
 
     trackByNewsId(index: number, news: NewsPost): string {
