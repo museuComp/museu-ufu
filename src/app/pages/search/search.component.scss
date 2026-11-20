@@ -1,0 +1,188 @@
+:host {
+  display: block;
+}
+
+/* Centraliza a página e permite quebrar títulos ou palavras muito longas. */
+.search-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  color: #212529;
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  margin: 0 0 1rem;
+  color: #0c326f;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+/* Separa as mensagens e a dica de uso da lista de resultados. */
+.search-status {
+  margin-bottom: 1.5rem;
+}
+
+.search-hint {
+  color: #526071;
+  font-size: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Os controles passam para uma coluna em telas estreitas. */
+.search-filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+
+  label { display: grid; gap: 0.5rem; font-weight: 600; }
+  select { width: 100%; min-height: 44px; padding: 0.5rem; border: 1px solid #63748a; border-radius: 6px; background: #fff; color: #212529; }
+}
+
+.clear-filters { min-height: 44px; margin-bottom: 1rem; padding: 0.5rem 1rem; border: 1px solid #0c326f; border-radius: 6px; background: transparent; color: #0c326f; }
+
+/* O texto da opção também pode ser clicado ou tocado para marcar a caixa. */
+.approximate-search {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+
+  input {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    accent-color: #0c326f;
+  }
+}
+
+.approximate-match { font-style: italic; }
+.search-range { margin-top: 1.5rem; }
+.search-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  button { min-width: 44px; min-height: 44px; padding: 0.5rem; border: 1px solid #0c326f; border-radius: 6px; background: #fff; color: #0c326f; }
+  button[aria-current='page'] { background: #0c326f; color: #fff; }
+  button:disabled { opacity: 0.5; }
+}
+
+@media (max-width: 575.98px) { .search-filters { grid-template-columns: 1fr; } }
+
+/* Organiza as publicações sem a marcação padrão de uma lista. */
+.search-results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Separa cada publicação e mantém o título como link de acesso. */
+.search-result {
+  padding: 1.5rem 0;
+  border-top: 1px solid #d5dce5;
+
+  h2 {
+    margin: 0.75rem 0;
+    font-size: 1.375rem;
+  }
+
+  a {
+    color: #0c326f;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+/* Agrupa o módulo e a data, permitindo a quebra de linha em telas menores. */
+.result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  color: #526071;
+  font-size: 0.875rem;
+}
+
+/* Identifica o módulo em que o conteúdo pode ser encontrado no portal. */
+.result-module {
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  background: #edf2fa;
+  color: #0c326f;
+  font-weight: 600;
+}
+
+/* O resumo já vem recortado pelo pipe, sem ocultar a ocorrência com CSS. */
+.result-description {
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+/* Destaca o termo sem acrescentar espaços no meio de palavras. */
+mark {
+  background: #ffec99;
+  color: #111;
+  padding: 0;
+  border-radius: 2px;
+}
+
+/* Mantém o botão de nova tentativa acessível também pelo toque. */
+.retry-button {
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+  border: 1px solid #0c326f;
+  border-radius: 6px;
+  background: #0c326f;
+  color: #fff;
+}
+
+/* Indica o elemento selecionado na navegação pelo teclado. */
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 3px solid #0c326f;
+  outline-offset: 4px;
+}
+
+/* Ajusta textos e destaques para o modo de alto contraste do portal. */
+:host-context(.high-contrast) {
+  .search-pagination button[aria-current='page'] {
+    background: #ffc107 !important;
+    color: #000 !important;
+  }
+
+  mark {
+    background: #ffc107;
+    color: #000;
+  }
+
+  .search-page,
+  .approximate-search,
+  .search-hint,
+  h1,
+  .result-meta {
+    color: #fff;
+  }
+
+  .result-module {
+    background: #000;
+    color: #ffc107;
+    border: 1px solid #ffc107;
+  }
+
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  button:focus-visible {
+    outline-color: #ffc107;
+  }
+
+  .approximate-search input {
+    accent-color: #ffc107;
+  }
+}

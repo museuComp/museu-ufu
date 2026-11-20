@@ -1,0 +1,123 @@
+<!-- Os textos da interface vêm das traduções search do idioma selecionado. -->
+<section class="search-page" aria-labelledby="search-title" *transloco="let t">
+  <h1 id="search-title">{{ t('search.title') }}</h1>
+  <p class="search-hint">{{ t('search.hint') }}</p>
+
+  @if (state$ | async; as state) {
+    @if (state.status === 'success') {
+      <!-- Filtros nativos funcionam pelo teclado e preservam o estado na URL. -->
+      <div class="search-filters">
+        <label for="search-module">{{ t('search.filterModule') }}
+          <select id="search-module" #moduleSelect (change)="updateFilter('module', moduleSelect.value)">
+            <option value="all" [selected]="state.filters.module === 'all'">{{ t('search.allModules') }}</option>
+            @for (module of state.modules; track module.value) { <option [value]="module.value" [selected]="state.filters.module === module.value">{{ module.label }}</option> }
+          </select>
+        </label>
+        <label for="search-sort">{{ t('search.sortLabel') }}
+          <select id="search-sort" #sortSelect [value]="state.filters.sort" (change)="updateFilter('sort', sortSelect.value)">
+            <option value="relevance">{{ t('search.sortRelevance') }}</option>
+            <option value="newest">{{ t('search.sortNewest') }}</option>
+            <option value="oldest">{{ t('search.sortOldest') }}</option>
+          </select>
+        </label>
+      </div>
+    }
+    <!-- A tolerância a erros começa desativada e depende da escolha do visitante. -->
+    <label class="approximate-search" for="search-approximate">
+      <input id="search-approximate" type="checkbox" #approximateInput [checked]="state.approximate" (change)="toggleApproximate(approximateInput.checked)">
+      <span>{{ t('search.enableApproximate') }}</span>
+    </label>
+    @if (state.status === 'success' && (state.filters.module !== 'all' || state.filters.sort !== 'relevance' || state.approximate)) {
+      <button type="button" class="clear-filters" (click)="clearFilters()">{{ t('search.clearFilters') }}</button>
+    }
+    <!-- Comunica a contagem e as mensagens da consulta, inclusive aos leitores de tela. -->
+    <div role="status" aria-live="polite" aria-atomic="true" class="search-status">
+      @switch (state.status) {
+        @case ('idle') {
+          <p>{{ t('search.prompt') }}</p>
+        }
+        @case ('invalid') {
+          <p>{{ t('search.' + state.queryError, queryLimits) }}</p>
+        }
+        @case ('loading') {
+          <p>{{ t('search.loading') }}</p>
+        }
+        @case ('success') {
+          <p>
+            {{ t(state.total === 1 ? 'search.countOne' : 'search.countMany', { count: state.total, query: state.query }) }}
+          </p>
+          @if (!state.results.length) {
+            <p>{{ t('search.empty') }}</p>
+          }
+        }
+        @case ('error') {
+          <p>{{ t('search.error') }}</p>
+        }
+      }
+    </div>
+
+    <!-- Permite repetir a mesma pesquisa quando o carregamento falha. -->
+    @if (state.status === 'error') {
+      <button type="button" class="retry-button" (click)="retry()">{{ t('search.retry') }}</button>
+    }
+
+    @if (state.status === 'success' && state.results.length) {
+      <!-- O destino distingue a página do módulo de suas publicações e arquivos. -->
+      <ul class="search-results" [attr.aria-label]="t('search.title')">
+        @for (result of state.results; track result.assetUrl || result.path) {
+          <li>
+            <article class="search-result">
+              <div class="result-meta">
+                <span class="result-module">{{ t(moduleLabels[result.module]) }}</span>
+                @if (result.publishedAt !== undefined) { <time>{{ formatDate(result, state.language) }}</time> }
+                @if (result.approximate) { <span class="approximate-match">{{ t('search.approximate') }}</span> }
+              </div>
+              <!-- Exibe os trechos destacados como texto, preservando o link do título. -->
+              <h2>
+                <ng-template #resultTitle>
+                  @for (part of (result.title | highlightSearch: state.query : undefined : state.approximate); track $index) {
+                    @if (part.highlighted) {
+                      <mark>{{ part.text }}</mark>
+                    } @else {
+                      <ng-container>{{ part.text }}</ng-container>
+                    }
+                  }
+                </ng-template>
+                @if (result.assetUrl) {
+                  <a [href]="result.assetUrl" target="_blank" rel="noopener noreferrer"><ng-container [ngTemplateOutlet]="resultTitle"></ng-container></a>
+                } @else {
+                  <a [routerLink]="nav.route(result.path)"><ng-container [ngTemplateOutlet]="resultTitle"></ng-container></a>
+                }
+              </h2>
+              <!-- Resume a descrição perto da ocorrência, com cerca de 240 caracteres. -->
+              <p class="result-description">
+                @if (result.matchText || result.description) {
+                  @for (part of ((result.matchText || result.description) | highlightSearch: state.query : 240 : state.approximate); track $index) {
+                    @if (part.highlighted) {
+                      <mark>{{ part.text }}</mark>
+                    } @else {
+                      <ng-container>{{ part.text }}</ng-container>
+                    }
+                  }
+                } @else {
+                  {{ t('search.noDescription') }}
+                }
+              </p>
+            </article>
+          </li>
+        }
+      </ul>
+      <p class="search-range">{{ t('search.range', { start: state.start, end: state.end, total: state.total }) }}</p>
+      @if (state.totalPages > 1) {
+        <nav class="search-pagination" [attr.aria-label]="t('search.pagination')">
+          <button type="button" [disabled]="state.page === 1" (click)="setPage(state.page - 1)">{{ t('search.previous') }}</button>
+          @for (page of state.pages; track page) {
+            <button type="button" [attr.aria-current]="state.page === page ? 'page' : null" [attr.aria-label]="t('search.goToPage', { page })" (click)="setPage(page)">{{ page }}</button>
+          }
+          <button type="button" [disabled]="state.page === state.totalPages" (click)="setPage(state.page + 1)">{{ t('search.next') }}</button>
+          <span>{{ t('search.pageLabel', { page: state.page, total: state.totalPages }) }}</span>
+        </nav>
+      }
+    }
+  }
+</section>

@@ -1,5 +1,10 @@
+/* Mantém o cabeçalho visível abaixo da barra do governo e reserva sua altura na página. */
 :host {
 	display: block;
+	position: sticky;
+	top: 40px;
+	z-index: 1000;
+	flex-shrink: 0;
 }
 
 :host ::ng-deep {
@@ -20,12 +25,64 @@
   max-height: 40px;
 }
 
+/* Permite que os elementos mudem de linha quando a pesquisa se expande. */
+.header-content {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+/* Evita que a marca ultrapasse a largura disponível do cabeçalho. */
+.header-brand {
+	min-width: 0;
+	max-width: 100%;
+
+	.region-nav-branding {
+		min-width: 0;
+	}
+
+	.logo img {
+		max-width: 100%;
+		object-fit: contain;
+	}
+}
+
+/* Agrupa acessibilidade e pesquisa, acompanhando a largura da barra expansível. */
+.header-tools {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 1rem;
+	min-width: 0;
+	max-width: 100%;
+	margin-left: auto;
+}
+
+/* Reduz os espaços entre os elementos em dispositivos móveis. */
+@media (max-width: 767.98px) {
+	.header-content {
+		gap: 0.75rem;
+	}
+
+	.header-tools {
+		gap: 0;
+	}
+
+	.region-nav-branding {
+		min-width: 0;
+	}
+
+	.logo img {
+		max-width: 100%;
+		object-fit: contain;
+	}
+}
+
 #header {
 	z-index: 1000;
-	position: fixed;
-	top: 40px;
-	left: 0;
-	right: 0;
 	width: 100%;
 	background-color: #ffffff;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);

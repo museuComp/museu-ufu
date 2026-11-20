@@ -3,6 +3,13 @@ import { authGuard } from './core/auth/services/auth.service';
 
 const childrenRoutes: Routes = [
   {path:'home', redirectTo:'', pathMatch:'full'},
+
+  // Abre a página de resultados; o termo é recebido pelo parâmetro q da URL.
+  { path: 'search',
+    title: 'search',
+    data: { breadCrumb: 'search' },
+    loadComponent: () => import('./pages/search/search.component').then((m) => m.SearchComponent)
+  },
   
   { path: '',
     title: 'home',

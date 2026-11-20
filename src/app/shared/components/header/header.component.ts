@@ -7,11 +7,13 @@ import { RouterLink } from '@angular/router';
 import { AccessibilityService } from '@app/services/accessibility.service';
 import { TranslocoModule } from '@jsverse/transloco';
 import { NavigationService } from '@app/services/navigation.service';
+// Barra de pesquisa reutilizável exibida ao lado dos controles de acessibilidade.
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
 	selector: 'app-header',
 	standalone: true,
-  	imports: [CdkMenuModule, BarraBrasilComponent, RouterLink, TranslocoModule],
+	imports: [CdkMenuModule, BarraBrasilComponent, RouterLink, TranslocoModule, SearchBarComponent],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

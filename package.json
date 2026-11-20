@@ -4,9 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prestart": "npm run search:index",
     "build": "ng build",
+    "prebuild": "npm run search:index",
     "watch": "ng build --watch --configuration development",
+    "prewatch": "npm run search:index",
     "test": "ng test",
+    "search:index": "node scripts/build-search-index.mjs",
+    "predeploy": "npm run search:index",
     "deploy": "ng build --configuration production && npx angular-cli-ghpages --dir=dist/museu-ufu/browser --no-silent"
   },
   "private": true,

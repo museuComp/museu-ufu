@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { AboutRoutingModule } from "@app/pages/about/about-routing.module";
-import { Router } from '@angular/router';
+import { Router, UrlSegment } from '@angular/router';
 
 @Component({
   selector: 'app-barra-brasil',
@@ -18,9 +18,11 @@ export class BarraBrasilComponent {
   constructor() {}
 
   changeLang(lang:string): void {
-    let url = this.router.url;
-    url = url.replace(this.transloco.getActiveLang(), lang);
+    // Troca apenas o segmento do idioma e preserva pesquisa, filtros e fragmentos.
+    const url = this.router.parseUrl(this.router.url);
+    const primary = url.root.children['primary'];
+    if (primary?.segments.length) primary.segments[0] = new UrlSegment(lang, primary.segments[0].parameters);
     this.transloco.setActiveLang(lang);
-    this.router.navigate([url]);
+    this.router.navigateByUrl(url);
   }
-} 
+}
