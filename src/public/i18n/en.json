@@ -82,7 +82,7 @@
             "title": "Search tips",
             "words": "Type one or more words: results include content that contains all of them.",
             "accents": "Accents and capital letters don't matter: computacao finds Computação.",
-            "approximate": "On the results page, turn on “Include approximate matches” to allow small typos, and filter by section.",
+            "approximate": "On the results page, you can filter by section and turn on “Include approximate matches” to allow small typos.",
             "limits": "Use up to {{maxTerms}} words or phrases and up to {{maxLength}} characters."
         }
     },

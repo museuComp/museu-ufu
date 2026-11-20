@@ -82,7 +82,7 @@
             "title": "Consejos de búsqueda",
             "words": "Escriba una o más palabras: aparecen los contenidos que contienen todas ellas.",
             "accents": "Las tildes y las mayúsculas no importan: computacao encuentra Computação.",
-            "approximate": "En la página de resultados, active «Incluir coincidencias aproximadas» para tolerar pequeños errores de escritura y filtre por sección.",
+            "approximate": "En la página de resultados, puede filtrar por sección y activar «Incluir coincidencias aproximadas» para tolerar pequeños errores de escritura.",
             "limits": "Use hasta {{maxTerms}} palabras o frases y hasta {{maxLength}} caracteres."
         }
     },

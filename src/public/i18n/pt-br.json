@@ -82,7 +82,7 @@
             "title": "Dicas de pesquisa",
             "words": "Digite uma ou mais palavras: aparecem os conteúdos que contêm todas elas.",
             "accents": "Acentos e maiúsculas não fazem diferença: computacao encontra Computação.",
-            "approximate": "Na página de resultados, ative “Incluir correspondências aproximadas” para tolerar pequenos erros de digitação e filtre por seção.",
+            "approximate": "Na página de resultados, você pode filtrar por seção e ativar “Incluir correspondências aproximadas” para tolerar pequenos erros de digitação.",
             "limits": "Use até {{maxTerms}} palavras ou frases e até {{maxLength}} caracteres."
         }
     },
