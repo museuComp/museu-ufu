@@ -1,0 +1,51 @@
+<section class="kpi-grid" aria-label="Indicadores principais do acervo">
+  @if (isLoading()) {
+    @for (i of [1, 2, 3, 4]; track i) {
+      <div class="kpi-card kpi-news">
+        <div class="kpi-header">
+          <ngx-skeleton-loader count="1" [theme]="{ height: '48px', width: '48px', 'border-radius': '12px' }" />
+          <ngx-skeleton-loader count="1" [theme]="{ height: '24px', width: '60px', 'border-radius': '12px' }" />
+        </div>
+        <div class="kpi-body">
+          <ngx-skeleton-loader count="1" [theme]="{ height: '40px', width: '80px', margin: '0 0 8px 0' }" />
+          <ngx-skeleton-loader count="1" [theme]="{ height: '16px', width: '140px', margin: '0 0 8px 0' }" />
+          <ngx-skeleton-loader count="1" [theme]="{ height: '14px', width: '100px' }" />
+        </div>
+      </div>
+    }
+  } @else {
+    @for (kpi of kpis(); track kpi.type) {
+      <article
+        [class]="'kpi-card kpi-' + kpi.type"
+        [attr.aria-label]="(kpi.labelKey | transloco) + ': ' + kpi.value"
+      >
+        <div class="kpi-header">
+          <div class="icon-wrapper" aria-hidden="true">
+            <mat-icon>{{ kpi.icon }}</mat-icon>
+          </div>
+          @if (kpi.trend > 0) {
+            <span class="trend-badge" aria-label="Adições recentes">
+              <mat-icon aria-hidden="true">trending_up</mat-icon>
+              +{{ kpi.trend }}
+            </span>
+          }
+        </div>
+
+        <div class="kpi-body">
+          <span class="kpi-value">{{ kpi.value }}</span>
+          <span class="kpi-label">{{ kpi.labelKey | transloco }}</span>
+
+          <div class="kpi-footer">
+            @if (kpi.trend > 0) {
+              <span class="trend-count">+{{ kpi.trend }}</span>
+              <span>{{ kpi.sublabelKey | transloco }}</span>
+            } @else {
+              <span>{{ kpi.sublabelKey | transloco }}</span>
+            }
+          </div>
+        </div>
+      </article>
+    }
+  }
+</section>
+

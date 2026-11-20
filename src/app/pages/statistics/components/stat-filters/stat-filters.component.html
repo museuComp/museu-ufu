@@ -1,0 +1,77 @@
+<div class="filters-container" aria-label="Filtros de exploração do acervo">
+  <div class="filters-form">
+    <!-- Period Filter -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ 'statistics.filters.period' | transloco }}</mat-label>
+      <mat-select
+        [value]="activePeriod()"
+        (selectionChange)="onPeriodChange($event)"
+        [attr.aria-label]="'statistics.filters.period' | transloco"
+      >
+        <mat-option value="all">{{ 'statistics.filters.allPeriods' | transloco }}</mat-option>
+        <mat-option value="this-month">{{ 'statistics.filters.thisMonth' | transloco }}</mat-option>
+        <mat-option value="last-3-months">{{ 'statistics.filters.last3Months' | transloco }}</mat-option>
+        <mat-option value="last-6-months">{{ 'statistics.filters.last6Months' | transloco }}</mat-option>
+        <mat-option value="this-year">{{ 'statistics.filters.thisYear' | transloco }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Content Type Filter -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ 'statistics.filters.type' | transloco }}</mat-label>
+      <mat-select
+        [value]="activeType()"
+        (selectionChange)="onTypeChange($event)"
+        [attr.aria-label]="'statistics.filters.type' | transloco"
+      >
+        <mat-option value="all">{{ 'statistics.filters.allTypes' | transloco }}</mat-option>
+        <mat-option value="news">{{ 'statistics.filters.news' | transloco }}</mat-option>
+        <mat-option value="video">{{ 'statistics.filters.videos' | transloco }}</mat-option>
+        <mat-option value="personality">{{ 'statistics.filters.personalities' | transloco }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Category Filter -->
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ 'statistics.filters.category' | transloco }}</mat-label>
+      <mat-select
+        [value]="activeCategory()"
+        (selectionChange)="onCategoryChange($event)"
+        [attr.aria-label]="'statistics.filters.category' | transloco"
+      >
+        <mat-option value="all">{{ 'statistics.filters.allCategories' | transloco }}</mat-option>
+        @for (cat of categories(); track cat) {
+          <mat-option [value]="cat">{{ cat }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Text Search Filter -->
+    <mat-form-field appearance="outline" class="filter-field search-field">
+      <mat-label>{{ 'statistics.filters.search' | transloco }}</mat-label>
+      <input
+        matInput
+        type="search"
+        [value]="searchTerm()"
+        (input)="onSearchInput($event)"
+        [placeholder]="'statistics.filters.search' | transloco"
+        [attr.aria-label]="'statistics.filters.search' | transloco"
+      />
+      <mat-icon matSuffix aria-hidden="true">search</mat-icon>
+    </mat-form-field>
+
+    <!-- Clear Filters Button -->
+    <div class="filter-actions">
+      <button
+        type="button"
+        class="btn-clear"
+        (click)="onClear()"
+        [attr.aria-label]="'statistics.filters.clear' | transloco"
+      >
+        <mat-icon aria-hidden="true">filter_alt_off</mat-icon>
+        <span>{{ 'statistics.filters.clear' | transloco }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+

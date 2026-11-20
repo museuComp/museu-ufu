@@ -1,0 +1,106 @@
+<div class="charts-grid" aria-label="Visualizações gráficas do acervo">
+  <!-- Chart 1: Doughnut - Composition -->
+  <article class="chart-card">
+    <header class="chart-header">
+      <h2 class="chart-title">{{ 'statistics.charts.compositionTitle' | transloco }}</h2>
+      <p class="chart-desc">{{ 'statistics.charts.compositionDesc' | transloco }}</p>
+    </header>
+
+    @if (isLoading()) {
+      <div class="chart-loading" role="status" aria-live="polite">
+        <mat-spinner diameter="40" strokeWidth="3" />
+        <span>{{ 'statistics.charts.loading' | transloco }}</span>
+      </div>
+    } @else if (hasDoughnutData()) {
+      <div class="chart-wrapper">
+        <canvas
+          baseChart
+          [data]="doughnutChartData()"
+          [type]="doughnutType"
+          [options]="doughnutOptions"
+          role="img"
+          aria-label="Gráfico de rosca mostrando a proporção entre notícias, vídeos e personalidades no acervo"
+        ></canvas>
+
+        <!-- Screen reader accessible table -->
+        <table class="sr-only">
+          <caption>{{ 'statistics.charts.srCompositionTable' | transloco }}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Tipo</th>
+              <th scope="col">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cat of categoryData(); track cat.label) {
+              <tr>
+                <td>{{ cat.label }}</td>
+                <td>{{ cat.count }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="chart-empty">
+        <p>Sem dados suficientes para exibir o gráfico.</p>
+      </div>
+    }
+  </article>
+
+  <!-- Chart 2: Stacked Bar - Monthly Production -->
+  <article class="chart-card">
+    <header class="chart-header">
+      <h2 class="chart-title">{{ 'statistics.charts.timelineTitle' | transloco }}</h2>
+      <p class="chart-desc">{{ 'statistics.charts.timelineDesc' | transloco }}</p>
+    </header>
+
+    @if (isLoading()) {
+      <div class="chart-loading" role="status" aria-live="polite">
+        <mat-spinner diameter="40" strokeWidth="3" />
+        <span>{{ 'statistics.charts.loading' | transloco }}</span>
+      </div>
+    } @else if (hasBarData()) {
+      <div class="chart-wrapper">
+        <canvas
+          baseChart
+          [data]="barChartData()"
+          [type]="barType"
+          [options]="barOptions"
+          role="img"
+          aria-label="Gráfico de barras mostrando as publicações adicionadas ao longo dos meses"
+        ></canvas>
+
+        <!-- Screen reader accessible table -->
+        <table class="sr-only">
+          <caption>{{ 'statistics.charts.srTimelineTable' | transloco }}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Mês</th>
+              <th scope="col">Notícias</th>
+              <th scope="col">Vídeos</th>
+              <th scope="col">Personalidades</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of temporalData(); track row.month) {
+              <tr>
+                <td>{{ row.monthLabel }}</td>
+                <td>{{ row.news }}</td>
+                <td>{{ row.videos }}</td>
+                <td>{{ row.personalities }}</td>
+                <td>{{ row.total }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="chart-empty">
+        <p>Sem dados temporais disponíveis no momento.</p>
+      </div>
+    }
+  </article>
+</div>
+

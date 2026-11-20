@@ -1,0 +1,130 @@
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 1.5rem;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  }
+
+  &.kpi-news {
+    --accent-color: #1351b4;
+    --accent-bg: rgba(19, 81, 180, 0.1);
+  }
+
+  &.kpi-video {
+    --accent-color: #e53935;
+    --accent-bg: rgba(229, 57, 53, 0.1);
+  }
+
+  &.kpi-personality {
+    --accent-color: #2e7d32;
+    --accent-bg: rgba(46, 125, 50, 0.1);
+  }
+
+  &.kpi-total {
+    --accent-color: #6a1b9a;
+    --accent-bg: rgba(106, 27, 154, 0.1);
+  }
+}
+
+.kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: var(--accent-bg, rgba(19, 81, 180, 0.1));
+  color: var(--accent-color, #1351b4);
+
+  mat-icon {
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.trend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(46, 125, 50, 0.12);
+  color: #1b5e20;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.kpi-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin: 0 0 0.4rem 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555555;
+  margin: 0 0 0.5rem 0;
+}
+
+.kpi-footer {
+  font-size: 0.8rem;
+  color: #777777;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  .trend-count {
+    font-weight: 600;
+    color: var(--accent-color, #333333);
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .kpi-card {
+    padding: 1.25rem;
+  }
+}
+

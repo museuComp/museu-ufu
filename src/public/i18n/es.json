@@ -65,5 +65,87 @@
             "youtube": "Visite nuestro YouTube"
         },
         "info": "Acceso a la información"
+    },
+
+    "statistics": {
+        "title": "Estadísticas del Museo",
+        "subtitle": "Datos en tiempo real sobre el acervo digital, producciones y visitas.",
+        "tabs": {
+            "overview": "Visión General",
+            "details": "Detalle del Acervo",
+            "analytics": "Google Analytics"
+        },
+        "kpis": {
+            "news": "Noticias Publicadas",
+            "videos": "Videos Producidos",
+            "personalities": "Personalidades Catalogadas",
+            "total": "Total de Artículos en el Acervo",
+            "thisMonth": "agregados este mes",
+            "inCollection": "en el acervo digital"
+        },
+        "charts": {
+            "compositionTitle": "Composición del Acervo",
+            "compositionDesc": "Proporción entre los diferentes tipos de contenido catalogados en el museo.",
+            "timelineTitle": "Producción Mensual de Contenido",
+            "timelineDesc": "Evolución del volumen de publicaciones agregadas a lo largo de los meses.",
+            "legendNews": "Noticias",
+            "legendVideos": "Videos",
+            "legendPersonalities": "Personalidades",
+            "srCompositionTable": "Tabla con la composición del acervo para lectores de pantalla.",
+            "srTimelineTable": "Tabla con historial mensual de producciones para lectores de pantalla.",
+            "loading": "Cargando gráficos..."
+        },
+        "recent": {
+            "title": "Actividad Reciente",
+            "subtitle": "Últimas publicaciones y actualizaciones del acervo digital",
+            "viewAll": "Ver todos los detalles",
+            "empty": "No hay actividad reciente registrada.",
+            "viewItem": "Ver artículo"
+        },
+        "filters": {
+            "period": "Período",
+            "allPeriods": "Todo el historial",
+            "thisMonth": "Este mes",
+            "last3Months": "Últimos 3 meses",
+            "last6Months": "Últimos 6 meses",
+            "thisYear": "Este año",
+            "type": "Tipo de Contenido",
+            "allTypes": "Todos los tipos",
+            "news": "Noticias",
+            "videos": "Videos",
+            "personalities": "Personalidades",
+            "category": "Categoría",
+            "allCategories": "Todas las categorías",
+            "search": "Buscar por título o autor...",
+            "clear": "Limpiar filtros"
+        },
+        "table": {
+            "title": "Artículos del Acervo",
+            "subtitle": "Listado detallado con filtros y ordenación",
+            "colTitle": "Título",
+            "colType": "Tipo",
+            "colCategory": "Categoría",
+            "colAuthor": "Autor / Creador",
+            "colDate": "Fecha",
+            "colActions": "Acciones",
+            "viewAction": "Abrir",
+            "empty": "No se encontraron artículos con los filtros seleccionados.",
+            "itemsPerPage": "Artículos por página:"
+        },
+        "ranking": {
+            "title": "Ranking de Colaboradores",
+            "subtitle": "Colaboradores con mayor volumen de publicaciones en el acervo",
+            "rank": "Puesto",
+            "author": "Colaborador",
+            "publications": "Publicaciones",
+            "empty": "Ningún colaborador con publicaciones computadas en este momento."
+        },
+        "looker": {
+            "title": "Panel de Visitas y Tráfico",
+            "subtitle": "Datos en tiempo real proporcionados por Google Analytics a través de Google Looker Studio.",
+            "iframeTitle": "Panel interactivo de métricas de Google Analytics",
+            "externalLink": "Abrir informe en una nueva pestaña",
+            "loading": "Cargando informe de Looker Studio..."
+        }
     }
 }

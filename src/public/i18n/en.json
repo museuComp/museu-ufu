@@ -65,5 +65,87 @@
             "youtube": "Access our YouTube"
         },
         "info": "Access to Information"
+    },
+
+    "statistics": {
+        "title": "Museum Statistics",
+        "subtitle": "Real-time insights into digital collection, productions, and visits.",
+        "tabs": {
+            "overview": "Overview",
+            "details": "Collection Details",
+            "analytics": "Google Analytics"
+        },
+        "kpis": {
+            "news": "Published News",
+            "videos": "Produced Videos",
+            "personalities": "Cataloged Personalities",
+            "total": "Total Items in Collection",
+            "thisMonth": "added this month",
+            "inCollection": "in digital collection"
+        },
+        "charts": {
+            "compositionTitle": "Collection Composition",
+            "compositionDesc": "Proportion between different types of content cataloged in the museum.",
+            "timelineTitle": "Monthly Content Production",
+            "timelineDesc": "Volume trend of publications added across months.",
+            "legendNews": "News",
+            "legendVideos": "Videos",
+            "legendPersonalities": "Personalities",
+            "srCompositionTable": "Table with collection composition for screen readers.",
+            "srTimelineTable": "Table with monthly production history for screen readers.",
+            "loading": "Loading charts..."
+        },
+        "recent": {
+            "title": "Recent Activity",
+            "subtitle": "Latest publications and digital collection updates",
+            "viewAll": "View all collection details",
+            "empty": "No recent activity recorded.",
+            "viewItem": "View item"
+        },
+        "filters": {
+            "period": "Period",
+            "allPeriods": "All time",
+            "thisMonth": "This month",
+            "last3Months": "Last 3 months",
+            "last6Months": "Last 6 months",
+            "thisYear": "This year",
+            "type": "Content Type",
+            "allTypes": "All types",
+            "news": "News",
+            "videos": "Videos",
+            "personalities": "Personalities",
+            "category": "Category",
+            "allCategories": "All categories",
+            "search": "Search by title or author...",
+            "clear": "Clear filters"
+        },
+        "table": {
+            "title": "Collection Items",
+            "subtitle": "Detailed list with filters and sorting",
+            "colTitle": "Title",
+            "colType": "Type",
+            "colCategory": "Category",
+            "colAuthor": "Author / Creator",
+            "colDate": "Date",
+            "colActions": "Actions",
+            "viewAction": "Open",
+            "empty": "No items found matching the selected filters.",
+            "itemsPerPage": "Items per page:"
+        },
+        "ranking": {
+            "title": "Contributors Ranking",
+            "subtitle": "Authors with the highest volume of publications in the collection",
+            "rank": "Rank",
+            "author": "Contributor",
+            "publications": "Publications",
+            "empty": "No contributors with computed publications at the moment."
+        },
+        "looker": {
+            "title": "Traffic & Visitors Dashboard",
+            "subtitle": "Real-time metrics provided by Google Analytics through Google Looker Studio.",
+            "iframeTitle": "Interactive Google Analytics metrics dashboard",
+            "externalLink": "Open report in a new tab",
+            "loading": "Loading Looker Studio report..."
+        }
     }
 }
