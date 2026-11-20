@@ -1,0 +1,103 @@
+.looker-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.looker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .header-text {
+    .looker-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0 0 0.35rem 0;
+    }
+
+    .looker-desc {
+      font-size: 0.85rem;
+      color: #666666;
+      margin: 0;
+    }
+  }
+
+  .btn-external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1351b4;
+    background: rgba(19, 81, 180, 0.08);
+    border: 1px solid rgba(19, 81, 180, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: #1351b4;
+      color: #ffffff;
+    }
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.iframe-container {
+  position: relative;
+  width: 100%;
+  min-height: 650px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+.iframe-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #666666;
+  font-size: 0.9rem;
+  background: #ffffff;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .iframe-container {
+    min-height: 500px;
+  }
+}
+

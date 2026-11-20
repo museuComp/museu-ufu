@@ -1,0 +1,350 @@
+.detail-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.table-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.card-header {
+  margin-bottom: 1.25rem;
+
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.35rem 0;
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+    color: #666666;
+    margin: 0;
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+}
+
+th.mat-mdc-header-cell {
+  background-color: #f8f9fa;
+  color: #333333;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 1rem;
+  white-space: nowrap;
+}
+
+td.mat-mdc-cell {
+  padding: 0.85rem 1rem;
+  color: #333333;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+tr.mat-mdc-row:hover {
+  background-color: #f8fafc;
+}
+
+.item-link {
+  color: #1351b4;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+.type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  &.type-news {
+    background: rgba(19, 81, 180, 0.1);
+    color: #1351b4;
+  }
+
+  &.type-video {
+    background: rgba(229, 57, 53, 0.1);
+    color: #e53935;
+  }
+
+  &.type-personality {
+    background: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+  }
+}
+
+.category-badge {
+  font-size: 0.8rem;
+  background: #f1f3f5;
+  color: #495057;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.writer-text {
+  font-weight: 500;
+  color: #444444;
+}
+
+.date-text {
+  color: #666666;
+  white-space: nowrap;
+  font-size: 0.82rem;
+}
+
+.btn-action-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.7rem;
+  background: rgba(19, 81, 180, 0.08);
+  color: #1351b4;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: #1351b4;
+    color: #ffffff;
+  }
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.table-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #777777;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.5rem;
+    color: #cccccc;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+/* Ranking Section */
+.ranking-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  gap: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f4f6fa;
+  }
+
+  &.top-1 {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.12), #fafafa);
+    border-color: rgba(255, 215, 0, 0.4);
+
+    .rank-number {
+      background: #ffd700;
+      color: #5c4300;
+    }
+  }
+
+  &.top-2 {
+    background: linear-gradient(90deg, rgba(192, 192, 192, 0.15), #fafafa);
+    border-color: rgba(192, 192, 192, 0.4);
+
+    .rank-number {
+      background: #c0c0c0;
+      color: #333333;
+    }
+  }
+
+  &.top-3 {
+    background: linear-gradient(90deg, rgba(205, 127, 50, 0.12), #fafafa);
+    border-color: rgba(205, 127, 50, 0.4);
+
+    .rank-number {
+      background: #cd7f32;
+      color: #ffffff;
+    }
+  }
+
+  .rank-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .rank-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #495057;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .author-info {
+    min-width: 0;
+
+    .author-name {
+      font-weight: 600;
+      color: #222222;
+      font-size: 0.95rem;
+      margin: 0 0 0.15rem 0;
+    }
+
+    .author-breakdown {
+      font-size: 0.78rem;
+      color: #666666;
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  .rank-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+
+    .count-badge {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1351b4;
+      background: rgba(19, 81, 180, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+    }
+  }
+}
+
+.auth-notice {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #1351b4;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    color: #555555;
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto 1.25rem auto;
+    line-height: 1.5;
+  }
+
+  .btn-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    background: #1351b4;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: #0f3e8a;
+    }
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin-bottom: 0;
+      color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ranking-item {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .rank-right {
+      align-self: flex-end;
+    }
+  }
+}
+

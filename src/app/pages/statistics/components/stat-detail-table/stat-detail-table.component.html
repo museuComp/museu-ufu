@@ -1,0 +1,155 @@
+<div class="detail-layout">
+  <!-- Section 1: Detailed Items Table -->
+  <section class="table-card" aria-label="Tabela detalhada do acervo">
+    <header class="card-header">
+      <h2 class="card-title">{{ 'statistics.table.title' | transloco }}</h2>
+      <p class="card-desc">{{ 'statistics.table.subtitle' | transloco }}</p>
+    </header>
+
+    <div class="table-responsive">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        matSortActive="createdAt"
+        matSortDirection="desc"
+        aria-label="Itens do acervo digital do Museu da Computação"
+      >
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
+            {{ 'statistics.table.colTitle' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let item">
+            <a [routerLink]="item.routerPath" class="item-link">{{ item.title }}</a>
+          </td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
+            {{ 'statistics.table.colType' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let item">
+            <span [class]="'type-pill type-' + item.type">
+              <mat-icon aria-hidden="true">{{ getTypeIcon(item.type) }}</mat-icon>
+              {{ getTypeLabel(item.type) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
+            {{ 'statistics.table.colCategory' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let item">
+            <span class="category-badge">{{ item.category }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Writer Column -->
+        <ng-container matColumnDef="writer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
+            {{ 'statistics.table.colAuthor' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let item">
+            <span class="writer-text">{{ item.writer }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header scope="col">
+            {{ 'statistics.table.colDate' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let item">
+            <span class="date-text">{{ formatDate(item.createdAt) }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef scope="col">
+            {{ 'statistics.table.colActions' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let item">
+            <a
+              [routerLink]="item.routerPath"
+              class="btn-action-open"
+              [attr.aria-label]="('statistics.table.viewAction' | transloco) + ': ' + item.title"
+            >
+              <span>{{ 'statistics.table.viewAction' | transloco }}</span>
+              <mat-icon aria-hidden="true">open_in_new</mat-icon>
+            </a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      @if (items().length === 0) {
+        <div class="table-empty" role="status">
+          <mat-icon aria-hidden="true">search_off</mat-icon>
+          <p>{{ 'statistics.table.empty' | transloco }}</p>
+        </div>
+      }
+    </div>
+
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50]"
+      [pageSize]="10"
+      [showFirstLastButtons]="true"
+      aria-label="Paginação da tabela de acervo"
+    ></mat-paginator>
+  </section>
+
+  <!-- Section 2: Authors Ranking (Public) -->
+  <section class="ranking-card" aria-label="Ranking de colaboradores do acervo">
+    <header class="card-header">
+      <h2 class="card-title">{{ 'statistics.ranking.title' | transloco }}</h2>
+      <p class="card-desc">{{ 'statistics.ranking.subtitle' | transloco }}</p>
+    </header>
+
+    @if (authorsRanking().length > 0) {
+      <div class="ranking-list" role="list">
+        @for (author of authorsRanking(); track author.writer; let i = $index) {
+          <article
+            [class]="'ranking-item ' + (i === 0 ? 'top-1' : i === 1 ? 'top-2' : i === 2 ? 'top-3' : '')"
+            role="listitem"
+            [attr.aria-label]="(i + 1) + 'º lugar: ' + author.writer + ' com ' + author.count + ' publicações'"
+          >
+            <div class="rank-left">
+              <span class="rank-number" aria-hidden="true">{{ i + 1 }}</span>
+              <div class="author-info">
+                <h3 class="author-name">{{ author.writer }}</h3>
+                <div class="author-breakdown">
+                  @if (author.newsCount > 0) {
+                    <span>{{ author.newsCount }} notícias</span>
+                  }
+                  @if (author.videosCount > 0) {
+                    <span>• {{ author.videosCount }} vídeos</span>
+                  }
+                  @if (author.personalitiesCount > 0) {
+                    <span>• {{ author.personalitiesCount }} personalidades</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="rank-right">
+              <span class="count-badge">{{ author.count }}</span>
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="table-empty" role="status">
+        <mat-icon aria-hidden="true">person_off</mat-icon>
+        <p>{{ 'statistics.ranking.empty' | transloco }}</p>
+      </div>
+    }
+  </section>
+</div>
+

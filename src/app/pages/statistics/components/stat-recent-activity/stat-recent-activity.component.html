@@ -1,0 +1,69 @@
+<section class="activity-card" aria-label="Atividade recente do acervo">
+  <header class="activity-header">
+    <div class="header-text">
+      <h2 class="activity-title">{{ 'statistics.recent.title' | transloco }}</h2>
+      <p class="activity-desc">{{ 'statistics.recent.subtitle' | transloco }}</p>
+    </div>
+
+    @if (showViewAll()) {
+      <button
+        type="button"
+        class="btn-view-all"
+        (click)="onViewAll()"
+        aria-label="Ir para a aba de detalhamento completo"
+      >
+        <span>{{ 'statistics.recent.viewAll' | transloco }}</span>
+        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+      </button>
+    }
+  </header>
+
+  @if (displayedItems().length === 0) {
+    <div class="empty-state">
+      <p>{{ 'statistics.recent.empty' | transloco }}</p>
+    </div>
+  } @else {
+    <ul class="activity-list" role="feed" aria-busy="false">
+      @for (item of displayedItems(); track item.id) {
+        <li class="activity-item">
+          <div class="item-left">
+            <div [class]="'item-icon type-' + item.type" aria-hidden="true">
+              <mat-icon>{{ getTypeIcon(item.type) }}</mat-icon>
+            </div>
+
+            <div class="item-info">
+              <a
+                [routerLink]="item.routerPath"
+                class="item-title"
+                [attr.aria-label]="item.title + ' (' + getTypeLabel(item.type) + ')'"
+              >
+                {{ item.title }}
+              </a>
+
+              <div class="item-meta">
+                <span class="badge-category">{{ item.category }}</span>
+                <span>•</span>
+                <span>{{ item.writer }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-right">
+            <time [attr.datetime]="item.createdAt.toISOString()" class="item-time">
+              {{ formatRelativeTime(item.createdAt) }}
+            </time>
+
+            <a
+              [routerLink]="item.routerPath"
+              class="btn-link"
+              [attr.aria-label]="('statistics.recent.viewItem' | transloco) + ': ' + item.title"
+            >
+              <mat-icon aria-hidden="true">chevron_right</mat-icon>
+            </a>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>
+

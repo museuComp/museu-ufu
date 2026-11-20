@@ -1,0 +1,37 @@
+<section class="looker-card" aria-label="Painel de visitação do Google Analytics">
+  <header class="looker-header">
+    <div class="header-text">
+      <h2 class="looker-title">{{ 'statistics.looker.title' | transloco }}</h2>
+      <p class="looker-desc">{{ 'statistics.looker.subtitle' | transloco }}</p>
+    </div>
+
+    <a
+      [href]="rawUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-external"
+      [attr.aria-label]="'statistics.looker.externalLink' | transloco"
+    >
+      <span>{{ 'statistics.looker.externalLink' | transloco }}</span>
+      <mat-icon aria-hidden="true">open_in_new</mat-icon>
+    </a>
+  </header>
+
+  <div class="iframe-container">
+    @if (isIframeLoading()) {
+      <div class="iframe-loading" role="status" aria-live="polite">
+        <mat-spinner diameter="48" strokeWidth="4" />
+        <span>{{ 'statistics.looker.loading' | transloco }}</span>
+      </div>
+    }
+
+    <iframe
+      [src]="safeUrl"
+      [attr.title]="'statistics.looker.iframeTitle' | transloco"
+      (load)="onIframeLoad()"
+      allowfullscreen
+      sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+    ></iframe>
+  </div>
+</section>
+
